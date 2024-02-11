@@ -451,7 +451,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_stakeholders">1.3. Stakeholders</a></li>
 </ul>
 </li>
-<li><a href="#section-architecture-constraints">2. Architecture Constraints</a></li>
+<li><a href="#section-architecture-constraints">2. Restricciones de la Arquitectura</a></li>
 <li><a href="#section-system-scope-and-context">3. System Scope and Context</a>
 <ul class="sectlevel2">
 <li><a href="#_business_context">3.1. Business Context</a></li>
@@ -669,34 +669,87 @@ For documentation of your own system you use better the <em>plain</em> version.<
 </div>
 </div>
 <div class="sect1">
-<h2 id="section-architecture-constraints">2. Architecture Constraints</h2>
+<h2 id="section-architecture-constraints">2. Restricciones de la Arquitectura</h2>
 <div class="sectionbody">
-<div class="sidebarblock arc42help">
 <div class="content">
 <div class="paragraph">
-<div class="title">Contents</div>
-<p>Any requirement that constraints software architects in their freedom of design and implementation decisions or decision about the development process. These constraints sometimes go beyond individual systems and are valid for whole organizations and companies.</p>
+<div class="title">Restricciones técnicas</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 20%;">
+<col style="width: 40%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Restricción</th>
+<th class="tableblock halign-left valign-top">Explicación</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Docker</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>El proyecto de desplegará en un Host Docker</em></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Tecnología</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Se empleará React</em></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Documentación</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Se empleará la plantilla Arc42.</em></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Base de datos</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Se empleará MongoDB como base de datos por su sencillez y facilidad de uso. Además es la base de datos empleada en la base del proyecto.</em></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Pruebas</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Cobertura, Pruebas de aceptación (e2e), Pruebas de carga</em></p></td>
+</tr>
+</tbody>
+</table>
 </div>
-<div class="paragraph">
-<div class="title">Motivation</div>
-<p>Architects should know exactly where they are free in their design decisions and where they must adhere to constraints.
-Constraints must always be dealt with; they may be negotiable, though.</p>
-</div>
-<div class="paragraph">
-<div class="title">Form</div>
-<p>Simple tables of constraints with explanations.
-If needed you can subdivide them into
-technical constraints, organizational and political constraints and
-conventions (e.g. programming or versioning guidelines, documentation or naming conventions)</p>
-</div>
-<div class="paragraph">
-<div class="title">Further Information</div>
-<p>See <a href="https://docs.arc42.org/section-2/">Architecture Constraints</a> in the arc42 documentation.</p>
+<div class="content">
+<div class = "paragraph">
+<div class="title">Restricciones organizativas</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 20%;">
+<col style="width: 40%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Restricción</th>
+<th class="tableblock halign-left valign-top">Explicación</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Reuniones</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Se realizarán reuniones semanales los lunes de 13:00 a 15:00. Estas reuniones se verán reflejadas en GitHub a través de un acta. Podrían realizarse reuniones entre semana si fuese necesario.</em></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Github</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Se empleará GitHub como repositorio remoto y herramienta de organización. En este servicio quedarán reflejadas todas las reuniones realizadas y las tareas asignadas. Para permitir al profesorado llevar un seguimiento del trabajo en equipo se emplearán los Issues de GitHub para reflejar la asignación de tareas así como el diágolo entre semana del equipo.  </em></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Documentación</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Se empleará la plantilla Arc42.</em></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Base de datos</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Se empleará MongoDB como base de datos por su sencillez y facilidad de uso. Además es la base de datos empleada en la base del proyecto.</em></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Pruebas</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Cobertura, Pruebas de aceptación (e2e), Pruebas de carga</em></p></td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
 </div>
 <div style="page-break-after: always;"></div>
-</div>
 </div>
 <div class="sect1">
 <h2 id="section-system-scope-and-context">3. System Scope and Context</h2>
@@ -1764,6 +1817,7 @@ more precisely down to a level of scenarios that can be discussed and evaluated.
 <div id="footer-text">
 Version 8.2 EN<br>
 Last updated 2024-02-11 10:21:20 +0100
+</div>
 </div>
 </div>
 </div>
