@@ -494,7 +494,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_quality_scenarios">10.2. Quality Scenarios</a></li>
 </ul>
 </li>
-<li><a href="#section-technical-risks">11. Risks and Technical Debts</a></li>
+<li><a href="#section-technical-risks">11. Riesgos y deuda técnica</a></li>
 <li><a href="#section-glossary">12. Glossary</a></li>
 </ul>
 </div>
@@ -706,6 +706,10 @@ For documentation of your own system you use better the <em>plain</em> version.<
 <td class="tableblock halign-left valign-top"><p class="tableblock"><em>Pruebas</em></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><em>Cobertura, Pruebas de aceptación (e2e), Pruebas de carga</em></p></td>
 </tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>WikiData</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Se empleará Wiki Data para obtener las información para generar las preguntas y respuestas.</em></p></td>
+</tr>
 </tbody>
 </table>
 </div>
@@ -731,18 +735,6 @@ For documentation of your own system you use better the <em>plain</em> version.<
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><em>Github</em></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><em>Se empleará GitHub como repositorio remoto y herramienta de organización. En este servicio quedarán reflejadas todas las reuniones realizadas y las tareas asignadas. Para permitir al profesorado llevar un seguimiento del trabajo en equipo se emplearán los Issues de GitHub para reflejar la asignación de tareas así como el diágolo entre semana del equipo.  </em></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Documentación</em></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Se empleará la plantilla Arc42.</em></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Base de datos</em></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Se empleará MongoDB como base de datos por su sencillez y facilidad de uso. Además es la base de datos empleada en la base del proyecto.</em></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Pruebas</em></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Cobertura, Pruebas de aceptación (e2e), Pruebas de carga</em></p></td>
 </tr>
 </tbody>
 </table>
@@ -1721,29 +1713,88 @@ more precisely down to a level of scenarios that can be discussed and evaluated.
 </div>
 </div>
 <div class="sect1">
-<h2 id="section-technical-risks">11. Risks and Technical Debts</h2>
+<h2 id="section-technical-risks">11. Riesgos y deuda técnica</h2>
 <div class="sectionbody">
-<div class="sidebarblock arc42help">
 <div class="content">
 <div class="paragraph">
-<div class="title">Contents</div>
-<p>A list of identified technical risks or technical debts, ordered by priority</p>
-</div>
-<div class="paragraph">
-<div class="title">Motivation</div>
-<p>“Risk management is project management for grown-ups” (Tim Lister, Atlantic Systems Guild.)</p>
-</div>
-<div class="paragraph">
-<p>This should be your motto for systematic detection and evaluation of risks and technical debts in the architecture, which will be needed by management stakeholders (e.g. project managers, product owners) as part of the overall risk analysis and measurement planning.</p>
-</div>
-<div class="paragraph">
-<div class="title">Form</div>
-<p>List of risks and/or technical debts, probably including suggested measures to minimize, mitigate or avoid risks or reduce technical debts.</p>
-</div>
-<div class="paragraph">
-<div class="title">Further Information</div>
-<p>See <a href="https://docs.arc42.org/section-11/">Risks and Technical Debt</a> in the arc42 documentation.</p>
-</div>
+<div class="title">Riesgos</div>
+    <table class="tableblock frame-all grid-all stretch">
+        <colgroup>
+            <col style="width: 33.3333%;">
+            <col style="width: 66.6667%;">
+        </colgroup>
+        <thead>
+        <tr>
+            <th class="tableblock halign-left valign-top"><strong>Riesgos</strong></th>
+            <th class="tableblock halign-left valign-top"><strong>Explicación</strong></th>
+            <th class="tableblock halign-left valign-top"><strong>Solución</strong></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td class="tableblock halign-left valign-top"><p class="tableblock"><em>Organización</em></p></td>
+            <td class="tableblock halign-left valign-top"><p class="tableblock"><em>Es la primera vez que nos enfrentamos a realizar un proyecto de 0 en el que no tenemos unas pautas a seguir y debemos organizarnos, diseñar y desarrollar en base a los requisitos propuestos.</em></p></td>
+            <td class="tableblock halign-left valign-top"><p class="tableblock"><em>Realizar un análisis de los requisitos para comprender el proyecto solicitado. En base a este análisis dedicar tiempo para realizar una planificación detallada, en la que se incluya aspectos como: aprendizaje de nuevas tecnologías, prototipado y pruebas, implementación, redacción de la documentación etc. </em></p></td>
+        </tr>
+        <tr>
+            <td class="tableblock halign-left valign-top"><p class="tableblock"><em>Tiempo disponible</em></p></td>
+            <td class="tableblock halign-left valign-top"><p class="tableblock"><em>Al realizar este proyecto en paralelo a otras asignaturas el tiempo que tenemos disponible para el proyecto se reduce.</em></p></td>
+            <td class="tableblock halign-left valign-top"><p class="tableblock"><em>Semanalmente se hace un reparto de trabajo. El peso del trabajo semanal puede variar en función del tiempo del que disponga cada miembro del equipo, pero asegurandonos de que al final del proyecto todos hayamos contribuido lo mismo.</em></p></td>
+        </tr>
+        <tr>
+            <td class="tableblock halign-left valign-top"><p class="tableblock"><em>Docker</em></p></td>
+            <td class="tableblock halign-left valign-top"><p class="tableblock"><em>Es una tecnología con la que ningun miembro del equipo ha trabajado.</em></p></td>
+            <td class="tableblock halign-left valign-top"><p class="tableblock"><em>Dedicar tiempo de aprendizaje a esta tecnología</em></p></td>
+        </tr>
+        <tr>
+            <td class="tableblock halign-left valign-top"><p class="tableblock"><em>Github</em></p></td>
+            <td class="tableblock halign-left valign-top"><p class="tableblock"><em>Aunque hemos trabajado previamente con Github estamos usando funcionalidades con las que aún no habíamos trabajado y por tanto, con las que no estamos familiarizados.</em></p></td>
+            <td class="tableblock halign-left valign-top"><p class="tableblock"><em>Dedicar tiempo de aprendizaje.</em></p></td>
+        </tr>
+        <tr>
+            <td class="tableblock halign-left valign-top"><p class="tableblock"><em>Comunicación</em></p></td>
+            <td class="tableblock halign-left valign-top"><p class="tableblock"><em>La comunicación se realiza mayoritariamente en diferido debido a que cada miembro del equipo tiene sus propios horarios. Esto puede ralentizar al resolución de dudas de los miembros del equipo, problemas de implementación etc.</em></p></td>
+            <td class="tableblock halign-left valign-top"><p class="tableblock"><em>Debemos hacer un esfuerzo para estar disponibles el mayor tiempo posible. Además si fuese necesario podrían realizarse reuniones a través de Discord.</em></p></td>
+        </tr>
+        <tr>
+            <td class="tableblock halign-left valign-top"><p class="tableblock"><em>Documentación</em></p></td>
+            <td class="tableblock halign-left valign-top"><p class="tableblock"><em>Previamente no habíamos realizado ninguna documentación técnica de un proyecto.</em></p></td>
+            <td class="tableblock halign-left valign-top"><p class="tableblock"><em>Es fundamental dedicar tiempo a esta parte del proyecto así como comunicar posibles dudas tanto a otros miembros del equipo como al profesorado. </em></p></td>
+        </tr>
+        </tbody>
+    </table>
+    <div class="title">Deuda técnica</div>
+    <table class="tableblock frame-all grid-all stretch">
+        <colgroup>
+            <col style="width: 33.3333%;">
+            <col style="width: 66.6667%;">
+        </colgroup>
+        <thead>
+        <tr>
+            <th class="tableblock halign-left valign-top"><strong>Deuda técnica</strong></th>
+            <th class="tableblock halign-left valign-top"><strong>Explicación</strong></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td class="tableblock halign-left valign-top"><p class="tableblock"><em>Código limpio</em></p></td>
+            <td class="tableblock halign-left valign-top"><p class="tableblock"><em>El código debe ser claro para facilitar su modificación y ampliación por todos los miembros del equipo.</em></p></td>
+        </tr>
+        <tr>
+            <td class="tableblock halign-left valign-top"><p class="tableblock"><em>Código comentado</em></p></td>
+            <td class="tableblock halign-left valign-top"><p class="tableblock"><em>Comentar el código facilitará trabajar con código que no ha sido implementado por uno mismo.</em></p></td>
+        </tr>
+        <tr>
+            <td class="tableblock halign-left valign-top"><p class="tableblock"><em>Usabilidad</em></p></td>
+            <td class="tableblock halign-left valign-top"><p class="tableblock"><em>Como ya se comentó en el apartado 1.2 Metas de calidad.</em></p></td>
+        </tr>
+        <tr>
+            <td class="tableblock halign-left valign-top"><p class="tableblock"><em>Funcionalidad</em></p></td>
+            <td class="tableblock halign-left valign-top"><p class="tableblock"><em>La aplicación debe ser funcional y contar con todos los requisitos.</em></p></td>
+        </tr>
+
+        </tbody>
+    </table>
 </div>
 </div>
 <div style="page-break-after: always;"></div>
