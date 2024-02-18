@@ -455,8 +455,47 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#section-system-scope-and-context">3. System Scope and Context</a>
 <ul class="sectlevel2">
 <li><a href="#_business_context">3.1. Business Context</a></li>
+<li><a href="#_technical_context">3.2. Technical Context</a></li>
 </ul>
 </li>
+<li><a href="#section-solution-strategy">4. Solution Strategy</a></li>
+<li><a href="#section-building-block-view">5. Building Block View</a>
+<ul class="sectlevel2">
+<li><a href="#_whitebox_overall_system">5.1. Whitebox Overall System</a></li>
+<li><a href="#_level_2">5.2. Level 2</a></li>
+<li><a href="#_level_3">5.3. Level 3</a></li>
+</ul>
+</li>
+<li><a href="#section-runtime-view">6. Runtime View</a>
+<ul class="sectlevel2">
+<li><a href="#_runtime_scenario_1">6.1. &lt;Runtime Scenario 1&gt;</a></li>
+<li><a href="#_runtime_scenario_2">6.2. &lt;Runtime Scenario 2&gt;</a></li>
+<li><a href="#">6.3. &#8230;&#8203;</a></li>
+<li><a href="#_runtime_scenario_n">6.4. &lt;Runtime Scenario n&gt;</a></li>
+</ul>
+</li>
+<li><a href="#section-deployment-view">7. Deployment View</a>
+<ul class="sectlevel2">
+<li><a href="#_infrastructure_level_1">7.1. Infrastructure Level 1</a></li>
+<li><a href="#_infrastructure_level_2">7.2. Infrastructure Level 2</a></li>
+</ul>
+</li>
+<li><a href="#section-concepts">8. Cross-cutting Concepts</a>
+<ul class="sectlevel2">
+<li><a href="#_concept_1">8.1. <em>&lt;Concept 1&gt;</em></a></li>
+<li><a href="#_concept_2">8.2. <em>&lt;Concept 2&gt;</em></a></li>
+<li><a href="#_concept_n">8.3. <em>&lt;Concept n&gt;</em></a></li>
+</ul>
+</li>
+<li><a href="#section-design-decisions">9. Architecture Decisions</a></li>
+<li><a href="#section-quality-scenarios">10. Quality Requirements</a>
+<ul class="sectlevel2">
+<li><a href="#_quality_tree">10.1. Quality Tree</a></li>
+<li><a href="#_quality_scenarios">10.2. Quality Scenarios</a></li>
+</ul>
+</li>
+<li><a href="#section-technical-risks">11. Risks and Technical Debts</a></li>
+<li><a href="#section-glossary">12. Glossary</a></li>
 </ul>
 </div>
 </div>
@@ -917,511 +956,1119 @@ The title of the table is the name of your system, the three columns contain the
 <td class="tableblock halign-left valign-top"><p class="tableblock">Base de datos (MongoDB)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Se encargará de guardar información pertinente de WIQ</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Realización de búsquedas y registro de información asociada relacionados con el sistema</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Cualquier dato que haya sido almacenado perteneciente al sistema</p>
-<p class="tableblock"><strong>&lt;Diagram or Table&gt;</strong></p>
-<p class="tableblock"><strong>&lt;optionally: Explanation of external domain interfaces&gt;</strong></p>
-<p class="tableblock">=== Technical Context</p>
-<p class="tableblock">[role="arc42help"]
-<strong><strong>*
-.Contents
-Technical interfaces (channels and transmission media) linking your system to its environment. In addition a mapping of domain specific input/output to the channels, i.e. an explanation which I/O uses which channel.</p>
-<p class="tableblock">.Motivation
-Many stakeholders make architectural decision based on the technical interfaces between the system and its context. Especially infrastructure or hardware designers decide these technical interfaces.</p>
-<p class="tableblock">.Form
-E.g. UML deployment diagram describing channels to neighboring systems,
+<td class="tableblock halign-left valign-top"><p class="tableblock">Cualquier dato que haya sido almacenado perteneciente al sistema</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p><strong>&lt;Diagram or Table&gt;</strong></p>
+</div>
+<div class="paragraph">
+<p><strong>&lt;optionally: Explanation of external domain interfaces&gt;</strong></p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_technical_context">3.2. Technical Context</h3>
+<div class="sidebarblock arc42help">
+<div class="content">
+<div class="paragraph">
+<div class="title">Contents</div>
+<p>Technical interfaces (channels and transmission media) linking your system to its environment. In addition a mapping of domain specific input/output to the channels, i.e. an explanation which I/O uses which channel.</p>
+</div>
+<div class="paragraph">
+<div class="title">Motivation</div>
+<p>Many stakeholders make architectural decision based on the technical interfaces between the system and its context. Especially infrastructure or hardware designers decide these technical interfaces.</p>
+</div>
+<div class="paragraph">
+<div class="title">Form</div>
+<p>E.g. UML deployment diagram describing channels to neighboring systems,
 together with a mapping table showing the relationships between channels and input/output.</p>
-<p class="tableblock"></strong><strong></p>
-<p class="tableblock"></strong>&lt;Diagram or Table&gt;<strong></p>
-<p class="tableblock"></strong>&lt;optionally: Explanation of technical interfaces&gt;<strong></p>
-<p class="tableblock"></strong>&lt;Mapping Input/Output to Channels&gt;<strong></p>
-<p class="tableblock">&lt;&lt;&lt;&lt;</p>
-<p class="tableblock"><a id="section-solution-strategy"></a>
-== Solution Strategy</p>
-<p class="tableblock">[role="arc42help"]
-</strong><strong>
-.Contents
-A short summary and explanation of the fundamental decisions and solution strategies, that shape system architecture. It includes</p>
-<p class="tableblock">* technology decisions
-* decisions about the top-level decomposition of the system, e.g. usage of an architectural pattern or design pattern
-* decisions on how to achieve key quality goals
-* relevant organizational decisions, e.g. selecting a development process or delegating certain tasks to third parties.</p>
-<p class="tableblock">.Motivation
-These decisions form the cornerstones for your architecture. They are the foundation for many other detailed decisions or implementation rules.</p>
-<p class="tableblock">.Form
-Keep the explanations of such key decisions short.</p>
-<p class="tableblock">Motivate what was decided and why it was decided that way,
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>&lt;Diagram or Table&gt;</strong></p>
+</div>
+<div class="paragraph">
+<p><strong>&lt;optionally: Explanation of technical interfaces&gt;</strong></p>
+</div>
+<div class="paragraph">
+<p><strong>&lt;Mapping Input/Output to Channels&gt;</strong></p>
+</div>
+<div style="page-break-after: always;"></div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="section-solution-strategy">4. Solution Strategy</h2>
+<div class="sectionbody">
+<div class="sidebarblock arc42help">
+<div class="content">
+<div class="paragraph">
+<div class="title">Contents</div>
+<p>A short summary and explanation of the fundamental decisions and solution strategies, that shape system architecture. It includes</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>technology decisions</p>
+</li>
+<li>
+<p>decisions about the top-level decomposition of the system, e.g. usage of an architectural pattern or design pattern</p>
+</li>
+<li>
+<p>decisions on how to achieve key quality goals</p>
+</li>
+<li>
+<p>relevant organizational decisions, e.g. selecting a development process or delegating certain tasks to third parties.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<div class="title">Motivation</div>
+<p>These decisions form the cornerstones for your architecture. They are the foundation for many other detailed decisions or implementation rules.</p>
+</div>
+<div class="paragraph">
+<div class="title">Form</div>
+<p>Keep the explanations of such key decisions short.</p>
+</div>
+<div class="paragraph">
+<p>Motivate what was decided and why it was decided that way,
 based upon problem statement, quality goals and key constraints.
 Refer to details in the following sections.</p>
-<p class="tableblock">.Further Information</p>
-<p class="tableblock">See <a href="https://docs.arc42.org/section-4/">Solution Strategy</a> in the arc42 documentation.</p>
-<p class="tableblock"></strong><strong></p>
-<p class="tableblock">&lt;&lt;&lt;&lt;</p>
-<p class="tableblock"><a id="section-building-block-view"></a></p>
-<p class="tableblock">== Building Block View</p>
-<p class="tableblock">[role="arc42help"]
-</strong><strong>
-.Content
-The building block view shows the static decomposition of the system into building blocks (modules, components, subsystems, classes, interfaces, packages, libraries, frameworks, layers, partitions, tiers, functions, macros, operations, data structures, &#8230;&#8203;) as well as their dependencies (relationships, associations, &#8230;&#8203;)</p>
-<p class="tableblock">This view is mandatory for every architecture documentation.
+</div>
+<div class="paragraph">
+<div class="title">Further Information</div>
+<p>See <a href="https://docs.arc42.org/section-4/">Solution Strategy</a> in the arc42 documentation.</p>
+</div>
+</div>
+</div>
+<div style="page-break-after: always;"></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="section-building-block-view">5. Building Block View</h2>
+<div class="sectionbody">
+<div class="sidebarblock arc42help">
+<div class="content">
+<div class="paragraph">
+<div class="title">Content</div>
+<p>The building block view shows the static decomposition of the system into building blocks (modules, components, subsystems, classes, interfaces, packages, libraries, frameworks, layers, partitions, tiers, functions, macros, operations, data structures, &#8230;&#8203;) as well as their dependencies (relationships, associations, &#8230;&#8203;)</p>
+</div>
+<div class="paragraph">
+<p>This view is mandatory for every architecture documentation.
 In analogy to a house this is the <em>floor plan</em>.</p>
-<p class="tableblock">.Motivation
-Maintain an overview of your source code by making its structure understandable through
+</div>
+<div class="paragraph">
+<div class="title">Motivation</div>
+<p>Maintain an overview of your source code by making its structure understandable through
 abstraction.</p>
-<p class="tableblock">This allows you to communicate with your stakeholder on an abstract level without disclosing implementation details.</p>
-<p class="tableblock">.Form
-The building block view is a hierarchical collection of black boxes and white boxes
+</div>
+<div class="paragraph">
+<p>This allows you to communicate with your stakeholder on an abstract level without disclosing implementation details.</p>
+</div>
+<div class="paragraph">
+<div class="title">Form</div>
+<p>The building block view is a hierarchical collection of black boxes and white boxes
 (see figure below) and their descriptions.</p>
-<p class="tableblock">image::05_building_blocks-EN.png["Hierarchy of building blocks"]</p>
-<p class="tableblock">*Level 1</strong> is the white box description of the overall system together with black
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./images/05_building_blocks-EN.png" alt="Hierarchy of building blocks">
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Level 1</strong> is the white box description of the overall system together with black
 box descriptions of all contained building blocks.</p>
-<p class="tableblock"><strong>Level 2</strong> zooms into some building blocks of level 1.
+</div>
+<div class="paragraph">
+<p><strong>Level 2</strong> zooms into some building blocks of level 1.
 Thus it contains the white box description of selected building blocks of level 1, together with black box descriptions of their internal building blocks.</p>
-<p class="tableblock"><strong>Level 3</strong> zooms into selected building blocks of level 2, and so on.</p>
-<p class="tableblock">.Further Information</p>
-<p class="tableblock">See <a href="https://docs.arc42.org/section-5/">Building Block View</a> in the arc42 documentation.</p>
-<p class="tableblock"></strong><strong></p>
-<p class="tableblock">=== Whitebox Overall System</p>
-<p class="tableblock">[role="arc42help"]
-</strong><strong>
-Here you describe the decomposition of the overall system using the following white box template. It contains</p>
-<p class="tableblock"> * an overview diagram
- * a motivation for the decomposition
- * black box descriptions of the contained building blocks. For these we offer you alternatives:</p>
-<p class="tableblock">   </strong> use <em>one</em> table for a short and pragmatic overview of all contained building blocks and their interfaces
-   <strong> use a list of black box descriptions of the building blocks according to the black box template (see below).
-   Depending on your choice of tool this list could be sub-chapters (in text files), sub-pages (in a Wiki) or nested elements (in a modeling tool).</p>
-<p class="tableblock"> * (optional:) important interfaces, that are not explained in the black box templates of a building block, but are very important for understanding the white box.
+</div>
+<div class="paragraph">
+<p><strong>Level 3</strong> zooms into selected building blocks of level 2, and so on.</p>
+</div>
+<div class="paragraph">
+<div class="title">Further Information</div>
+<p>See <a href="https://docs.arc42.org/section-5/">Building Block View</a> in the arc42 documentation.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_whitebox_overall_system">5.1. Whitebox Overall System</h3>
+<div class="sidebarblock arc42help">
+<div class="content">
+<div class="paragraph">
+<p>Here you describe the decomposition of the overall system using the following white box template. It contains</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>an overview diagram</p>
+</li>
+<li>
+<p>a motivation for the decomposition</p>
+</li>
+<li>
+<p>black box descriptions of the contained building blocks. For these we offer you alternatives:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>use <em>one</em> table for a short and pragmatic overview of all contained building blocks and their interfaces</p>
+</li>
+<li>
+<p>use a list of black box descriptions of the building blocks according to the black box template (see below).
+Depending on your choice of tool this list could be sub-chapters (in text files), sub-pages (in a Wiki) or nested elements (in a modeling tool).</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>(optional:) important interfaces, that are not explained in the black box templates of a building block, but are very important for understanding the white box.
 Since there are so many ways to specify interfaces why do not provide a specific template for them.
  In the worst case you have to specify and describe syntax, semantics, protocols, error handling,
  restrictions, versions, qualities, necessary compatibilities and many things more.
 In the best case you will get away with examples or simple signatures.</p>
-<p class="tableblock"></strong><strong></p>
-<p class="tableblock"><em></strong>&lt;Overview Diagram&gt;<strong></em></p>
-<p class="tableblock">Motivation::</p>
-<p class="tableblock"><em>&lt;text explanation&gt;</em></p>
-<p class="tableblock">Contained Building Blocks::
-<em>&lt;Description of contained building block (black boxes)&gt;</em></p>
-<p class="tableblock">Important Interfaces::
-<em>&lt;Description of important interfaces&gt;</em></p>
-<p class="tableblock">[role="arc42help"]
-</strong>**
-Insert your explanations of black boxes from level 1:</p>
-<p class="tableblock">If you use tabular form you will only describe your black boxes with name and
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p><em><strong>&lt;Overview Diagram&gt;</strong></em></p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Motivation</dt>
+<dd>
+<p><em>&lt;text explanation&gt;</em></p>
+</dd>
+<dt class="hdlist1">Contained Building Blocks</dt>
+<dd>
+<p><em>&lt;Description of contained building block (black boxes)&gt;</em></p>
+</dd>
+<dt class="hdlist1">Important Interfaces</dt>
+<dd>
+<p><em>&lt;Description of important interfaces&gt;</em></p>
+</dd>
+</dl>
+</div>
+<div class="sidebarblock arc42help">
+<div class="content">
+<div class="paragraph">
+<p>Insert your explanations of black boxes from level 1:</p>
+</div>
+<div class="paragraph">
+<p>If you use tabular form you will only describe your black boxes with name and
 responsibility according to the following schema:</p>
-<p class="tableblock">[cols="1,2" options="header"]</p></td>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 66.6667%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top"><strong>Name</strong></th>
+<th class="tableblock halign-left valign-top"><strong>Responsibility</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>&lt;black box 1&gt;</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"> <em>&lt;Text&gt;</em></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>&lt;black box 2&gt;</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"> <em>&lt;Text&gt;</em></p></td>
 </tr>
 </tbody>
 </table>
 <div class="paragraph">
-<p>| <strong>Name</strong> | <strong>Responsibility</strong>
-| <em>&lt;black box 1&gt;</em> | <em>&lt;Text&gt;</em>
-| <em>&lt;black box 2&gt;</em> | <em>&lt;Text&gt;</em></p>
+<p>If you use a list of black box descriptions then you fill in a separate black box template for every important building block .
+Its headline is the name of the black box.</p>
 </div>
-<table class="tableblock frame-all grid-all stretch">
-<colgroup>
-<col style="width: 100%;">
-</colgroup>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">If you use a list of black box descriptions then you fill in a separate black box template for every important building block .
-Its headline is the name of the black box.
-<strong><strong>*</p>
-<p class="tableblock">==== &lt;Name black box 1&gt;</p>
-<p class="tableblock">[role="arc42help"]
-</strong><strong>
-Here you describe &lt;black box 1&gt;
+</div>
+</div>
+<div class="sect3">
+<h4 id="_name_black_box_1">5.1.1. &lt;Name black box 1&gt;</h4>
+<div class="sidebarblock arc42help">
+<div class="content">
+<div class="paragraph">
+<p>Here you describe &lt;black box 1&gt;
 according the the following black box template:</p>
-<p class="tableblock">* Purpose/Responsibility
-* Interface(s), when they are not extracted as separate paragraphs. This interfaces may include qualities and performance characteristics.
-* (Optional) Quality-/Performance characteristics of the black box, e.g.availability, run time behavior, &#8230;&#8203;.
-* (Optional) directory/file location
-* (Optional) Fulfilled requirements (if you need traceability to requirements).
-* (Optional) Open issues/problems/risks</p>
-<p class="tableblock"></strong><strong></p>
-<p class="tableblock"><em>&lt;Purpose/Responsibility&gt;</em></p>
-<p class="tableblock"><em>&lt;Interface(s)&gt;</em></p>
-<p class="tableblock"><em>&lt;(Optional) Quality/Performance Characteristics&gt;</em></p>
-<p class="tableblock"><em>&lt;(Optional) Directory/File Location&gt;</em></p>
-<p class="tableblock"><em>&lt;(Optional) Fulfilled Requirements&gt;</em></p>
-<p class="tableblock"><em>&lt;(optional) Open Issues/Problems/Risks&gt;</em></p>
-<p class="tableblock">==== &lt;Name black box 2&gt;</p>
-<p class="tableblock"><em>&lt;black box template&gt;</em></p>
-<p class="tableblock">==== &lt;Name black box n&gt;</p>
-<p class="tableblock"><em>&lt;black box template&gt;</em></p>
-<p class="tableblock">==== &lt;Name interface 1&gt;</p>
-<p class="tableblock">&#8230;&#8203;</p>
-<p class="tableblock">==== &lt;Name interface m&gt;</p>
-<p class="tableblock">=== Level 2</p>
-<p class="tableblock">[role="arc42help"]
-</strong><strong>
-Here you can specify the inner structure of (some) building blocks from level 1 as white boxes.</p>
-<p class="tableblock">You have to decide which building blocks of your system are important enough to justify such a detailed description.
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Purpose/Responsibility</p>
+</li>
+<li>
+<p>Interface(s), when they are not extracted as separate paragraphs. This interfaces may include qualities and performance characteristics.</p>
+</li>
+<li>
+<p>(Optional) Quality-/Performance characteristics of the black box, e.g.availability, run time behavior, &#8230;&#8203;.</p>
+</li>
+<li>
+<p>(Optional) directory/file location</p>
+</li>
+<li>
+<p>(Optional) Fulfilled requirements (if you need traceability to requirements).</p>
+</li>
+<li>
+<p>(Optional) Open issues/problems/risks</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p><em>&lt;Purpose/Responsibility&gt;</em></p>
+</div>
+<div class="paragraph">
+<p><em>&lt;Interface(s)&gt;</em></p>
+</div>
+<div class="paragraph">
+<p><em>&lt;(Optional) Quality/Performance Characteristics&gt;</em></p>
+</div>
+<div class="paragraph">
+<p><em>&lt;(Optional) Directory/File Location&gt;</em></p>
+</div>
+<div class="paragraph">
+<p><em>&lt;(Optional) Fulfilled Requirements&gt;</em></p>
+</div>
+<div class="paragraph">
+<p><em>&lt;(optional) Open Issues/Problems/Risks&gt;</em></p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_name_black_box_2">5.1.2. &lt;Name black box 2&gt;</h4>
+<div class="paragraph">
+<p><em>&lt;black box template&gt;</em></p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_name_black_box_n">5.1.3. &lt;Name black box n&gt;</h4>
+<div class="paragraph">
+<p><em>&lt;black box template&gt;</em></p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_name_interface_1">5.1.4. &lt;Name interface 1&gt;</h4>
+<div class="paragraph">
+<p>&#8230;&#8203;</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_name_interface_m">5.1.5. &lt;Name interface m&gt;</h4>
+
+</div>
+</div>
+<div class="sect2">
+<h3 id="_level_2">5.2. Level 2</h3>
+<div class="sidebarblock arc42help">
+<div class="content">
+<div class="paragraph">
+<p>Here you can specify the inner structure of (some) building blocks from level 1 as white boxes.</p>
+</div>
+<div class="paragraph">
+<p>You have to decide which building blocks of your system are important enough to justify such a detailed description.
 Please prefer relevance over completeness. Specify important, surprising, risky, complex or volatile building blocks.
-Leave out normal, simple, boring or standardized parts of your system
-</strong><strong></p>
-<p class="tableblock">==== White Box <em>&lt;building block 1&gt;</em></p>
-<p class="tableblock">[role="arc42help"]
-</strong><strong>
-&#8230;&#8203;describes the internal structure of <em>building block 1</em>.
-</strong><strong></p>
-<p class="tableblock"><em>&lt;white box template&gt;</em></p>
-<p class="tableblock">==== White Box <em>&lt;building block 2&gt;</em></p>
-<p class="tableblock"><em>&lt;white box template&gt;</em></p>
-<p class="tableblock">&#8230;&#8203;</p>
-<p class="tableblock">==== White Box <em>&lt;building block m&gt;</em></p>
-<p class="tableblock"><em>&lt;white box template&gt;</em></p>
-<p class="tableblock">=== Level 3</p>
-<p class="tableblock">[role="arc42help"]
-</strong><strong>
-Here you can specify the inner structure of (some) building blocks from level 2 as white boxes.</p>
-<p class="tableblock">When you need more detailed levels of your architecture please copy this
-part of arc42 for additional levels.
-</strong><strong></p>
-<p class="tableblock">==== White Box &lt;_building block x.1_&gt;</p>
-<p class="tableblock">[role="arc42help"]
-</strong><strong>
-Specifies the internal structure of <em>building block x.1</em>.
-</strong><strong></p>
-<p class="tableblock"><em>&lt;white box template&gt;</em></p>
-<p class="tableblock">==== White Box &lt;_building block x.2_&gt;</p>
-<p class="tableblock"><em>&lt;white box template&gt;</em></p>
-<p class="tableblock">==== White Box &lt;_building block y.1_&gt;</p>
-<p class="tableblock"><em>&lt;white box template&gt;</em></p>
-<p class="tableblock">&lt;&lt;&lt;&lt;</p>
-<p class="tableblock"><a id="section-runtime-view"></a>
-== Runtime View</p>
-<p class="tableblock">[role="arc42help"]
-</strong><strong>
-.Contents
-The runtime view describes concrete behavior and interactions of the system’s building blocks in form of scenarios from the following areas:</p>
-<p class="tableblock">* important use cases or features: how do building blocks execute them?
-* interactions at critical external interfaces: how do building blocks cooperate with users and neighboring systems?
-* operation and administration: launch, start-up, stop
-* error and exception scenarios</p>
-<p class="tableblock">Remark: The main criterion for the choice of possible scenarios (sequences, workflows) is their *architectural relevance</strong>. It is <strong>not</strong> important to describe a large number of scenarios. You should rather document a representative selection.</p>
-<p class="tableblock">.Motivation
-You should understand how (instances of) building blocks of your system perform their job and communicate at runtime.
+Leave out normal, simple, boring or standardized parts of your system</p>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_white_box_building_block_1">5.2.1. White Box <em>&lt;building block 1&gt;</em></h4>
+<div class="sidebarblock arc42help">
+<div class="content">
+<div class="paragraph">
+<p>&#8230;&#8203;describes the internal structure of <em>building block 1</em>.</p>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p><em>&lt;white box template&gt;</em></p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_white_box_building_block_2">5.2.2. White Box <em>&lt;building block 2&gt;</em></h4>
+<div class="paragraph">
+<p><em>&lt;white box template&gt;</em></p>
+</div>
+<div class="paragraph">
+<p>&#8230;&#8203;</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_white_box_building_block_m">5.2.3. White Box <em>&lt;building block m&gt;</em></h4>
+<div class="paragraph">
+<p><em>&lt;white box template&gt;</em></p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_level_3">5.3. Level 3</h3>
+<div class="sidebarblock arc42help">
+<div class="content">
+<div class="paragraph">
+<p>Here you can specify the inner structure of (some) building blocks from level 2 as white boxes.</p>
+</div>
+<div class="paragraph">
+<p>When you need more detailed levels of your architecture please copy this
+part of arc42 for additional levels.</p>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_white_box_building_block_x_1">5.3.1. White Box &lt;_building block x.1_&gt;</h4>
+<div class="sidebarblock arc42help">
+<div class="content">
+<div class="paragraph">
+<p>Specifies the internal structure of <em>building block x.1</em>.</p>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p><em>&lt;white box template&gt;</em></p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_white_box_building_block_x_2">5.3.2. White Box &lt;_building block x.2_&gt;</h4>
+<div class="paragraph">
+<p><em>&lt;white box template&gt;</em></p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_white_box_building_block_y_1">5.3.3. White Box &lt;_building block y.1_&gt;</h4>
+<div class="paragraph">
+<p><em>&lt;white box template&gt;</em></p>
+</div>
+<div style="page-break-after: always;"></div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="section-runtime-view">6. Runtime View</h2>
+<div class="sectionbody">
+<div class="sidebarblock arc42help">
+<div class="content">
+<div class="paragraph">
+<div class="title">Contents</div>
+<p>The runtime view describes concrete behavior and interactions of the system’s building blocks in form of scenarios from the following areas:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>important use cases or features: how do building blocks execute them?</p>
+</li>
+<li>
+<p>interactions at critical external interfaces: how do building blocks cooperate with users and neighboring systems?</p>
+</li>
+<li>
+<p>operation and administration: launch, start-up, stop</p>
+</li>
+<li>
+<p>error and exception scenarios</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Remark: The main criterion for the choice of possible scenarios (sequences, workflows) is their <strong>architectural relevance</strong>. It is <strong>not</strong> important to describe a large number of scenarios. You should rather document a representative selection.</p>
+</div>
+<div class="paragraph">
+<div class="title">Motivation</div>
+<p>You should understand how (instances of) building blocks of your system perform their job and communicate at runtime.
 You will mainly capture scenarios in your documentation to communicate your architecture to stakeholders that are less willing or able to read and understand the static models (building block view, deployment view).</p>
-<p class="tableblock">.Form
-There are many notations for describing scenarios, e.g.</p>
-<p class="tableblock">* numbered list of steps (in natural language)
-* activity diagrams or flow charts
-* sequence diagrams
-* BPMN or EPCs (event process chains)
-* state machines
-* &#8230;&#8203;</p>
-<p class="tableblock">.Further Information</p>
-<p class="tableblock">See <a href="https://docs.arc42.org/section-6/">Runtime View</a> in the arc42 documentation.</p>
-<p class="tableblock"></strong><strong></p>
-<p class="tableblock">=== &lt;Runtime Scenario 1&gt;</p>
-<p class="tableblock">* <em>&lt;insert runtime diagram or textual description of the scenario&gt;</em>
-* <em>&lt;insert description of the notable aspects of the interactions between the
+</div>
+<div class="paragraph">
+<div class="title">Form</div>
+<p>There are many notations for describing scenarios, e.g.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>numbered list of steps (in natural language)</p>
+</li>
+<li>
+<p>activity diagrams or flow charts</p>
+</li>
+<li>
+<p>sequence diagrams</p>
+</li>
+<li>
+<p>BPMN or EPCs (event process chains)</p>
+</li>
+<li>
+<p>state machines</p>
+</li>
+<li>
+<p>&#8230;&#8203;</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<div class="title">Further Information</div>
+<p>See <a href="https://docs.arc42.org/section-6/">Runtime View</a> in the arc42 documentation.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_runtime_scenario_1">6.1. &lt;Runtime Scenario 1&gt;</h3>
+<div class="ulist">
+<ul>
+<li>
+<p><em>&lt;insert runtime diagram or textual description of the scenario&gt;</em></p>
+</li>
+<li>
+<p><em>&lt;insert description of the notable aspects of the interactions between the
 building block instances depicted in this diagram.&gt;</em></p>
-<p class="tableblock">It is possible to use a sequence diagram:</p>
-<p class="tableblock">[plantuml,"Sequence diagram",png]
-----
-actor Alice
-actor Bob
-database Pod as "Bob&#8217;s Pod"
-Alice &#8594; Bob: Authentication Request
-Bob -&#8594; Alice: Authentication Response
-Alice  -&#8594; Pod: Store route
-Alice &#8594; Bob: Another authentication Request
-Alice &#8592;- Bob: another authentication Response
-----</p>
-<p class="tableblock">=== &lt;Runtime Scenario 2&gt;</p>
-<p class="tableblock">=== &#8230;&#8203;</p>
-<p class="tableblock">=== &lt;Runtime Scenario n&gt;</p>
-<p class="tableblock">&lt;&lt;&lt;&lt;</p>
-<p class="tableblock"><a id="section-deployment-view"></a></p>
-<p class="tableblock">== Deployment View</p>
-<p class="tableblock">[role="arc42help"]
-</strong><strong>
-.Content
-The deployment view describes:</p>
-<p class="tableblock"> 1. technical infrastructure used to execute your system, with infrastructure elements like geographical locations, environments, computers, processors, channels and net topologies as well as other infrastructure elements and</p>
-<p class="tableblock">2. mapping of (software) building blocks to that infrastructure elements.</p>
-<p class="tableblock">Often systems are executed in different environments, e.g. development environment, test environment, production environment. In such cases you should document all relevant environments.</p>
-<p class="tableblock">Especially document a deployment view if your software is executed as distributed system with more than one computer, processor, server or container or when you design and construct your own hardware processors and chips.</p>
-<p class="tableblock">From a software perspective it is sufficient to capture only those elements of an infrastructure that are needed to show a deployment of your building blocks. Hardware architects can go beyond that and describe an infrastructure to any level of detail they need to capture.</p>
-<p class="tableblock">.Motivation
-Software does not run without hardware.
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>It is possible to use a sequence diagram:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./images/Sequence%20diagram.png" alt="Sequence diagram" width="332" height="335">
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_runtime_scenario_2">6.2. &lt;Runtime Scenario 2&gt;</h3>
+
+</div>
+<div class="sect2">
+<h3 id="">6.3. &#8230;&#8203;</h3>
+
+</div>
+<div class="sect2">
+<h3 id="_runtime_scenario_n">6.4. &lt;Runtime Scenario n&gt;</h3>
+<div style="page-break-after: always;"></div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="section-deployment-view">7. Deployment View</h2>
+<div class="sectionbody">
+<div class="sidebarblock arc42help">
+<div class="content">
+<div class="paragraph">
+<div class="title">Content</div>
+<p>The deployment view describes:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>technical infrastructure used to execute your system, with infrastructure elements like geographical locations, environments, computers, processors, channels and net topologies as well as other infrastructure elements and</p>
+</li>
+<li>
+<p>mapping of (software) building blocks to that infrastructure elements.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Often systems are executed in different environments, e.g. development environment, test environment, production environment. In such cases you should document all relevant environments.</p>
+</div>
+<div class="paragraph">
+<p>Especially document a deployment view if your software is executed as distributed system with more than one computer, processor, server or container or when you design and construct your own hardware processors and chips.</p>
+</div>
+<div class="paragraph">
+<p>From a software perspective it is sufficient to capture only those elements of an infrastructure that are needed to show a deployment of your building blocks. Hardware architects can go beyond that and describe an infrastructure to any level of detail they need to capture.</p>
+</div>
+<div class="paragraph">
+<div class="title">Motivation</div>
+<p>Software does not run without hardware.
 This underlying infrastructure can and will influence a system and/or some
 cross-cutting concepts. Therefore, there is a need to know the infrastructure.</p>
-<p class="tableblock">.Form</p>
-<p class="tableblock">Maybe a highest level deployment diagram is already contained in section 3.2. as
+</div>
+<div class="paragraph">
+<div class="title">Form</div>
+<p>Maybe a highest level deployment diagram is already contained in section 3.2. as
 technical context with your own infrastructure as ONE black box. In this section one can
 zoom into this black box using additional deployment diagrams:</p>
-<p class="tableblock">* UML offers deployment diagrams to express that view. Use it, probably with nested diagrams,
-when your infrastructure is more complex.
-* When your (hardware) stakeholders prefer other kinds of diagrams rather than a deployment diagram, let them use any kind that is able to show nodes and channels of the infrastructure.</p>
-<p class="tableblock">.Further Information</p>
-<p class="tableblock">See <a href="https://docs.arc42.org/section-7/">Deployment View</a> in the arc42 documentation.</p>
-<p class="tableblock"></strong><strong></p>
-<p class="tableblock">=== Infrastructure Level 1</p>
-<p class="tableblock">[role="arc42help"]
-</strong><strong>
-Describe (usually in a combination of diagrams, tables, and text):</p>
-<p class="tableblock">* distribution of a system to multiple locations, environments, computers, processors, .., as well as physical connections between them
-* important justifications or motivations for this deployment structure
-* quality and/or performance features of this infrastructure
-* mapping of software artifacts to elements of this infrastructure</p>
-<p class="tableblock">For multiple environments or alternative deployments please copy and adapt this section of arc42 for all relevant environments.
-</strong><strong></p>
-<p class="tableblock"><em></strong>&lt;Overview Diagram&gt;<strong></em></p>
-<p class="tableblock">Motivation::</p>
-<p class="tableblock"><em>&lt;explanation in text form&gt;</em></p>
-<p class="tableblock">Quality and/or Performance Features::</p>
-<p class="tableblock"><em>&lt;explanation in text form&gt;</em></p>
-<p class="tableblock">Mapping of Building Blocks to Infrastructure::
-<em>&lt;description of the mapping&gt;</em></p>
-<p class="tableblock">=== Infrastructure Level 2</p>
-<p class="tableblock">[role="arc42help"]
-</strong><strong>
-Here you can include the internal structure of (some) infrastructure elements from level 1.</p>
-<p class="tableblock">Please copy the structure from level 1 for each selected element.
-</strong><strong></p>
-<p class="tableblock">==== <em>&lt;Infrastructure Element 1&gt;</em></p>
-<p class="tableblock"><em>&lt;diagram + explanation&gt;</em></p>
-<p class="tableblock">==== <em>&lt;Infrastructure Element 2&gt;</em></p>
-<p class="tableblock"><em>&lt;diagram + explanation&gt;</em></p>
-<p class="tableblock">&#8230;&#8203;</p>
-<p class="tableblock">==== <em>&lt;Infrastructure Element n&gt;</em></p>
-<p class="tableblock"><em>&lt;diagram + explanation&gt;</em></p>
-<p class="tableblock">&lt;&lt;&lt;&lt;</p>
-<p class="tableblock"><a id="section-concepts"></a>
-== Cross-cutting Concepts</p>
-<p class="tableblock">[role="arc42help"]
-</strong><strong>
-.Content
-This section describes overall, principal regulations and solution ideas that are relevant in multiple parts (= cross-cutting) of your system.
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>UML offers deployment diagrams to express that view. Use it, probably with nested diagrams,
+when your infrastructure is more complex.</p>
+</li>
+<li>
+<p>When your (hardware) stakeholders prefer other kinds of diagrams rather than a deployment diagram, let them use any kind that is able to show nodes and channels of the infrastructure.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<div class="title">Further Information</div>
+<p>See <a href="https://docs.arc42.org/section-7/">Deployment View</a> in the arc42 documentation.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_infrastructure_level_1">7.1. Infrastructure Level 1</h3>
+<div class="sidebarblock arc42help">
+<div class="content">
+<div class="paragraph">
+<p>Describe (usually in a combination of diagrams, tables, and text):</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>distribution of a system to multiple locations, environments, computers, processors, .., as well as physical connections between them</p>
+</li>
+<li>
+<p>important justifications or motivations for this deployment structure</p>
+</li>
+<li>
+<p>quality and/or performance features of this infrastructure</p>
+</li>
+<li>
+<p>mapping of software artifacts to elements of this infrastructure</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>For multiple environments or alternative deployments please copy and adapt this section of arc42 for all relevant environments.</p>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p><em><strong>&lt;Overview Diagram&gt;</strong></em></p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Motivation</dt>
+<dd>
+<p><em>&lt;explanation in text form&gt;</em></p>
+</dd>
+<dt class="hdlist1">Quality and/or Performance Features</dt>
+<dd>
+<p><em>&lt;explanation in text form&gt;</em></p>
+</dd>
+<dt class="hdlist1">Mapping of Building Blocks to Infrastructure</dt>
+<dd>
+<p><em>&lt;description of the mapping&gt;</em></p>
+</dd>
+</dl>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_infrastructure_level_2">7.2. Infrastructure Level 2</h3>
+<div class="sidebarblock arc42help">
+<div class="content">
+<div class="paragraph">
+<p>Here you can include the internal structure of (some) infrastructure elements from level 1.</p>
+</div>
+<div class="paragraph">
+<p>Please copy the structure from level 1 for each selected element.</p>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_infrastructure_element_1">7.2.1. <em>&lt;Infrastructure Element 1&gt;</em></h4>
+<div class="paragraph">
+<p><em>&lt;diagram + explanation&gt;</em></p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_infrastructure_element_2">7.2.2. <em>&lt;Infrastructure Element 2&gt;</em></h4>
+<div class="paragraph">
+<p><em>&lt;diagram + explanation&gt;</em></p>
+</div>
+<div class="paragraph">
+<p>&#8230;&#8203;</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_infrastructure_element_n">7.2.3. <em>&lt;Infrastructure Element n&gt;</em></h4>
+<div class="paragraph">
+<p><em>&lt;diagram + explanation&gt;</em></p>
+</div>
+<div style="page-break-after: always;"></div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="section-concepts">8. Cross-cutting Concepts</h2>
+<div class="sectionbody">
+<div class="sidebarblock arc42help">
+<div class="content">
+<div class="paragraph">
+<div class="title">Content</div>
+<p>This section describes overall, principal regulations and solution ideas that are relevant in multiple parts (= cross-cutting) of your system.
 Such concepts are often related to multiple building blocks.
 They can include many different topics, such as</p>
-<p class="tableblock">* models, especially domain models
-* architecture or design patterns
-* rules for using specific technology
-* principal, often technical decisions of an overarching (= cross-cutting) nature
-* implementation rules</p>
-<p class="tableblock">.Motivation
-Concepts form the basis for <em>conceptual integrity</em> (consistency, homogeneity) of the architecture.
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>models, especially domain models</p>
+</li>
+<li>
+<p>architecture or design patterns</p>
+</li>
+<li>
+<p>rules for using specific technology</p>
+</li>
+<li>
+<p>principal, often technical decisions of an overarching (= cross-cutting) nature</p>
+</li>
+<li>
+<p>implementation rules</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<div class="title">Motivation</div>
+<p>Concepts form the basis for <em>conceptual integrity</em> (consistency, homogeneity) of the architecture.
 Thus, they are an important contribution to achieve inner qualities of your system.</p>
-<p class="tableblock">Some of these concepts cannot be assigned to individual building blocks, e.g. security or safety.</p>
-<p class="tableblock">.Form
-The form can be varied:</p>
-<p class="tableblock">* concept papers with any kind of structure
-* cross-cutting model excerpts or scenarios using notations of the architecture views
-* sample implementations, especially for technical concepts
-* reference to typical usage of standard frameworks (e.g. using Hibernate for object/relational mapping)</p>
-<p class="tableblock">.Structure
-A potential (but not mandatory) structure for this section could be:</p>
-<p class="tableblock">* Domain concepts
-* User Experience concepts (UX)
-* Safety and security concepts
-* Architecture and design patterns
-* "Under-the-hood"
-* development concepts
-* operational concepts</p>
-<p class="tableblock">Note: it might be difficult to assign individual concepts to one specific topic
+</div>
+<div class="paragraph">
+<p>Some of these concepts cannot be assigned to individual building blocks, e.g. security or safety.</p>
+</div>
+<div class="paragraph">
+<div class="title">Form</div>
+<p>The form can be varied:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>concept papers with any kind of structure</p>
+</li>
+<li>
+<p>cross-cutting model excerpts or scenarios using notations of the architecture views</p>
+</li>
+<li>
+<p>sample implementations, especially for technical concepts</p>
+</li>
+<li>
+<p>reference to typical usage of standard frameworks (e.g. using Hibernate for object/relational mapping)</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<div class="title">Structure</div>
+<p>A potential (but not mandatory) structure for this section could be:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Domain concepts</p>
+</li>
+<li>
+<p>User Experience concepts (UX)</p>
+</li>
+<li>
+<p>Safety and security concepts</p>
+</li>
+<li>
+<p>Architecture and design patterns</p>
+</li>
+<li>
+<p>"Under-the-hood"</p>
+</li>
+<li>
+<p>development concepts</p>
+</li>
+<li>
+<p>operational concepts</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Note: it might be difficult to assign individual concepts to one specific topic
 on this list.</p>
-<p class="tableblock">image::08-Crosscutting-Concepts-Structure-EN.png["Possible topics for crosscutting concepts"]</p>
-<p class="tableblock">.Further Information</p>
-<p class="tableblock">See <a href="https://docs.arc42.org/section-8/">Concepts</a> in the arc42 documentation.
-</strong><strong></p>
-<p class="tableblock">=== <em>&lt;Concept 1&gt;</em></p>
-<p class="tableblock"><em>&lt;explanation&gt;</em></p>
-<p class="tableblock">=== <em>&lt;Concept 2&gt;</em></p>
-<p class="tableblock"><em>&lt;explanation&gt;</em></p>
-<p class="tableblock">&#8230;&#8203;</p>
-<p class="tableblock">=== <em>&lt;Concept n&gt;</em></p>
-<p class="tableblock"><em>&lt;explanation&gt;</em></p>
-<p class="tableblock">&lt;&lt;&lt;&lt;</p>
-<p class="tableblock"><a id="section-design-decisions"></a>
-== Architecture Decisions</p>
-<p class="tableblock">[role="arc42help"]
-</strong><strong>
-.Contents
-Important, expensive, large scale or risky architecture decisions including rationales.
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./images/08-Crosscutting-Concepts-Structure-EN.png" alt="Possible topics for crosscutting concepts">
+</div>
+</div>
+<div class="paragraph">
+<div class="title">Further Information</div>
+<p>See <a href="https://docs.arc42.org/section-8/">Concepts</a> in the arc42 documentation.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_concept_1">8.1. <em>&lt;Concept 1&gt;</em></h3>
+<div class="paragraph">
+<p><em>&lt;explanation&gt;</em></p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_concept_2">8.2. <em>&lt;Concept 2&gt;</em></h3>
+<div class="paragraph">
+<p><em>&lt;explanation&gt;</em></p>
+</div>
+<div class="paragraph">
+<p>&#8230;&#8203;</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_concept_n">8.3. <em>&lt;Concept n&gt;</em></h3>
+<div class="paragraph">
+<p><em>&lt;explanation&gt;</em></p>
+</div>
+<div style="page-break-after: always;"></div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="section-design-decisions">9. Architecture Decisions</h2>
+<div class="sectionbody">
+<div class="sidebarblock arc42help">
+<div class="content">
+<div class="paragraph">
+<div class="title">Contents</div>
+<p>Important, expensive, large scale or risky architecture decisions including rationales.
 With "decisions" we mean selecting one alternative based on given criteria.</p>
-<p class="tableblock">Please use your judgement to decide whether an architectural decision should be documented
+</div>
+<div class="paragraph">
+<p>Please use your judgement to decide whether an architectural decision should be documented
 here in this central section or whether you better document it locally
 (e.g. within the white box template of one building block).</p>
-<p class="tableblock">Avoid redundancy.
+</div>
+<div class="paragraph">
+<p>Avoid redundancy.
 Refer to section 4, where you already captured the most important decisions of your architecture.</p>
-<p class="tableblock">.Motivation
-Stakeholders of your system should be able to comprehend and retrace your decisions.</p>
-<p class="tableblock">.Form
-Various options:</p>
-<p class="tableblock">* ADR (<a href="https://cognitect.com/blog/2011/11/15/documenting-architecture-decisions">Documenting Architecture Decisions</a>) for every important decision
-* List or table, ordered by importance and consequences or:
-* more detailed in form of separate sections per decision</p>
-<p class="tableblock">.Further Information</p>
-<p class="tableblock">See <a href="https://docs.arc42.org/section-9/">Architecture Decisions</a> in the arc42 documentation.
+</div>
+<div class="paragraph">
+<div class="title">Motivation</div>
+<p>Stakeholders of your system should be able to comprehend and retrace your decisions.</p>
+</div>
+<div class="paragraph">
+<div class="title">Form</div>
+<p>Various options:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>ADR (<a href="https://cognitect.com/blog/2011/11/15/documenting-architecture-decisions">Documenting Architecture Decisions</a>) for every important decision</p>
+</li>
+<li>
+<p>List or table, ordered by importance and consequences or:</p>
+</li>
+<li>
+<p>more detailed in form of separate sections per decision</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<div class="title">Further Information</div>
+<p>See <a href="https://docs.arc42.org/section-9/">Architecture Decisions</a> in the arc42 documentation.
 There you will find links and examples about ADR.</p>
-<p class="tableblock"></strong><strong></p>
-<p class="tableblock">&lt;&lt;&lt;&lt;</p>
-<p class="tableblock"><a id="section-quality-scenarios"></a>
-== Quality Requirements</p>
-<p class="tableblock">[role="arc42help"]
-</strong><strong></p>
-<p class="tableblock">.Content
-This section contains all quality requirements as quality tree with scenarios. The most important ones have already been described in section 1.2. (quality goals)</p>
-<p class="tableblock">Here you can also capture quality requirements with lesser priority,
+</div>
+</div>
+</div>
+<div style="page-break-after: always;"></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="section-quality-scenarios">10. Quality Requirements</h2>
+<div class="sectionbody">
+<div class="sidebarblock arc42help">
+<div class="content">
+<div class="paragraph">
+<div class="title">Content</div>
+<p>This section contains all quality requirements as quality tree with scenarios. The most important ones have already been described in section 1.2. (quality goals)</p>
+</div>
+<div class="paragraph">
+<p>Here you can also capture quality requirements with lesser priority,
 which will not create high risks when they are not fully achieved.</p>
-<p class="tableblock">.Motivation
-Since quality requirements will have a lot of influence on architectural
+</div>
+<div class="paragraph">
+<div class="title">Motivation</div>
+<p>Since quality requirements will have a lot of influence on architectural
 decisions you should know for every stakeholder what is really important to them,
 concrete and measurable.</p>
-<p class="tableblock">.Further Information</p>
-<p class="tableblock">See <a href="https://docs.arc42.org/section-10/">Quality Requirements</a> in the arc42 documentation.</p>
-<p class="tableblock"></strong><strong></p>
-<p class="tableblock">=== Quality Tree</p>
-<p class="tableblock">[role="arc42help"]
-</strong><strong>
-.Content
-The quality tree (as defined in ATAM – Architecture Tradeoff Analysis Method) with quality/evaluation scenarios as leafs.</p>
-<p class="tableblock">.Motivation
-The tree structure with priorities provides an overview for a sometimes large number of quality requirements.</p>
-<p class="tableblock">.Form
-The quality tree is a high-level overview of the quality goals and requirements:</p>
-<p class="tableblock">* tree-like refinement of the term "quality". Use "quality" or "usefulness" as a root
-* a mind map with quality categories as main branches</p>
-<p class="tableblock">In any case the tree should include links to the scenarios of the following section.</p>
-<p class="tableblock"></strong><strong></p>
-<p class="tableblock">=== Quality Scenarios</p>
-<p class="tableblock">[role="arc42help"]
-</strong><strong>
-.Contents
-Concretization of (sometimes vague or implicit) quality requirements using (quality) scenarios.</p>
-<p class="tableblock">These scenarios describe what should happen when a stimulus arrives at the system.</p>
-<p class="tableblock">For architects, two kinds of scenarios are important:</p>
-<p class="tableblock">* Usage scenarios (also called application scenarios or use case scenarios) describe the system’s runtime reaction to a certain stimulus. This also includes scenarios that describe the system’s efficiency or performance. Example: The system reacts to a user’s request within one second.
-* Change scenarios describe a modification of the system or of its immediate environment. Example: Additional functionality is implemented or requirements for a quality attribute change.</p>
-<p class="tableblock">.Motivation
-Scenarios make quality requirements concrete and allow to
+</div>
+<div class="paragraph">
+<div class="title">Further Information</div>
+<p>See <a href="https://docs.arc42.org/section-10/">Quality Requirements</a> in the arc42 documentation.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_quality_tree">10.1. Quality Tree</h3>
+<div class="sidebarblock arc42help">
+<div class="content">
+<div class="paragraph">
+<div class="title">Content</div>
+<p>The quality tree (as defined in ATAM – Architecture Tradeoff Analysis Method) with quality/evaluation scenarios as leafs.</p>
+</div>
+<div class="paragraph">
+<div class="title">Motivation</div>
+<p>The tree structure with priorities provides an overview for a sometimes large number of quality requirements.</p>
+</div>
+<div class="paragraph">
+<div class="title">Form</div>
+<p>The quality tree is a high-level overview of the quality goals and requirements:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>tree-like refinement of the term "quality". Use "quality" or "usefulness" as a root</p>
+</li>
+<li>
+<p>a mind map with quality categories as main branches</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>In any case the tree should include links to the scenarios of the following section.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_quality_scenarios">10.2. Quality Scenarios</h3>
+<div class="sidebarblock arc42help">
+<div class="content">
+<div class="paragraph">
+<div class="title">Contents</div>
+<p>Concretization of (sometimes vague or implicit) quality requirements using (quality) scenarios.</p>
+</div>
+<div class="paragraph">
+<p>These scenarios describe what should happen when a stimulus arrives at the system.</p>
+</div>
+<div class="paragraph">
+<p>For architects, two kinds of scenarios are important:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Usage scenarios (also called application scenarios or use case scenarios) describe the system’s runtime reaction to a certain stimulus. This also includes scenarios that describe the system’s efficiency or performance. Example: The system reacts to a user’s request within one second.</p>
+</li>
+<li>
+<p>Change scenarios describe a modification of the system or of its immediate environment. Example: Additional functionality is implemented or requirements for a quality attribute change.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<div class="title">Motivation</div>
+<p>Scenarios make quality requirements concrete and allow to
 more easily measure or decide whether they are fulfilled.</p>
-<p class="tableblock">Especially when you want to assess your architecture using methods like
+</div>
+<div class="paragraph">
+<p>Especially when you want to assess your architecture using methods like
 ATAM you need to describe your quality goals (from section 1.2)
 more precisely down to a level of scenarios that can be discussed and evaluated.</p>
-<p class="tableblock">.Form
-Tabular or free form text.
-</strong><strong></p>
-<p class="tableblock">&lt;&lt;&lt;&lt;</p>
-<p class="tableblock"><a id="section-technical-risks"></a>
-== Risks and Technical Debts</p>
-<p class="tableblock">[role="arc42help"]
-</strong><strong>
-.Contents
-A list of identified technical risks or technical debts, ordered by priority</p>
-<p class="tableblock">.Motivation
-“Risk management is project management for grown-ups” (Tim Lister, Atlantic Systems Guild.)</p>
-<p class="tableblock">This should be your motto for systematic detection and evaluation of risks and technical debts in the architecture, which will be needed by management stakeholders (e.g. project managers, product owners) as part of the overall risk analysis and measurement planning.</p>
-<p class="tableblock">.Form
-List of risks and/or technical debts, probably including suggested measures to minimize, mitigate or avoid risks or reduce technical debts.</p>
-<p class="tableblock">.Further Information</p>
-<p class="tableblock">See <a href="https://docs.arc42.org/section-11/">Risks and Technical Debt</a> in the arc42 documentation.</p>
-<p class="tableblock"></strong>**</p>
-<p class="tableblock">Riesgos
-[options="header",cols="1,2,2"]</p></td>
-</tr>
-</tbody>
-</table>
+</div>
 <div class="paragraph">
-<p>|Riesgo|Explicación| Solución
-| Organización | Es la primera vez que nos enfrentamos a realizar un proyecto de cero en el que no tenemos unas pautas a seguir y debemos organizarnos, diseñar y desarrollar en base a los requisitos propuestos. | Realizar una análisis de los requisitos para comprender el proyecto solicitado. En base a este análisis dedicar tiempo para realizar una planificación detallada, en la que se incluya aspectos como: aprendizaje de nuevas tecnologías, prototipado y pruebas, implementación, redacción de la documentación etc.
-| Tiempo disponible | Al realizar este proyecto en paralelo a otras asignaturas el tiempo que tenemos disponible para el proyecto se reduce. | Semanalmente se hace un reparto de trabajo. El peso del trabajo semanal puede variar en función del tiempo del que disponga cada miembro del equipo, pero asegurandonos de que al final del proyecto todos hayamos contribuido lo mismo.
-| Docker | Es una tecnología con la que ningun miembro del equipo ha trabajado. | Dedicar tiempo de aprendizaje a esta tecnología.
-| GitHub | Aunque hemos trabajado previamente con Github estamos usando funcionalidades con las que aún no habíamos trabajado y por tanto, con las que no estamos familiarizados. | Dedicar tiempo de aprendizaje.
-| Comunicación | La comunicación se realiza mayoritariamente en diferido debido a que cada miembro del equipo tiene sus propios horarios. Esto puede ralentizar al resolución de dudas de los miembros del equipo, problemas de implementación etc. | Debemos hacer un esfuerzo para estar disponibles el mayor tiempo posible. Además si fuese necesario podrían realizarse reuniones a través de Discord.
-| Documentación | Previamente no habíamos realizado ninguna documentación técnica de un proyecto. | Es fundamental dedicar tiempo a esta parte del proyecto así como comunicar posibles dudas tanto a otros miembros del equipo como al profesorado.</p>
+<div class="title">Form</div>
+<p>Tabular or free form text.</p>
+</div>
+</div>
+</div>
+<div style="page-break-after: always;"></div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="section-technical-risks">11. Risks and Technical Debts</h2>
+<div class="sectionbody">
+<div class="sidebarblock arc42help">
+<div class="content">
+<div class="paragraph">
+<div class="title">Contents</div>
+<p>A list of identified technical risks or technical debts, ordered by priority</p>
+</div>
+<div class="paragraph">
+<div class="title">Motivation</div>
+<p>“Risk management is project management for grown-ups” (Tim Lister, Atlantic Systems Guild.)</p>
+</div>
+<div class="paragraph">
+<p>This should be your motto for systematic detection and evaluation of risks and technical debts in the architecture, which will be needed by management stakeholders (e.g. project managers, product owners) as part of the overall risk analysis and measurement planning.</p>
+</div>
+<div class="paragraph">
+<div class="title">Form</div>
+<p>List of risks and/or technical debts, probably including suggested measures to minimize, mitigate or avoid risks or reduce technical debts.</p>
+</div>
+<div class="paragraph">
+<div class="title">Further Information</div>
+<p>See <a href="https://docs.arc42.org/section-11/">Risks and Technical Debt</a> in the arc42 documentation.</p>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Riesgos</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
-<col style="width: 100%;">
+<col style="width: 20%;">
+<col style="width: 40%;">
+<col style="width: 40%;">
 </colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Riesgo</th>
+<th class="tableblock halign-left valign-top">Explicación</th>
+<th class="tableblock halign-left valign-top">Solución</th>
+</tr>
+</thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Deuda técnica
-[options="header",cols="1,1"]</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Organización</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Es la primera vez que nos enfrentamos a realizar un proyecto de cero en el que no tenemos unas pautas a seguir y debemos organizarnos, diseñar y desarrollar en base a los requisitos propuestos.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Realizar una análisis de los requisitos para comprender el proyecto solicitado. En base a este análisis dedicar tiempo para realizar una planificación detallada, en la que se incluya aspectos como: aprendizaje de nuevas tecnologías, prototipado y pruebas, implementación, redacción de la documentación etc.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Tiempo disponible</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Al realizar este proyecto en paralelo a otras asignaturas el tiempo que tenemos disponible para el proyecto se reduce.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Semanalmente se hace un reparto de trabajo. El peso del trabajo semanal puede variar en función del tiempo del que disponga cada miembro del equipo, pero asegurandonos de que al final del proyecto todos hayamos contribuido lo mismo.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Docker</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Es una tecnología con la que ningun miembro del equipo ha trabajado.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Dedicar tiempo de aprendizaje a esta tecnología.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">GitHub</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Aunque hemos trabajado previamente con Github estamos usando funcionalidades con las que aún no habíamos trabajado y por tanto, con las que no estamos familiarizados.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Dedicar tiempo de aprendizaje.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Comunicación</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">La comunicación se realiza mayoritariamente en diferido debido a que cada miembro del equipo tiene sus propios horarios. Esto puede ralentizar al resolución de dudas de los miembros del equipo, problemas de implementación etc.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Debemos hacer un esfuerzo para estar disponibles el mayor tiempo posible. Además si fuese necesario podrían realizarse reuniones a través de Discord.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Documentación</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Previamente no habíamos realizado ninguna documentación técnica de un proyecto.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Es fundamental dedicar tiempo a esta parte del proyecto así como comunicar posibles dudas tanto a otros miembros del equipo como al profesorado.</p></td>
 </tr>
 </tbody>
 </table>
 <div class="paragraph">
-<p>| Deuda | Explicación
-| Código limpio | El código debe ser claro para facilitar su modificación y ampliación por todos los miembros del equipo.
-| Código comentado | Comentar el código facilitará trabajar con código que no ha sido implementado por uno mismo.
-| Usabilidad | Como ya se comentó en el apartado 1.2 Metas de calidad.
-| Funcionalidad | Cumplimiento de la funcionalidad especificada por los requisitos.</p>
+<p>Deuda técnica</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
-<col style="width: 100%;">
+<col style="width: 50%;">
+<col style="width: 50%;">
 </colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Deuda</th>
+<th class="tableblock halign-left valign-top">Explicación</th>
+</tr>
+</thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">&lt;&lt;&lt;&lt;</p>
-<p class="tableblock"><a id="section-glossary"></a>
-== Glossary</p>
-<p class="tableblock">[role="arc42help"]
-<strong><strong>*
-.Contents
-The most important domain and technical terms that your stakeholders use when discussing the system.</p>
-<p class="tableblock">You can also see the glossary as source for translations if you work in multi-language teams.</p>
-<p class="tableblock">.Motivation
-You should clearly define your terms, so that all stakeholders</p>
-<p class="tableblock">* have an identical understanding of these terms
-* do not use synonyms and homonyms</p>
-<p class="tableblock">.Form</p>
-<p class="tableblock">A table with columns &lt;Term&gt; and &lt;Definition&gt;.</p>
-<p class="tableblock">Potentially more columns in case you need translations.</p>
-<p class="tableblock">.Further Information</p>
-<p class="tableblock">See <a href="https://docs.arc42.org/section-12/">Glossary</a> in the arc42 documentation.</p>
-<p class="tableblock"></strong></strong>*</p>
-<p class="tableblock">[cols="e,2e" options="header"]</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Código limpio</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">El código debe ser claro para facilitar su modificación y ampliación por todos los miembros del equipo.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Código comentado</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Comentar el código facilitará trabajar con código que no ha sido implementado por uno mismo.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Usabilidad</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Como ya se comentó en el apartado 1.2 Metas de calidad.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Funcionalidad</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Cumplimiento de la funcionalidad especificada por los requisitos.</p></td>
 </tr>
 </tbody>
 </table>
+<div style="page-break-after: always;"></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="section-glossary">12. Glossary</h2>
+<div class="sectionbody">
+<div class="sidebarblock arc42help">
+<div class="content">
 <div class="paragraph">
-<p>|Term |Definition</p>
+<div class="title">Contents</div>
+<p>The most important domain and technical terms that your stakeholders use when discussing the system.</p>
 </div>
 <div class="paragraph">
-<p>| Software
-| Conjunto de programas, instrucciones y reglas informáticas para ejecutar ciertas tareas en una computadora.</p>
+<p>You can also see the glossary as source for translations if you work in multi-language teams.</p>
 </div>
 <div class="paragraph">
-<p>| WikiData
-| Es una base de conocimientos editada en colaboración y alojada por la Fundaciín Wikimedia</p>
+<div class="title">Motivation</div>
+<p>You should clearly define your terms, so that all stakeholders</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>have an identical understanding of these terms</p>
+</li>
+<li>
+<p>do not use synonyms and homonyms</p>
+</li>
+</ul>
 </div>
 <div class="paragraph">
-<p>| API
-| Application Programming Interface. Pieza de código que permite a diferentes aplicaciones comunicarse entre sí y compartir información y funcionalidades.</p>
+<div class="title">Form</div>
+<p>A table with columns &lt;Term&gt; and &lt;Definition&gt;.</p>
 </div>
 <div class="paragraph">
-<p>| Usabilidad
-| Facilidad con que las personas pueden utilizar una herramienta particular o cualquier otro objeto fabricado por humanos con el fin de alcanzar un objetivo concreto.</p>
+<p>Potentially more columns in case you need translations.</p>
 </div>
 <div class="paragraph">
-<p>| Stakeholders
-| Individuos o grupos interesados en un producto.</p>
+<div class="title">Further Information</div>
+<p>See <a href="https://docs.arc42.org/section-12/">Glossary</a> in the arc42 documentation.</p>
 </div>
-<div class="paragraph">
-<p>| GitHub
-| Servicio basado en la nube que aloja un sistema de control de versiones llamado Git.</p>
 </div>
-<div class="paragraph">
-<p>| Docker
-| Plataforma software que permite crear, probar e implementar aplicaciones rapidamente empaquetando software en unidades estandarizadas llamadas contenedores.</p>
-</div>
-<div class="paragraph">
-<p>| React
-| Libreria de JavaScript para el desarrollo de aplicaciones móviles y web</p>
-</div>
-<div class="paragraph">
-<p>| Plantilla Arc42
-| Estructura para documentas sistemas de software</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 66.6667%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Term</th>
+<th class="tableblock halign-left valign-top">Definition</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Software</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Conjunto de programas, instrucciones y reglas informáticas para ejecutar ciertas tareas en una computadora.</em></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>WikiData</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Es una base de conocimientos editada en colaboración y alojada por la Fundaciín Wikimedia</em></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>API</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Application Programming Interface. Pieza de código que permite a diferentes aplicaciones comunicarse entre sí y compartir información y funcionalidades.</em></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Usabilidad</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Facilidad con que las personas pueden utilizar una herramienta particular o cualquier otro objeto fabricado por humanos con el fin de alcanzar un objetivo concreto.</em></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Stakeholders</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Individuos o grupos interesados en un producto.</em></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>GitHub</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Servicio basado en la nube que aloja un sistema de control de versiones llamado Git.</em></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Docker</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Plataforma software que permite crear, probar e implementar aplicaciones rapidamente empaquetando software en unidades estandarizadas llamadas contenedores.</em></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>React</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Libreria de JavaScript para el desarrollo de aplicaciones móviles y web</em></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Plantilla Arc42</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Estructura para documentas sistemas de software</em></p></td>
+</tr>
+</tbody>
 </table>
-</div>
 </div>
 </div>
 </div>
