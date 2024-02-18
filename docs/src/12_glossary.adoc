@@ -34,9 +34,30 @@ See https://docs.arc42.org/section-12/[Glossary] in the arc42 documentation.
 |===
 |Term |Definition
 
-|<Term-1>
-|<definition-1>
+| Software
+| Conjunto de programas, instrucciones y reglas informáticas para ejecutar ciertas tareas en una computadora.
 
-|<Term-2>
-|<definition-2>
+| WikiData
+| Es una base de conocimientos editada en colaboración y alojada por la Fundaciín Wikimedia
+
+| API
+| Application Programming Interface. Pieza de código que permite a diferentes aplicaciones comunicarse entre sí y compartir información y funcionalidades.
+
+| Usabilidad
+| Facilidad con que las personas pueden utilizar una herramienta particular o cualquier otro objeto fabricado por humanos con el fin de alcanzar un objetivo concreto.
+
+| Stakeholders
+| Individuos o grupos interesados en un producto.
+
+| GitHub
+| Servicio basado en la nube que aloja un sistema de control de versiones llamado Git.
+
+| Docker
+| Plataforma software que permite crear, probar e implementar aplicaciones rapidamente empaquetando software en unidades estandarizadas llamadas contenedores.
+
+| React
+| Libreria de JavaScript para el desarrollo de aplicaciones móviles y web
+
+| Plantilla Arc42
+| Estructura para documentas sistemas de software
 |===

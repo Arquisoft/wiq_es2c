@@ -25,3 +25,15 @@ conventions (e.g. programming or versioning guidelines, documentation or naming 
 See https://docs.arc42.org/section-2/[Architecture Constraints] in the arc42 documentation.
 
 ****
+
+Restricciones técnicas
+[options="header",cols="1,1"]
+|===
+|Restricción|Explicación
+| Docker | El proyecto de desplegará en un Host Docker.
+| Tecnología | Se empleará React.
+| Documentación | Se usará la plantilla Arc42.
+| Base de datos |  Se empleará MongoDB como base de datos por su sencillez y facilidad de uso. Además es la base de datos empleada en la base del proyecto.
+| Pruebas | Cobertura, Pruebas de aceptación (e2e), Pruebas de carga
+| WikiData | Se empleará WikiData para obtener la información para generar las preguntas y respuestas.
+|===
