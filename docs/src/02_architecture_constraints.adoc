@@ -26,7 +26,7 @@ See https://docs.arc42.org/section-2/[Architecture Constraints] in the arc42 doc
 
 ****
 
-Restricciones técnicas
+.Restricciones técnicas
 [options="header",cols="1,1"]
 |===
 |Restricción|Explicación
@@ -37,3 +37,13 @@ Restricciones técnicas
 | Pruebas | Cobertura, Pruebas de aceptación (e2e), Pruebas de carga
 | WikiData | Se empleará WikiData para obtener la información para generar las preguntas y respuestas.
 |===
+
+.Restricciones organizativas
+[options="header",cols="1,1"]
+|===
+|Restricción|Explicación
+| Reuniones | Se realizarán reuniones semanales los lunes de 13:00 a 15:00. Estas reuniones se verán reflejadas en GitHub a través de un acta. Podrían realizarse reuniones entre semana si fuese necesario.
+| GitHub Issues | Para permitir al profesorado llevar un seguimiento del trabajo en equipo se emplearán los Issues de GitHub para reflejar la asignación de tareas así como el diágolo entre semana del equipo.
+| Tamaño del equipo | El equipo está formado por 5 personas.
+|===
+
