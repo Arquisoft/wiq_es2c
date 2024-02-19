@@ -25,7 +25,7 @@ See https://docs.arc42.org/section-10/[Quality Requirements] in the arc42 docume
 
 ****
 
-=== Quality Tree
+=== Árbol de calidad
 
 [role="arc42help"]
 ****
@@ -46,7 +46,9 @@ In any case the tree should include links to the scenarios of the following sect
 
 ****
 
-=== Quality Scenarios
+image:QUALITY REQUIREMENTS.png[Diagram]
+
+=== Escenarios de calidad
 
 [role="arc42help"]
 ****
@@ -71,3 +73,23 @@ more precisely down to a level of scenarios that can be discussed and evaluated.
 .Form
 Tabular or free form text.
 ****
+
+[cols="1,2,3"]
+|===
+|*Requisito de calidad*
+|*Escenario de calidad*
+|*Prioridad*
+|Usabilidad
+|Nuestra aplicación tiene que ser fácil de usar para todo tipo de usuario, incluso para uno sin experiencia. Las vistas deben ser claras e intuitivas, y el usuario tiene que poder navegar con fluidez por toda la aplicación. Además, se deben implementar los mecanismos necesarios para facilitar el uso de la aplicación por parte de los usuarios.
+|Alto
+|Estabilidad
+| Nuestra aplicacion debe asegurar estabilidad, ya que se tratará de un juego con preguntas extraidas y respondidas en tiempo real, por lo que necesitamos que sea resistente a posibles fallos y caidas.
+|Alto
+|Mantenibilidad
+|El sistema debe poder ser modificado fácilmente para por ejemplo, poder añadir nuevos modos de juego o nuevas temáticas. Para esto será necesaria también una documentacion clara y completa.
+| Medio-alto
+|Testeabilidad
+|La solicitud debería poder pasar por diferentes pruebas y completarlas con éxito. Además, la aplicación debe estar preparada para todo tipo de usos lógicos por parte del usuario.
+|Medio-bajo
+
+|===

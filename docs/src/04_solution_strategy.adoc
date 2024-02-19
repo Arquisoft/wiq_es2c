@@ -46,7 +46,7 @@ See https://docs.arc42.org/section-4/[Solution Strategy] in the arc42 documentat
 .¿Cómo se van a alcanzar los objetivos de calidad?
 * Usabilidad: nuestras interfaces serán intuitivas y fáciles de usar para cualquier persona gracias al framework React.
 * Mantenibilidad: la aplicación sera facilmente adaptable gracias a nuestro enfoque por componentes, lo que nos permitirá tener un código poco acoplado y con mucha cohesión.
-* Eficiencia:
-* Estabilidad:
+* Eficiencia: la conexión con la base de datos y Wikidata para extraer las preguntas será rápida para mantener la atención de los usuarios.
+* Estabilidad: nuestra apicacion será resistente a caidas y fallos para poder permitir una buena experiencia de juego.
 * Testeabilidad: el equipo testeará la aplicacion manual y automaticamente mediante pruebas de obertura, pruebas de aceptación (e2e) y pruebas de carga.
 

@@ -33,3 +33,38 @@ See https://docs.arc42.org/section-9/[Architecture Decisions] in the arc42 docum
 There you will find links and examples about ADR.
 
 ****
+
+Durante el desarrollo de la aplicación, va a ser necesario abordar problemas a medida que surjan, lo que conlleva la toma de decisiones a lo largo del proceso. Aunque inicialmente se establecieron ciertas decisiones, estas se verán sujetas a cambios a lo largo del proyecto. En el siguiente cuadro se detallan algunas de las decisiones de diseño que se adoptaron actualmente debido a restricciones arquitectónicas:
+
+[cols="1,2,3"]
+|===
+
+|*Decisión*
+|*Ventajas*
+|*Desventajas*
+
+|React
+|Relativamente sencillo de aprender en comparación con otras bibliotecas front-end, y su popularidad en la web sigue creciendo.
+|No todos los componentes del equipo trabajaron con el.
+
+|Node.js
+|Plataforma de desarrollo eficiente y escalable para construir aplicaciones web y de red en tiempo real utilizando JavaScript.
+|La ejecución de operaciones intensivas de CPU puede ser menos eficiente debido al modelo de un solo subproceso.
+
+|Docker
+|La implementación es rápida y permite mover y mantener aplicaciones con facilidad. Además, resulta sencillo gracias a los ejemplos disponibles de DockerFiles.
+|Ningún miembro del equipo tiene experiencia con el.
+
+|MongoDB
+|No requiere activación manual y es gratuito, además de ser fácil de comprender.
+|Es menos común para el grupo trabajar con bases de datos no relacionales.
+
+|WikiData
+|Ofrece una fuente de datos colaborativa, estructurada y de acceso libre que alimenta numerosas aplicaciones y proyectos.
+|La fiabilidad y precisión de los datos pueden variar debido a su naturaleza colaborativa y abierta a ediciones de usuarios no verificados.
+
+|Plantilla Arc42
+|Proporciona una estructura clara y completa para documentar la arquitectura de software, facilitando la comprensión y la comunicación entre los equipos de desarrollo.
+|Puede resultar demasiado detallada y compleja para proyectos pequeños o simples.
+
+|===

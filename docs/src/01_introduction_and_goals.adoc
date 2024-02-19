@@ -24,6 +24,8 @@ El equipo de desarrollo comprometido a materializar este proyecto está formado 
 * Ángela Roza Moreno
 * Jorge Adrián Larriva
 
+WIQ es una aplicación web que presentará un juego de preguntas y respuestas en el que los usuarios tendrán un tiempo limitado para seleccionar, entre diferentes opciones, la respuesta correcta a una pregunta.
+
 === Requirements Overview
 
 [role="arc42help"]
