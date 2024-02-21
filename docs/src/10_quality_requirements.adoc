@@ -22,7 +22,7 @@ image:QUALITY REQUIREMENTS.png[Diagram]
 
 [role="arc42help"]
 ****
-[cols="1,2,3"]
+[cols="1,4,1"]
 |===
 
 |*Requisito de calidad*
