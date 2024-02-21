@@ -23,3 +23,27 @@ List of risks and/or technical debts, probably including suggested measures to m
 See https://docs.arc42.org/section-11/[Risks and Technical Debt] in the arc42 documentation.
 
 ****
+
+Riesgos
+[options="header",cols="1,2,2"]
+|===
+|Riesgo|Explicación| Solución
+| Organización | Es la primera vez que nos enfrentamos a realizar un proyecto de cero en el que no tenemos unas pautas a seguir y debemos organizarnos, diseñar y desarrollar en base a los requisitos propuestos. | Realizar una análisis de los requisitos para comprender el proyecto solicitado. En base a este análisis dedicar tiempo para realizar una planificación detallada, en la que se incluya aspectos como: aprendizaje de nuevas tecnologías, prototipado y pruebas, implementación, redacción de la documentación etc.
+| Tiempo disponible | Al realizar este proyecto en paralelo a otras asignaturas el tiempo que tenemos disponible para el proyecto se reduce. | Semanalmente se hace un reparto de trabajo. El peso del trabajo semanal puede variar en función del tiempo del que disponga cada miembro del equipo, pero asegurandonos de que al final del proyecto todos hayamos contribuido lo mismo.
+| Docker | Es una tecnología con la que ningun miembro del equipo ha trabajado. | Dedicar tiempo de aprendizaje a esta tecnología.
+| GitHub | Aunque hemos trabajado previamente con Github estamos usando funcionalidades con las que aún no habíamos trabajado y por tanto, con las que no estamos familiarizados. | Dedicar tiempo de aprendizaje.
+| Comunicación | La comunicación se realiza mayoritariamente en diferido debido a que cada miembro del equipo tiene sus propios horarios. Esto puede ralentizar al resolución de dudas de los miembros del equipo, problemas de implementación etc. | Debemos hacer un esfuerzo para estar disponibles el mayor tiempo posible. Además si fuese necesario podrían realizarse reuniones a través de Discord.
+| Documentación | Previamente no habíamos realizado ninguna documentación técnica de un proyecto. | Es fundamental dedicar tiempo a esta parte del proyecto así como comunicar posibles dudas tanto a otros miembros del equipo como al profesorado.
+|===
+
+Deuda técnica
+[options="header",cols="1,1"]
+|===
+| Deuda | Explicación
+| Código limpio | El código debe ser claro para facilitar su modificación y ampliación por todos los miembros del equipo.
+| Código comentado | Comentar el código facilitará trabajar con código que no ha sido implementado por uno mismo.
+| Usabilidad | Como ya se comentó en el apartado 1.2 Metas de calidad.
+| Funcionalidad | Cumplimiento de la funcionalidad especificada por los requisitos.
+|===
+
+
