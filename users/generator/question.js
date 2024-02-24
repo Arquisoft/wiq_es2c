@@ -2,6 +2,7 @@ const axios = require('axios');
 
 class Question {
     constructor() {
+        alert('Juego1'); 
         this.correctOption = "";
         this.options = [];
         this.question = "";
@@ -16,6 +17,7 @@ class Question {
     }
 
     async generarPregunta() {
+        alert('Juego2'); 
         try {
             const response = await axios.get(this.url, {
                 params: {
@@ -33,7 +35,6 @@ class Question {
     procesarDatos(data) {
         const countries = data.results.bindings;
         const randomIndexes = [];
-        alert('Juego'); 
         // Obtenemos cuatro índices aleatorios sin repetición
         while (randomIndexes.length < 4) {
             const randomIndex = Math.floor(Math.random() * countries.length);

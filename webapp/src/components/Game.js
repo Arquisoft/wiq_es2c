@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Container, Typography, Button, Snackbar } from '@mui/material';
 
+const apiEndpoint = process.env.REACT_APP_API_ENDPOINT || 'http://localhost:8000';
+
 const Game = () => {
   const [question, setQuestion] = useState('');
   const [options, setOptions] = useState([]);
@@ -16,7 +18,9 @@ const Game = () => {
   const getQuestion = async () => {
     try {
       alert('Juego'); 
-      const response = await axios.get('http://localhost:8000/question');
+      const response = await axios.get(`${apiEndpoint}/question`);
+      alert('2');
+      alert(response.data.question);
       setQuestion(response.data.question);
       setOptions(response.data.options);
     } catch (error) {
