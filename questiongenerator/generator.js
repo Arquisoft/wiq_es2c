@@ -18,7 +18,6 @@ let preguntaActual = null;
 // Ruta para el endpoint questiongenerator
 app.get('/question', async (req, res) => {
     try {
-        alert('Juego2'); 
         const pregunta = new Question();
         await pregunta.generarPregunta();
         

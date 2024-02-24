@@ -17,7 +17,6 @@ const Game = () => {
 
   const getQuestion = async () => {
     try {
-      alert('Juego'); 
       const response = await axios.get(`${apiEndpoint}/question`);
       alert('2');
       alert(response.data.question);

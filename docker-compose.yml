@@ -15,7 +15,7 @@ services:
     container_name: generatorservice-${teamname:-defaultASW}
     image: ghcr.io/arquisoft/wiq_es2c/generatorservice:latest
     profiles: ["dev", "prod"]
-    build: ./users/generator
+    build: ./questiongenerator
     depends_on:
       - mongodb
     ports:

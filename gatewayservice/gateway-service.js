@@ -51,6 +51,15 @@ app.get('/question', async (req, res) => {
   }
 });
 
+app.post('/answer', async (req, res) => {
+  try {
+    const userResponse = await axios.get(generatorUrl+'/answer', req.body);
+    res.json(userResponse.data);
+  } catch (error) {
+    res.status(error.response.status).json({ error: error.response.data.error });
+  }
+});
+
 // Start the gateway service
 const server = app.listen(port, () => {
   console.log(`Gateway Service listening at http://localhost:${port}`);
