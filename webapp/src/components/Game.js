@@ -15,6 +15,7 @@ const Game = () => {
 
   const getQuestion = async () => {
     try {
+      alert('Juego'); 
       const response = await axios.get('http://localhost:8000/question');
       setQuestion(response.data.question);
       setOptions(response.data.options);
