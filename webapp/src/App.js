@@ -19,6 +19,7 @@ function App() {
       <CssBaseline />
       <Typography component="h1" variant="h5" align="center" sx={{ marginTop: 2 }}>
         Welcome to the 2024 edition of the Software Architecture course
+        <Game />
       </Typography>
       {showLogin ? <Login /> : <AddUser />}
       <Typography component="div" align="center" sx={{ marginTop: 2 }}>

@@ -9,10 +9,6 @@ const PreguntaPage = () => {
   const [selectedOption, setSelectedOption] = useState('');
   const [openSnackbar, setOpenSnackbar] = useState(false);
 
-  useEffect(() => {
-    getQuestion;
-  }, []);
-
   const getQuestion = async () => {
     try {
       const response = await axios.get('http://localhost:8000/question');
@@ -26,6 +22,7 @@ const PreguntaPage = () => {
   const handleOptionClick = (option) => {
     setSelectedOption(option);
     setOpenSnackbar(true);
+    alert('Click');    
   };
 
   const handleCloseSnackbar = () => {
