@@ -2,12 +2,16 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Container, Typography, Button, Snackbar } from '@mui/material';
 
-const PreguntaPage = () => {
+const Game = () => {
   const [question, setQuestion] = useState('');
   const [options, setOptions] = useState([]);
   const [error, setError] = useState('');
   const [selectedOption, setSelectedOption] = useState('');
   const [openSnackbar, setOpenSnackbar] = useState(false);
+
+  useEffect(() => {
+    getQuestion();
+  }, []);
 
   const getQuestion = async () => {
     try {
@@ -49,4 +53,4 @@ const PreguntaPage = () => {
   );
 };
 
-export default PreguntaPage;
+export default Game;
