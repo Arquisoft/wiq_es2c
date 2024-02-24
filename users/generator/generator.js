@@ -2,7 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 const bodyParser = require('body-parser');
-const Pregunta = require('./Question');
+const Question = require('./Question');
 
 const app = express();
 const port = 8003;
@@ -48,9 +48,6 @@ app.post('/answer', (req, res) => {
     res.json({ message: 'Respuesta recibida exitosamente' });
 });
 
-app.listen(port, () => {
-    console.log(`Servidor escuchando en http://localhost:${port}`);
-});
 
 // Start the server
 const server = app.listen(port, () => {
