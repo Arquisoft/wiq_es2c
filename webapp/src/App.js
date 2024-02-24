@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import AddUser from './components/AddUser';
 import Login from './components/Login';
+import Game from './components/Game';
 import CssBaseline from '@mui/material/CssBaseline';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
