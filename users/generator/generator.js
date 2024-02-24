@@ -2,7 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 const bodyParser = require('body-parser');
-const Pregunta = require('./Pregunta');
+const Pregunta = require('./Question');
 
 const app = express();
 const port = 8003;
@@ -19,7 +19,7 @@ let preguntaActual = null;
 app.get('/question', async (req, res) => {
     try {
         alert('Juego2'); 
-        const pregunta = new Pregunta();
+        const pregunta = new Question();
         await pregunta.generarPregunta();
         
         // Almacenamos la pregunta generada para accederla posteriormente
