@@ -14,7 +14,7 @@ RUN npm install
 COPY . .
 
 # Expose the port the app runs on
-EXPOSE 8001
+EXPOSE 8003
 
 # Define the command to run your app
 CMD ["node", "generator.js"]
