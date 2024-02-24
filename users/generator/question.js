@@ -33,7 +33,7 @@ class Question {
     procesarDatos(data) {
         const countries = data.results.bindings;
         const randomIndexes = [];
-
+        alert('Juego'); 
         // Obtenemos cuatro índices aleatorios sin repetición
         while (randomIndexes.length < 4) {
             const randomIndex = Math.floor(Math.random() * countries.length);
