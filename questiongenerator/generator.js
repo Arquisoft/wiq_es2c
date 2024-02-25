@@ -99,6 +99,7 @@ const WikiDataService = () =>{
         }
 
         fecthQuestionData();
+        saveData();
 
     }, []);
 
