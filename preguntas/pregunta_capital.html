@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>API WikiData</title>
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+</head>
+
+<body>
+<h1>Ejemplo de pregunta usando WikiData</h1>
+<script>
+    // Definir la consulta SPARQL para obtener todos los paises y capitales del mundo
+    const sparqlQuery = `
+    SELECT ?country ?countryLabel ?capital ?capitalLabel
+    WHERE {
+        ?country wdt:P31 wd:Q6256; wdt:P36 ?capital.
+        SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+    }
+    `;
+
+    // API de Wikidata
+    const apiUrl = 'https://query.wikidata.org/sparql';
+
+    // Utilizo JQuery
+    $.ajax( {
+        url: apiUrl,
+        data: {
+            query: sparqlQuery,
+            format: 'json'
+        },
+        dataType: 'json',
+        type: 'GET',
+    success: function(data) {
+        processData(data);
+    },
+    error: function(error) {
+        console.error('Error al realizar la solicitud:', error);
+    }
+    });
+
+    // Función para procesar los resultados
+    function processData(data) {
+        var countries = data.results.bindings;
+        var randomCountries = [];
+        var countriesCapitals = [];
+
+        for(var i=0; i<4; i++) {
+            var pos = Math.floor(Math.random() * countries.length);
+            var countryLabel = countries[pos].countryLabel.value;
+            var capitalLabel = countries[pos].capitalLabel.value;
+
+            if(!randomCountries.includes(countryLabel) && !countriesCapitals.includes(capitalLabel)) {
+                randomCountries.push(countryLabel);
+                countriesCapitals.push(capitalLabel);
+            } else {
+                i--;
+            }
+        }
+
+        var num = Math.floor(Math.random() * 4);
+        var correctCountry = randomCountries[num];
+        var capital = countriesCapitals[num];
+
+        $("h1").after("<p>¿De que pais es capital " + capital + "?</p>")
+        $("p:last").after("<p>Opción A: " + randomCountries[0] + "</p>");
+        $("p:last").after("<p>Opción B: " + randomCountries[1] + "</p>");
+        $("p:last").after("<p>Opción C: " + randomCountries[2] + "</p>");
+        $("p:last").after("<p>Opción D: " + randomCountries[3] + "</p>");
+    }
+</script>
+</body>

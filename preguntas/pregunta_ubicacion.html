@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ejemplo API WikiData con jQuery</title>
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+</head>
+<body>
+    <h1>Ejemplo de pregunta usando WikiData</h1>
+<script>
+    // Definir la consulta SPARQL para obtener las montañas mayores a 5000 metros
+    const sparqlQuery = `
+    SELECT ?city ?cityLabel ?coordinates
+    WHERE {
+        ?city wdt:P31/wdt:P279* wd:Q515;         
+                wdt:P17 wd:Q29;                    
+                wdt:P1082 ?poblacion.             
+        FILTER (?poblacion > 100000)               
+        OPTIONAL { ?city wdt:P625 ?coordinates. }
+        SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],es". }
+    }
+    `;
+
+    // Construir la URL de la API de Wikidata
+    const apiUrl = 'https://query.wikidata.org/sparql';
+
+    // Configurar la solicitud HTTP con jQuery
+    $.ajax( {
+        url: apiUrl,
+        data: {
+            query: sparqlQuery,
+            format: 'json'
+        },
+        dataType: 'json',
+        type: 'GET',
+    success: function(data) {
+        // Manejar la respuesta de la API
+        processData(data);
+    },
+    error: function(error) {
+        // Manejar errores
+        console.error('Error al realizar la solicitud:', error);
+    }
+    });
+
+    // Función para procesar los resultados
+    function processData(data) {
+        var cities = data.results.bindings;
+        var randomCities = [];
+        var randomLocations = [];
+
+        for(var i=0; i<4; i++) {
+            var pos = Math.floor(Math.random() * cities.length);
+            var cityLabel = cities[pos].cityLabel.value;
+            var cityLocation = cities[pos].coordinates.value;
+
+            if(cityLabel[0] != 'Q' && !randomCities.includes(cityLabel) && !randomLocations.includes(cityLocation)) {
+                randomCities.push(cityLabel);
+                randomLocations.push(cityLocation);
+            } else {
+                i--;
+            }
+        }
+
+        var num = Math.floor(Math.random() * 4);
+        var correctLocation = randomLocations[num];
+        var city = randomCities[num];
+
+        $("h1").after("<p>¿Que ciudad es la que se muestra en el mapa?</p>");
+        var coordinates = correctLocation.split("(");
+        var longitude = coordinates[1].split(" ")[0];
+        var latitude = coordinates[1].split(" ")[1];
+        latitude = latitude.substring(0, latitude.length-2);
+        showStaticMap(latitude, longitude);
+        $("p:last").after("<p>Opción A: " + randomCities[0] + "</p>");
+        $("p:last").after("<p>Opción B: " + randomCities[1] + "</p>");
+        $("p:last").after("<p>Opción C: " + randomCities[2] + "</p>");
+        $("p:last").after("<p>Opción D: " + randomCities[3] + "</p>");
+    }
+
+    function showStaticMap(latitude, longitude){        
+        var apiKey = "&key=AIzaSyCILLJTWKNF6AxnLiSpSZcdujYdVwL1S1w";
+        var url = "https://maps.googleapis.com/maps/api/staticmap?";
+        var center = "center=" + latitude + "," + longitude;
+        var zoom ="&zoom=6";
+        var size= "&size=800x600";
+        var marker = "&markers=color:red%7Clabel:S%7C" + latitude + "," + longitude;
+        var sensor = "&sensor=false"; 
+        var mapType = "&maptype=satellite";
+        var noCities = "&result_type=administrative_area_level_2";
+        
+        var image = url + center + zoom + size + marker + sensor + noCities + mapType + apiKey;
+        var element = $("<img />").attr("src", image).attr("alt", "mapa estatico google");
+        $("h1").after(element);
+    }
+
+</script>
+</body>
