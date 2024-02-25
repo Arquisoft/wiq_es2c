@@ -36,14 +36,5 @@ Riesgos
 | Documentación | Previamente no habíamos realizado ninguna documentación técnica de un proyecto. | Es fundamental dedicar tiempo a esta parte del proyecto así como comunicar posibles dudas tanto a otros miembros del equipo como al profesorado.
 |===
 
-Deuda técnica
-[options="header",cols="1,1"]
-|===
-| Deuda | Explicación
-| Código limpio | El código debe ser claro para facilitar su modificación y ampliación por todos los miembros del equipo.
-| Código comentado | Comentar el código facilitará trabajar con código que no ha sido implementado por uno mismo.
-| Usabilidad | Como ya se comentó en el apartado 1.2 Metas de calidad.
-| Funcionalidad | Cumplimiento de la funcionalidad especificada por los requisitos.
-|===
 
 
