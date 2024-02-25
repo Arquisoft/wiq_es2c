@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>API WikiData</title>
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+</head>
+
+<body>
+<h1>Ejemplo de pregunta usando WikiData</h1>
+<script>
+    // Definir la consulta SPARQL para obtener todos los paises y capitales del mundo
+    const sparqlQuery = `
+    SELECT ?battle ?battleLabel ?year
+    WHERE {
+        ?battle wdt:P31 wd:Q178561.    
+        ?battle wdt:P580 ?date.      
+        FILTER (YEAR(?date) >= 1939 && YEAR(?date) <= 1945) 
+        BIND(YEAR(?date) as ?year)
+        SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],es". }
+    }
+    `;
+
+    // API de Wikidata
+    const apiUrl = 'https://query.wikidata.org/sparql';
+
+    // Utilizo JQuery
+    $.ajax( {
+        url: apiUrl,
+        data: {
+            query: sparqlQuery,
+            format: 'json'
+        },
+        dataType: 'json',
+        type: 'GET',
+    success: function(data) {
+        processData(data);
+    },
+    error: function(error) {
+        console.error('Error al realizar la solicitud:', error);
+    }
+    });
+
+    // Función para procesar los resultados
+    function processData(data) {
+        var battles = data.results.bindings;
+        var randomBattles = [];
+        var battleYears = [];
+
+        for(var i=0; i<4; i++) {
+            var pos = Math.floor(Math.random() * battles.length);
+            var battleLabel = battles[pos].battleLabel.value;
+            var battleYear = battles[pos].year.value;
+
+            if(!randomBattles.includes(battleLabel) && !battleYears.includes(battleYear)) {
+                randomBattles.push(battleLabel);
+                battleYears.push(battleYear);
+            } else {
+                i--;
+            }
+        }
+
+        var num = Math.floor(Math.random() * 4);
+        var correctYear = battleYears[num];
+        var battle = randomBattles[num];
+
+        $("h1").after("<p>¿En que año ocurrio la " + battle + "?</p>")
+        $("p:last").after("<p>Opción A: " + battleYears[0] + "</p>");
+        $("p:last").after("<p>Opción B: " + battleYears[1] + "</p>");
+        $("p:last").after("<p>Opción C: " + battleYears[2] + "</p>");
+        $("p:last").after("<p>Opción D: " + battleYears[3] + "</p>");
+    }
+</script>
+</body>

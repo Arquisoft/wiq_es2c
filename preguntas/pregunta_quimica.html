@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ejemplo API WikiData con jQuery</title>
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+</head>
+<body>
+    <h1>Ejemplo de pregunta usando WikiData</h1>
+<script>
+    // Definir la consulta SPARQL para obtener las montañas mayores a 5000 metros
+    const sparqlQuery = `
+    SELECT ?element ?elementLabel ?symbol (SUBSTR(?símbolo, 1, 1) AS ?sym)
+    WHERE {
+    ?element wdt:P31 wd:Q11344;        
+                wdt:P1086 ?symbol.        
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE], es". }
+    }
+    `;
+
+    // Construir la URL de la API de Wikidata
+    const apiUrl = 'https://query.wikidata.org/sparql';
+
+    // Configurar la solicitud HTTP con jQuery
+    $.ajax( {
+        url: apiUrl,
+        data: {
+            query: sparqlQuery,
+            format: 'json'
+        },
+        dataType: 'json',
+        type: 'GET',
+    success: function(data) {
+        // Manejar la respuesta de la API
+        processData(data);
+    },
+    error: function(error) {
+        // Manejar errores
+        console.error('Error al realizar la solicitud:', error);
+    }
+    });
+
+    // Función para procesar los resultados
+    function processData(data) {
+        var elements = data.results.bindings;
+        var randomElements = [];
+        var randomSymbols = [];
+
+        for(var i=0; i<4; i++) {
+            var pos = Math.floor(Math.random() * elements.length);
+            var elementLabel = elements[pos].elementLabel.value;
+            var symbolLabel = elements[pos].symbol.value;
+
+            if(elementLabel[0] != 'Q' && !randomElements.includes(elementLabel) && !randomSymbols.includes(symbolLabel)) {
+                randomElements.push(elementLabel);
+                randomSymbols.push(symbolLabel);
+            } else {
+                i--;
+            }
+        }
+
+        var num = Math.floor(Math.random() * 4);
+        var correctElement = randomElements[num];
+        var symbol = randomSymbols[num];
+
+        $("h1").after("<p>¿Cual es el elemento " + symbol + " en la tabla periódica?</p>")
+        $("p:last").after("<p>Opción A: " + randomElements[0] + "</p>");
+        $("p:last").after("<p>Opción B: " + randomElements[1] + "</p>");
+        $("p:last").after("<p>Opción C: " + randomElements[2] + "</p>");
+        $("p:last").after("<p>Opción D: " + randomElements[3] + "</p>");
+    }
+
+</script>
+</body>

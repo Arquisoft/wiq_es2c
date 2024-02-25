@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ejemplo API WikiData con jQuery</title>
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+</head>
+<body>
+    <h1>Ejemplo de pregunta usando WikiData</h1>
+<script>
+    // Definir la consulta SPARQL para obtener las montañas mayores a 5000 metros
+    const sparqlQuery = `
+    SELECT ?mountainLabel ?height
+    WHERE {
+    ?mountain wdt:P31 wd:Q8502; 
+                wdt:P2044 ?height. 
+    FILTER (?height > 5000)  
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],es". }
+    }`;
+
+    // Construir la URL de la API de Wikidata
+    const apiUrl = 'https://query.wikidata.org/sparql';
+
+    // Configurar la solicitud HTTP con jQuery
+    $.ajax( {
+        url: apiUrl,
+        data: {
+            query: sparqlQuery,
+            format: 'json'
+        },
+        dataType: 'json',
+        type: 'GET',
+    success: function(data) {
+        // Manejar la respuesta de la API
+        processData(data);
+    },
+    error: function(error) {
+        // Manejar errores
+        console.error('Error al realizar la solicitud:', error);
+    }
+    });
+
+    // Función para procesar los resultados
+    function processData(data) {
+        var mountains = data.results.bindings;
+        var mountainsHeights = [];
+        var mountain = "Everest";
+
+        for(var i=0; i<mountains.length; i++) {
+            var mountainLabel = mountains[i].mountainLabel.value;
+            if(mountainLabel === mountain) {
+                var height = mountains[i].height.value;
+                break;
+            }
+        }
+
+        // Se elimina la parte decimal
+        mountainsHeights.push(parseInt(height));
+
+        for(var i=0; i<3; i++) {
+            var pos = Math.floor(Math.random() * mountains.length);
+            var heightLabel = mountains[pos].height.value;
+            mountainsHeights.push(heightLabel);
+        }
+
+        randomArray(mountainsHeights);
+
+        $("h1").after("<p>¿Cuál es la altura del " + mountain + "?</p>")
+        $("p:last").after("<p>Opción A: " + mountainsHeights[0] + " m </p>");
+        $("p:last").after("<p>Opción B: " + mountainsHeights[1] + " m </p>");
+        $("p:last").after("<p>Opción C: " + mountainsHeights[2] + " m </p>");
+        $("p:last").after("<p>Opción D: " + mountainsHeights[3] + " m </p>");
+    }
+
+    // Algoritmo Fisher-Yates para ordenadar aleatoriamente los elementos del array
+    function randomArray(heights) {
+        for (let i = heights.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1)); // Genera un índice aleatorio entre 0 e i (inclusive)
+            [heights[i], heights[j]] = [heights[j], heights[i]]; // Intercambia los elementos en las posiciones i y j
+        }
+    }
+
+</script>
+</body>

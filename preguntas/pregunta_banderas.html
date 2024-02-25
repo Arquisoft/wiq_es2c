@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>API WikiData</title>
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+</head>
+
+<body>
+<h1>Ejemplo de pregunta usando WikiData</h1>
+<script>
+    // Definir la consulta SPARQL para obtener todos los paises y capitales del mundo
+    const sparqlQuery = `
+    SELECT ?country ?countryLabel ?flag
+    WHERE
+    {
+        ?country wdt:P31 wd:Q6256 .
+        ?country wdt:P41 ?flag.
+        SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],es" }
+    }
+    `;
+
+    // API de Wikidata
+    const apiUrl = 'https://query.wikidata.org/sparql';
+
+    // Utilizo JQuery
+    $.ajax( {
+        url: apiUrl,
+        data: {
+            query: sparqlQuery,
+            format: 'json'
+        },
+        dataType: 'json',
+        type: 'GET',
+    success: function(data) {
+        processData(data);
+    },
+    error: function(error) {
+        console.error('Error al realizar la solicitud:', error);
+    }
+    });
+
+    // Función para procesar los resultados
+    function processData(data) {
+        var flags = data.results.bindings;
+        var randomFlags = [];
+        var flagsCountry = [];
+
+        for(var i=0; i<4; i++) {
+            var pos = Math.floor(Math.random() * flags.length);
+            var countryLabel = flags[pos].countryLabel.value;
+            var flagCountry = flags[pos].flag.value;
+
+            if(!randomFlags.includes(countryLabel) && !flagsCountry.includes(flagCountry)) {
+                randomFlags.push(countryLabel);
+                flagsCountry.push(flagCountry);
+            } else {
+                i--;
+            }
+        }
+
+        var num = Math.floor(Math.random() * 4);
+        var correctFlag = flagsCountry[num];
+        var country = randomFlags[num];
+
+        $("h1").after("<p id='pregunta' >¿Cuál es la bandera de " + country + "?</p>")
+        var imgElement1 = document.createElement("img");
+        imgElement1.src = flagsCountry[0];
+        imgElement1.alt = "Bandera";
+        imgElement1.setAttribute("width", 200);
+        imgElement1.setAttribute("heigth", 200);
+        document.body.appendChild(imgElement1);
+        var imgElement2 = document.createElement("img");
+        imgElement2.src = flagsCountry[1];
+        imgElement2.alt = "Bandera";
+        imgElement2.setAttribute("width", 200);
+        imgElement2.setAttribute("heigth", 200);
+        document.body.appendChild(imgElement2);
+        var imgElement3 = document.createElement("img");
+        imgElement3.src = flagsCountry[2];
+        imgElement3.alt = "Bandera";
+        imgElement3.setAttribute("width", 200);
+        imgElement3.setAttribute("heigth", 200);
+        document.body.appendChild(imgElement3);
+        var imgElement4 = document.createElement("img");
+        imgElement4.src = flagsCountry[3];
+        imgElement4.alt = "Bandera";
+        imgElement4.setAttribute("width", 200);
+        imgElement4.setAttribute("heigth", 200);
+        document.body.appendChild(imgElement4);
+    }
+</script>
+</body>

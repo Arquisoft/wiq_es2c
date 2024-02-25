@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>API WikiData</title>
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+</head>
+
+<body>
+<h1>Ejemplo de pregunta usando WikiData</h1>
+<script>
+    // Definir la consulta SPARQL para obtener todos los paises y capitales del mundo
+    const sparqlQuery = `
+    SELECT ?team ?teamLabel ?field ?fieldLabel
+    WHERE {
+        ?team wdt:P31 wd:Q476028.
+        ?team wdt:P115 ?field. 
+        ?team wdt:P17 wd:Q29.
+        SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],es". }
+    }
+    `;
+
+    // API de Wikidata
+    const apiUrl = 'https://query.wikidata.org/sparql';
+
+    // Utilizo JQuery
+    $.ajax( {
+        url: apiUrl,
+        data: {
+            query: sparqlQuery,
+            format: 'json'
+        },
+        dataType: 'json',
+        type: 'GET',
+    success: function(data) {
+        processData(data);
+    },
+    error: function(error) {
+        console.error('Error al realizar la solicitud:', error);
+    }
+    });
+
+    // Función para procesar los resultados
+    function processData(data) {
+        var teams = data.results.bindings;
+        var randomTeams = [];
+        var teamsFields = [];
+
+        for(var i=0; i<4; i++) {
+            var pos = Math.floor(Math.random() * teams.length);
+            var teamLabel = teams[pos].teamLabel.value;
+            var fieldLabel = teams[pos].fieldLabel.value;
+
+            if((!randomTeams.includes(teamLabel) && !teamsFields.includes(fieldLabel))
+                && !teamLabel.startsWith("Q") && !(fieldLabel.startsWith("Q") || fieldLabel.startsWith("http") )) {
+                randomTeams.push(teamLabel);
+                teamsFields.push(fieldLabel);
+            } else {
+                i--;
+            }
+        }
+
+        var num = Math.floor(Math.random() * 4);
+        var team = randomTeams[num];
+        var field = teamsFields[num];
+
+        $("h1").after("<p>¿En que campo juega el " + team + "?</p>")
+        $("p:last").after("<p>Opción A: " + teamsFields[0] + "</p>");
+        $("p:last").after("<p>Opción B: " + teamsFields[1] + "</p>");
+        $("p:last").after("<p>Opción C: " + teamsFields[2] + "</p>");
+        $("p:last").after("<p>Opción D: " + teamsFields[3] + "</p>");
+    }
+</script>
+</body>
