@@ -82,9 +82,10 @@ A table with quality goals and concrete scenarios, ordered by priorities
 [options="header",cols="1,1"]
 |===
 |Meta| Explicación
-| Adecuación funcional | La aplicación debe proporcionar los servicios requeridos.
-| Mantenibilidad | El sistema debe poder ser modificado fácilmente para por ejemplo, poder añadir nuevos modos de juego o nuevas temáticas.
-| Usabilidad | Al tratarse de un proyecto basado en un concurso de televisión el rango de edades de los usuarios es amplio, por lo que es importante que sea sencillo su uso y aprendizaje.
+| Usabilidad | Nuestra aplicación tiene que ser fácil de usar para todos los tipos de usuario, incluso para uno sin experiencia. Las vistas deben ser claras e intuitivas, y el usuario tiene que poder navegar con fluidez por toda la aplicación. Además, se deben implementar los mecanismos necesarios para facilitar el uso de la aplicación por parte de los usuarios.
+| Mantenibilidad | El sistema debe poder ser modificado fácilmente para por ejemplo, poder añadir nuevos modos de juego o nuevas temáticas. Para esto será necesaria también una documentacion clara y completa.
+| Estabilidad | Nuestra aplicacion debe asegurar estabilidad, ya que se tratará de un juego con preguntas extraidas y respondidas en tiempo real, por lo que necesitamos que sea resistente a posibles fallos y caidas.
+| Testeabilidad | La solicitud debería poder pasar por diferentes pruebas y completarlas con éxito. Además, la aplicación debe estar preparada para todos tipos de usos lógicos por parte del usuario.
 |===
 
 === Stakeholders
