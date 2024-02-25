@@ -33,6 +33,10 @@ const Login = () => {
     setOpenSnackbar(false);
   };
 
+  const handleStartGame = () => {
+    console.log('Starting game...');
+  };
+
   return (
     <Container component="main" maxWidth="xs" sx={{ marginTop: 4 }}>
       {loginSuccess ? (
@@ -43,6 +47,9 @@ const Login = () => {
           <Typography component="p" variant="body1" sx={{ textAlign: 'center', marginTop: 2 }}>
             Your account was created on {new Date(createdAt).toLocaleDateString()}.
           </Typography>
+          <Button variant="contained" color="primary" onClick={handleStartGame} fullWidth>
+            Start Game
+          </Button>
         </div>
       ) : (
         <div>

@@ -6,6 +6,7 @@ const promBundle = require('express-prom-bundle');
 const app = express();
 const port = 8000;
 
+const generatorUrl = process.env.GENERATOR_SERVICE_URL || 'http://localhost:8003';
 const authServiceUrl = process.env.AUTH_SERVICE_URL || 'http://localhost:8002';
 const userServiceUrl = process.env.USER_SERVICE_URL || 'http://localhost:8001';
 
@@ -35,6 +36,24 @@ app.post('/adduser', async (req, res) => {
   try {
     // Forward the add user request to the user service
     const userResponse = await axios.post(userServiceUrl+'/adduser', req.body);
+    res.json(userResponse.data);
+  } catch (error) {
+    res.status(error.response.status).json({ error: error.response.data.error });
+  }
+});
+
+app.get('/question', async (req, res) => {
+  try {
+    const userResponse = await axios.get(generatorUrl+'/question', req.body);
+    res.json(userResponse.data);
+  } catch (error) {
+    res.status(error.response.status).json({ error: error.response.data.error });
+  }
+});
+
+app.post('/answer', async (req, res) => {
+  try {
+    const userResponse = await axios.get(generatorUrl+'/answer', req.body);
     res.json(userResponse.data);
   } catch (error) {
     res.status(error.response.status).json({ error: error.response.data.error });
