@@ -1,63 +1,109 @@
-const express = require('express');
-const mongoose = require('mongoose');
-const bcrypt = require('bcrypt');
-const bodyParser = require('body-parser');
-const Question = require('./Question');
+import {useEffect, useState} from 'React';
 
-const app = express();
-const port = 8003;
+const WikiDataService = () =>{
 
-app.use(bodyParser.json());
+    const [questionData, setQuestionData] = useState(null);
 
-// Connect to MongoDB
-const mongoUri = process.env.MONGODB_URI || 'mongodb://localhost:27017/userdb';
-mongoose.connect(mongoUri);
+    useEffect(() => {
 
-let preguntaActual = null; 
+        const fecthQuestionData = async () => {
 
-// Ruta para el endpoint questiongenerator
-app.get('/question', async (req, res) => {
-    try {
-        const pregunta = new Question();
-        await pregunta.generarPregunta();
-        
-        // Almacenamos la pregunta generada para accederla posteriormente
-        preguntaActual = pregunta;
+            try{
 
-        // Enviamos la pregunta y las opciones al cliente
-        res.json({
-            question: pregunta.question,
-            options: pregunta.options
-        });
-    } catch (error) {
-        console.error('Error al generar la pregunta:', error);
-        res.status(500).json({ error: 'Error al generar la pregunta' });
-    }
-});
+                const query = 'SELECT ?country ?countryLabel ?capital ?capitalLabel ' +
+                    'WHERE {' +
+                    '?country wdt:P31 wd:Q6256. ' +
+                             'wdt:P36 ?capital.' +
+                    'SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],es". }' +
+                    '}';
 
-// Ruta para manejar las respuestas de los usuarios
-app.post('/answer', (req, res) => {
-    const { answer } = req.body;
+                const api='https://query.wikidata.org/sparql';
 
-    if (!preguntaActual) {
-        return res.status(400).json({ error: 'No hay pregunta actual para responder' });
-    }
+                const response = await fetch(`${api}?query=~{encodeURIComponent(query)}&format=json`)
 
-    
-    res.json({ message: 'Respuesta recibida exitosamente' });
-});
+                if (!response.ok) {
+                    throw new Error('Error al realizar la solicitud');
+                }
+
+                const data = await response.json();
+
+            }catch(error){
+                console.error('Error al realizar la solicitud:', error);
+            }
+
+        };
+
+        const processData = (data) => {
+
+            const countries = data.result.bindings;
+            const randomCountries = [];
+            const capitals = [];
+
+            for(var i=0; i<4; i++) {
+                var pos = Math.floor(Math.random() * teams.length);
+                var teamLabel = teams[pos].teamLabel.value;
+                var fieldLabel = teams[pos].fieldLabel.value;
+
+                if((!randomTeams.includes(teamLabel) && !teamsFields.includes(fieldLabel))
+                    && !teamLabel.startsWith("Q") && !(fieldLabel.startsWith("Q") || fieldLabel.startsWith("http") )) {
+                    randomTeams.push(teamLabel);
+                    teamsFields.push(fieldLabel);
+                } else {
+                    i--;
+                }
+            }
+
+            var num = Math.floor(Math.random() * 4);
+            var country = randomCountries[num];
+            var capital = capitals[num];
+
+            setQuestionData({
+
+                question: `¿Cuál es la capital de ${country}?`,
+                answers: fields,
+                correctAnswer: capital
 
 
-// Start the server
-const server = app.listen(port, () => {
-    console.log(`Auth Service listening at http://localhost:${port}`);
-  });
-  
-server.on('close', () => {
-    // Close the Mongoose connection
-    mongoose.connection.close();
-});
+            });
 
-module.exports = server
-  
+        }
+
+        const saveData = () => {
+            try {
+
+
+                const mongoUri = process.env.MONGODB_URI || 'mongodb://localhost:27017/userdb';
+                mongoose.connect(mongoUri);
+
+                var fields = questionData.answers;
+                var correct_answer = questionData.correctAnswer;
+                var false_options = [];
+                for (var i = 0; i < 4; i++) {
+                    if (fields[i] != correct_answer) {
+                        false_options[i] = fiels[i];
+                    }
+                }
+
+                const newQuestion = new Question({
+                    enunciado: questionData.question,
+                    respuesta_correcta: correct_answer,
+                    respuesta_falsa1: false_options[0],
+                    respuesta_falsa2: false_options[1],
+                    respuesta_falsa3: false_options[2]
+                });
+
+                newQuestion.save();
+            }catch (error) {
+                console.error('Error en el guardado de datos:', error);
+            }
+        }
+
+        fecthQuestionData();
+
+    }, []);
+
+    return questionData;
+};
+
+export default WikiDataService;
   
