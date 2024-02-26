@@ -1,33 +1,29 @@
 ifndef::imagesdir[:imagesdir: ../images]
 
 [[section-solution-strategy]]
-== Solution Strategy
+== Estrategia de solución
 
 
 [role="arc42help"]
 ****
-.Contents
-A short summary and explanation of the fundamental decisions and solution strategies, that shape system architecture. It includes
+.Decisiones tecnologicas
 
-* technology decisions
-* decisions about the top-level decomposition of the system, e.g. usage of an architectural pattern or design pattern
-* decisions on how to achieve key quality goals
-* relevant organizational decisions, e.g. selecting a development process or delegating certain tasks to third parties.
-
-.Motivation
-These decisions form the cornerstones for your architecture. They are the foundation for many other detailed decisions or implementation rules.
-
-.Form
-Keep the explanations of such key decisions short.
-
-Motivate what was decided and why it was decided that way,
-based upon problem statement, quality goals and key constraints.
-Refer to details in the following sections.
+* React: biblioteca de JavaScript que usaremos para implementar la interfaz gráfica. Su principal ventaja es que utiliza un enfoque basado en componentes, lo que significa que las interfaces de usuario se dividen en componentes reutilizables que encapsulan el estado y el comportamiento. 
+* Docker: unidad de software que utilizaremos para ejecutar la aplicación de manera aislada de otros procesos del sistema mediante el concepto de imágenes, que son plantillas de solo lectura que contienen el sistema operativo, las herramientas, las bibliotecas y el código fuente de una aplicación. 
+* JavaScript: lenguaje de programacion elegido por ser un lenguaje dinámico y flexible, muy común en la programacion web y multiplataforma.
+* Node.js: entorno de ejecución de JavaScript elegido por su rendimiento y velocidad, lo que lo hace ideal para aplicaciones en tiempo real como juegos.
+* Github Desktop: utilizado por algunos miembros del equipo como Github IDE.
+* Wikidata: base de datos colaborativa y abierta que usaremos para extraer las preguntas para nuestro juego.
+* MongoDB: base de datos no relacional, basada en un modelo de datos de documentos JSON, lo que nos facilitará la evolución del esquema sin requerir una estructura fija como en las bases de datos relacionales tradicionales.
 
 
-.Further Information
 
-See https://docs.arc42.org/section-4/[Solution Strategy] in the arc42 documentation.
+.¿Cómo se van a alcanzar los objetivos de calidad?
+* Usabilidad: nuestras interfaces serán intuitivas y fáciles de usar para cualquier persona gracias al framework React.
+* Mantenibilidad: la aplicación sera facilmente adaptable gracias a nuestro enfoque por componentes, lo que nos permitirá tener un código poco acoplado y con mucha cohesión.
+* Eficiencia: la conexión con la base de datos y Wikidata para extraer las preguntas será rápida para mantener la atención de los usuarios.
+* Estabilidad: nuestra apicacion será resistente a caidas y fallos para poder permitir una buena experiencia de juego.
+* Testeabilidad: el equipo testeará la aplicacion manual y automaticamente mediante pruebas de obertura, pruebas de aceptación (e2e) y pruebas de carga.
 
 ****
 
