@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>API WikiData</title>
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+</head>
+
+<body>
+<h1>Ejemplo de pregunta usando WikiData</h1>
+<script>
+    // Definir la consulta SPARQL para obtener todos los paises y capitales del mundo
+    const sparqlQuery = `
+    SELECT ?dog ?dogLabel ?pic
+    WHERE
+    {
+        ?dog wdt:P31 wd:Q38672.
+        ?dog wdt:P18 ?pic.
+        SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],es" }
+    } 
+    `;
+
+    // API de Wikidata
+    const apiUrl = 'https://query.wikidata.org/sparql';
+
+    // Utilizo JQuery
+    $.ajax( {
+        url: apiUrl,
+        data: {
+            query: sparqlQuery,
+            format: 'json'
+        },
+        dataType: 'json',
+        type: 'GET',
+    success: function(data) {
+        processData(data);
+    },
+    error: function(error) {
+        console.error('Error al realizar la solicitud:', error);
+    }
+    });
+
+    // Función para procesar los resultados
+    function processData(data) {
+        var dogs = data.results.bindings;
+        var randomDogs = [];
+        var dogsPic = [];
+
+        for(var i=0; i<4; i++) {
+            var pos = Math.floor(Math.random() * dogs.length);
+            var paintingLabel = dogs[pos].dogLabel.value;
+            var paintingPic = dogs[pos].pic.value;
+
+            if(!randomDogs.includes(paintingLabel) && !dogsPic.includes(paintingPic)) {
+                randomDogs.push(paintingLabel);
+                dogsPic.push(paintingPic);
+            } else {
+                i--;
+            }
+        }
+
+        var num = Math.floor(Math.random() * 4);
+        var correctDog = dogsPic[num];
+        var dog = randomDogs[num];
+
+        $("h1").after("<p id='pregunta' >¿Qué imagenen se corresponde con un \"" + dog + "\"?</p>")
+        var imgElement1 = document.createElement("img");
+        imgElement1.src = dogsPic[0];
+        imgElement1.alt = "Bandera";
+        imgElement1.setAttribute("width", 200);
+        imgElement1.setAttribute("heigth", 200);
+        document.body.appendChild(imgElement1);
+        var imgElement2 = document.createElement("img");
+        imgElement2.src = dogsPic[1];
+        imgElement2.alt = "Bandera";
+        imgElement2.setAttribute("width", 200);
+        imgElement2.setAttribute("heigth", 200);
+        document.body.appendChild(imgElement2);
+        var imgElement3 = document.createElement("img");
+        imgElement3.src = dogsPic[2];
+        imgElement3.alt = "Bandera";
+        imgElement3.setAttribute("width", 200);
+        imgElement3.setAttribute("heigth", 200);
+        document.body.appendChild(imgElement3);
+        var imgElement4 = document.createElement("img");
+        imgElement4.src = dogsPic[3];
+        imgElement4.alt = "Bandera";
+        imgElement4.setAttribute("width", 200);
+        imgElement4.setAttribute("heigth", 200);
+        document.body.appendChild(imgElement4);
+    }
+</script>
+</body>
