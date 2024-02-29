@@ -1,10 +1,18 @@
 import React, { useState } from 'react';
-import { Container, Typography, Button, Box, ImageIcon } from '@mui/material';
+import { Container, Typography, Button, Box } from '@mui/material';
 import { useUser } from './UserContext';
+import { useNavigate } from 'react-router-dom';
+
 
 const PantallaInicio = () => {
     
     const { usernameGlobal } = useUser();
+
+    const navigate = useNavigate();
+
+    function nuevaPartida() {
+        navigate("/Partida")
+    }
 
     return (
         <Container component="main" maxWidth="xl"
@@ -16,7 +24,7 @@ const PantallaInicio = () => {
                 flexDirection: 'column',
                 justifyContent: 'center',
                 alignItems: 'center',
-                height: '95vh' // Añadir bordes redondeados
+                height: '95vh' 
             }}>
 
             <Box sx={{
@@ -46,7 +54,8 @@ const PantallaInicio = () => {
                     ¡BIENVENIDO A WIQ  {usernameGlobal}!
                 </Typography>
 
-                <Button variant="contained" color="primary" align="center" justifySelf = 'center' sx={{ marginTop: 4, backgroundColor: '#FCF5B8',  color: '#413C3C',  fontWeight: 'bold' }}>
+                <Button variant="contained" color="primary" align="center" justifySelf = 'center' sx={{ marginTop: 4, backgroundColor: '#FCF5B8',  color: '#413C3C',  fontWeight: 'bold' }}
+                    onClick={nuevaPartida}>
                     NUEVA PARTIDA
                 </Button>
             </Box>

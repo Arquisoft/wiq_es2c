@@ -6,17 +6,16 @@ import reportWebVitals from './reportWebVitals';
 import { UserProvider } from './components/UserContext';
 
 import {
-  createBrowserRouter,
-  RouterProvider,
   Route,
   Routes,
-  useNavigate,
   MemoryRouter
   as Router
 } from "react-router-dom";
 
 import PantallaInicio from './components/PantallaInicio';
- 
+import Partida from './components/Partida';
+
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
@@ -25,6 +24,7 @@ root.render(
         <Routes>
           <Route path="/" element={<App/>}></Route>
           <Route path="/PantallaInicio" element={<PantallaInicio/>}></Route>
+          <Route path="/Partida" element={<Partida/>}></Route>
         </Routes>
       </Router>
     </UserProvider>
