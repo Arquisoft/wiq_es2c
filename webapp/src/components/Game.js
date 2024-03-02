@@ -21,7 +21,7 @@ const Game = () => {
   const getQuestion = async () => {
     try {
       //const response = await axios.get(`${apiEndpoint}/question`);
-      questionClass.generarPregunta();
+      await questionClass.generarPregunta();
       setQuestion(questionClass.question);
       setOptions(questionClass.options);
       setCorrectOption(questionClass.correctOption);

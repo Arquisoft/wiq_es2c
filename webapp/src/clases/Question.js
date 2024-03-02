@@ -2,6 +2,7 @@ import axios from 'axios';
 
 class Question {
     constructor() {
+        this.alreadyExecuted = false;
         this.correctOption = "";
         this.options = [];
         this.question = "";
@@ -23,7 +24,10 @@ class Question {
                     format: 'json'
                 }
             });
-            this.procesarDatos(response.data);
+            if(!this.alreadyExecuted) {
+                this.procesarDatos(response.data);
+                this.alreadyExecuted = true;
+            }
         } catch (error) {
             console.error('Error al realizar la solicitud:', error);
             throw new Error('Error al obtener datos');
