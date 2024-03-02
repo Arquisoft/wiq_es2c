@@ -11,6 +11,7 @@ const Login = () => {
   const [loginSuccess, setLoginSuccess] = useState(false);
   const [createdAt, setCreatedAt] = useState('');
   const [openSnackbar, setOpenSnackbar] = useState(false);
+  const [showGame, setShowGame] = useState(false);
 
   const apiEndpoint = process.env.REACT_APP_API_ENDPOINT || 'http://localhost:8000';
 
@@ -35,7 +36,7 @@ const Login = () => {
   };
 
   const handleStartGame = () => {
-    <Game/>
+    setShowGame(true);
   };
 
   return (
@@ -51,6 +52,7 @@ const Login = () => {
           <Button variant="contained" color="primary" onClick={handleStartGame} fullWidth>
             Start Game
           </Button>
+          {showGame && <Game />}
         </div>
       ) : (
         <div>
