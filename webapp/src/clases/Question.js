@@ -47,8 +47,9 @@ class Question {
 
         // Escogemos un índice aleatorio como la opción correcta
         const correctIndex = Math.floor(Math.random() * 4);
-        this.correctOption = countries[randomIndexes[correctIndex]].countryLabel.value;
-        this.question = `¿Cuál es la capital de ${this.correctOption}?`;
+        this.country = countries[randomIndexes[correctIndex]].countryLabel.value;
+        this.correctOption = countries[randomIndexes[correctIndex]].capitalLabel.value;
+        this.question = `¿Cuál es la capital de ${this.country}?`;
 
         // Construimos las opciones, incluyendo la correcta
         for (let i = 0; i < 4; i++) {

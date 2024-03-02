@@ -33,7 +33,10 @@ const Game = () => {
   const handleOptionClick = (option) => {
     setSelectedOption(option);
     setOpenSnackbar(true);
-    alert('Click');    
+    if(correctOption === option)
+      alert("Correcta");
+    else 
+      alert("Incorrecta");
   };
 
   const handleCloseSnackbar = () => {
