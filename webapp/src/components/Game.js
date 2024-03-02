@@ -5,8 +5,10 @@ import { Container, Typography, Button, Snackbar } from '@mui/material';
 const apiEndpoint = process.env.REACT_APP_API_ENDPOINT || 'http://localhost:8000';
 
 const Game = () => {
+  const [questionClass, setQuestionClass] = useState(new Question());
   const [question, setQuestion] = useState('');
   const [options, setOptions] = useState([]);
+  const [correctOption, setCorrectOption] = useState("");
   const [error, setError] = useState('');
   const [selectedOption, setSelectedOption] = useState('');
   const [openSnackbar, setOpenSnackbar] = useState(false);
@@ -18,10 +20,10 @@ const Game = () => {
   const getQuestion = async () => {
     try {
       const response = await axios.get(`${apiEndpoint}/question`);
-      alert('2');
-      alert(response.data.question);
-      setQuestion(response.data.question);
-      setOptions(response.data.options);
+      questionClass.generarPregunta();
+      setQuestion(questionClass.question);
+      setOptions(questionClass.options);
+      setCorrectOption(questionClass.correctOption);
     } catch (error) {
       setError('Error fetching question');
     }

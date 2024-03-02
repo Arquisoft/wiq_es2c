@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { Container, Typography, TextField, Button, Snackbar } from '@mui/material';
+import GameQuestions from "./Game";
 
 const Login = () => {
   const [username, setUsername] = useState('');
@@ -34,7 +35,7 @@ const Login = () => {
   };
 
   const handleStartGame = () => {
-    console.log('Starting game...');
+    <Game/>
   };
 
   return (
