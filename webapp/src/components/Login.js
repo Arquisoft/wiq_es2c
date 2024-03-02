@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { Container, Typography, TextField, Button, Snackbar } from '@mui/material';
+import Game from "./Game";
 
 const Login = () => {
   const [username, setUsername] = useState('');
@@ -33,6 +34,10 @@ const Login = () => {
     setOpenSnackbar(false);
   };
 
+  const handleStartGame = () => {
+    <Game/>
+  };
+
   return (
     <Container component="main" maxWidth="xs" sx={{ marginTop: 4 }}>
       {loginSuccess ? (
@@ -43,6 +48,9 @@ const Login = () => {
           <Typography component="p" variant="body1" sx={{ textAlign: 'center', marginTop: 2 }}>
             Your account was created on {new Date(createdAt).toLocaleDateString()}.
           </Typography>
+          <Button variant="contained" color="primary" onClick={handleStartGame} fullWidth>
+            Start Game
+          </Button>
         </div>
       ) : (
         <div>
