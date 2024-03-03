@@ -1,5 +1,3 @@
-import {useEffect, useState} from 'react';
-
 const WikiDataService = () =>{
 
     const [questionData, setQuestionData] = useState(null);

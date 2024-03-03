@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+// import axios from 'axios';
 import { Container, Typography, Button, Snackbar } from '@mui/material';
 import Question from "../clases/Question";
 
-const apiEndpoint = process.env.REACT_APP_API_ENDPOINT || 'http://localhost:8000';
+// Las líneas comentadas son de las pruebas para llamar al microservicio del generador de preguntas
+
+const apiEndpoint = 'http://localhost:8003';
 
 const Game = () => {
   const [questionClass, setQuestionClass] = useState(new Question());
@@ -13,6 +15,7 @@ const Game = () => {
   const [error, setError] = useState('');
   const [selectedOption, setSelectedOption] = useState('');
   const [openSnackbar, setOpenSnackbar] = useState(false);
+  const [alreadyExecuted, setAlreadyExecuted] = useState(false);
 
   useEffect(() => {
     getQuestion();
@@ -29,6 +32,21 @@ const Game = () => {
       setError('Error fetching question');
     }
   };
+
+  // const getQuestion = async () => {
+  //   try {
+  //     if(!alreadyExecuted) {
+  //       const response = await axios.post(`${apiEndpoint}/generateQuestion`, { });
+  //       setQuestion(response.data.responseQuestion);
+  //       setOptions(response.data.responseOptions);
+  //       setCorrectOption(response.data.responseCorrectOption);
+  //       setOpenSnackbar(true);
+  //       setAlreadyExecuted(true);
+  //     }
+  //   } catch (error) {
+  //     setError(error.response.data.error);
+  //   }
+  // }
 
   const handleOptionClick = (option) => {
     setSelectedOption(option);

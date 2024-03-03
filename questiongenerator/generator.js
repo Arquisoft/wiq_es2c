@@ -103,5 +103,3 @@ const WikiDataService = () =>{
 
     return questionData;
 };
-
-export default WikiDataService;
