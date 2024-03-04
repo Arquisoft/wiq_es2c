@@ -1,28 +1,28 @@
 ifndef::imagesdir[:imagesdir: ../images]
 
 [[section-architecture-constraints]]
-== Architecture Constraints
+== Restricciones de arquitectura
 
 
 [role="arc42help"]
 ****
-.Contents
-Any requirement that constraints software architects in their freedom of design and implementation decisions or decision about the development process. These constraints sometimes go beyond individual systems and are valid for whole organizations and companies.
+.Contenido
+Cualquier requisito que limite a los arquitectos de software en su libertad de diseño e implementación de decisiones o decisiones sobre el proceso de desarrollo. Estas limitaciones a veces van más allá de los sistemas individuales y son válidas para organizaciones y empresas enteras.
 
-.Motivation
-Architects should know exactly where they are free in their design decisions and where they must adhere to constraints.
-Constraints must always be dealt with; they may be negotiable, though.
+.Motivación
+Los arquitectos deben saber exactamente dónde tienen libertad en sus decisiones de diseño y dónde deben cumplir restricciones.
+Siempre hay que abordar las limitaciones; Sin embargo, pueden ser negociables.
 
-.Form
-Simple tables of constraints with explanations.
-If needed you can subdivide them into
-technical constraints, organizational and political constraints and
-conventions (e.g. programming or versioning guidelines, documentation or naming conventions)
+.Forma
+Tablas simples de restricciones con explicaciones.
+Si es necesario, puedes subdividirlos en
+limitaciones técnicas, limitaciones organizativas y políticas y
+convenciones (por ejemplo, pautas de programación o control de versiones, documentación o convenciones de nomenclatura)
 
 
-.Further Information
+.Más información
 
-See https://docs.arc42.org/section-2/[Architecture Constraints] in the arc42 documentation.
+Consulte https://docs.arc42.org/section-2/[Architecture Restriints] en la documentación de arc42.
 
 ****
 
