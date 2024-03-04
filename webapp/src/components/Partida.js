@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Container, Typography, Button, Box } from '@mui/material';
 import { useUser } from './UserContext';
+import Game from "./Game";
 
 const Partida = () => {
     
@@ -18,6 +19,7 @@ const Partida = () => {
                 alignItems: 'center',
                 height: '95vh' 
             }}>
+            {<Game />}
         </Container>
     );
 };

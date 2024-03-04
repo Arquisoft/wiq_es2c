@@ -11,6 +11,20 @@ services:
     networks:
       - mynetwork
 
+  generatorservice:
+    container_name: generatorservice-${teamname:-defaultASW}
+    image: ghcr.io/arquisoft/wiq_es2c/generatorservice:latest
+    profiles: ["dev", "prod"]
+    build: ./questiongenerator
+    depends_on:
+      - mongodb
+    ports:
+      - "8003:8003"
+    networks:
+      - mynetwork
+    environment:
+      MONGODB_URI: mongodb://mongodb:27017/userdb
+
   authservice:
     container_name: authservice-${teamname:-defaultASW}
     image: ghcr.io/arquisoft/wiq_es2c/authservice:latest
@@ -48,11 +62,13 @@ services:
       - mongodb
       - userservice
       - authservice
+      - generatorservice
     ports:
       - "8000:8000"
     networks:
       - mynetwork
     environment:
+      GENERATOR_SERVICE_URL: http://userservice:8003
       AUTH_SERVICE_URL: http://authservice:8002
       USER_SERVICE_URL: http://userservice:8001
 

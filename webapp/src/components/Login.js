@@ -3,9 +3,8 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { Container, Typography, TextField, Button, Snackbar } from '@mui/material';
+import Game from "./Game";
 import { useUser } from './UserContext';
-
-
 
 const Login = () => {
   const [username, setUsername] = useState('');
@@ -14,7 +13,7 @@ const Login = () => {
   const [loginSuccess, setLoginSuccess] = useState(false);
   const [createdAt, setCreatedAt] = useState('');
   const [openSnackbar, setOpenSnackbar] = useState(false);
-
+  
   const navigate = useNavigate();
 
   const apiEndpoint = process.env.REACT_APP_API_ENDPOINT || 'http://localhost:8000';
@@ -48,6 +47,15 @@ const Login = () => {
         navigate("/PantallaInicio")
       ) : (
         <div>
+          <Typography component="h1" variant="h5" sx={{ textAlign: 'center' }}>
+            Hello {username}!
+          </Typography>
+          <Typography component="p" variant="body1" sx={{ textAlign: 'center', marginTop: 2 }}>
+            Your account was created on {new Date(createdAt).toLocaleDateString()}.
+          </Typography>
+        </div>
+        )}
+        <div>
           <Typography component="h1" variant="h5">
             Login
           </Typography>
@@ -74,8 +82,7 @@ const Login = () => {
             <Snackbar open={!!error} autoHideDuration={6000} onClose={() => setError('')} message={`Error: ${error}`} />
           )}
         </div>
-      )}
-    </Container>
+      </Container>
   );
 };
 
