@@ -1,18 +1,18 @@
 ifndef::imagesdir[:imagesdir: ../images]
 
 [[section-introduction-and-goals]]
-== Introduction and Goals
+== Introducción y objetivos
 
 [role="arc42help"]
 ****
-Describes the relevant requirements and the driving forces that software architects and development team must consider.
-These include
+Describe los requisitos relevantes y las fuerzas impulsoras que los arquitectos de software y el equipo de desarrollo deben considerar.
+Éstas incluyen
 
-* underlying business goals,
-* essential features,
-* essential functional requirements,
-* quality goals for the architecture and
-* relevant stakeholders and their expectations
+* objetivos comerciales subyacentes,
+* características esenciales,
+* requisitos funcionales esenciales,
+* objetivos de calidad para la arquitectura y
+* partes interesadas relevantes y sus expectativas
 ****
 
 El proyecto WIQ es una iniciativa llevada a cabo en la Universidad de Oviedo, bajo la solicitud de la empresa de desarrollo de software HappySaw y contratada por RTVE con el propósito de desarrollar una versión web del concurso “Saber y Ganar.
@@ -30,25 +30,25 @@ WIQ es una aplicación web que presentará un juego de preguntas y respuestas en
 
 [role="arc42help"]
 ****
-.Contents
-Short description of the functional requirements, driving forces, extract (or abstract)
-of requirements. Link to (hopefully existing) requirements documents
-(with version number and information where to find it).
+.Contenido
+Breve descripción de los requisitos funcionales, fuerzas impulsoras, extracto (o resumen)
+de requisitos. Enlace a documentos de requisitos (con suerte existentes)
+(con número de versión e información de dónde encontrarlo).
 
-.Motivation
-From the point of view of the end users a system is created or modified to
-improve support of a business activity and/or improve the quality.
+.Motivación
+Desde el punto de vista de los usuarios finales, un sistema se crea o modifica para
+mejorar el soporte de una actividad empresarial y/o mejorar la calidad.
 
-.Form
-Short textual description, probably in tabular use-case format.
-If requirements documents exist this overview should refer to these documents.
+.Forma
+Breve descripción textual, probablemente en formato tabular de casos de uso.
+Si existen documentos de requisitos, esta descripción general debe hacer referencia a estos documentos.
 
-Keep these excerpts as short as possible. Balance readability of this document with potential redundancy w.r.t to requirements documents.
+Mantenga estos extractos lo más breves posible. Equilibra la legibilidad de este documento con la posible redundancia en relación con los documentos de requisitos.
 
 
-.Further Information
+.Más información
 
-See https://docs.arc42.org/section-1/[Introduction and Goals] in the arc42 documentation.
+Consulte https://docs.arc42.org/section-1/[Introducción y objetivos] en la documentación de arc42.
 
 ****
 * Los usuarios deberán registrarse para poder jugar o bien iniciar sesión si ya se han registrado previamente.
@@ -61,22 +61,22 @@ See https://docs.arc42.org/section-1/[Introduction and Goals] in the arc42 docum
 
 [role="arc42help"]
 ****
-.Contents
-The top three (max five) quality goals for the architecture whose fulfillment is of highest importance to the major stakeholders.
-We really mean quality goals for the architecture. Don't confuse them with project goals.
-They are not necessarily identical.
+.Contenido
+Los tres principales (máximo cinco) objetivos de calidad para la arquitectura cuyo cumplimiento es de mayor importancia para las principales partes interesadas.
+Realmente nos referimos a objetivos de calidad para la arquitectura. No los confunda con los objetivos del proyecto.
+No son necesariamente idénticos.
 
-Consider this overview of potential topics (based upon the ISO 25010 standard):
+Considere esta descripción general de temas potenciales (basada en la norma ISO 25010):
 
-image::01_2_iso-25010-topics-EN.drawio.png["Categories of Quality Requirements"]
+image::01_2_iso-25010-topics-ES.drawio.png["Categorías de requisitos de calidad"]
 
-.Motivation
-You should know the quality goals of your most important stakeholders, since they will influence fundamental architectural decisions.
-Make sure to be very concrete about these qualities, avoid buzzwords.
-If you as an architect do not know how the quality of your work will be judged...
+.Motivación
+Debe conocer los objetivos de calidad de sus partes interesadas más importantes, ya que influirán en las decisiones arquitectónicas fundamentales.
+Asegúrate de ser muy concreto acerca de estas cualidades, evita las palabras de moda.
+Si usted como arquitecto no sabe cómo se juzgará la calidad de su trabajo...
 
-.Form
-A table with quality goals and concrete scenarios, ordered by priorities
+.Forma
+Una tabla con objetivos de calidad y escenarios concretos, ordenados por prioridades
 ****
 
 [options="header",cols="1,1"]
@@ -92,22 +92,22 @@ A table with quality goals and concrete scenarios, ordered by priorities
 
 [role="arc42help"]
 ****
-.Contents
-Explicit overview of stakeholders of the system, i.e. all person, roles or organizations that
+.Contenido
+Descripción general explícita de las partes interesadas del sistema, es decir, todas las personas, roles u organizaciones que
 
-* should know the architecture
-* have to be convinced of the architecture
-* have to work with the architecture or with code
-* need the documentation of the architecture for their work
-* have to come up with decisions about the system or its development
+*debe conocer la arquitectura
+* hay que estar convencido de la arquitectura
+* tener que trabajar con la arquitectura o con el código
+*necesita la documentación de la arquitectura para su trabajo
+* tener que tomar decisiones sobre el sistema o su desarrollo
 
-.Motivation
-You should know all parties involved in development of the system or affected by the system.
-Otherwise, you may get nasty surprises later in the development process.
-These stakeholders determine the extent and the level of detail of your work and its results.
+.Motivación
+Debe conocer a todas las partes involucradas en el desarrollo del sistema o afectadas por el sistema.
+De lo contrario, puede que te lleves sorpresas desagradables más adelante en el proceso de desarrollo.
+Estas partes interesadas determinan el alcance y el nivel de detalle de su trabajo y sus resultados.
 
-.Form
-Table with role names, person names, and their expectations with respect to the architecture and its documentation.
+.Forma
+Tabla con nombres de roles, nombres de personas y sus expectativas con respecto a la arquitectura y su documentación.
 ****
 
 [options="header",cols="1,2,2"]
