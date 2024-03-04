@@ -45,6 +45,8 @@ image:3_BusinessContext.png[Diagram]
 |Realización de búsquedas y registro de información asociada relacionados con el sistema
 |Cualquier dato que haya sido almacenado perteneciente al sistema
 
+|===
+
 ****
 
 image:3_BusinessContext.png[Diagram]
