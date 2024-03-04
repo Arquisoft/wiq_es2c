@@ -15,6 +15,7 @@ import {
 
 import PantallaInicio from './components/PantallaInicio';
 import Partida from './components/Partida';
+import Login from './components/Login';
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
