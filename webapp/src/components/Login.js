@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { Container, Typography, TextField, Button, Snackbar } from '@mui/material';
+import Game from "./Game";
 import { useUser } from './UserContext';
 
 const Login = () => {
@@ -44,7 +45,7 @@ const Login = () => {
       {loginSuccess ? (
         setUsernameGlobal(username),
         navigate("/PantallaInicio")
-      ): (
+      ) : (
         <div>
           <Typography component="h1" variant="h5" sx={{ textAlign: 'center' }}>
             Hello {username}!
@@ -53,7 +54,7 @@ const Login = () => {
             Your account was created on {new Date(createdAt).toLocaleDateString()}.
           </Typography>
         </div>
-      )}
+        )}
         <div>
           <Typography component="h1" variant="h5">
             Login
@@ -81,7 +82,7 @@ const Login = () => {
             <Snackbar open={!!error} autoHideDuration={6000} onClose={() => setError('')} message={`Error: ${error}`} />
           )}
         </div>
-    </Container>
+      </Container>
   );
 };
 
