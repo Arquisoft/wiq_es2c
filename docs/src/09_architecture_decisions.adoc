@@ -40,6 +40,7 @@ Durante el desarrollo de la aplicación, va a ser necesario abordar problemas a 
 |Proporciona una estructura clara y completa para documentar la arquitectura de software, facilitando la comprensión y la comunicación entre los equipos de desarrollo.
 |Puede resultar demasiado detallada y compleja para proyectos pequeños o simples.
 
+|===
 
 ****
 

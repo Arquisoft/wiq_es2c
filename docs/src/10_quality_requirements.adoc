@@ -48,4 +48,6 @@ image:QUALITY REQUIREMENTS.png[Diagram]
 |Testeabilidad
 |La solicitud debería poder pasar por diferentes pruebas y completarlas con éxito. Además, la aplicación debe estar preparada para todo tipo de usos lógicos por parte del usuario.
 |Medio-bajo
+
+|===
 ****
