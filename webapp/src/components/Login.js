@@ -1,7 +1,11 @@
 // src/components/Login.js
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { Container, Typography, TextField, Button, Snackbar } from '@mui/material';
+import { useUser } from './UserContext';
+
+
 
 const Login = () => {
   const [username, setUsername] = useState('');
@@ -11,7 +15,11 @@ const Login = () => {
   const [createdAt, setCreatedAt] = useState('');
   const [openSnackbar, setOpenSnackbar] = useState(false);
 
+  const navigate = useNavigate();
+
   const apiEndpoint = process.env.REACT_APP_API_ENDPOINT || 'http://localhost:8000';
+
+  const { setUsernameGlobal } = useUser();
 
   const loginUser = async () => {
     try {
@@ -36,14 +44,8 @@ const Login = () => {
   return (
     <Container component="main" maxWidth="xs" sx={{ marginTop: 4 }}>
       {loginSuccess ? (
-        <div>
-          <Typography component="h1" variant="h5" sx={{ textAlign: 'center' }}>
-            Hello {username}!
-          </Typography>
-          <Typography component="p" variant="body1" sx={{ textAlign: 'center', marginTop: 2 }}>
-            Your account was created on {new Date(createdAt).toLocaleDateString()}.
-          </Typography>
-        </div>
+        setUsernameGlobal(username),
+        navigate("/PantallaInicio")
       ) : (
         <div>
           <Typography component="h1" variant="h5">
