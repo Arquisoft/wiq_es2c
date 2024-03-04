@@ -4,7 +4,6 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { Container, Typography, TextField, Button, Snackbar } from '@mui/material';
 import { useUser } from './UserContext';
-import Game from "./Game";
 
 const Login = () => {
   const [username, setUsername] = useState('');
@@ -13,7 +12,6 @@ const Login = () => {
   const [loginSuccess, setLoginSuccess] = useState(false);
   const [createdAt, setCreatedAt] = useState('');
   const [openSnackbar, setOpenSnackbar] = useState(false);
-  const [showGame, setShowGame] = useState(false);
   
   const navigate = useNavigate();
 
@@ -41,10 +39,6 @@ const Login = () => {
     setOpenSnackbar(false);
   };
 
-  const handleStartGame = () => {
-    setShowGame(true);
-  };
-
   return (
     <Container component="main" maxWidth="xs" sx={{ marginTop: 4 }}>
       {loginSuccess ? (
@@ -58,12 +52,8 @@ const Login = () => {
           <Typography component="p" variant="body1" sx={{ textAlign: 'center', marginTop: 2 }}>
             Your account was created on {new Date(createdAt).toLocaleDateString()}.
           </Typography>
-          <Button variant="contained" color="primary" onClick={handleStartGame} fullWidth>
-            Start Game
-          </Button>
-          {showGame && <Game />}
         </div>
-      )} (
+      )}
         <div>
           <Typography component="h1" variant="h5">
             Login
@@ -91,7 +81,6 @@ const Login = () => {
             <Snackbar open={!!error} autoHideDuration={6000} onClose={() => setError('')} message={`Error: ${error}`} />
           )}
         </div>
-      )
     </Container>
   );
 };
