@@ -42,6 +42,16 @@ app.post('/adduser', async (req, res) => {
   }
 });
 
+app.get(`${generatorUrl}/generateQuestion`, async (req, res) => {
+  try {
+    // Forward the add user request to the user service
+    const response = await axios.get(generatorUrl+'/generateQuestion', req.body);
+    res.json(response.data);
+  } catch (error) {
+    res.status(error.response.status).json({ error: error.response.data.error });
+  }
+});
+
 // Start the gateway service
 const server = app.listen(port, () => {
   console.log(`Gateway Service listening at http://localhost:${port}`);
