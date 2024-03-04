@@ -26,6 +26,7 @@ root.render(
           <Route path="/" element={<App/>}></Route>
           <Route path="/PantallaInicio" element={<PantallaInicio/>}></Route>
           <Route path="/Partida" element={<Partida/>}></Route>
+          <Route path="/Login" element={<Login />} /> 
         </Routes>
       </Router>
     </UserProvider>
