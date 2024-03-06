@@ -15,7 +15,7 @@ ifndef::imagesdir[:imagesdir: ../images]
 * Github Desktop: utilizado por algunos miembros del equipo como Github IDE.
 * Wikidata: base de datos colaborativa y abierta que usaremos para extraer las preguntas para nuestro juego.
 * MongoDB: base de datos no relacional, basada en un modelo de datos de documentos JSON, lo que nos facilitará la evolución del esquema sin requerir una estructura fija como en las bases de datos relacionales tradicionales.
-
+* Figma: herramienta para diseñar la interfaz de nuestra aplicación. Nos ayudará a tener una visión de nuestro producto final, además de que es intuitiva y facil de usar.
 
 
 .¿Cómo se van a alcanzar los objetivos de calidad?
