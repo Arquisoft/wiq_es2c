@@ -11,10 +11,24 @@ const Game = () => {
   const [error, setError] = useState('');
   const [selectedOption, setSelectedOption] = useState('');
   const [openSnackbar, setOpenSnackbar] = useState(false);
+  const [timerStatus,setTimerStatus] = useState('');
 
   useEffect(() => {
+    startTimer();
     getQuestion();
   }, []);
+
+  async function startTimer() {
+    try {
+      const response = await axios.get('http://localhost:3001/timer?time=1000');
+      if (response.data === 'Time up') {
+        getQuestion();
+        startTimer(); // Reiniciar el temporizador para la próxima pregunta
+      }
+    } catch (error) {
+      console.error('Error al llamar al servicio de temporizador:', error);
+    }
+  }
 
   const getQuestion = async () => {
     try {
