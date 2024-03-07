@@ -42,19 +42,11 @@ app.post('/adduser', async (req, res) => {
   }
 });
 
-app.get('/question', async (req, res) => {
+app.get(`${generatorUrl}/generateQuestion`, async (req, res) => {
   try {
-    const userResponse = await axios.get(generatorUrl+'/question', req.body);
-    res.json(userResponse.data);
-  } catch (error) {
-    res.status(error.response.status).json({ error: error.response.data.error });
-  }
-});
-
-app.post('/answer', async (req, res) => {
-  try {
-    const userResponse = await axios.get(generatorUrl+'/answer', req.body);
-    res.json(userResponse.data);
+    // Forward the add user request to the user service
+    const response = await axios.get(generatorUrl+'/generateQuestion', req.body);
+    res.json(response.data);
   } catch (error) {
     res.status(error.response.status).json({ error: error.response.data.error });
   }

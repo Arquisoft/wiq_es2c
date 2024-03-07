@@ -1,5 +1,3 @@
-import {useEffect, useState} from 'React';
-
 const WikiDataService = () =>{
 
     const [questionData, setQuestionData] = useState(null);
@@ -105,6 +103,3 @@ const WikiDataService = () =>{
 
     return questionData;
 };
-
-export default WikiDataService;
-  

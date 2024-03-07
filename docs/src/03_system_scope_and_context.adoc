@@ -45,6 +45,8 @@ image:3_BusinessContext.png[Diagram]
 |Realización de búsquedas y registro de información asociada relacionados con el sistema
 |Cualquier dato que haya sido almacenado perteneciente al sistema
 
+|===
+
 ****
 
 image:3_BusinessContext.png[Diagram]
@@ -79,19 +81,19 @@ image:3_BusinessContext.png[Diagram]
 
 |===
 
-=== Technical Context
+=== Contexto técnico
 
 [role="arc42help"]
 ****
-.Contents
-Technical interfaces (channels and transmission media) linking your system to its environment. In addition a mapping of domain specific input/output to the channels, i.e. an explanation which I/O uses which channel.
+.Contenido
+Interfaces técnicas (canales y medios de transmisión) que vinculan su sistema con su entorno. Además, una asignación de entrada/salida específica del dominio a los canales, es decir, una explicación de qué E/S utiliza qué canal.
 
-.Motivation
-Many stakeholders make architectural decision based on the technical interfaces between the system and its context. Especially infrastructure or hardware designers decide these technical interfaces.
+.Motivación
+Muchas partes interesadas toman decisiones arquitectónicas basadas en las interfaces técnicas entre el sistema y su contexto. Especialmente los diseñadores de infraestructura o hardware deciden estas interfaces técnicas.
 
-.Form
-E.g. UML deployment diagram describing channels to neighboring systems,
-together with a mapping table showing the relationships between channels and input/output.
+.Forma
+P.ej. Diagrama de implementación UML que describe canales a sistemas vecinos,
+junto con una tabla de mapeo que muestra las relaciones entre canales y entrada/salida.
 
 ****
 

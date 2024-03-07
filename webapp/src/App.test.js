@@ -3,6 +3,8 @@ import App from './App';
 
 test('renders learn react link', () => {
   render(<App />);
-  const linkElement = screen.getByText(/Welcome to the 2024 edition of the Software Architecture course/i);
+  const linkElement = screen.getByText(/¿Ya tienes cuenta? Inicia sesión aquí./i);
+  const linkElement2 = screen.getByText(/¿No tienes cuenta? Registrate aquí./i);
   expect(linkElement).toBeInTheDocument();
+  expect(linkElement2).toBeInTheDocument();
 });

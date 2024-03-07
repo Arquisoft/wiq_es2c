@@ -2,10 +2,9 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Container, Typography, Button, Snackbar } from '@mui/material';
 
-const apiEndpoint = process.env.REACT_APP_API_ENDPOINT || 'http://localhost:8000';
+const apiEndpoint = 'http://localhost:8003';
 
 const Game = () => {
-  const [questionClass, setQuestionClass] = useState(new Question());
   const [question, setQuestion] = useState('');
   const [options, setOptions] = useState([]);
   const [correctOption, setCorrectOption] = useState("");
@@ -19,20 +18,23 @@ const Game = () => {
 
   const getQuestion = async () => {
     try {
-      const response = await axios.get(`${apiEndpoint}/question`);
-      questionClass.generarPregunta();
-      setQuestion(questionClass.question);
-      setOptions(questionClass.options);
-      setCorrectOption(questionClass.correctOption);
+      const response = await axios.get(`${apiEndpoint}/generateQuestion`, { });
+      setQuestion(response.data.responseQuestion);
+      setOptions(response.data.responseOptions);
+      setCorrectOption(response.data.responseCorrectOption);
+      setOpenSnackbar(true);
     } catch (error) {
-      setError('Error fetching question');
+      setError(error.response.data.error);
     }
-  };
+  }
 
   const handleOptionClick = (option) => {
     setSelectedOption(option);
     setOpenSnackbar(true);
-    alert('Click');    
+    if(correctOption === option)
+      alert("Correcta");
+    else 
+      alert("Incorrecta");
   };
 
   const handleCloseSnackbar = () => {
@@ -50,6 +52,11 @@ const Game = () => {
             {option}
           </Button>
         ))}
+      </div>
+      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: '20px' }}>
+        <Button variant="contained" color="primary" onClick={() => getQuestion()}>
+            Siguiente Pregunta
+          </Button>
       </div>
       <Snackbar open={openSnackbar} autoHideDuration={6000} onClose={handleCloseSnackbar} message={`Option ${selectedOption} selected`} />
       {error && (

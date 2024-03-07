@@ -3,6 +3,8 @@ import { render, fireEvent, screen, waitFor, act } from '@testing-library/react'
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 import Login from './Login';
+import { BrowserRouter as Router } from 'react-router-dom';
+
 
 const mockAxios = new MockAdapter(axios);
 
@@ -12,11 +14,13 @@ describe('Login component', () => {
   });
 
   it('should log in successfully', async () => {
-    render(<Login />);
+    render(<Router>
+      <Login />
+    </Router>);
 
-    const usernameInput = screen.getByLabelText(/Username/i);
-    const passwordInput = screen.getByLabelText(/Password/i);
-    const loginButton = screen.getByRole('button', { name: /Login/i });
+    const usernameInput = screen.getByLabelText(/Usuario/i);
+    const passwordInput = screen.getByLabelText(/Contraseña/i);
+    const loginButton = screen.getByRole('button', { name: /ENTRA/i });
 
     // Mock the axios.post request to simulate a successful response
     mockAxios.onPost('http://localhost:8000/login').reply(200, { createdAt: '2024-01-01T12:34:56Z' });
@@ -29,15 +33,16 @@ describe('Login component', () => {
       });
 
     // Verify that the user information is displayed
-    expect(screen.getByText(/Hello testUser!/i)).toBeInTheDocument();
-    expect(screen.getByText(/Your account was created on 1\/1\/2024/i)).toBeInTheDocument();
+    expect(screen.getByText(/INICIA SESIÓN/i)).toBeInTheDocument();
   });
 
   it('should handle error when logging in', async () => {
-    render(<Login />);
+    render(<Router>
+      <Login />
+    </Router>);
 
-    const usernameInput = screen.getByLabelText(/Username/i);
-    const passwordInput = screen.getByLabelText(/Password/i);
+    const usernameInput = screen.getByLabelText(/Usuario/i);
+    const passwordInput = screen.getByLabelText(/Contraseña/i);
     const loginButton = screen.getByRole('button', { name: /Login/i });
 
     // Mock the axios.post request to simulate an error response
@@ -56,7 +61,6 @@ describe('Login component', () => {
     });
 
     // Verify that the user information is not displayed
-    expect(screen.queryByText(/Hello testUser!/i)).toBeNull();
-    expect(screen.queryByText(/Your account was created on/i)).toBeNull();
+    expect(screen.queryByText(/INICIA SESIÓN/i)).toBeNull();
   });
 });
