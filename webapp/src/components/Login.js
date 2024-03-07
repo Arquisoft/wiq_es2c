@@ -41,47 +41,51 @@ const Login = () => {
   };
 
   return (
-    <Container component="main" maxWidth="xs" sx={{ marginTop: 4 }}>
+    <Container component="main" maxWidth="xl"
+            sx={{
+                marginTop: 4,
+                backgroundColor: '#F3D3FA',
+                borderRadius: '10px',
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'center',
+                alignItems: 'center',
+            }}>
       {loginSuccess ? (
         setUsernameGlobal(username),
         navigate("/PantallaInicio")
       ) : (
-        <div>
-          <Typography component="h1" variant="h5" sx={{ textAlign: 'center' }}>
-            Hello {username}!
-          </Typography>
-          <Typography component="p" variant="body1" sx={{ textAlign: 'center', marginTop: 2 }}>
-            Your account was created on {new Date(createdAt).toLocaleDateString()}.
-          </Typography>
-        </div>
-        )}
-        <div>
-          <Typography component="h1" variant="h5">
-            Login
+        <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
+          <Typography component="h1" variant="h5" align="center" sx={{ marginBottom: 2, fontWeight: 'bold' }}>
+            INICIA SESIÓN
           </Typography>
           <TextField
             margin="normal"
             fullWidth
-            label="Username"
+            label="Usuario"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
+            sx={{ width: '50vh', marginBottom: 2, backgroundColor: '#FFFFFF'}}
           />
           <TextField
             margin="normal"
             fullWidth
-            label="Password"
+            label="Contraseña"
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
+            sx={{ width: '50vh', marginBottom: 2, backgroundColor: '#FFFFFF'}}
           />
-          <Button variant="contained" color="primary" onClick={loginUser}>
-            Login
+          <Button variant="contained" color="primary" sx={{marginTop: 4,marginBottom: 4, backgroundColor: '#FCF5B8',  color: '#413C3C',  fontWeight: 'bold' }} onClick={loginUser}>
+            ENTRA
           </Button>
-          <Snackbar open={openSnackbar} autoHideDuration={6000} onClose={handleCloseSnackbar} message="Login successful" />
+          <Snackbar open={openSnackbar} autoHideDuration={6000} onClose={handleCloseSnackbar} message="Inicio de sesión correcto" />
           {error && (
             <Snackbar open={!!error} autoHideDuration={6000} onClose={() => setError('')} message={`Error: ${error}`} />
           )}
         </div>
+        )}
+        
       </Container>
   );
 };
