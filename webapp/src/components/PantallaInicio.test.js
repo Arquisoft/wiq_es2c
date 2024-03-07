@@ -6,7 +6,7 @@ import PantallaInicio from './PantallaInicio';
 import { BrowserRouter as Router } from 'react-router-dom';
 
 const mockAxios = new MockAdapter(axios);
-const usernameGlobal = 'UsuarioPrueba';
+
 
 describe('PantallaInicio component', () => {
   beforeEach(() => {
@@ -14,6 +14,8 @@ describe('PantallaInicio component', () => {
   });
 
   it('muestra la pantalla de inicio correctamente', async () => {
+
+    const usernameGlobal = 'UsuarioPrueba';
 
     render(<Router>
       <PantallaInicio />
