@@ -5,8 +5,6 @@ import MockAdapter from 'axios-mock-adapter';
 import PantallaInicio from './PantallaInicio';
 import { useUser } from './UserContext';
 
-const { usernameGlobal } = useUser();
-
 const mockAxios = new MockAdapter(axios);
 
 describe('PantallaInicio component', () => {
@@ -15,6 +13,9 @@ describe('PantallaInicio component', () => {
   });
 
   it('muestra la pantalla de inicio correctamente', async () => {
+
+    const usernameGlobal = 'UsuarioPrueba';
+
     render(<Router>
       <PantallaInicio />
     </Router>);
