@@ -36,7 +36,9 @@ describe('Login component', () => {
   });
 
   it('should handle error when logging in', async () => {
-    render(<Login />);
+    render(<Router>
+      <Login />
+    </Router>);
 
     const usernameInput = screen.getByLabelText(/Usuario/i);
     const passwordInput = screen.getByLabelText(/Contraseña/i);
