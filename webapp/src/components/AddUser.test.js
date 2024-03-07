@@ -12,7 +12,9 @@ describe('AddUser component', () => {
   });
 
   it('should add user successfully', async () => {
-    render(<AddUser />);
+    render(<Router>
+      <AddUser />
+    </Router>);
 
     const usernameInput = screen.getByLabelText(/Usuario/i);
     const passwordInput = screen.getByLabelText(/Contraseña/i);

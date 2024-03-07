@@ -4,6 +4,7 @@ import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 import Login from './Login';
 
+
 const mockAxios = new MockAdapter(axios);
 
 describe('Login component', () => {
@@ -12,7 +13,9 @@ describe('Login component', () => {
   });
 
   it('should log in successfully', async () => {
-    render(<Login />);
+    render(<Router>
+      <Login />
+    </Router>);
 
     const usernameInput = screen.getByLabelText(/Usuario/i);
     const passwordInput = screen.getByLabelText(/Contraseña/i);
