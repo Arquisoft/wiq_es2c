@@ -23,8 +23,8 @@ describe('PantallaInicio component', () => {
       </Router>
     </UserProvider>);
 
-    const textoBienvenida = screen.getByLabelText(new RegExp(`¡BIENVENIDO A WIQ ${usernameGlobal}!`, 'i'));
-    const nuevaPartidaButton = screen.getByRole('button', { name: /NUEVA PARTIDA/i });
+    const textoBienvenida = screen.getByLabelText(new RegExp(`¡BIENVENIDO A WIQ ${usernameGlobal}!`));
+    const nuevaPartidaButton = screen.getByRole('button', { name: 'NUEVA PARTIDA' });
     
 
     // Simulate user input

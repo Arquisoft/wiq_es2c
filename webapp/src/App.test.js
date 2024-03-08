@@ -9,8 +9,8 @@ test('renders learn react link', () => {
       <App />
     </Router>
   </UserProvider>);
-  const linkElement = screen.getByText(/¿Ya tienes cuenta? Inicia sesión aquí./i);
-  const linkElement2 = screen.getByText(/¿No tienes cuenta? Registrate aquí./i);
+  const linkElement = screen.getByText('¿Ya tienes cuenta? Inicia sesión aquí.');
+  const linkElement2 = screen.getByText('¿No tienes cuenta? Registrate aquí.');
   expect(linkElement).toBeInTheDocument();
   expect(linkElement2).toBeInTheDocument();
 });
