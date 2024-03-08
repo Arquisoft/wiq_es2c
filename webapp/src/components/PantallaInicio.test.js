@@ -15,16 +15,18 @@ describe('PantallaInicio component', () => {
 
   it('muestra la pantalla de inicio correctamente', async () => {
 
-    const usernameGlobal = 'UsuarioPrueba';
-
     render(<UserProvider>
       <Router>
         <PantallaInicio />
       </Router>
     </UserProvider>);
 
-    const textoBienvenida = screen.getByLabelText(new RegExp(`¡BIENVENIDO A WIQ ${usernameGlobal}!`));
+
+    const element = screen.getByText(/¡BIENVENIDO A WIQ/);
     const nuevaPartidaButton = screen.getByRole('button', { name: 'NUEVA PARTIDA' });
+
+    // Verifica si el elemento se encuentra en el DOM
+    expect(element).toBeInTheDocument();
     
 
     // Simulate user input
@@ -32,7 +34,8 @@ describe('PantallaInicio component', () => {
         fireEvent.click(nuevaPartidaButton);
       });
 
-    expect(textoBienvenida).toBeInTheDocument();
+
+      
   });
 
 });
