@@ -13,6 +13,7 @@ const Game = () => {
   const [selectedOption, setSelectedOption] = useState('');
   const [openSnackbar, setOpenSnackbar] = useState(false);
   const [elapsedTime,setElapsedTime] = useState(30);
+  const MAX_TIME = 30; 
 
   useEffect(() => {
     getQuestion();
@@ -45,7 +46,7 @@ const Game = () => {
       setOptions(response.data.responseOptions);
       setCorrectOption(response.data.responseCorrectOption);
       setOpenSnackbar(true);
-      setElapsedTime(30);
+      setElapsedTime(MAX_TIME);
     } catch (error) {
       setError(error.response.data.error);
     }
@@ -68,18 +69,18 @@ const Game = () => {
 
   return (
     <Container component="main" maxWidth="xs" sx={{ marginTop: 4 }}>
-      <LinearProgress variant="determinate" value={(elapsedTime)} /> {/* Barra de progreso */}
+      <LinearProgress variant="determinate" value={(elapsedTime / MAX_TIME) * 100} /> {/* Barra de progreso */}
       <Typography variant="body1" sx={{ textAlign: 'center' }}>
         Tiempo restante: {elapsedTime} segundos
       </Typography>
       <Typography component="h1" variant="h5" sx={{ textAlign: 'center' }}>
         {question}
       </Typography>
-      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: '20px' }}>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '10px', alignItems: 'center', marginTop: '20px' }}>
         {options.map((option, index) => (
-          <Button key={index} variant="contained" color="primary" onClick={() => handleOptionClick(option)}>
-            {option}
-          </Button>
+        <Button key={index} variant="contained" color="primary" onClick={() => handleOptionClick(option)} style={{ width: '100%', height: '100%' }}>
+          {option}
+        </Button>
         ))}
       </div>
       <Snackbar open={openSnackbar} autoHideDuration={6000} onClose={handleCloseSnackbar} message={`Option ${selectedOption} selected`} />
