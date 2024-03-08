@@ -7,7 +7,6 @@ import { BrowserRouter as Router } from 'react-router-dom';
 
 const mockAxios = new MockAdapter(axios);
 
-
 describe('PantallaInicio component', () => {
   beforeEach(() => {
     mockAxios.reset();
@@ -21,8 +20,9 @@ describe('PantallaInicio component', () => {
       <PantallaInicio />
     </Router>);
 
-    const textoBienvenida = screen.getByLabelText(/¡BIENVENIDO A WIQ ${usernameGlobal}!/i);
+    const textoBienvenida = screen.getByLabelText(new RegExp(`¡BIENVENIDO A WIQ ${usernameGlobal}!`, 'i'));
     const nuevaPartidaButton = screen.getByRole('button', { name: /NUEVA PARTIDA/i });
+    
 
     // Simulate user input
     await act(async () => {
