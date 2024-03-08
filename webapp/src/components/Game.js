@@ -15,6 +15,8 @@ const Game = () => {
   const [elapsedTime,setElapsedTime] = useState(30);
   const MAX_TIME = 30; 
 
+  const [answerCorrect, setAnswerCorrect] = useState(false); 
+
   useEffect(() => {
     getQuestion();
   }, []);
@@ -34,8 +36,7 @@ const Game = () => {
     }
   }, [elapsedTime]);
 
- function timeUp(){
-    alert("Time up");
+  function timeUp(){
     getQuestion();
   }
 
@@ -55,12 +56,14 @@ const Game = () => {
   const handleOptionClick = (option) => {
     setSelectedOption(option);
     setOpenSnackbar(true);
-    if(correctOption === option) {
-      alert("Correcta");
-      getQuestion();
+    if (correctOption === option) {
+      setAnswerCorrect(true);
+    } else {
+      setAnswerCorrect(false);
     }
-    else 
+    setTimeout(() => {
       getQuestion();
+    }, 3000);
   };
 
   const handleCloseSnackbar = () => {
@@ -69,21 +72,29 @@ const Game = () => {
 
   return (
     <Container component="main" maxWidth="xs" sx={{ marginTop: 4 }}>
-      <LinearProgress variant="determinate" value={(elapsedTime / MAX_TIME) * 100} /> {/* Barra de progreso */}
-      <Typography variant="body1" sx={{ textAlign: 'center' }}>
-        Tiempo restante: {elapsedTime} segundos
-      </Typography>
+      {question && (
+        <>
+          <Typography variant="body1" sx={{ textAlign: 'center' }}>
+            Tiempo restante: {elapsedTime} segundos
+          </Typography>
+          <LinearProgress variant="determinate" value={(elapsedTime / MAX_TIME) * 100 } sx={{ height: '10px' }}/> {/* Barra de progreso */}
+        </>
+      )}
       <Typography component="h1" variant="h5" sx={{ textAlign: 'center' }}>
         {question}
       </Typography>
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '10px', alignItems: 'center', marginTop: '20px' }}>
-        {options.map((option, index) => (
-        <Button key={index} variant="contained" color="primary" onClick={() => handleOptionClick(option)} style={{ width: '100%', height: '100%' }}>
-          {option}
-        </Button>
-        ))}
+        {options.map((option, index) => {
+          const isSelected = option === selectedOption;
+          var buttonColor = isSelected ? (answerCorrect ? 'green' : 'red') : 'primary';
+          return (
+            <Button key={index} variant="contained" color={buttonColor} disabled={waitingAnswer} onClick={() => handleOptionClick(option)} style={{ width: '100%', height: '100%' }}>
+              {option}
+            </Button>
+          );
+        })}
       </div>
-      <Snackbar open={openSnackbar} autoHideDuration={6000} onClose={handleCloseSnackbar} message={`Option ${selectedOption} selected`} />
+      <Snackbar open={openSnackbar} autoHideDuration={6000} onClose={handleCloseSnackbar} />
       {error && (
         <Snackbar open={!!error} autoHideDuration={6000} onClose={() => setError('')} message={`Error: ${error}`} />
       )}
