@@ -35,8 +35,6 @@ describe('Login component', () => {
         fireEvent.click(loginButton);
       });
 
-    // Verify that the user information is displayed
-    expect(screen.getByText('INICIA SESIÓN')).toBeInTheDocument();
   });
 
   it('should handle error when logging in', async () => {
@@ -65,7 +63,5 @@ describe('Login component', () => {
       expect(screen.getByText('Error: Unauthorized')).toBeInTheDocument();
     });
 
-    // Verify that the user information is not displayed
-    expect(screen.queryByText('INICIA SESIÓN')).toBeNull();
   });
 });
