@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import LinearProgress from '@mui/material/LinearProgress';
 import { Container, Typography, Button, Snackbar } from '@mui/material';
 
 const apiEndpoint = 'http://localhost:8003';
@@ -53,10 +54,12 @@ const Game = () => {
   const handleOptionClick = (option) => {
     setSelectedOption(option);
     setOpenSnackbar(true);
-    if(correctOption === option)
+    if(correctOption === option) {
       alert("Correcta");
+      getQuestion();
+    }
     else 
-      alert("Incorrecta");
+      getQuestion();
   };
 
   const handleCloseSnackbar = () => {
@@ -65,9 +68,10 @@ const Game = () => {
 
   return (
     <Container component="main" maxWidth="xs" sx={{ marginTop: 4 }}>
-        <Typography variant="body1" sx={{ textAlign: 'center' }}>
-            Tiempo restante: {elapsedTime} segundos
-        </Typography>
+      <LinearProgress variant="determinate" value={(elapsedTime)} /> {/* Barra de progreso */}
+      <Typography variant="body1" sx={{ textAlign: 'center' }}>
+        Tiempo restante: {elapsedTime} segundos
+      </Typography>
       <Typography component="h1" variant="h5" sx={{ textAlign: 'center' }}>
         {question}
       </Typography>
@@ -77,11 +81,6 @@ const Game = () => {
             {option}
           </Button>
         ))}
-      </div>
-      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: '20px' }}>
-        <Button variant="contained" color="primary" onClick={() => getQuestion()}>
-            Siguiente Pregunta
-          </Button>
       </div>
       <Snackbar open={openSnackbar} autoHideDuration={6000} onClose={handleCloseSnackbar} message={`Option ${selectedOption} selected`} />
       {error && (
