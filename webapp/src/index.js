@@ -29,6 +29,7 @@ root.render(
           <Route path="/Partida" element={<Partida/>}></Route>
           <Route path="/Login" element={<Login />} /> 
           <Route path="/AddUser" element={<AddUser />} />
+          <Route path="/App" element={<App />} />
         </Routes>
       </Router>
     </UserProvider>
