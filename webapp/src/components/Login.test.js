@@ -4,7 +4,7 @@ import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 import Login from './Login';
 import { BrowserRouter as Router } from 'react-router-dom'; 
-import { UserProvider } from './components/UserContext';
+import { UserProvider } from './UserContext';
 
 
 const mockAxios = new MockAdapter(axios);
