@@ -1,5 +1,5 @@
 // src/components/Login.js
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { Container, Typography, TextField, Button, Snackbar } from '@mui/material';
@@ -36,6 +36,12 @@ const Login = () => {
     }
   };
 
+  useEffect(() => {
+    if (loginSuccess) {
+      navigate("/PantallaInicio");
+    }
+  }, [loginSuccess, navigate]);
+
   const handleCloseSnackbar = () => {
     setOpenSnackbar(false);
   };
@@ -52,10 +58,8 @@ const Login = () => {
                 alignItems: 'center',
             }}>
       {loginSuccess ? (
-        <>
-          
-          {navigate("/PantallaInicio")}
-        </>
+        null
+      
       ) : (
         <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
           <Typography component="h1" variant="h5" align="center" sx={{ marginBottom: 2, fontWeight: 'bold' }}>

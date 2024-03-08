@@ -54,7 +54,7 @@ const PantallaInicio = () => {
                     ¡BIENVENIDO A WIQ  {usernameGlobal}!
                 </Typography>
 
-                <Button variant="contained" color="primary" align="center" justifySelf = 'center' sx={{ marginTop: 4, backgroundColor: '#FCF5B8',  color: '#413C3C',  fontWeight: 'bold' }}
+                <Button variant="contained" color="primary" align="center" sx={{ marginTop: 4, backgroundColor: '#FCF5B8',  color: '#413C3C',  fontWeight: 'bold' }}
                     onClick={nuevaPartida}>
                     NUEVA PARTIDA
                 </Button>
