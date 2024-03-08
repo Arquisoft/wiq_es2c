@@ -51,8 +51,10 @@ const Login = () => {
                 alignItems: 'center',
             }}>
       {loginSuccess ? (
-        setUsernameGlobal(username),
-        navigate("/PantallaInicio")
+        <>
+          {setUsernameGlobal(username)}
+          {navigate("/PantallaInicio")}
+        </>
       ) : (
         <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
           <Typography component="h1" variant="h5" align="center" sx={{ marginBottom: 2, fontWeight: 'bold' }}>

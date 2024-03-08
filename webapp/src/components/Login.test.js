@@ -3,7 +3,7 @@ import { render, fireEvent, screen, waitFor, act } from '@testing-library/react'
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 import Login from './Login';
-import { BrowserRouter as Router } from 'react-router-dom';
+import { BrowserRouter as Router } from 'react-router-dom'; 
 
 
 const mockAxios = new MockAdapter(axios);
@@ -43,7 +43,7 @@ describe('Login component', () => {
 
     const usernameInput = screen.getByLabelText(/Usuario/i);
     const passwordInput = screen.getByLabelText(/Contraseña/i);
-    const loginButton = screen.getByRole('button', { name: /Login/i });
+    const loginButton = screen.getByRole('button', { name: /ENTRA/i });
 
     // Mock the axios.post request to simulate an error response
     mockAxios.onPost('http://localhost:8000/login').reply(401, { error: 'Unauthorized' });
