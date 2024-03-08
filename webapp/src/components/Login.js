@@ -27,6 +27,7 @@ const Login = () => {
       const { createdAt: userCreatedAt } = response.data;
 
       setCreatedAt(userCreatedAt);
+      setUsernameGlobal(username);
       setLoginSuccess(true);
 
       setOpenSnackbar(true);
@@ -52,7 +53,7 @@ const Login = () => {
             }}>
       {loginSuccess ? (
         <>
-          {setUsernameGlobal(username)}
+          
           {navigate("/PantallaInicio")}
         </>
       ) : (
