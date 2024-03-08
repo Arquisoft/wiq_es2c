@@ -11,20 +11,26 @@ const Game = () => {
   const [error, setError] = useState('');
   const [selectedOption, setSelectedOption] = useState('');
   const [openSnackbar, setOpenSnackbar] = useState(false);
+  const [elapsedTime,setElapsedTime] = useState(30);
 
   useEffect(() => {
     getQuestion();
   }, []);
 
   useEffect(() => {
+
     const timerId = setTimeout(()=>{
-      timeUp();
-    },30000);
+      setElapsedTime(time => time - 1);
+    },1000);
+
+    if(elapsedTime<=0){
+        timeUp();
+    }
 
     return () => {
       clearTimeout(timerId);
     }
-  }, [question]);
+  }, [elapsedTime]);
 
  function timeUp(){
     alert("Time up");
@@ -38,9 +44,7 @@ const Game = () => {
       setOptions(response.data.responseOptions);
       setCorrectOption(response.data.responseCorrectOption);
       setOpenSnackbar(true);
-
-
-
+      setElapsedTime(30);
     } catch (error) {
       setError(error.response.data.error);
     }
@@ -61,6 +65,9 @@ const Game = () => {
 
   return (
     <Container component="main" maxWidth="xs" sx={{ marginTop: 4 }}>
+        <Typography variant="body1" sx={{ textAlign: 'center' }}>
+            Tiempo restante: {elapsedTime} segundos
+        </Typography>
       <Typography component="h1" variant="h5" sx={{ textAlign: 'center' }}>
         {question}
       </Typography>
