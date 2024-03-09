@@ -1,17 +1,14 @@
 import React, { useState } from 'react';
 import { Container, Typography, Button, Box } from '@mui/material';
 import { useUser } from './UserContext';
-import { useNavigate } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 
-
-const PantallaInicio = () => {
-    
-    const { usernameGlobal } = useUser();
-
-    const navigate = useNavigate();
+const PantallaInicio = () => {    
+    const [newGame, setNewGame] = useState(false);
+    const usernameGlobal = useUser();
 
     function nuevaPartida() {
-        navigate("/Partida")
+        setNewGame(true);
     }
 
     return (
@@ -58,8 +55,14 @@ const PantallaInicio = () => {
                     onClick={nuevaPartida}>
                     NUEVA PARTIDA
                 </Button>
+                {newGame ? (
+                    null
+                ) : (
+                    <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
+                        {newGame && <Redirect to="/Partida" />}
+                    </div>
+                )}
             </Box>
-
         </Container>
     );
 };

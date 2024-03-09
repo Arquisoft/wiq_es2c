@@ -1,9 +1,9 @@
 // src/components/Login.js
-import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 import { Container, Typography, TextField, Button, Snackbar } from '@mui/material';
 import { useUser } from './UserContext';
+import { Redirect } from 'react-router-dom';
 
 const Login = () => {
   const [username, setUsername] = useState('');
@@ -12,12 +12,10 @@ const Login = () => {
   const [loginSuccess, setLoginSuccess] = useState(false);
   const [createdAt, setCreatedAt] = useState('');
   const [openSnackbar, setOpenSnackbar] = useState(false);
-  
-  const navigate = useNavigate();
 
   const apiEndpoint = process.env.REACT_APP_API_ENDPOINT || 'http://localhost:8000';
 
-  const { setUsernameGlobal } = useUser();
+  //const { setUsernameGlobal } = useUser();
 
   const loginUser = async () => {
     try {
@@ -39,10 +37,9 @@ const Login = () => {
 
   useEffect(() => {
     if (loginSuccess) {
-      setUsernameGlobal(username);
-      navigate("/PantallaInicio");
+      //setUsernameGlobal(username);
     }
-  }, [loginSuccess, navigate]);
+  }, [loginSuccess]);
 
   const handleCloseSnackbar = () => {
     setOpenSnackbar(false);
@@ -91,6 +88,7 @@ const Login = () => {
           {error && (
             <Snackbar open={!!error} autoHideDuration={6000} onClose={() => setError('')} message={`Error: ${error}`} />
           )}
+          {loginSuccess && <Redirect to="/PantallaInicio" />}
         </div>
         )}
         
