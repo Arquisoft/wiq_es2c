@@ -124,14 +124,13 @@ function procesarDatos(data) {
         options.push(data[optionIndex].optionLabel.value);
     }
 
-
 }
 
 function saveData(){
 
     try {
 
-        const mongoUri = process.env.MONGODB_URI || 'mongodb://localhost:27017/questions';
+        const mongoUri = process.env.MONGODB_URI || 'mongodb://localhost:27017/userdb';
         mongoose.connect(mongoUri);
 
         var correct_answer = questionData.correctAnswer;
@@ -151,12 +150,11 @@ function saveData(){
         });
 
         newQuestion.save();
+
+
     }catch (error) {
         console.error('Error en el guardado de datos:', error);
     }
-}
-
-
 }
 
 module.exports = server
