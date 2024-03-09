@@ -1,8 +1,11 @@
 const axios = require('axios');
 const express = require('express');
+const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
+const Question = require('./question-model');
 const app = express();
 const port = 8003;
+
 
 // Middleware to parse JSON in request body
 app.use(bodyParser.json());
@@ -49,6 +52,10 @@ var questions = ["¿Cuál es la capital de ",
 //  Número aleatorio que decide la consulta y la pregunta que se mostrarán
 var randomNumber;
 
+
+const mongoUri = process.env.MONGODB_URI || 'mongodb://localhost:27017/questiondb';
+mongoose.connect(mongoUri);
+
 app.get('/generateQuestion', async (req, res) => {
     try {
         await generarPregunta();
@@ -59,7 +66,9 @@ app.get('/generateQuestion', async (req, res) => {
             responseOptions: options,
             responseCorrectOption: correctOption
         };
-        
+
+
+
         res.status(200).json(response);
     } catch (error) {
         res.status(400).json({ error: error.message }); 
@@ -84,7 +93,7 @@ async function generarPregunta() {
         });
 
         procesarDatos(response.data);
-        saveData();
+
 
     } catch (error) {
         console.error('Error al realizar la solicitud:', error);
@@ -124,36 +133,43 @@ function procesarDatos(data) {
         options.push(data[optionIndex].optionLabel.value);
     }
 
+    saveData();
+
 }
 
-function saveData(){
+async function saveData(){
 
     try {
 
-        const mongoUri = process.env.MONGODB_URI || 'mongodb://localhost:27017/userdb';
-        mongoose.connect(mongoUri);
 
-        var correct_answer = questionData.correctAnswer;
-        var false_options = [];
-        for (var i = 0; i < 4; i++) {
-            if (options[i] != correct_answer) {
-                false_options[i] = fiels[i];
-            }
-        }
+        // var correct_answer = questionData.correctAnswer;
+        // var false_options = [];
+        // for (var i = 0; i < 4; i++) {
+        //     if (options[i] != correct_answer) {
+        //         false_options[i] = fiels[i];
+        //     }
+        // }
+
+        // const newQuestion = new Question({
+        //     enunciado: questionData.question,
+        //     respuesta_correcta: correct_answer,
+        //     respuesta_falsa1: false_options[0],
+        //     respuesta_falsa2: false_options[1],
+        //     respuesta_falsa3: false_options[2]
+        // });
 
         const newQuestion = new Question({
-            enunciado: questionData.question,
-            respuesta_correcta: correct_answer,
-            respuesta_falsa1: false_options[0],
-            respuesta_falsa2: false_options[1],
-            respuesta_falsa3: false_options[2]
+            enunciado: "prueba",
+            respuesta_correcta: "prueba",
+            respuesta_falsa1: "prueba",
+            respuesta_falsa2: "prueba",
+            respuesta_falsa3: "prueba"
         });
 
-        newQuestion.save();
-
-
-    }catch (error) {
-        console.error('Error en el guardado de datos:', error);
+        await newQuestion.save();
+        console.log("Pregunta guardada correctamente");
+    }catch (error){
+        console.error("Error al guardar la pregunta: " + e);
     }
 }
 
