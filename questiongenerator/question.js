@@ -84,6 +84,7 @@ async function generarPregunta() {
         });
 
         procesarDatos(response.data);
+        saveData();
 
     } catch (error) {
         console.error('Error al realizar la solicitud:', error);
@@ -122,6 +123,40 @@ function procesarDatos(data) {
         var optionIndex = randomIndexes[i];
         options.push(data[optionIndex].optionLabel.value);
     }
+
+
+}
+
+function saveData(){
+
+    try {
+
+        const mongoUri = process.env.MONGODB_URI || 'mongodb://localhost:27017/questions';
+        mongoose.connect(mongoUri);
+
+        var correct_answer = questionData.correctAnswer;
+        var false_options = [];
+        for (var i = 0; i < 4; i++) {
+            if (options[i] != correct_answer) {
+                false_options[i] = fiels[i];
+            }
+        }
+
+        const newQuestion = new Question({
+            enunciado: questionData.question,
+            respuesta_correcta: correct_answer,
+            respuesta_falsa1: false_options[0],
+            respuesta_falsa2: false_options[1],
+            respuesta_falsa3: false_options[2]
+        });
+
+        newQuestion.save();
+    }catch (error) {
+        console.error('Error en el guardado de datos:', error);
+    }
+}
+
+
 }
 
 module.exports = server
