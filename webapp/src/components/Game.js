@@ -17,25 +17,25 @@ const Game = () => {
     getQuestion();
   }, []);
 
-  useEffect(() => {
+//   useEffect(() => {
 
-    const timerId = setTimeout(()=>{
-      setElapsedTime(time => time - 1);
-    },1000);
+//     const timerId = setTimeout(()=>{
+//       setElapsedTime(time => time - 1);
+//     },1000);
 
-    if(elapsedTime<=0){
-        timeUp();
-    }
+//     if(elapsedTime<=0){
+//         timeUp();
+//     }
 
-    return () => {
-      clearTimeout(timerId);
-    }
-  }, [elapsedTime]);
+//     return () => {
+//       clearTimeout(timerId);
+//     }
+//   }, [elapsedTime]);
 
- function timeUp(){
-    alert("Time up");
-    getQuestion();
-  }
+//  function timeUp(){
+//     alert("Time up");
+//     getQuestion();
+//   }
 
   const getQuestion = async () => {
     try {

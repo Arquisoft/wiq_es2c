@@ -32,11 +32,11 @@ const PantallaInicio = () => {
                 gap: 2, // Espacio entre los botones
             }}> 
                 <Button variant="contained" color="inherit" style={{ background: 'none', border: 'none', padding: 0 }}>
-                    <img src={require('./images/iconHistory.jpeg')} style={{ width: '50px', height: '50px' }}/>
+                    <img src={require('./images/iconHistory.jpeg')} style={{ width: '50px', height: '50px' }} alt="Icono historial"/>
                 </Button>
 
                 <Button variant="contained" color="inherit" style={{ background: 'none', border: 'none', width: '50px' }}>
-                    <img src={require('./images/iconUser.jpeg')} style={{ width: '50px', height: '50px' }}/>
+                    <img src={require('./images/iconUser.jpeg')} style={{ width: '50px', height: '50px' }} alt="Icono usuario"/>
                 </Button>
                 
             </Box>

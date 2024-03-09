@@ -1,8 +1,7 @@
 // src/components/Login.js
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Container, Typography, TextField, Button, Snackbar } from '@mui/material';
-import { useUser } from './UserContext';
 import { Navigate } from 'react-router-dom';
 
 const Login = () => {
@@ -27,6 +26,7 @@ const Login = () => {
       setCreatedAt(userCreatedAt);
       
       setLoginSuccess(true);
+      console.log(createdAt);
 
       setOpenSnackbar(true);
     } catch (error) {

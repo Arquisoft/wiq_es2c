@@ -1,11 +1,10 @@
-import React, { useState } from 'react';
-import { Container, Typography, Button, Box } from '@mui/material';
-import { useUser } from './UserContext';
+import React from 'react';
+import { Container } from '@mui/material';
 import Game from "./Game";
 
 const Partida = () => {
     
-    const { usernameGlobal } = useUser();
+    //const { usernameGlobal } = useUser();
 
     return (
         <Container component="main" maxWidth="xl"
