@@ -3,7 +3,6 @@ import { render, fireEvent, screen, waitFor } from '@testing-library/react';
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 import AddUser from './AddUser';
-import { BrowserRouter as Router } from 'react-router-dom';
 
 const mockAxios = new MockAdapter(axios);
 
@@ -13,9 +12,7 @@ describe('AddUser component', () => {
   });
 
   it('should add user successfully', async () => {
-    render(<Router>
-      <AddUser />
-    </Router>);
+    render(<AddUser />);
 
     const usernameInput = screen.getByLabelText('Usuario');
     const passwordInput = screen.getByLabelText('Contraseña');

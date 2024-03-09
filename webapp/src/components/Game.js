@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 import LinearProgress from '@mui/material/LinearProgress';
 import { Container, Typography, Button, Snackbar } from '@mui/material';
@@ -16,30 +16,7 @@ const Game = () => {
   const [answerCorrect, setAnswerCorrect] = useState(false);
   const MAX_TIME = 30; 
 
-  useEffect(() => {
-    getQuestion();
-  }, []);
-
-  useEffect(() => {
-
-    const timerId = setTimeout(()=>{
-      setElapsedTime(time => time - 1);
-    },1000);
-
-    if(elapsedTime<=0){
-        timeUp();
-    }
-
-    return () => {
-      clearTimeout(timerId);
-    }
-  }, [elapsedTime]);
-
-  function timeUp(){
-    getQuestion();
-  }
-
-  const getQuestion = async () => {
+  const getQuestion = useCallback(async () => {
     try {
       const response = await axios.get(`${apiEndpoint}/generateQuestion`, { });
       setQuestion(response.data.responseQuestion);
@@ -50,19 +27,35 @@ const Game = () => {
     } catch (error) {
       setError(error.response.data.error);
     }
-  }
+  }, [])
+
+  useEffect(() => {
+    getQuestion();
+  }, [getQuestion]);
+
+  useEffect(() => {
+
+    const timerId = setTimeout(()=>{
+      setElapsedTime(time => time - 1);
+    },1000);
+
+    if(elapsedTime<=0){
+      getQuestion();
+    }
+
+    return () => {
+      clearTimeout(timerId);
+    }
+  }, [elapsedTime, getQuestion]);
 
   const handleOptionClick = (option) => {
     setSelectedOption(option);
     setOpenSnackbar(true);
+    console.log(openSnackbar);
     setAnswerCorrect(correctOption === option);
     setTimeout(() => {
       getQuestion();
     }, 1500);
-  };
-
-  const handleCloseSnackbar = () => {
-    setOpenSnackbar(false);
   };
 
   return (

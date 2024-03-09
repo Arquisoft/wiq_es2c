@@ -9,8 +9,6 @@ import {
   Route,
   Routes,
   MemoryRouter as Router,
-  useNavigate,
-  createBrowserRouter,
 } from "react-router-dom";
 
 import PantallaInicio from './components/PantallaInicio';

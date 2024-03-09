@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Container, Typography, Button, Box } from '@mui/material';
 import { useUser } from './UserContext';
 import { useNavigate } from 'react-router-dom';
@@ -35,11 +35,11 @@ const PantallaInicio = () => {
                 gap: 2, // Espacio entre los botones
             }}> 
                 <Button variant="contained" color="inherit" style={{ background: 'none', border: 'none', padding: 0 }}>
-                    <img src={require('./images/iconHistory.jpeg')} style={{ width: '50px', height: '50px' }}/>
+                    <img src={require('./images/iconHistory.jpeg')} style={{ width: '50px', height: '50px' }} alt="Imagen historico"/>
                 </Button>
 
                 <Button variant="contained" color="inherit" style={{ background: 'none', border: 'none', width: '50px' }}>
-                    <img src={require('./images/iconUser.jpeg')} style={{ width: '50px', height: '50px' }}/>
+                    <img src={require('./images/iconUser.jpeg')} style={{ width: '50px', height: '50px' }} alt="Imagen usuario"/>
                 </Button>
                 
             </Box>
