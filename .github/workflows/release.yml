@@ -110,6 +110,23 @@ jobs:
         password: ${{ secrets.GITHUB_TOKEN }}
         registry: ghcr.io
         workdir: gatewayservice
+  docker-push-generationservice:
+    name: Push generation service Docker Image to GitHub Packages
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    needs: [e2e-tests]
+    steps:
+    - uses: actions/checkout@v4
+    - name: Publish to Registry
+      uses: elgohr/Publish-Docker-Github-Action@v5
+      with:
+        name: arquisoft/wiq_es2c/userservice
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+        registry: ghcr.io
+        workdir: questiongenerator
   deploy:
     name: Deploy over SSH
     runs-on: ubuntu-latest
