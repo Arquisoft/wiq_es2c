@@ -3,7 +3,9 @@ import { render, fireEvent, screen, waitFor, act } from '@testing-library/react'
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 import Login from './Login';
-import { BrowserRouter as Router } from 'react-router-dom';
+import { BrowserRouter as Router } from 'react-router-dom'; 
+import { UserProvider } from './UserContext';
+
 
 const mockAxios = new MockAdapter(axios);
 
@@ -13,7 +15,11 @@ describe('Login component', () => {
   });
 
   it('should log in successfully', async () => {
-    render(<Login />);
+    render(<UserProvider>
+      <Router>
+        <Login />
+      </Router>
+    </UserProvider>);
 
     const usernameInput = screen.getByLabelText('Usuario');
     const passwordInput = screen.getByLabelText('Contraseña');
@@ -32,7 +38,11 @@ describe('Login component', () => {
   });
 
   it('should handle error when logging in', async () => {
-    render(<Login />);
+    render(<UserProvider>
+      <Router>
+        <Login />
+      </Router>
+    </UserProvider>);
 
     const usernameInput = screen.getByLabelText('Usuario');
     const passwordInput = screen.getByLabelText('Contraseña');

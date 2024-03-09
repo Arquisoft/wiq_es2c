@@ -3,6 +3,8 @@ import { render, fireEvent, screen, waitFor, act } from '@testing-library/react'
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 import PantallaInicio from './PantallaInicio';
+import { BrowserRouter as Router } from 'react-router-dom';
+import { UserProvider } from './UserContext';
 
 const mockAxios = new MockAdapter(axios);
 
@@ -12,7 +14,13 @@ describe('PantallaInicio component', () => {
   });
 
   it('muestra la pantalla de inicio correctamente', async () => {
-    render(<PantallaInicio />);
+
+    render(<UserProvider>
+      <Router>
+        <PantallaInicio />
+      </Router>
+    </UserProvider>);
+
 
     const element = screen.getByText(/¡BIENVENIDO A WIQ/);
     const nuevaPartidaButton = screen.getByRole('button', { name: 'NUEVA PARTIDA' });
@@ -25,6 +33,8 @@ describe('PantallaInicio component', () => {
     await act(async () => {
         fireEvent.click(nuevaPartidaButton);
       });
+
+
       
   });
 
