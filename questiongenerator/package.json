@@ -1,8 +1,8 @@
 {
-  "name": "generator",
+  "name": "questiongenerator",
   "version": "1.0.0",
   "description": "Question generator",
-  "main": "service.js",
+  "main": "question.js",
   "scripts": {
     "start": "node question.js",
     "test": "jest"
