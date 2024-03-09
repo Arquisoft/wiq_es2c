@@ -11,9 +11,9 @@ services:
     networks:
       - mynetwork
 
-  generatorservice:
-    container_name: generatorservice-${teamname:-defaultASW}
-    image: ghcr.io/arquisoft/wiq_es2c/generatorservice:latest
+  questiongenerator:
+    container_name: questiongenerator-${teamname:-defaultASW}
+    image: ghcr.io/arquisoft/wiq_es2c/questiongenerator:latest
     profiles: ["dev", "prod"]
     build: ./questiongenerator
     depends_on:
