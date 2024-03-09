@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Container, Typography, Button, Box } from '@mui/material';
 import { useUser } from './UserContext';
-import { Redirect } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 
 const PantallaInicio = () => {    
     const [newGame, setNewGame] = useState(false);
@@ -59,7 +59,7 @@ const PantallaInicio = () => {
                     null
                 ) : (
                     <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
-                        {newGame && <Redirect to="/Partida" />}
+                        {newGame && <Navigate to="/Partida" />}
                     </div>
                 )}
             </Box>

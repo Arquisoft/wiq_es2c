@@ -3,7 +3,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 import { Container, Typography, TextField, Button, Snackbar } from '@mui/material';
 import { useUser } from './UserContext';
-import { Redirect } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 
 const Login = () => {
   const [username, setUsername] = useState('');
@@ -88,7 +88,7 @@ const Login = () => {
           {error && (
             <Snackbar open={!!error} autoHideDuration={6000} onClose={() => setError('')} message={`Error: ${error}`} />
           )}
-          {loginSuccess && <Redirect to="/PantallaInicio" />}
+          {loginSuccess && <Navigate to="/PantallaInicio" />}
         </div>
         )}
         
