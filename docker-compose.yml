@@ -62,13 +62,13 @@ services:
       - mongodb
       - userservice
       - authservice
-      - generatorservice
+      - questiongenerator
     ports:
       - "8000:8000"
     networks:
       - mynetwork
     environment:
-      GENERATOR_SERVICE_URL: http://userservice:8003
+      GENERATOR_SERVICE_URL: http://questiongenerator:8003
       AUTH_SERVICE_URL: http://authservice:8002
       USER_SERVICE_URL: http://userservice:8001
 
