@@ -13,9 +13,8 @@ const Game = () => {
   const [selectedOption, setSelectedOption] = useState('');
   const [openSnackbar, setOpenSnackbar] = useState(false);
   const [elapsedTime,setElapsedTime] = useState(30);
+  const [answerCorrect, setAnswerCorrect] = useState(false);
   const MAX_TIME = 30; 
-
-  const [answerCorrect, setAnswerCorrect] = useState(false); 
 
   useEffect(() => {
     getQuestion();
@@ -56,14 +55,10 @@ const Game = () => {
   const handleOptionClick = (option) => {
     setSelectedOption(option);
     setOpenSnackbar(true);
-    if (correctOption === option) {
-      setAnswerCorrect(true);
-    } else {
-      setAnswerCorrect(false);
-    }
+    setAnswerCorrect(correctOption === option);
     setTimeout(() => {
       getQuestion();
-    }, 3000);
+    }, 1500);
   };
 
   const handleCloseSnackbar = () => {
@@ -84,17 +79,12 @@ const Game = () => {
         {question}
       </Typography>
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '10px', alignItems: 'center', marginTop: '20px' }}>
-        {options.map((option, index) => {
-          const isSelected = option === selectedOption;
-          var buttonColor = isSelected ? (answerCorrect ? 'green' : 'red') : 'primary';
-          return (
-            <Button key={index} variant="contained" color={buttonColor} disabled={waitingAnswer} onClick={() => handleOptionClick(option)} style={{ width: '100%', height: '100%' }}>
-              {option}
-            </Button>
-          );
-        })}
+        {options.map((option, index) => (
+          <Button key={index} variant="contained" color={selectedOption === option ? (answerCorrect ? 'success' : 'error') : 'primary'} onClick={() => handleOptionClick(option)} style={{ width: '100%', height: '100%' }}>
+            {option}
+          </Button>
+        ))}
       </div>
-      <Snackbar open={openSnackbar} autoHideDuration={6000} onClose={handleCloseSnackbar} />
       {error && (
         <Snackbar open={!!error} autoHideDuration={6000} onClose={() => setError('')} message={`Error: ${error}`} />
       )}
