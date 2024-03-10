@@ -1,6 +1,6 @@
 ifndef::imagesdir[:imagesdir: ../images]
 
 [[section-runtime-view]]
-== Runtime View
+== Vista de ejecución
 
 image:6_RuntimeView.PNG[Diagram]

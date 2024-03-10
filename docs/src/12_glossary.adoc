@@ -1,11 +1,11 @@
 ifndef::imagesdir[:imagesdir: ../images]
 
 [[section-glossary]]
-== Glossary
+== Glosario
 
 [cols="e,2e" options="header"]
 |===
-|Term |Definition
+|Término |Definición
 
 | API
 | Application Programming Interface. Pieza de código que permite a diferentes aplicaciones comunicarse entre sí y compartir información y funcionalidades.
@@ -34,10 +34,5 @@ ifndef::imagesdir[:imagesdir: ../images]
 
 | WikiData
 | Es una base de conocimientos editada en colaboración y alojada por la Fundaciín Wikimedia
-
-
-
-
-
 
 |===

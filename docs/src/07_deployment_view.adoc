@@ -3,7 +3,7 @@ ifndef::imagesdir[:imagesdir: ../images]
 [[section-deployment-view]]
 
 
-== Deployment View
+== Vista de despliegue
 
 image:7_DeploymentView_V2.PNG[Diagram]
 

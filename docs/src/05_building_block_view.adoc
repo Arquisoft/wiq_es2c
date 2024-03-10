@@ -3,7 +3,7 @@ ifndef::imagesdir[:imagesdir: ../images]
 [[section-building-block-view]]
 
 
-== Building Block View
+== Vista de bloques
 .Nivel 0:
 
 image:5_Level0.PNG[Diagram]
