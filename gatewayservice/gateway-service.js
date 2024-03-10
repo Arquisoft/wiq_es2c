@@ -7,8 +7,7 @@ const app = express();
 const port = 8000;
 
 // Descomentar esta línea si se va a trabajar en local
-//const generatorUrl = process.env.GENERATOR_SERVICE_URL || 'http://localhost:8003';
-const generatorUrl = 'http://20.254.64.59:8003'
+const generatorUrl = process.env.GENERATOR_SERVICE_URL || 'http://localhost:8003';
 const authServiceUrl = process.env.AUTH_SERVICE_URL || 'http://localhost:8002';
 const userServiceUrl = process.env.USER_SERVICE_URL || 'http://localhost:8001';
 
