@@ -42,7 +42,7 @@ app.post('/adduser', async (req, res) => {
   }
 });
 
-app.get(`/generateQuestion`, async (req, res) => {
+app.get(`${generatorUrl}/generateQuestion`, async (req, res) => {
   try {
     // Forward the add user request to the user service
     const response = await axios.get(generatorUrl+'/generateQuestion', req.body);
