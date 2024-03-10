@@ -53,7 +53,7 @@ jobs:
     - name: Publish to Registry
       uses: elgohr/Publish-Docker-Github-Action@v5
       env:
-        API_URI: http://${{ secrets.DEPLOY_HOST }}:8000
+        REACT_APP_API_ENDPOINT: http://${{ secrets.DEPLOY_HOST }}:8000
         REACT_GENERATOR_APP_API_ENDPOINT: http://${{ secrets.DEPLOY_HOST }}:8003
       with:
           name: arquisoft/wiq_es2c/webapp
@@ -62,7 +62,7 @@ jobs:
           registry: ghcr.io
           workdir: webapp
           buildargs: |
-            API_URI=${API_URI}
+            REACT_APP_API_ENDPOINT=${REACT_APP_API_ENDPOINT}
             REACT_GENERATOR_APP_API_ENDPOINT=${REACT_GENERATOR_APP_API_ENDPOINT}
   docker-push-authservice:
     name: Push auth service Docker Image to GitHub Packages
