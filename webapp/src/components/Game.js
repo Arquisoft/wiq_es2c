@@ -3,7 +3,7 @@ import axios from 'axios';
 import LinearProgress from '@mui/material/LinearProgress';
 import { Container, Typography, Button, Snackbar } from '@mui/material';
 
-const apiEndpoint = 'http://localhost:8003';
+const apiEndpoint = process.env.REACT_GENERATOR_APP_API_ENDPOINT || 'http://localhost:8003';
 
 const Game = () => {
   const [question, setQuestion] = useState('');
