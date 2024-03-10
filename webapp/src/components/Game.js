@@ -3,7 +3,6 @@ import axios from 'axios';
 import LinearProgress from '@mui/material/LinearProgress';
 import { Container, Typography, Button, Snackbar } from '@mui/material';
 
-// El env hay que definirlo para que el endpoint sea el de la máquina virtual
 const apiEndpoint = process.env.REACT_GENERATOR_APP_API_ENDPOINT || 'http://localhost:8003';
 
 const Game = () => {
