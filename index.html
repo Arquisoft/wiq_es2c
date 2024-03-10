@@ -449,7 +449,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <ul class="sectlevel2">
 <li><a href="#_descripción_de_los_requisitos">1.1. Descripción de los requisitos</a></li>
 <li><a href="#_objetivos_de_calidad">1.2. Objetivos de calidad</a></li>
-<li><a href="#_stakeholders">1.3. Stakeholders</a></li>
+<li><a href="#_partes_interesadas_stakeholders">1.3. Partes interesadas (Stakeholders)</a></li>
 </ul>
 </li>
 <li><a href="#section-architecture-constraints">2. Restricciones de arquitectura</a></li>
@@ -460,9 +460,9 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </ul>
 </li>
 <li><a href="#section-solution-strategy">4. Estrategia de solución</a></li>
-<li><a href="#section-building-block-view">5. Building Block View</a></li>
-<li><a href="#section-runtime-view">6. Runtime View</a></li>
-<li><a href="#section-deployment-view">7. Deployment View</a></li>
+<li><a href="#section-building-block-view">5. Vista de bloques</a></li>
+<li><a href="#section-runtime-view">6. Vista de ejecución</a></li>
+<li><a href="#section-deployment-view">7. Vista de despliegue</a></li>
 <li><a href="#section-concepts">8. Conceptos transversales</a>
 <ul class="sectlevel2">
 <li><a href="#_modelo_de_dominio">8.1. Modelo de dominio</a></li>
@@ -475,8 +475,8 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_escenarios_de_calidad">10.2. Escenarios de calidad</a></li>
 </ul>
 </li>
-<li><a href="#section-technical-risks">11. Risks and Technical Debts</a></li>
-<li><a href="#section-glossary">12. Glossary</a></li>
+<li><a href="#section-technical-risks">11. Riesgos y deuda técnica.</a></li>
+<li><a href="#section-glossary">12. Glosario</a></li>
 </ul>
 </div>
 </div>
@@ -696,7 +696,7 @@ Si usted como arquitecto no sabe cómo se juzgará la calidad de su trabajo&#823
 </table>
 </div>
 <div class="sect2">
-<h3 id="_stakeholders">1.3. Stakeholders</h3>
+<h3 id="_partes_interesadas_stakeholders">1.3. Partes interesadas (Stakeholders)</h3>
 <div class="sidebarblock arc42help">
 <div class="content">
 <div class="paragraph">
@@ -730,9 +730,9 @@ Estas partes interesadas determinan el alcance y el nivel de detalle de su traba
 </colgroup>
 <thead>
 <tr>
-<th class="tableblock halign-left valign-top">Role/Name</th>
-<th class="tableblock halign-left valign-top">Contact</th>
-<th class="tableblock halign-left valign-top">Expectations</th>
+<th class="tableblock halign-left valign-top">Rol/Nombre</th>
+<th class="tableblock halign-left valign-top">Contacto</th>
+<th class="tableblock halign-left valign-top">Expectativas</th>
 </tr>
 </thead>
 <tbody>
@@ -1094,7 +1094,7 @@ junto con una tabla de mapeo que muestra las relaciones entre canales y entrada/
 </div>
 </div>
 <div class="sect1">
-<h2 id="section-building-block-view">5. Building Block View</h2>
+<h2 id="section-building-block-view">5. Vista de bloques</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <div class="title">Nivel 0:</div>
@@ -1222,7 +1222,7 @@ junto con una tabla de mapeo que muestra las relaciones entre canales y entrada/
 </div>
 </div>
 <div class="sect1">
-<h2 id="section-runtime-view">6. Runtime View</h2>
+<h2 id="section-runtime-view">6. Vista de ejecución</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p><span class="image"><img src="./images/6_RuntimeView.PNG" alt="Diagram"></span></p>
@@ -1231,7 +1231,7 @@ junto con una tabla de mapeo que muestra las relaciones entre canales y entrada/
 </div>
 </div>
 <div class="sect1">
-<h2 id="section-deployment-view">7. Deployment View</h2>
+<h2 id="section-deployment-view">7. Vista de despliegue</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p><span class="image"><img src="./images/7_DeploymentView_V2.PNG" alt="Diagram"></span></p>
@@ -1427,35 +1427,10 @@ junto con una tabla de mapeo que muestra las relaciones entre canales y entrada/
 </div>
 </div>
 <div class="sect1">
-<h2 id="section-technical-risks">11. Risks and Technical Debts</h2>
+<h2 id="section-technical-risks">11. Riesgos y deuda técnica.</h2>
 <div class="sectionbody">
-<div class="sidebarblock arc42help">
-<div class="content">
-<div class="paragraph">
-<div class="title">Contents</div>
-<p>A list of identified technical risks or technical debts, ordered by priority</p>
-</div>
-<div class="paragraph">
-<div class="title">Motivation</div>
-<p>“Risk management is project management for grown-ups” (Tim Lister, Atlantic Systems Guild.)</p>
-</div>
-<div class="paragraph">
-<p>This should be your motto for systematic detection and evaluation of risks and technical debts in the architecture, which will be needed by management stakeholders (e.g. project managers, product owners) as part of the overall risk analysis and measurement planning.</p>
-</div>
-<div class="paragraph">
-<div class="title">Form</div>
-<p>List of risks and/or technical debts, probably including suggested measures to minimize, mitigate or avoid risks or reduce technical debts.</p>
-</div>
-<div class="paragraph">
-<div class="title">Further Information</div>
-<p>See <a href="https://docs.arc42.org/section-11/">Risks and Technical Debt</a> in the arc42 documentation.</p>
-</div>
-</div>
-</div>
-<div class="paragraph">
-<p>Riesgos</p>
-</div>
 <table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 3. Riesgos</caption>
 <colgroup>
 <col style="width: 20%;">
 <col style="width: 40%;">
@@ -1505,7 +1480,7 @@ junto con una tabla de mapeo que muestra las relaciones entre canales y entrada/
 </div>
 </div>
 <div class="sect1">
-<h2 id="section-glossary">12. Glossary</h2>
+<h2 id="section-glossary">12. Glosario</h2>
 <div class="sectionbody">
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
@@ -1514,8 +1489,8 @@ junto con una tabla de mapeo que muestra las relaciones entre canales y entrada/
 </colgroup>
 <thead>
 <tr>
-<th class="tableblock halign-left valign-top">Term</th>
-<th class="tableblock halign-left valign-top">Definition</th>
+<th class="tableblock halign-left valign-top">Término</th>
+<th class="tableblock halign-left valign-top">Definición</th>
 </tr>
 </thead>
 <tbody>
