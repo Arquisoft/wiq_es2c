@@ -53,7 +53,7 @@ image:3_BusinessContext_V2.PNG[Diagram]
 
 [role="arc42help"]
 ****
-image:3_TechnicalContext.PNG[Diagram]
+image:3_TechnicalContext.png[Diagram]
 
 ****
 
