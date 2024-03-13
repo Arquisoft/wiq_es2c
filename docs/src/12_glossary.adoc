@@ -1,63 +1,38 @@
 ifndef::imagesdir[:imagesdir: ../images]
 
 [[section-glossary]]
-== Glossary
-
-[role="arc42help"]
-****
-.Contents
-The most important domain and technical terms that your stakeholders use when discussing the system.
-
-You can also see the glossary as source for translations if you work in multi-language teams.
-
-.Motivation
-You should clearly define your terms, so that all stakeholders
-
-* have an identical understanding of these terms
-* do not use synonyms and homonyms
-
-
-.Form
-
-A table with columns <Term> and <Definition>.
-
-Potentially more columns in case you need translations.
-
-
-.Further Information
-
-See https://docs.arc42.org/section-12/[Glossary] in the arc42 documentation.
-
-****
+== Glosario
 
 [cols="e,2e" options="header"]
 |===
-|Term |Definition
-
-| Software
-| Conjunto de programas, instrucciones y reglas informáticas para ejecutar ciertas tareas en una computadora.
-
-| WikiData
-| Es una base de conocimientos editada en colaboración y alojada por la Fundaciín Wikimedia
+|Término |Definición
 
 | API
 | Application Programming Interface. Pieza de código que permite a diferentes aplicaciones comunicarse entre sí y compartir información y funcionalidades.
 
-| Usabilidad
-| Facilidad con que las personas pueden utilizar una herramienta particular o cualquier otro objeto fabricado por humanos con el fin de alcanzar un objetivo concreto.
-
-| Stakeholders
-| Individuos o grupos interesados en un producto.
+| Docker
+| Plataforma software que permite crear, probar e implementar aplicaciones rapidamente empaquetando software en unidades estandarizadas llamadas contenedores.
 
 | GitHub
 | Servicio basado en la nube que aloja un sistema de control de versiones llamado Git.
 
-| Docker
-| Plataforma software que permite crear, probar e implementar aplicaciones rapidamente empaquetando software en unidades estandarizadas llamadas contenedores.
+| Plantilla Arc42
+| Estructura para documentas sistemas de software
 
 | React
 | Libreria de JavaScript para el desarrollo de aplicaciones móviles y web
 
-| Plantilla Arc42
-| Estructura para documentas sistemas de software
+
+| Software
+| Conjunto de programas, instrucciones y reglas informáticas para ejecutar ciertas tareas en una computadora.
+
+| Stakeholders
+| Individuos o grupos interesados en un producto.
+
+| Usabilidad
+| Facilidad con que las personas pueden utilizar una herramienta particular o cualquier otro objeto fabricado por humanos con el fin de alcanzar un objetivo concreto.
+
+| WikiData
+| Es una base de conocimientos editada en colaboración y alojada por la Fundaciín Wikimedia
+
 |===

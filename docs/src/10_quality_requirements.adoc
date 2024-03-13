@@ -3,25 +3,13 @@ ifndef::imagesdir[:imagesdir: ../images]
 [[section-quality-scenarios]]
 == Requerimientos de calidad
 
-
-[role="arc42help"]
-****
-
-****
-
 === Árbol de calidad
 
-[role="arc42help"]
-****
+
 image:QUALITY REQUIREMENTS.png[Diagram]
-
-
-****
 
 === Escenarios de calidad
 
-[role="arc42help"]
-****
 [cols="1,4,1"]
 |===
 
@@ -48,4 +36,6 @@ image:QUALITY REQUIREMENTS.png[Diagram]
 |Testeabilidad
 |La solicitud debería poder pasar por diferentes pruebas y completarlas con éxito. Además, la aplicación debe estar preparada para todo tipo de usos lógicos por parte del usuario.
 |Medio-bajo
-****
+
+|===
+
