@@ -9,6 +9,7 @@ app.use(bodyParser.json());
 
 // Necesario para poder hacer las peticiones desde Game
 // http://localhost:3000 
+// 
 app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
