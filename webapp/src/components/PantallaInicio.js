@@ -1,18 +1,40 @@
-import React from 'react';
-import { Container, Typography, Button, Box } from '@mui/material';
+import React, { useState, useEffect } from 'react';
+import { Container, Typography, Button, Box, Snackbar } from '@mui/material';
 import { useUser } from './UserContext';
 import { useNavigate } from 'react-router-dom';
 
 
 const PantallaInicio = () => {
+
+    const [loginSuccess, setLoginSuccess] = useState(false);
+    const [openSnackbar, setOpenSnackbar] = useState(false);
+    const [error, setError] = useState('');
     
     const { usernameGlobal } = useUser();
+
+    const { setUsernameGlobal } = useUser();
 
     const navigate = useNavigate();
 
     function nuevaPartida() {
         navigate("/Partida")
     }
+
+    const logoutUser = async () => {
+        try {
+            setLoginSuccess(false);
+            setUsernameGlobal('');
+            navigate('/App');
+            
+            setOpenSnackbar(true);
+        } catch (error) {
+            setError(error.response.data.error);
+        }
+    };
+
+    const handleCloseSnackbar = () => {
+        setOpenSnackbar(false);
+    };
 
     return (
         <Container component="main" maxWidth="xl"
@@ -34,12 +56,25 @@ const PantallaInicio = () => {
                 display: "flex",
                 gap: 2, // Espacio entre los botones
             }}> 
-                <Button variant="contained" color="inherit" style={{ background: 'none', border: 'none', padding: 0 }}>
+                <Button variant="contained" color="inherit" style={{ background: 'white', border: 'none', padding: 0 }}>
                     <img src={require('./images/iconHistory.jpeg')} style={{ width: '50px', height: '50px' }} alt="Imagen historico"/>
                 </Button>
 
-                <Button variant="contained" color="inherit" style={{ background: 'none', border: 'none', width: '50px' }}>
+                <Button variant="contained" color="inherit" style={{ background: 'white', border: 'none', width: '50px' }}>
                     <img src={require('./images/iconUser.jpeg')} style={{ width: '50px', height: '50px' }} alt="Imagen usuario"/>
+                </Button>
+                
+            </Box>
+
+            <Box sx={{
+                position: "absolute",
+                top: 50,
+                left: 20,
+                display: "flex",
+                gap: 2, // Espacio entre los botones
+            }}> 
+                <Button variant="contained" color="inherit" style={{ background: 'white', border: 'none', padding: 0 }} onClick={logoutUser}>
+                    <img src={require('./images/logout.png')} style={{ width: '50px', height: '50px' }} alt="Imagen logout"/>
                 </Button>
                 
             </Box>
@@ -59,6 +94,10 @@ const PantallaInicio = () => {
                     NUEVA PARTIDA
                 </Button>
             </Box>
+            <Snackbar open={openSnackbar} autoHideDuration={6000} onClose={handleCloseSnackbar} message="Sesion cerrada" />
+            {error && (
+                <Snackbar open={!!error} autoHideDuration={6000} onClose={() => setError('')} message={`Error: ${error}`} />
+            )}
 
         </Container>
     );
