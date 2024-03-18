@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import AddUser from './components/AddUser';
 import Login from './components/Login';
-import Game from './components/Game';
 import CssBaseline from '@mui/material/CssBaseline';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
@@ -15,21 +14,27 @@ function App() {
   };
 
   return (
-    <Container component="main" maxWidth="xs">
+    <Container component="main" maxWidth="xl"
+            sx={{
+                marginTop: 4,
+                backgroundColor: '#F3D3FA',
+                borderRadius: '10px',
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'center',
+                alignItems: 'center',
+                height: '95vh' 
+            }}>
       <CssBaseline />
-      <Typography component="h1" variant="h5" align="center" sx={{ marginTop: 2 }}>
-        Welcome to the 2024 edition of the Software Architecture course
-      </Typography>
-      <Game />
       {showLogin ? <Login /> : <AddUser />}
       <Typography component="div" align="center" sx={{ marginTop: 2 }}>
         {showLogin ? (
           <Link name="gotoregister" component="button" variant="body2" onClick={handleToggleView}>
-            Don't have an account? Register here.
+            ¿No tienes cuenta? Registrate aquí.
           </Link>
         ) : (
           <Link component="button" variant="body2" onClick={handleToggleView}>
-            Already have an account? Login here.
+            ¿Ya tienes cuenta? Inicia sesión aquí.
           </Link>
         )}
       </Typography>

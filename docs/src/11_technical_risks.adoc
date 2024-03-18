@@ -1,30 +1,8 @@
 ifndef::imagesdir[:imagesdir: ../images]
 
 [[section-technical-risks]]
-== Risks and Technical Debts
+== Riesgos y deuda técnica.
 
-
-[role="arc42help"]
-****
-.Contents
-A list of identified technical risks or technical debts, ordered by priority
-
-.Motivation
-“Risk management is project management for grown-ups” (Tim Lister, Atlantic Systems Guild.) 
-
-This should be your motto for systematic detection and evaluation of risks and technical debts in the architecture, which will be needed by management stakeholders (e.g. project managers, product owners) as part of the overall risk analysis and measurement planning.
-
-.Form
-List of risks and/or technical debts, probably including suggested measures to minimize, mitigate or avoid risks or reduce technical debts.
-
-
-.Further Information
-
-See https://docs.arc42.org/section-11/[Risks and Technical Debt] in the arc42 documentation.
-
-****
-
-Riesgos
 [options="header",cols="1,2,2"]
 |===
 |Riesgo|Explicación| Solución
@@ -36,14 +14,5 @@ Riesgos
 | Documentación | Previamente no habíamos realizado ninguna documentación técnica de un proyecto. | Es fundamental dedicar tiempo a esta parte del proyecto así como comunicar posibles dudas tanto a otros miembros del equipo como al profesorado.
 |===
 
-Deuda técnica
-[options="header",cols="1,1"]
-|===
-| Deuda | Explicación
-| Código limpio | El código debe ser claro para facilitar su modificación y ampliación por todos los miembros del equipo.
-| Código comentado | Comentar el código facilitará trabajar con código que no ha sido implementado por uno mismo.
-| Usabilidad | Como ya se comentó en el apartado 1.2 Metas de calidad.
-| Funcionalidad | Cumplimiento de la funcionalidad especificada por los requisitos.
-|===
 
 
