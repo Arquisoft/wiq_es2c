@@ -59,12 +59,12 @@ mongoose.connect(mongoUri);
 app.get('/generateQuestion', async (req, res) => {
     try {
         await generarPregunta();
-
+        let id = saveData();
         // Construcción de la respuesta
         var response = {
             responseQuestion: question,
             responseOptions: options,
-            responseCorrectOption: correctOption
+            responseCorrectOption: correctOption,
         };
 
 
@@ -133,7 +133,7 @@ function procesarDatos(data) {
         options.push(data[optionIndex].optionLabel.value);
     }
 
-    saveData();
+
 
 }
 
@@ -153,19 +153,10 @@ async function saveData(){
             respuesta_falsa3: false_options[2]
         });
 
-
-
-
-        // const newQuestion = new Question({
-        //     enunciado: "prueba",
-        //     respuesta_correcta: "prueba",
-        //     respuesta_falsa1: "prueba",
-        //     respuesta_falsa2: "prueba",
-        //     respuesta_falsa3: "prueba"
-        // });
-
-        await newQuestion.save();
+       await newQuestion.save();
         console.log("Pregunta guardada correctamente ", newQuestion );
+
+        return newQuestion._id.valueOf();
     }catch (error){
         console.error("Error al guardar la pregunta: " + error);
     }
