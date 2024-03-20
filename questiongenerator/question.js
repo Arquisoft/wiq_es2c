@@ -142,34 +142,32 @@ async function saveData(){
     try {
 
 
-        // var correct_answer = questionData.correctAnswer;
-        // var false_options = [];
-        // for (var i = 0; i < 4; i++) {
-        //     if (options[i] != correct_answer) {
-        //         false_options[i] = fiels[i];
-        //     }
-        // }
+        var false_options = options.filter(o => o != correctOption);
 
-        // const newQuestion = new Question({
-        //     enunciado: questionData.question,
-        //     respuesta_correcta: correct_answer,
-        //     respuesta_falsa1: false_options[0],
-        //     respuesta_falsa2: false_options[1],
-        //     respuesta_falsa3: false_options[2]
-        // });
 
         const newQuestion = new Question({
-            enunciado: "prueba",
-            respuesta_correcta: "prueba",
-            respuesta_falsa1: "prueba",
-            respuesta_falsa2: "prueba",
-            respuesta_falsa3: "prueba"
+            enunciado: question,
+            respuesta_correcta: correctOption,
+            respuesta_falsa1: false_options[0],
+            respuesta_falsa2: false_options[1],
+            respuesta_falsa3: false_options[2]
         });
 
+
+
+
+        // const newQuestion = new Question({
+        //     enunciado: "prueba",
+        //     respuesta_correcta: "prueba",
+        //     respuesta_falsa1: "prueba",
+        //     respuesta_falsa2: "prueba",
+        //     respuesta_falsa3: "prueba"
+        // });
+
         await newQuestion.save();
-        console.log("Pregunta guardada correctamente");
+        console.log("Pregunta guardada correctamente ", newQuestion );
     }catch (error){
-        console.error("Error al guardar la pregunta: " + e);
+        console.error("Error al guardar la pregunta: " + error);
     }
 }
 
