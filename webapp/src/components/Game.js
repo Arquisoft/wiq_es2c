@@ -11,6 +11,7 @@ const Game = () => {
   const [question, setQuestion] = useState('');
   const [options, setOptions] = useState([]);
   const [correctOption, setCorrectOption] = useState("");
+  const [questionId,setQuestionId] = useState(null);
   const [error, setError] = useState('');
   const [selectedOption, setSelectedOption] = useState('');
   const [openSnackbar, setOpenSnackbar] = useState(false);
@@ -19,16 +20,19 @@ const Game = () => {
   const [answeredQuestions,setAnsweredQuestions] = useState(0);
 
   const MAX_TIME = 30;
-  const MAX_PREGUNTAS = 5;  
+  const MAX_PREGUNTAS = 5;
 
   const navigate = useNavigate();
 
   const getQuestion = useCallback(async () => {
     try {
       const response = await axios.get(`${apiEndpoint}/generateQuestion`, { });
+      console.log("HUHUHUHUHUH" + response.data._id));
+        console.log("HAAAAAAAAAAAAAAAAAHAAAAAAAAAAAAAA" + response.data.responseQuestion));
       setQuestion(response.data.responseQuestion);
       setOptions(response.data.responseOptions);
       setCorrectOption(response.data.responseCorrectOption);
+      setQuestionId(response.data._id);
       setOpenSnackbar(true);
       setElapsedTime(MAX_TIME);
     } catch (error) {
@@ -47,6 +51,7 @@ const Game = () => {
     },1000);
 
     if(elapsedTime<=0){
+      //updateQuestion();
       getQuestion();
     }
 
@@ -60,6 +65,9 @@ const Game = () => {
     setOpenSnackbar(true);
     console.log(openSnackbar);
     setAnswerCorrect(correctOption === option);
+
+    updateQuestion();
+
     setTimeout(() => {
       getQuestion();
     }, 1500);
@@ -70,6 +78,28 @@ const Game = () => {
       navigate("/PantallaInicio");
     }
   };
+
+  const updateQuestion = useCallback(async () => {
+
+    var timePassed = MAX_TIME - elapsedTime;
+    console.log("EL TIMEEEEEEEEEEEEEEEEEEEEEEEE: " + timePassed);
+    if(timePassed<0){
+      timePassed = 0;
+    }
+      console.log("EL TIMEEEEEEEEEEEEEEEEEEEEEEEE DESPUES DEL IF: " + timePassed);
+    try {
+      const response = await axios.get(`${apiEndpoint}/updateQuestion`, {
+        params: {
+          idQ: questionId,
+          prueba: "jejejee",
+          time: timePassed
+        }
+      });
+    } catch (error) {
+      setError(error.response.data.error);
+    }
+  }, [])
+
 
   return (
     <Container component="main" maxWidth="xs" sx={{ marginTop: 4 }}>

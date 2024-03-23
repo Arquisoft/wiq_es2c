@@ -25,6 +25,7 @@ var correctOption = "";
 var options = [];
 var question = "";
 var url = 'https://query.wikidata.org/sparql';
+var questionToSave = null;
 // Todas las consultas
 var queries = [`SELECT ?question ?questionLabel ?option ?optionLabel
     WHERE {
@@ -62,11 +63,13 @@ app.get('/generateQuestion', async (req, res) => {
     try {
         await generarPregunta();
         let id = saveData();
+        console.log("AQUI SISIISISISIS " + id);
         // Construcción de la respuesta
         var response = {
             responseQuestion: question,
             responseOptions: options,
             responseCorrectOption: correctOption,
+            _id: id
         };
 
 
@@ -147,6 +150,7 @@ async function saveData(){
         var false_options = options.filter(o => o != correctOption);
 
 
+
         const newQuestion = new Question({
             enunciado: question,
             respuesta_correcta: correctOption,
@@ -157,11 +161,25 @@ async function saveData(){
 
        await newQuestion.save();
         console.log("Pregunta guardada correctamente ", newQuestion );
-
-        return newQuestion._id.valueOf();
+        questionToSave = newQuestion;
+        return newQuestion._id;
     }catch (error){
         console.error("Error al guardar la pregunta: " + error);
     }
 }
+
+app.get('/updateQuestion', async (req, res) => {
+    try {
+
+        console.log("HOLAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA " + req.query.prueba);
+        console.log("HOLAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA " + req.query.idQ);
+        console.log("PRUEBA 222222222222222222222222222222222222 " + questionToSave._id);
+        console.log("TIMETIMETIMETIMETIME " + req.query.time);
+
+    } catch (error) {
+        res.status(400).json({ error: error.message });
+    }
+});
+
 
 module.exports = server
