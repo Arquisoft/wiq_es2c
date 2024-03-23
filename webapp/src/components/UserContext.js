@@ -7,7 +7,7 @@ export function UserProvider({ children }) {
 
     return (
         <UserContext.Provider value={{ usernameGlobal, setUsernameGlobal }}>
-        {children}
+            {children}
         </UserContext.Provider>
     );
 }
