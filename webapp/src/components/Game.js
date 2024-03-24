@@ -59,18 +59,21 @@ const Game = () => {
     }
   }, [elapsedTime, getQuestion]);
 
-  const handleOptionClick = (option) => {
+  const handleOptionClick = async (option) => {
     setSelectedOption(option);
     setOpenSnackbar(true);
     console.log(openSnackbar);
     setAnswerCorrect(correctOption === option);
 
-    console.log(" ELAPSED TIME: " + elapsedTime);
-    console.log("MAX_TIME: " + MAX_TIME);
-    const timePassed = MAX_TIME - elapsedTime;
-    console.log("THE TIME " + timePassed );
-    console.log("QUESTION ID " + questionId);
+
     try {
+
+      console.log(" ELAPSED TIME: " + elapsedTime);
+      console.log("MAX_TIME: " + MAX_TIME);
+      const timePassed = MAX_TIME - elapsedTime;
+      console.log("THE TIME " + timePassed );
+      console.log("QUESTION ID " + questionId);
+
       const response = await axios.get(`${apiEndpoint}/updateQuestion`, {
         params: {
           idQ: questionId,
