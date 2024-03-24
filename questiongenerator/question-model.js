@@ -19,6 +19,9 @@ const questionSchema = new mongoose.Schema({
     },respuesta_falsa3:{
         type:String,
         required:true
+    },time:{
+        type:Number,
+        required: false
     }
 
 });
