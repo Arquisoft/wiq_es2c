@@ -169,12 +169,20 @@ async function saveData(){
 
 app.get('/updateQuestion', async (req, res) => {
     try {
-
-        console.log("HOLAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA " + req.query.prueba);
-        console.log("HOLAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA " + req.query.idQ);
-        console.log("PRUEBA 222222222222222222222222222222222222 " + questionToSave._id);
+        console.log("HOLAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA " + req.query.question_Id);
+        // console.log("PRUEBA 222222222222222222222222222222222222 " + questionToSave._id);
         console.log("TIMETIMETIMETIMETIME " + req.query.time);
         console.log(req.query.timePrueba);
+
+        const questionId = questionToSave._id;
+        const newTime = req.query.time;
+        const updatedQuestion = await Question.findByIdAndUpdate(questionId,{time: newTime},{new:true});
+
+        if (!updatedQuestion) {
+            return res.status(404).json({ error: "La pregunta no fue encontrada" });
+        }
+        console.log("ACTUALIZACIÓN TIEMPO: " + updatedQuestion);
+        res.status(200).json({ message: "Tiempo de pregunta actualizado exitosamente", updatedQuestion });
 
     } catch (error) {
         res.status(400).json({ error: error.message });
