@@ -3,11 +3,13 @@ import axios from 'axios';
 import LinearProgress from '@mui/material/LinearProgress';
 import { Container, Typography, Button, Snackbar } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
+import { useUser } from './UserContext';
 
 // Cambio de prueba
 const apiEndpoint = process.env.REACT_APP_API_GENERATOR_ENDPOINT || 'http://localhost:8003';
 
 const Game = () => {
+  const { usernameGlobal } = useUser();
   const [question, setQuestion] = useState('');
   const [options, setOptions] = useState([]);
   const [correctOption, setCorrectOption] = useState("");
@@ -26,6 +28,7 @@ const Game = () => {
 
   const getQuestion = useCallback(async () => {
     try {
+      console.log("USERNAME: " + usernameGlobal);
       const response = await axios.get(`${apiEndpoint}/generateQuestion`, { });
       setQuestionId(response.data.question_Id);
       setQuestion(response.data.responseQuestion);
