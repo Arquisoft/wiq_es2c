@@ -62,14 +62,13 @@ mongoose.connect(mongoUri);
 app.get('/generateQuestion', async (req, res) => {
     try {
         await generarPregunta();
-        let id = saveData();
-        console.log("AQUI SISIISISISIS " + id);
+        var id = saveData();
         // Construcción de la respuesta
         var response = {
             responseQuestion: question,
             responseOptions: options,
             responseCorrectOption: correctOption,
-            _id: id
+            question_Id: id
         };
 
 
@@ -175,6 +174,7 @@ app.get('/updateQuestion', async (req, res) => {
         console.log("HOLAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA " + req.query.idQ);
         console.log("PRUEBA 222222222222222222222222222222222222 " + questionToSave._id);
         console.log("TIMETIMETIMETIMETIME " + req.query.time);
+        console.log(req.query.timePrueba);
 
     } catch (error) {
         res.status(400).json({ error: error.message });
