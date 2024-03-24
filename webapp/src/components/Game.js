@@ -27,7 +27,6 @@ const Game = () => {
   const getQuestion = useCallback(async () => {
     try {
       const response = await axios.get(`${apiEndpoint}/generateQuestion`, { });
-      console.log("HUHUHUHUHUH" + response.data.question_Id);
       setQuestionId(response.data.question_Id);
       setQuestion(response.data.responseQuestion);
       setOptions(response.data.responseOptions);
@@ -50,7 +49,6 @@ const Game = () => {
     },1000);
 
     if(elapsedTime<=0){
-      //updateQuestion();
       getQuestion();
     }
 
@@ -65,15 +63,8 @@ const Game = () => {
     console.log(openSnackbar);
     setAnswerCorrect(correctOption === option);
 
-
     try {
-
-      console.log(" ELAPSED TIME: " + elapsedTime);
-      console.log("MAX_TIME: " + MAX_TIME);
       const timePassed = MAX_TIME - elapsedTime;
-      console.log("THE TIME " + timePassed );
-      console.log("QUESTION ID " + questionId);
-
       const response = await axios.get(`${apiEndpoint}/updateQuestion`, {
         params: {
           question_Id: questionId,
@@ -94,28 +85,6 @@ const Game = () => {
       navigate("/PantallaInicio");
     }
   };
-
-  // const updateQuestion = useCallback(async () => {
-  //
-  //   console.log(" ELAPSED TIME: " + elapsedTime);
-  //   console.log("MAX_TIME: " + MAX_TIME);
-  //   const timePassed = MAX_TIME - elapsedTime;
-  //   console.log("THE TIME " + timePassed );
-  //   console.log("QUESTION ID " + questionId);
-  //   try {
-  //     const response = await axios.get(`${apiEndpoint}/updateQuestion`, {
-  //       params: {
-  //         idQ: questionId,
-  //         prueba: "jejejee",
-  //         time: "owowooww",
-  //         timePrueba: timePassed
-  //
-  //       }
-  //     });
-  //   } catch (error) {
-  //     setError(error.response.data.error);
-  //   }
-  // }, [])
 
 
   return (
