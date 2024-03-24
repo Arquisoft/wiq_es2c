@@ -76,11 +76,8 @@ const Game = () => {
 
       const response = await axios.get(`${apiEndpoint}/updateQuestion`, {
         params: {
-          idQ: questionId,
-          prueba: "jejejee",
-          time: "owowooww",
-          timePrueba: timePassed
-
+          question_Id: questionId,
+          time: timePassed
         }
       });
     } catch (error) {
