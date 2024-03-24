@@ -11,6 +11,7 @@ const Game = () => {
   const [question, setQuestion] = useState('');
   const [options, setOptions] = useState([]);
   const [correctOption, setCorrectOption] = useState("");
+  const [questionId,setQuestionId] = useState(null);
   const [error, setError] = useState('');
   const [selectedOption, setSelectedOption] = useState('');
   const [openSnackbar, setOpenSnackbar] = useState(false);
@@ -19,13 +20,14 @@ const Game = () => {
   const [answeredQuestions,setAnsweredQuestions] = useState(0);
 
   const MAX_TIME = 30;
-  const MAX_PREGUNTAS = 5;  
+  const MAX_PREGUNTAS = 5;
 
   const navigate = useNavigate();
 
   const getQuestion = useCallback(async () => {
     try {
       const response = await axios.get(`${apiEndpoint}/generateQuestion`, { });
+      setQuestionId(response.data.question_Id);
       setQuestion(response.data.responseQuestion);
       setOptions(response.data.responseOptions);
       setCorrectOption(response.data.responseCorrectOption);
@@ -55,11 +57,24 @@ const Game = () => {
     }
   }, [elapsedTime, getQuestion]);
 
-  const handleOptionClick = (option) => {
+  const handleOptionClick = async (option) => {
     setSelectedOption(option);
     setOpenSnackbar(true);
     console.log(openSnackbar);
     setAnswerCorrect(correctOption === option);
+
+    try {
+      const timePassed = MAX_TIME - elapsedTime;
+      const response = await axios.get(`${apiEndpoint}/updateQuestion`, {
+        params: {
+          question_Id: questionId,
+          time: timePassed
+        }
+      });
+    } catch (error) {
+      setError(error.response.data.error);
+    }
+
     setTimeout(() => {
       getQuestion();
     }, 1500);
@@ -70,6 +85,7 @@ const Game = () => {
       navigate("/PantallaInicio");
     }
   };
+
 
   return (
     <Container component="main" maxWidth="xs" sx={{ marginTop: 4 }}>

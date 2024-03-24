@@ -1,8 +1,11 @@
 const axios = require('axios');
 const express = require('express');
+const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
+const Question = require('./question-model');
 const app = express();
 const port = 8003;
+
 
 // Middleware to parse JSON in request body
 app.use(bodyParser.json());
@@ -22,6 +25,7 @@ var correctOption = "";
 var options = [];
 var question = "";
 var url = 'https://query.wikidata.org/sparql';
+var questionToSave = null;
 // Todas las consultas
 var queries = [`SELECT ?question ?questionLabel ?option ?optionLabel
     WHERE {
@@ -51,17 +55,24 @@ var questions = ["¿Cuál es la capital de ",
 //  Número aleatorio que decide la consulta y la pregunta que se mostrarán
 var randomNumber;
 
+
+const mongoUri = process.env.MONGODB_URI || 'mongodb://localhost:27017/questiondb';
+mongoose.connect(mongoUri);
+
 app.get('/generateQuestion', async (req, res) => {
     try {
         await generarPregunta();
-
+        var id = saveData();
         // Construcción de la respuesta
         var response = {
             responseQuestion: question,
             responseOptions: options,
-            responseCorrectOption: correctOption
+            responseCorrectOption: correctOption,
+            question_Id: id
         };
-        
+
+
+
         res.status(200).json(response);
     } catch (error) {
         res.status(400).json({ error: error.message }); 
@@ -86,6 +97,7 @@ async function generarPregunta() {
         });
 
         procesarDatos(response.data);
+
 
     } catch (error) {
         console.error('Error al realizar la solicitud:', error);
@@ -124,6 +136,48 @@ function procesarDatos(data) {
         var optionIndex = randomIndexes[i];
         options.push(data[optionIndex].optionLabel.value);
     }
+
+
+
 }
+
+async function saveData(){
+
+    try {
+
+        var false_options = options.filter(o => o != correctOption);
+
+        const newQuestion = new Question({
+            enunciado: question,
+            respuesta_correcta: correctOption,
+            respuesta_falsa1: false_options[0],
+            respuesta_falsa2: false_options[1],
+            respuesta_falsa3: false_options[2]
+        });
+
+       await newQuestion.save();
+        questionToSave = newQuestion;
+        return newQuestion._id;
+    }catch (error){
+        console.error("Error al guardar la pregunta: " + error);
+    }
+}
+
+app.get('/updateQuestion', async (req, res) => {
+    try {
+        const questionId = questionToSave._id;
+        const newTime = req.query.time;
+        const updatedQuestion = await Question.findByIdAndUpdate(questionId,{time: newTime},{new:true});
+
+        if (!updatedQuestion) {
+            return res.status(404).json({ error: "La pregunta no fue encontrada" });
+        }
+        res.status(200).json({ message: "Tiempo de pregunta actualizado exitosamente", updatedQuestion });
+
+    } catch (error) {
+        res.status(400).json({ error: error.message });
+    }
+});
+
 
 module.exports = server
