@@ -90,12 +90,11 @@ const Game = () => {
       setError(error.response.data.error);
     }
 
+    setAnsweredQuestions( answeredQuestions => answeredQuestions+1);
 
     setTimeout(() => {
       getQuestion();
     }, 1500);
-
-    setAnsweredQuestions(answeredQuestions+1);
 
     if (answeredQuestions >= MAX_PREGUNTAS) {
       navigate("/PantallaInicio");
