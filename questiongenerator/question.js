@@ -146,27 +146,37 @@ function procesarDatos(data) {
 
 }
 
-async function saveData(gameId, username,id){
+async function saveGame(username,createNewGame){
+
+    console.log("ID EN SAVE GAME: " + id);
 
     try {
 
-        const existingGame = await Game.findById(gameId);
-
-        if(!existingGame){
-
+        if(createNewGame){
             const newGame = new Game({ userId: username, questions: [] });
             newGame.questions.push(id);
             await newGame.save();
 
             return newGame._id;
-
         }else{
 
-            existingGame.questions.push(id);
-            await existingGame.save();
-            return existingGame._id;
-        }
+            const existingGame = await Game.findById(gameId);
 
+            if(!existingGame){
+
+                const newGame = new Game({ userId: username, questions: [] });
+                newGame.questions.push(id);
+                await newGame.save();
+
+                return newGame._id;
+
+            }else{
+
+                existingGame.questions.push(id);
+                await existingGame.save();
+                return existingGame._id;
+            }
+        }
 
     }catch (error){
         console.error("Error al guardar datos de la partida: " + error);

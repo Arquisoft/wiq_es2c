@@ -37,7 +37,8 @@ const Game = () => {
               game: gameId
           }
       });
-      setGameId(response.data.game_Id);
+      const id = await response.data.game_Id;
+      setGameId(id);
       setQuestionId(response.data.question_Id);
       setQuestion(response.data.responseQuestion);
       setOptions(response.data.responseOptions);
