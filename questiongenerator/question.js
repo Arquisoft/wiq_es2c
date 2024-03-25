@@ -68,8 +68,8 @@ app.get('/generateQuestion', async (req, res) => {
         console.log("HAY QUE CREAR UN NUEVO JUEGO ? " + createNewGame);
         const user = req.query.user;
         await generarPregunta();
-        var id = saveData();
-        saveGame(user, id, createNewGame);
+        var id = await saveData();
+        await saveGame(user, id, createNewGame);
         // Construcción de la respuesta
         var response = {
             responseQuestion: question,
@@ -154,21 +154,28 @@ async function saveGame(username,id,createNewGame){
     try {
 
         if(createNewGame){
+            console.log("primer  if");
+            console.log("ID DE LA PREGUNTA: " + id);
+            console.log("PREGUNTA: " + questionToSave);
+            console.log("PREGUNTA ID: " + questionToSave._id);
             const newGame = new Game({ userId: username, questions: [] });
-            newGame.questions.push(id);
+            newGame.questions.push(questionToSave._id);
             await newGame.save();
             console.log(" ID AL AÑADIR:  " + newGame._id);
             gameId = newGame._id;
             console.log( " EYEYYEY GAME ID: " + gameId);
             return null;
         }else{
-
+            console.log("primer else");
             const existingGame = await Game.findById(gameId);
 
             if(!existingGame){
-
+                console.log("segundo  if");
+                console.log("ID DE LA PREGUNTA: " + id);
+                console.log("PREGUNTA: " + questionToSave);
+                console.log("PREGUNTA ID: " + questionToSave._id);
                 const newGame = new Game({ userId: username, questions: [] });
-                newGame.questions.push(id);
+                newGame.questions.push(questionToSave._id);
                 await newGame.save();
                 console.log(" ID AL AÑADIR:  " + newGame._id);
                 gameId = newGame._id;
@@ -176,8 +183,11 @@ async function saveGame(username,id,createNewGame){
                 return null;
 
             }else{
-
-                existingGame.questions.push(id);
+                console.log("segundo  else");
+                console.log("ID DE LA PREGUNTA: " + id);
+                console.log("PREGUNTA: " + questionToSave);
+                console.log("PREGUNTA ID: " + questionToSave._id);
+                existingGame.questions.push(questionToSave._id);
                 await existingGame.save();
                 console.log( " ID AL AÑADIR:  " + existingGame._id);
                 gameId = existingGame._id;
