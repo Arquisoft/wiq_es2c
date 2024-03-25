@@ -26,13 +26,11 @@ const Game = () => {
 
   const navigate = useNavigate();
 
-  const getQuestion = useCallback(async () => {
+  const getQuestion = useCallback(async (answeredQuestionsValue) => {
     try {
-      console.log(" NUMERO DE PREGUNTA " + answeredQuestions);
-      var createNewGame = true;
-      if(answeredQuestions>0){
-        createNewGame = false;
-      }
+      console.log(" NUMERO DE PREGUNTA " + answeredQuestionsValue);
+
+      const createNewGame = answeredQuestionsValue > 0 ? false : true;
 
       console.log(" HAY QUE CREAR UN NUEVO JUEGO? " + createNewGame);
 
@@ -64,7 +62,7 @@ const Game = () => {
     },1000);
 
     if(elapsedTime<=0){
-      getQuestion();
+      getQuestion(answeredQuestions+1);
     }
 
     return () => {
@@ -90,11 +88,13 @@ const Game = () => {
       setError(error.response.data.error);
     }
 
-    setAnsweredQuestions( answeredQuestions => answeredQuestions+1);
+
 
     setTimeout(() => {
-      getQuestion();
+      getQuestion(answeredQuestions+1);
     }, 1500);
+
+    setAnsweredQuestions( answeredQuestions => answeredQuestions+1);
 
     if (answeredQuestions >= MAX_PREGUNTAS) {
       navigate("/PantallaInicio");

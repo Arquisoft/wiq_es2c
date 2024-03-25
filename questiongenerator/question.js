@@ -65,7 +65,7 @@ mongoose.connect(mongoUri);
 app.get('/generateQuestion', async (req, res) => {
     try {
         const createNewGame = req.query.newGame;
-        console.log("HAY QUE CREAR UN NUEVO JUEGO ? " + createNewGame);
+
         const user = req.query.user;
         await generarPregunta();
         var id = await saveData();
@@ -149,8 +149,7 @@ function procesarDatos(data) {
 
 async function saveGame(username,id,createNewGame){
 
-    console.log("ID EN SAVE GAME: " + gameId);
-
+    console.log("HAY QUE CREAR UN NUEVO JUEGO ? " + createNewGame);
     try {
 
         if(createNewGame){
