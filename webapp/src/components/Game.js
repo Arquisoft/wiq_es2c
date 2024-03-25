@@ -29,7 +29,11 @@ const Game = () => {
   const getQuestion = useCallback(async () => {
     try {
       console.log("USERNAME: " + usernameGlobal);
-      const response = await axios.get(`${apiEndpoint}/generateQuestion`, { });
+      const response = await axios.get(`${apiEndpoint}/generateQuestion`, {
+          params: {
+              user: usernameGlobal
+          }
+      });
       setQuestionId(response.data.question_Id);
       setQuestion(response.data.responseQuestion);
       setOptions(response.data.responseOptions);

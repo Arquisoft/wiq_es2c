@@ -7,6 +7,7 @@ const app = express();
 const port = 8003;
 
 
+
 // Middleware to parse JSON in request body
 app.use(bodyParser.json());
 
@@ -61,6 +62,8 @@ mongoose.connect(mongoUri);
 
 app.get('/generateQuestion', async (req, res) => {
     try {
+        const user = req.query.user;
+        console.log("USUARIO EN GENERATE QUESTION: " + user);
         await generarPregunta();
         var id = saveData();
         // Construcción de la respuesta
@@ -70,8 +73,6 @@ app.get('/generateQuestion', async (req, res) => {
             responseCorrectOption: correctOption,
             question_Id: id
         };
-
-
 
         res.status(200).json(response);
     } catch (error) {
