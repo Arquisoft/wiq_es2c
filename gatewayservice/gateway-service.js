@@ -6,6 +6,7 @@ const promBundle = require('express-prom-bundle');
 const app = express();
 const port = 8000;
 
+// Descomentar esta línea si se va a trabajar en local
 const generatorUrl = process.env.GENERATOR_SERVICE_URL || 'http://localhost:8003';
 const authServiceUrl = process.env.AUTH_SERVICE_URL || 'http://localhost:8002';
 const userServiceUrl = process.env.USER_SERVICE_URL || 'http://localhost:8001';
@@ -42,7 +43,7 @@ app.post('/adduser', async (req, res) => {
   }
 });
 
-app.get(`${generatorUrl}/generateQuestion`, async (req, res) => {
+app.get(`/generateQuestion`, async (req, res) => {
   try {
     // Forward the add user request to the user service
     const response = await axios.get(generatorUrl+'/generateQuestion', req.body);

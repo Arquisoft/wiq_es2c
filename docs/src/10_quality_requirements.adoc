@@ -3,25 +3,13 @@ ifndef::imagesdir[:imagesdir: ../images]
 [[section-quality-scenarios]]
 == Requerimientos de calidad
 
-
-[role="arc42help"]
-****
-
-****
-
 === Árbol de calidad
 
-[role="arc42help"]
-****
+
 image:QUALITY REQUIREMENTS.png[Diagram]
-
-
-****
 
 === Escenarios de calidad
 
-[role="arc42help"]
-****
 [cols="1,4,1"]
 |===
 
@@ -50,4 +38,4 @@ image:QUALITY REQUIREMENTS.png[Diagram]
 |Medio-bajo
 
 |===
-****
+
