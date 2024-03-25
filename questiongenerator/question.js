@@ -159,7 +159,7 @@ async function saveGame(username,id,createNewGame){
             await newGame.save();
             console.log(" ID AL AÑADIR:  " + newGame._id);
             gameId = newGame._id;
-            console.log( " EYEYYEY GAME ID: " gameId);
+            console.log( " EYEYYEY GAME ID: " + gameId);
             return null;
         }else{
 
@@ -172,7 +172,7 @@ async function saveGame(username,id,createNewGame){
                 await newGame.save();
                 console.log(" ID AL AÑADIR:  " + newGame._id);
                 gameId = newGame._id;
-                console.log( " EYEYYEY GAME ID: " gameId);
+                console.log( " EYEYYEY GAME ID: " + gameId);
                 return null;
 
             }else{
@@ -181,7 +181,7 @@ async function saveGame(username,id,createNewGame){
                 await existingGame.save();
                 console.log( " ID AL AÑADIR:  " + existingGame._id);
                 gameId = existingGame._id;
-                console.log( " EYEYYEY GAME ID: " gameId);
+                console.log( " EYEYYEY GAME ID: " + gameId);
                 return null;
             }
         }
