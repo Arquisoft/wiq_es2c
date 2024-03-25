@@ -16,5 +16,8 @@ COPY . .
 # Expose the port the app runs on
 EXPOSE 8003
 
+ARG API_GENERATOR_URI="http://localhost:3000"
+ENV REACT_APP_API_GENERATOR_ENDPOINT=$API_GENERATOR_URI
+
 # Define the command to run your app
 CMD ["node", "question.js"]
