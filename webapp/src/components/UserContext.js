@@ -6,7 +6,7 @@ export function UserProvider({ children }) {
     const [usernameGlobal, setUsernameGlobal] = useState('');
 
     return (
-        <UserContext.Provider value={{ usernameGlobal, setUsernameGlobal }}>
+        <UserContext.Provider value={{ usernameGlobal, setUsernameGlobal}}>
             {children}
         </UserContext.Provider>
     );

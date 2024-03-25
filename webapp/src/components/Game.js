@@ -20,6 +20,7 @@ const Game = () => {
   const [elapsedTime,setElapsedTime] = useState(30);
   const [answerCorrect, setAnswerCorrect] = useState(false);
   const [answeredQuestions,setAnsweredQuestions] = useState(0);
+  const [gameId, setGameId] = useState(null);
 
   const MAX_TIME = 30;
   const MAX_PREGUNTAS = 5;
@@ -28,12 +29,15 @@ const Game = () => {
 
   const getQuestion = useCallback(async () => {
     try {
-      console.log("USERNAME: " + usernameGlobal);
+      console.log(" NUMERO DE PREGUNTA " + answeredQuestions);
+      console.log("GAME ID: " + gameId);
       const response = await axios.get(`${apiEndpoint}/generateQuestion`, {
           params: {
-              user: usernameGlobal
+              user: usernameGlobal,
+              game: gameId
           }
       });
+      setGameId(response.data.game_Id);
       setQuestionId(response.data.question_Id);
       setQuestion(response.data.responseQuestion);
       setOptions(response.data.responseOptions);
@@ -89,6 +93,7 @@ const Game = () => {
     setAnsweredQuestions(answeredQuestions+1)
 
     if (answeredQuestions >= MAX_PREGUNTAS) {
+      setGameId(null);
       navigate("/PantallaInicio");
     }
   };

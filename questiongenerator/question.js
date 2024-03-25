@@ -3,6 +3,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const Question = require('./question-model');
+const Game = require('./game-model');
 const app = express();
 const port = 8003;
 
@@ -62,22 +63,25 @@ mongoose.connect(mongoUri);
 
 app.get('/generateQuestion', async (req, res) => {
     try {
+        const gameId = req.query.game;
         const user = req.query.user;
-        console.log("USUARIO EN GENERATE QUESTION: " + user);
         await generarPregunta();
         var id = saveData();
+        var game = saveGame(gameId,user, id);
         // Construcción de la respuesta
         var response = {
             responseQuestion: question,
             responseOptions: options,
             responseCorrectOption: correctOption,
-            question_Id: id
+            question_Id: id,
+            game_Id: game
         };
 
         res.status(200).json(response);
     } catch (error) {
         res.status(400).json({ error: error.message }); 
-    }});
+    }
+});
 
 var server = app.listen(port, () => {
   console.log(`Questions Generation Service listening at http://localhost:${port}`);
@@ -142,6 +146,33 @@ function procesarDatos(data) {
 
 }
 
+async function saveData(gameId, username,id){
+
+    try {
+
+        const existingGame = await Game.findById(gameId);
+
+        if(!existingGame){
+
+            const newGame = new Game({ userId: username, questions: [] });
+            newGame.questions.push(id);
+            await newGame.save();
+
+            return newGame._id;
+
+        }else{
+
+            existingGame.questions.push(id);
+            await existingGame.save();
+            return existingGame._id;
+        }
+
+
+    }catch (error){
+        console.error("Error al guardar datos de la partida: " + error);
+    }
+}
+
 async function saveData(){
 
     try {
@@ -156,7 +187,7 @@ async function saveData(){
             respuesta_falsa3: false_options[2]
         });
 
-       await newQuestion.save();
+        await newQuestion.save();
         questionToSave = newQuestion;
         return newQuestion._id;
     }catch (error){
