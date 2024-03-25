@@ -29,7 +29,7 @@ const Game = () => {
   const getQuestion = useCallback(async () => {
     try {
       console.log(" NUMERO DE PREGUNTA " + answeredQuestions);
-      const createNewGame = true;
+      var createNewGame = true;
       if(answeredQuestions>0){
         createNewGame = false;
       }
@@ -90,11 +90,12 @@ const Game = () => {
       setError(error.response.data.error);
     }
 
+
     setTimeout(() => {
       getQuestion();
     }, 1500);
 
-    setAnsweredQuestions(answeredQuestions+1)
+    setAnsweredQuestions(answeredQuestions+1);
 
     if (answeredQuestions >= MAX_PREGUNTAS) {
       navigate("/PantallaInicio");
