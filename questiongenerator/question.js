@@ -28,6 +28,7 @@ var options = [];
 var question = "";
 var url = 'https://query.wikidata.org/sparql';
 var questionToSave = null;
+var gameId = null;
 // Todas las consultas
 var queries = [`SELECT ?question ?questionLabel ?option ?optionLabel
     WHERE {
@@ -63,18 +64,18 @@ mongoose.connect(mongoUri);
 
 app.get('/generateQuestion', async (req, res) => {
     try {
-        const gameId = req.query.game;
+        const createNewGame = req.query.newGame;
+        console.log("HAY QUE CREAR UN NUEVO JUEGO ? " + createNewGame);
         const user = req.query.user;
         await generarPregunta();
         var id = saveData();
-        var game = saveGame(gameId,user, id);
+        saveGame(user, id, createNewGame);
         // Construcción de la respuesta
         var response = {
             responseQuestion: question,
             responseOptions: options,
             responseCorrectOption: correctOption,
-            question_Id: id,
-            game_Id: game
+            question_Id: id
         };
 
         res.status(200).json(response);
@@ -146,9 +147,9 @@ function procesarDatos(data) {
 
 }
 
-async function saveGame(username,createNewGame){
+async function saveGame(username,id,createNewGame){
 
-    console.log("ID EN SAVE GAME: " + id);
+    console.log("ID EN SAVE GAME: " + gameId);
 
     try {
 
@@ -156,8 +157,10 @@ async function saveGame(username,createNewGame){
             const newGame = new Game({ userId: username, questions: [] });
             newGame.questions.push(id);
             await newGame.save();
-
-            return newGame._id;
+            console.log(" ID AL AÑADIR:  " + newGame._id);
+            gameId = newGame._id;
+            console.log( " EYEYYEY GAME ID: " gameId);
+            return null;
         }else{
 
             const existingGame = await Game.findById(gameId);
@@ -167,14 +170,19 @@ async function saveGame(username,createNewGame){
                 const newGame = new Game({ userId: username, questions: [] });
                 newGame.questions.push(id);
                 await newGame.save();
-
-                return newGame._id;
+                console.log(" ID AL AÑADIR:  " + newGame._id);
+                gameId = newGame._id;
+                console.log( " EYEYYEY GAME ID: " gameId);
+                return null;
 
             }else{
 
                 existingGame.questions.push(id);
                 await existingGame.save();
-                return existingGame._id;
+                console.log( " ID AL AÑADIR:  " + existingGame._id);
+                gameId = existingGame._id;
+                console.log( " EYEYYEY GAME ID: " gameId);
+                return null;
             }
         }
 
