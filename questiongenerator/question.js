@@ -68,6 +68,8 @@ app.get('/generateQuestion', async (req, res) => {
         const user = req.query.user;
         await generarPregunta();
         var id = await saveData();
+        console.log("CREATE NEW GAME ANTES DE IF DE GAMEID: " + createNewGame);
+        gameId = (createNewGame === true) ? null : gameId;
         await saveGame(user, id, createNewGame);
         // Construcción de la respuesta
         var response = {
@@ -148,8 +150,11 @@ function procesarDatos(data) {
 
 async function saveGame(username,id,createNewGame){
 
-    console.log("HAY QUE CREAR UN NUEVO JUEGO ? " + createNewGame);
-        if(createNewGame == true){
+        console.log("HAY QUE CREAR UN NUEVO JUEGO ? " + createNewGame);
+        console.log( "GAME ID: " + gameId);
+
+        if(gameId === null){
+
             try{
                 console.log("primer  if");
                 console.log("ID DE LA PREGUNTA: " + id);
@@ -166,6 +171,7 @@ async function saveGame(username,id,createNewGame){
                 console.error("Error al guardar datos de la partida: " + error);
             }
         }else{
+            console.log("HAY QUE CREAR UN NUEVO JUEGO ? " + createNewGame);
             console.log("primer else");
             const existingGame = await Game.findById(gameId);
 
@@ -204,7 +210,7 @@ async function saveGame(username,id,createNewGame){
                 }
 
             }
-        }
+         }
 
 
 }

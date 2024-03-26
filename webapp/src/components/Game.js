@@ -19,7 +19,7 @@ const Game = () => {
   const [openSnackbar, setOpenSnackbar] = useState(false);
   const [elapsedTime,setElapsedTime] = useState(30);
   const [answerCorrect, setAnswerCorrect] = useState(false);
-  const [answeredQuestions,setAnsweredQuestions] = useState(0);
+  const [answeredQuestions,setAnsweredQuestions] = useState(1);
 
   const MAX_TIME = 30;
   const MAX_PREGUNTAS = 5;
@@ -63,6 +63,11 @@ const Game = () => {
 
     if(elapsedTime<=0){
       getQuestion(answeredQuestions+1);
+      setAnsweredQuestions(answeredQuestions+1);
+      if (answeredQuestions+1 >= MAX_PREGUNTAS) {
+        setAnsweredQuestions(0);
+        navigate("/PantallaInicio");
+      }
     }
 
     return () => {
@@ -88,16 +93,17 @@ const Game = () => {
       setError(error.response.data.error);
     }
 
-
-
     setTimeout(() => {
       getQuestion(answeredQuestions+1);
     }, 1500);
 
-    setAnsweredQuestions( answeredQuestions => answeredQuestions+1);
+    setAnsweredQuestions(answeredQuestions+1);
+    if (answeredQuestions+1>= MAX_PREGUNTAS) {
+      setTimeout(() => {
+        setAnsweredQuestions(0);
+        navigate("/PantallaInicio");
+      }, 3000);
 
-    if (answeredQuestions >= MAX_PREGUNTAS) {
-      navigate("/PantallaInicio");
     }
   };
 
