@@ -3,8 +3,10 @@ const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const Question = require('./question-model');
+const Game = require('./game-model');
 const app = express();
 const port = 8003;
+
 
 
 // Middleware to parse JSON in request body
@@ -26,6 +28,7 @@ var options = [];
 var question = "";
 var url = 'https://query.wikidata.org/sparql';
 var questionToSave = null;
+var gameId = null;
 // Todas las consultas
 var queries = [`SELECT ?question ?questionLabel ?option ?optionLabel
     WHERE {
@@ -61,8 +64,13 @@ mongoose.connect(mongoUri);
 
 app.get('/generateQuestion', async (req, res) => {
     try {
+        const createNewGame = await req.query.newGame;
+        const user = req.query.user;
         await generarPregunta();
-        var id = saveData();
+        var id = await saveData();
+        console.log("CREATE NEW GAME ANTES DE IF DE GAMEID: " + createNewGame);
+        gameId = (createNewGame === true) ? null : gameId;
+        await saveGame(user, id, createNewGame);
         // Construcción de la respuesta
         var response = {
             responseQuestion: question,
@@ -71,12 +79,11 @@ app.get('/generateQuestion', async (req, res) => {
             question_Id: id
         };
 
-
-
         res.status(200).json(response);
     } catch (error) {
         res.status(400).json({ error: error.message }); 
-    }});
+    }
+});
 
 var server = app.listen(port, () => {
   console.log(`Questions Generation Service listening at http://localhost:${port}`);
@@ -141,6 +148,73 @@ function procesarDatos(data) {
 
 }
 
+async function saveGame(username,id,createNewGame){
+
+        console.log("HAY QUE CREAR UN NUEVO JUEGO ? " + createNewGame);
+        console.log( "GAME ID: " + gameId);
+
+        if(gameId === null){
+
+            try{
+                console.log("primer  if");
+                console.log("ID DE LA PREGUNTA: " + id);
+                console.log("PREGUNTA: " + questionToSave);
+                console.log("PREGUNTA ID: " + questionToSave._id);
+                const newGame = new Game({ userId: username, questions: [] });
+                newGame.questions.push(questionToSave._id);
+                await newGame.save();
+                console.log(" ID AL AÑADIR:  " + newGame._id);
+                gameId = newGame._id;
+                console.log( " EYEYYEY GAME ID: " + gameId);
+                return null;
+            }catch (error){
+                console.error("Error al guardar datos de la partida: " + error);
+            }
+        }else{
+            console.log("HAY QUE CREAR UN NUEVO JUEGO ? " + createNewGame);
+            console.log("primer else");
+            const existingGame = await Game.findById(gameId);
+
+            if(!existingGame){
+
+                try{
+                    console.log("segundo  if");
+                    console.log("ID DE LA PREGUNTA: " + id);
+                    console.log("PREGUNTA: " + questionToSave);
+                    console.log("PREGUNTA ID: " + questionToSave._id);
+                    const newGame = new Game({ userId: username, questions: [] });
+                    newGame.questions.push(questionToSave._id);
+                    await newGame.save();
+                    console.log(" ID AL AÑADIR:  " + newGame._id);
+                    gameId = newGame._id;
+                    console.log( " EYEYYEY GAME ID: " + gameId);
+                    return null;
+                }catch (error){
+                    console.error("Error al guardar datos de la partida: " + error);
+                }
+
+            }else{
+                try{
+                    console.log("segundo  else");
+                    console.log("ID DE LA PREGUNTA: " + id);
+                    console.log("PREGUNTA: " + questionToSave);
+                    console.log("PREGUNTA ID: " + questionToSave._id);
+                    existingGame.questions.push(questionToSave._id);
+                    await existingGame.save();
+                    console.log( " ID AL AÑADIR:  " + existingGame._id);
+                    gameId = existingGame._id;
+                    console.log( " EYEYYEY GAME ID: " + gameId);
+                    return null;
+                }catch (error){
+                    console.error("Error al guardar datos de la partida: " + error);
+                }
+
+            }
+         }
+
+
+}
+
 async function saveData(){
 
     try {
@@ -155,7 +229,7 @@ async function saveData(){
             respuesta_falsa3: false_options[2]
         });
 
-       await newQuestion.save();
+        await newQuestion.save();
         questionToSave = newQuestion;
         return newQuestion._id;
     }catch (error){
