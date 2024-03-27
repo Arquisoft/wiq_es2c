@@ -54,7 +54,7 @@ jobs:
       uses: elgohr/Publish-Docker-Github-Action@v5
       env:
         API_URI: http://${{ secrets.DEPLOY_HOST }}:8000
-        API_GENERATOR_URI: http://${{ secrets.DEPLOY_HOST }}:8003
+        API_GENERATOR_URI: http://${{ secrets.DEPLOY_HOST }}:3000
       with:
           name: arquisoft/wiq_es2c/webapp
           username: ${{ github.actor }}

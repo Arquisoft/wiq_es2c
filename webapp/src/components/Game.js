@@ -5,12 +5,12 @@ import { Container, Typography, Button, Snackbar } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { useUser } from './UserContext';
 
-// Cambio de prueba
-const apiEndpoint = process.env.REACT_APP_API_GENERATOR_ENDPOINT || 'http://localhost:8003';
+const apiEndpoint = process.env.REACT_APP_API_ENDPOINT || 'http://localhost:8000';
 
 const Game = () => {
   const { usernameGlobal } = useUser();
   const [question, setQuestion] = useState('');
+  const [image, setImage] = useState('');
   const [options, setOptions] = useState([]);
   const [correctOption, setCorrectOption] = useState("");
   const [questionId,setQuestionId] = useState(null);
@@ -28,26 +28,28 @@ const Game = () => {
 
   const getQuestion = useCallback(async (answeredQuestionsValue) => {
     try {
-      console.log(" NUMERO DE PREGUNTA " + answeredQuestionsValue);
+      //console.log(" NUMERO DE PREGUNTA " + answeredQuestionsValue);
 
       const createNewGame = answeredQuestionsValue > 0 ? false : true;
 
-      console.log(" HAY QUE CREAR UN NUEVO JUEGO? " + createNewGame);
-
+      //console.log(" HAY QUE CREAR UN NUEVO JUEGO? " + createNewGame);
+      
       const response = await axios.get(`${apiEndpoint}/generateQuestion`, {
           params: {
               user: usernameGlobal,
               newGame: createNewGame,
-              numberOfQuestiona: answeredQuestionsValue
+              numberOfQuestions: answeredQuestionsValue
           }
       });
       setQuestionId(response.data.question_Id);
       setQuestion(response.data.responseQuestion);
       setOptions(response.data.responseOptions);
       setCorrectOption(response.data.responseCorrectOption);
+      setImage(response.data.responseImage);
       setOpenSnackbar(true);
       setElapsedTime(MAX_TIME);
     } catch (error) {
+      console.log(error.message);
       setError(error.response.data.error);
     }
   }, [])
@@ -125,6 +127,9 @@ const Game = () => {
       <Typography component="h1" variant="h5" sx={{ textAlign: 'center' }}>
         {question}
       </Typography>
+      <div>
+        {image != null && image != "" && <img src={image} alt="Imagen de la pregunta" width="40%" height="auto"/>}
+      </div>
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '10px', alignItems: 'center', marginTop: '20px' }}>
         {options.map((option, index) => (
           <Button key={index} sx={{backgroundColor: '#FCF5B8',  color: '#413C3C',  fontWeight: 'bold' }} variant="contained" color={selectedOption === option ? (answerCorrect ? 'success' : 'error') : 'primary'} onClick={() => handleOptionClick(option)} style={{ width: '100%', height: '100%' }}>
