@@ -37,7 +37,8 @@ const Game = () => {
       const response = await axios.get(`${apiEndpoint}/generateQuestion`, {
           params: {
               user: usernameGlobal,
-              newGame: createNewGame
+              newGame: createNewGame,
+              numberOfQuestiona: answeredQuestionsValue
           }
       });
       setQuestionId(response.data.question_Id);

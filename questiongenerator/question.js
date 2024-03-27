@@ -29,6 +29,7 @@ var question = "";
 var url = 'https://query.wikidata.org/sparql';
 var questionToSave = null;
 var gameId = null;
+var numberOfQuestions = 0;
 // Todas las consultas
 var queries = [`SELECT ?question ?questionLabel ?option ?optionLabel
     WHERE {
@@ -64,14 +65,24 @@ mongoose.connect(mongoUri);
 
 app.get('/generateQuestion', async (req, res) => {
     try {
-        const createNewGame = await req.query.newGame;
+        if(numberOfQuestions == 0){
+            gameId = null;
+        }
         const user = req.query.user;
         await generarPregunta();
+
+        numberOfQuestions++;
+        if(numberOfQuestions>=5){
+            numberOfQuestions = 0;
+        }
+
         var id = await saveData();
-        console.log("CREATE NEW GAME ANTES DE IF DE GAMEID: " + createNewGame);
-        gameId = (createNewGame === true) ? null : gameId;
-        await saveGame(user, id, createNewGame);
-        // Construcción de la respuesta
+
+        console.log("NUMERO DE PREGUNTAS: " + numberOfQuestions);
+
+        await saveGame(user, id);
+
+
         var response = {
             responseQuestion: question,
             responseOptions: options,
@@ -148,9 +159,8 @@ function procesarDatos(data) {
 
 }
 
-async function saveGame(username,id,createNewGame){
+async function saveGame(username,id){
 
-        console.log("HAY QUE CREAR UN NUEVO JUEGO ? " + createNewGame);
         console.log( "GAME ID: " + gameId);
 
         if(gameId === null){
@@ -171,7 +181,6 @@ async function saveGame(username,id,createNewGame){
                 console.error("Error al guardar datos de la partida: " + error);
             }
         }else{
-            console.log("HAY QUE CREAR UN NUEVO JUEGO ? " + createNewGame);
             console.log("primer else");
             const existingGame = await Game.findById(gameId);
 
