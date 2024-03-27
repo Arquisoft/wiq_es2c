@@ -53,6 +53,7 @@ app.get('/generateQuestion', async (req, res) => {
             gameId = null;
         }
         const user = req.query.user;
+        console.log(user);
         await generarPregunta();
         numberOfQuestions++;
         if(numberOfQuestions>=5){

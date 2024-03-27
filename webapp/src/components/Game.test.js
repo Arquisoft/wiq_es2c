@@ -1,5 +1,7 @@
 import React from 'react';
 import { render, fireEvent, screen, waitFor, act } from '@testing-library/react';
+import { BrowserRouter as Router } from 'react-router-dom';
+import { UserProvider } from './UserContext';
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 import Game from './Game';
@@ -13,13 +15,19 @@ describe('Login component', () => {
 
   it('play', async () => {
     // Mock the axios.post request to simulate a successful response
+    // MIRAR LO DE answeredQuestionsValue
     const responseOptionsResult = ["Madrid", "Barcelona", "Oviedo", "Valladolid"];
-    mockAxios.onGet('http://localhost:8003/generateQuestion').reply(200, 
+    const URL = 'http://localhost:8000/generateQuestion?user=Prueba&newGame=true&numberOfQuestions=5'
+    mockAxios.onGet(URL).reply(200, 
         {  responseQuestion: "¿Cual es la capital de España?",
         responseOptions: responseOptionsResult,
-        responseCorrectOption: "Madrid"});        
+        responseCorrectOption: "Madrid"});
 
-    render(<Game />);
+    render(<UserProvider>
+      <Router>
+        <Game />
+      </Router>
+    </UserProvider>);
 
     var button1;
     var button2;
