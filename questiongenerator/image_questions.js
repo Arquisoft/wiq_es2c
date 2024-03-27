@@ -1,12 +1,16 @@
 // Todas las consultas
-var queries = [`SELECT ?option ?optionLabel ?imageLabel
+var queries = 
+    // pregunta = Imagen de un presidente de EE.UU., opcion = Nombres de presidentes de EE.UU.
+    [`SELECT ?option ?optionLabel ?imageLabel
     WHERE {
         ?option wdt:P31 wd:Q5;  
                     wdt:P39 wd:Q11696;  
                     wdt:P18 ?imageLabel.   
         SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],es". }
     }
-    `,`SELECT DISTINCT ?option ?optionLabel ?imageLabel
+    `,
+    // pregunta = Imagen de un país, opcion = Pais
+    `SELECT DISTINCT ?option ?optionLabel ?imageLabel
     WHERE {
       ?option wdt:P31 wd:Q6256;               
             rdfs:label ?optionLabel;          

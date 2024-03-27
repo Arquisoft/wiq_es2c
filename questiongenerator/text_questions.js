@@ -1,11 +1,15 @@
 // Todas las consultas
-var queries = [`SELECT ?question ?questionLabel ?option ?optionLabel
+var queries = 
+    // pregunta = Pais, opcion = capitales
+    [`SELECT ?question ?questionLabel ?option ?optionLabel
     WHERE {
         ?question wdt:P31 wd:Q6256; wdt:P36 ?option.
         SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],es". }
     }
     LIMIT 200
-    `,`
+    `,
+    // pregunta = Club de futbol, opcion = estadio
+    `
     SELECT ?question ?questionLabel ?option ?optionLabel
     WHERE {
         ?question wdt:P31 wd:Q476028.
@@ -14,7 +18,9 @@ var queries = [`SELECT ?question ?questionLabel ?option ?optionLabel
         SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],es". }
     }
     LIMIT 100
-    `,`
+    `,
+    // Pregunta = Numero en la tabla periodica, opcion = Elemento
+    `
     SELECT ?option ?optionLabel ?questionLabel (SUBSTR(?símbolo, 1, 1) AS ?sym)
     WHERE {
     ?option wdt:P31 wd:Q11344;        
@@ -22,11 +28,13 @@ var queries = [`SELECT ?question ?questionLabel ?option ?optionLabel
     SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE], es". }
     }
     LIMIT 100
-    `,`SELECT ?question ?questionLabel ?optionLabel
+    `,
+    // Pregunta = Batalla historica, opcion = año
+    `SELECT ?question ?questionLabel ?optionLabel
     WHERE {
         ?question wdt:P31 wd:Q178561.    
         ?question wdt:P580 ?date.      
-        FILTER (YEAR(?date) >= 1500 && YEAR(?date) <= 1945) 
+        FILTER (YEAR(?date) >= 1500 && YEAR(?date) <= 2000) 
         BIND(YEAR(?date) as ?optionLabel)
         SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],es". }
     }
