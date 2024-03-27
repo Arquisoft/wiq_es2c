@@ -15,13 +15,32 @@ describe('Login component', () => {
 
   it('play', async () => {
     // Mock the axios.post request to simulate a successful response
-    // MIRAR LO DE answeredQuestionsValue
     const responseOptionsResult = ["Madrid", "Barcelona", "Oviedo", "Valladolid"];
-    const URL = 'http://localhost:8000/generateQuestion?user=Prueba&newGame=true&numberOfQuestions=5'
-    mockAxios.onGet(URL).reply(200, 
+    const usernameGlobal = 'Prueba';
+    const createNewGame = true;
+    const answeredQuestionsValue = 5;
+    const questionId = "1";
+    const timePassed = 30;
+    const updatedQuestion = {
+      _id: '660434f228670016dfcac277',
+      enunciado: '¿Cual es la capital de España?',
+      respuesta_correcta: 'Madrid',
+      respuesta_falsa1: 'Barcelona',
+      respuesta_falsa2: 'Oviedo',
+      respuesta_falsa3: 'Valladolid',
+      __v: 0
+      }
+
+    mockAxios.onGet('http://localhost:8000/generateQuestion').reply(200, 
         {  responseQuestion: "¿Cual es la capital de España?",
         responseOptions: responseOptionsResult,
-        responseCorrectOption: "Madrid"});
+        responseCorrectOption: "Madrid",
+        question_Id: "1",
+        responseImage: ""});
+
+    mockAxios.onGet('http://localhost:8000/updateQuestion').reply(200, 
+        { message: "Tiempo de pregunta actualizado exitosamente", 
+        updatedQuestion });
 
     render(<UserProvider>
       <Router>

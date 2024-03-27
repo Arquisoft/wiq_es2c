@@ -33,12 +33,12 @@ const Game = () => {
       const createNewGame = answeredQuestionsValue > 0 ? false : true;
 
       //console.log(" HAY QUE CREAR UN NUEVO JUEGO? " + createNewGame);
-
+      
       const response = await axios.get(`${apiEndpoint}/generateQuestion`, {
           params: {
               user: usernameGlobal,
               newGame: createNewGame,
-              numberOfQuestiona: answeredQuestionsValue
+              numberOfQuestions: answeredQuestionsValue
           }
       });
       setQuestionId(response.data.question_Id);
@@ -49,6 +49,7 @@ const Game = () => {
       setOpenSnackbar(true);
       setElapsedTime(MAX_TIME);
     } catch (error) {
+      console.log(error.message);
       setError(error.response.data.error);
     }
   }, [])
