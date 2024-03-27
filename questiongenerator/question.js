@@ -157,49 +157,48 @@ function procesarDatos(data) {
 
 }
 
-async function saveGame(username,id){
+async function saveGame(username,id) {
 
-        if(gameId === null){
+    if (gameId === null) {
 
-            try{
-                const newGame = new Game({ userId: username, questions: [] });
+        try {
+            const newGame = new Game({userId: username, questions: []});
+            newGame.questions.push(questionToSave._id);
+            await newGame.save();
+            gameId = newGame._id;
+            return null;
+        } catch (error) {
+            console.error("Error al guardar datos de la partida: " + error);
+        }
+    } else {
+        const existingGame = await Game.findById(gameId);
+
+        if (!existingGame) {
+
+            try {
+                const newGame = new Game({userId: username, questions: []});
                 newGame.questions.push(questionToSave._id);
                 await newGame.save();
                 gameId = newGame._id;
                 return null;
-            }catch (error){
+            } catch (error) {
                 console.error("Error al guardar datos de la partida: " + error);
             }
-        }else
-            const existingGame = await Game.findById(gameId);
 
-            if(!existingGame){
-
-                try{
-                    const newGame = new Game({ userId: username, questions: [] });
-                    newGame.questions.push(questionToSave._id);
-                    await newGame.save();
-                    gameId = newGame._id;
-                    return null;
-                }catch (error){
-                    console.error("Error al guardar datos de la partida: " + error);
-                }
-
-            }else{
-                try{
-                    existingGame.questions.push(questionToSave._id);
-                    await existingGame.save();
-                    gameId = existingGame._id;
-                    return null;
-                }catch (error){
-                    console.error("Error al guardar datos de la partida: " + error);
-                }
-
+        } else {
+            try {
+                existingGame.questions.push(questionToSave._id);
+                await existingGame.save();
+                gameId = existingGame._id;
+                return null;
+            } catch (error) {
+                console.error("Error al guardar datos de la partida: " + error);
             }
-         }
 
-
+        }
+    }
 }
+
 
 async function saveData(){
 
