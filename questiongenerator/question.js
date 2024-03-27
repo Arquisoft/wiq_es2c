@@ -78,8 +78,6 @@ app.get('/generateQuestion', async (req, res) => {
 
         var id = await saveData();
 
-        console.log("NUMERO DE PREGUNTAS: " + numberOfQuestions);
-
         await saveGame(user, id);
 
 
@@ -161,42 +159,27 @@ function procesarDatos(data) {
 
 async function saveGame(username,id){
 
-        console.log( "GAME ID: " + gameId);
-
         if(gameId === null){
 
             try{
-                console.log("primer  if");
-                console.log("ID DE LA PREGUNTA: " + id);
-                console.log("PREGUNTA: " + questionToSave);
-                console.log("PREGUNTA ID: " + questionToSave._id);
                 const newGame = new Game({ userId: username, questions: [] });
                 newGame.questions.push(questionToSave._id);
                 await newGame.save();
-                console.log(" ID AL AÑADIR:  " + newGame._id);
                 gameId = newGame._id;
-                console.log( " EYEYYEY GAME ID: " + gameId);
                 return null;
             }catch (error){
                 console.error("Error al guardar datos de la partida: " + error);
             }
-        }else{
-            console.log("primer else");
+        }else
             const existingGame = await Game.findById(gameId);
 
             if(!existingGame){
 
                 try{
-                    console.log("segundo  if");
-                    console.log("ID DE LA PREGUNTA: " + id);
-                    console.log("PREGUNTA: " + questionToSave);
-                    console.log("PREGUNTA ID: " + questionToSave._id);
                     const newGame = new Game({ userId: username, questions: [] });
                     newGame.questions.push(questionToSave._id);
                     await newGame.save();
-                    console.log(" ID AL AÑADIR:  " + newGame._id);
                     gameId = newGame._id;
-                    console.log( " EYEYYEY GAME ID: " + gameId);
                     return null;
                 }catch (error){
                     console.error("Error al guardar datos de la partida: " + error);
@@ -204,15 +187,9 @@ async function saveGame(username,id){
 
             }else{
                 try{
-                    console.log("segundo  else");
-                    console.log("ID DE LA PREGUNTA: " + id);
-                    console.log("PREGUNTA: " + questionToSave);
-                    console.log("PREGUNTA ID: " + questionToSave._id);
                     existingGame.questions.push(questionToSave._id);
                     await existingGame.save();
-                    console.log( " ID AL AÑADIR:  " + existingGame._id);
                     gameId = existingGame._id;
-                    console.log( " EYEYYEY GAME ID: " + gameId);
                     return null;
                 }catch (error){
                     console.error("Error al guardar datos de la partida: " + error);
