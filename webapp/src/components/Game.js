@@ -52,7 +52,7 @@ const Game = () => {
       console.log(error.message);
       setError(error.response.data.error);
     }
-  }, [])
+  }, [usernameGlobal])
 
   useEffect(() => {
     getQuestion();
@@ -76,7 +76,7 @@ const Game = () => {
     return () => {
       clearTimeout(timerId);
     }
-  }, [elapsedTime, getQuestion]);
+  }, [elapsedTime, getQuestion, answeredQuestions, navigate]);
 
   const handleOptionClick = async (option) => {
     setSelectedOption(option);
@@ -86,7 +86,7 @@ const Game = () => {
 
     try {
       const timePassed = MAX_TIME - elapsedTime;
-      const response = await axios.get(`${apiEndpoint}/updateQuestion`, {
+      await axios.get(`${apiEndpoint}/updateQuestion`, {
         params: {
           question_Id: questionId,
           time: timePassed
@@ -128,7 +128,7 @@ const Game = () => {
         {question}
       </Typography>
       <div>
-        {image != null && image != "" && <img src={image} alt="Imagen de la pregunta" width="40%" height="auto"/>}
+        {image !== null && image !== "" && <img src={image} alt="Imagen de la pregunta" width="40%" height="auto"/>}
       </div>
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '10px', alignItems: 'center', marginTop: '20px' }}>
         {options.map((option, index) => (

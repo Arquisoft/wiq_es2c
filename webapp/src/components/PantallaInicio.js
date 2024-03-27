@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Container, Typography, Button, Box, Snackbar } from '@mui/material';
 import { useUser } from './UserContext';
 import { useNavigate } from 'react-router-dom';
@@ -21,6 +21,7 @@ const PantallaInicio = () => {
     const logoutUser = async () => {
         try {
             setLoginSuccess(false);
+            console.log(loginSuccess);
             setUsernameGlobal('');
             navigate('/App');
             
