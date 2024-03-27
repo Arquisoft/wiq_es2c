@@ -3,10 +3,12 @@ import axios from 'axios';
 import LinearProgress from '@mui/material/LinearProgress';
 import { Container, Typography, Button, Snackbar } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
+import { useUser } from './UserContext';
 
 const apiEndpoint = process.env.REACT_APP_API_ENDPOINT || 'http://localhost:8000';
 
 const Game = () => {
+  const { usernameGlobal } = useUser();
   const [question, setQuestion] = useState('');
   const [image, setImage] = useState('');
   const [options, setOptions] = useState([]);
@@ -17,16 +19,28 @@ const Game = () => {
   const [openSnackbar, setOpenSnackbar] = useState(false);
   const [elapsedTime,setElapsedTime] = useState(30);
   const [answerCorrect, setAnswerCorrect] = useState(false);
-  const [answeredQuestions,setAnsweredQuestions] = useState(0);
+  const [answeredQuestions,setAnsweredQuestions] = useState(1);
 
   const MAX_TIME = 30;
   const MAX_PREGUNTAS = 5;
 
   const navigate = useNavigate();
 
-  const getQuestion = useCallback(async () => {
+  const getQuestion = useCallback(async (answeredQuestionsValue) => {
     try {
-      const response = await axios.get(`${apiEndpoint}/generateQuestion`, { });
+      console.log(" NUMERO DE PREGUNTA " + answeredQuestionsValue);
+
+      const createNewGame = answeredQuestionsValue > 0 ? false : true;
+
+      console.log(" HAY QUE CREAR UN NUEVO JUEGO? " + createNewGame);
+
+      const response = await axios.get(`${apiEndpoint}/generateQuestion`, {
+          params: {
+              user: usernameGlobal,
+              newGame: createNewGame,
+              numberOfQuestiona: answeredQuestionsValue
+          }
+      });
       setQuestionId(response.data.question_Id);
       setQuestion(response.data.responseQuestion);
       setOptions(response.data.responseOptions);
@@ -50,7 +64,12 @@ const Game = () => {
     },1000);
 
     if(elapsedTime<=0){
-      getQuestion();
+      getQuestion(answeredQuestions+1);
+      setAnsweredQuestions(answeredQuestions+1);
+      if (answeredQuestions+1 >= MAX_PREGUNTAS) {
+        setAnsweredQuestions(0);
+        navigate("/PantallaInicio");
+      }
     }
 
     return () => {
@@ -77,13 +96,16 @@ const Game = () => {
     }
 
     setTimeout(() => {
-      getQuestion();
+      getQuestion(answeredQuestions+1);
     }, 1500);
 
-    setAnsweredQuestions(answeredQuestions+1)
+    setAnsweredQuestions(answeredQuestions+1);
+    if (answeredQuestions+1>= MAX_PREGUNTAS) {
+      setTimeout(() => {
+        setAnsweredQuestions(0);
+        navigate("/PantallaInicio");
+      }, 3000);
 
-    if (answeredQuestions >= MAX_PREGUNTAS) {
-      navigate("/PantallaInicio");
     }
   };
 

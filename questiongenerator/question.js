@@ -3,11 +3,13 @@ const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const Question = require('./question-model');
+const Game = require('./game-model');
 const { queries:textQueries, questions:textQuestions } = require('./text_questions');
 const { queries:imagesQueries, questions:imagesQuestions } = require('./image_questions');
 
 const app = express();
 const port = 8003;
+
 
 
 // Middleware to parse JSON in request body
@@ -36,6 +38,8 @@ var question = "";
 var image = "";
 var url = 'https://query.wikidata.org/sparql';
 var questionToSave = null;
+var gameId = null;
+var numberOfQuestions = 0;
 
 //  Número aleatorio que decide la consulta y la pregunta que se mostrarán
 var randomNumber;
@@ -45,9 +49,18 @@ mongoose.connect(mongoUri);
 
 app.get('/generateQuestion', async (req, res) => {
     try {
+        if(numberOfQuestions == 0){
+            gameId = null;
+        }
+        const user = req.query.user;
         await generarPregunta();
-        var id = saveData();
-
+        numberOfQuestions++;
+        if(numberOfQuestions>=5){
+            numberOfQuestions = 0;
+        }
+        var id = await saveData();
+        await saveGame(user, id);
+        
         // Construcción de la respuesta
         var response = {
             responseQuestion: question,
@@ -60,7 +73,8 @@ app.get('/generateQuestion', async (req, res) => {
         res.status(200).json(response);
     } catch (error) {
         res.status(400).json({ error: error.message }); 
-    }});
+    }
+});
 
 var server = app.listen(port, () => {
   console.log(`Questions Generation Service listening at http://localhost:${port}`);
@@ -140,6 +154,49 @@ function procesarDatos(data) {
     }
 }
 
+async function saveGame(username,id) {
+
+    if (gameId === null) {
+
+        try {
+            const newGame = new Game({userId: username, questions: []});
+            newGame.questions.push(questionToSave._id);
+            await newGame.save();
+            gameId = newGame._id;
+            return null;
+        } catch (error) {
+            console.error("Error al guardar datos de la partida: " + error);
+        }
+    } else {
+        const existingGame = await Game.findById(gameId);
+
+        if (!existingGame) {
+
+            try {
+                const newGame = new Game({userId: username, questions: []});
+                newGame.questions.push(questionToSave._id);
+                await newGame.save();
+                gameId = newGame._id;
+                return null;
+            } catch (error) {
+                console.error("Error al guardar datos de la partida: " + error);
+            }
+
+        } else {
+            try {
+                existingGame.questions.push(questionToSave._id);
+                await existingGame.save();
+                gameId = existingGame._id;
+                return null;
+            } catch (error) {
+                console.error("Error al guardar datos de la partida: " + error);
+            }
+
+        }
+    }
+}
+
+
 async function saveData(){
     try {
 
@@ -153,7 +210,7 @@ async function saveData(){
             respuesta_falsa3: false_options[2]
         });
 
-       await newQuestion.save();
+        await newQuestion.save();
         questionToSave = newQuestion;
         return newQuestion._id;
     }catch (error){
