@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Container, Typography, Button, Box, Snackbar } from '@mui/material';
 import { useUser } from './UserContext';
 import { useNavigate } from 'react-router-dom';
@@ -10,9 +10,7 @@ const PantallaInicio = () => {
     const [openSnackbar, setOpenSnackbar] = useState(false);
     const [error, setError] = useState('');
     
-    const { usernameGlobal } = useUser();
-
-    const { setUsernameGlobal } = useUser();
+    const { usernameGlobal, setUsernameGlobal } = useUser();
 
     const navigate = useNavigate();
 
@@ -23,6 +21,7 @@ const PantallaInicio = () => {
     const logoutUser = async () => {
         try {
             setLoginSuccess(false);
+            console.log(loginSuccess);
             setUsernameGlobal('');
             navigate('/App');
             
@@ -35,6 +34,7 @@ const PantallaInicio = () => {
     const handleCloseSnackbar = () => {
         setOpenSnackbar(false);
     };
+
 
     return (
         <Container component="main" maxWidth="xl"
@@ -71,7 +71,6 @@ const PantallaInicio = () => {
                 top: 50,
                 left: 20,
                 display: "flex",
-                gap: 2, // Espacio entre los botones
             }}> 
                 <Button variant="contained" color="inherit" style={{ background: 'white', border: 'none', padding: 0 }} onClick={logoutUser}>
                     <img src={require('./images/logout.png')} style={{ width: '50px', height: '50px' }} alt="Imagen logout"/>

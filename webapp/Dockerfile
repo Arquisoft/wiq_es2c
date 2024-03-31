@@ -8,8 +8,6 @@ RUN npm install
 
 ARG API_URI="http://localhost:8000"
 ENV REACT_APP_API_ENDPOINT=$API_URI
-ARG API_GENERATOR_URI="http://localhost:8003"
-ENV REACT_APP_API_GENERATOR_ENDPOINT=$API_GENERATOR_URI
 
 #Create an optimized version of the webapp
 RUN npm run build
