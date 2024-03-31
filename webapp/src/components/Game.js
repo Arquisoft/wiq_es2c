@@ -133,13 +133,12 @@ const Game = () => {
       <Typography component="h1" variant="h5" sx={{ textAlign: 'center' }}>
         {question}
       </Typography>
-      <div>
+      <div style={{ display: 'flex', justifyContent: 'center' }}>
         {image !== null && image !== "" && <img src={image} alt="Imagen de la pregunta" width="40%" height="auto"/>}
       </div>
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '10px', alignItems: 'center', marginTop: '20px' }}>
         {options.map((option, index) => (
-          // sx={{backgroundColor: '#FCF5B8',  color: '#413C3C',  fontWeight: 'bold' }}
-          <Button key={index} variant="contained" color={selectedOption === option ? (answerCorrect ? 'success' : 'error') : 'primary'} onClick={!isTimeRunning ? null : () => handleOptionClick(option)} style={{ width: '100%', height: '100%' }}>
+          <Button key={index} variant="contained"  color={selectedOption === option ? (answerCorrect ? 'success' : 'error') : 'primary'} onClick={!isTimeRunning ? null : () => handleOptionClick(option)} style={{ width: '100%', height: '100%' }}>
             {option}
           </Button>
         ))}
