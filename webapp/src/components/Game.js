@@ -20,6 +20,7 @@ const Game = () => {
   const [elapsedTime,setElapsedTime] = useState(30);
   const [answerCorrect, setAnswerCorrect] = useState(false);
   const [answeredQuestions,setAnsweredQuestions] = useState(1);
+  const [isTimeRunning, setIsTimeRunning] = useState(true);
 
   const MAX_TIME = 30;
   const MAX_PREGUNTAS = 5;
@@ -47,12 +48,13 @@ const Game = () => {
       setCorrectOption(response.data.responseCorrectOption);
       setImage(response.data.responseImage);
       setOpenSnackbar(true);
+      setIsTimeRunning(true);
       setElapsedTime(MAX_TIME);
     } catch (error) {
       console.log(error.message);
       setError(error.response.data.error);
     }
-  }, [])
+  }, [usernameGlobal])
 
   useEffect(() => {
     getQuestion();
@@ -61,10 +63,13 @@ const Game = () => {
   useEffect(() => {
 
     const timerId = setTimeout(()=>{
-      setElapsedTime(time => time - 1);
+      if (isTimeRunning) {
+        setElapsedTime(time => time - 1);
+      }
     },1000);
 
     if(elapsedTime<=0){
+      setIsTimeRunning(false);
       getQuestion(answeredQuestions+1);
       setAnsweredQuestions(answeredQuestions+1);
       if (answeredQuestions+1 >= MAX_PREGUNTAS) {
@@ -76,17 +81,18 @@ const Game = () => {
     return () => {
       clearTimeout(timerId);
     }
-  }, [elapsedTime, getQuestion]);
+  }, [elapsedTime, getQuestion, answeredQuestions, navigate,  isTimeRunning]);
 
   const handleOptionClick = async (option) => {
     setSelectedOption(option);
     setOpenSnackbar(true);
     console.log(openSnackbar);
     setAnswerCorrect(correctOption === option);
+    setIsTimeRunning(false);
 
     try {
       const timePassed = MAX_TIME - elapsedTime;
-      const response = await axios.get(`${apiEndpoint}/updateQuestion`, {
+      await axios.get(`${apiEndpoint}/updateQuestion`, {
         params: {
           question_Id: questionId,
           time: timePassed
@@ -127,12 +133,12 @@ const Game = () => {
       <Typography component="h1" variant="h5" sx={{ textAlign: 'center' }}>
         {question}
       </Typography>
-      <div>
-        {image != null && image != "" && <img src={image} alt="Imagen de la pregunta" width="40%" height="auto"/>}
+      <div style={{ display: 'flex', justifyContent: 'center' }}>
+        {image !== null && image !== "" && <img src={image} alt="Imagen de la pregunta" width="40%" height="auto"/>}
       </div>
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '10px', alignItems: 'center', marginTop: '20px' }}>
         {options.map((option, index) => (
-          <Button key={index} sx={{backgroundColor: '#FCF5B8',  color: '#413C3C',  fontWeight: 'bold' }} variant="contained" color={selectedOption === option ? (answerCorrect ? 'success' : 'error') : 'primary'} onClick={() => handleOptionClick(option)} style={{ width: '100%', height: '100%' }}>
+          <Button key={index} sx={{backgroundColor: selectedOption === option ? (answerCorrect ? '#00C853' : '#FF1744') : '#FCF5B8',  color: '#413C3C',  fontWeight: 'bold' }} variant="contained" onClick={!isTimeRunning ? null : () => handleOptionClick(option)} style={{ width: '100%', height: '100%' }}>
             {option}
           </Button>
         ))}
