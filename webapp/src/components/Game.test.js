@@ -8,7 +8,7 @@ import Game from './Game';
 
 const mockAxios = new MockAdapter(axios);
 
-describe('Login component', () => {
+describe('Start game', () => {
   beforeEach(() => {
     mockAxios.reset();
   });
@@ -42,9 +42,9 @@ describe('Login component', () => {
         { message: "Tiempo de pregunta actualizado exitosamente", 
         updatedQuestion });
 
-    render(<UserProvider>
+    const { queryByText } = render(<UserProvider>
       <Router>
-        <Game />
+        <Game/>
       </Router>
     </UserProvider>);
 
@@ -54,6 +54,15 @@ describe('Login component', () => {
     var button4;
 
     await waitFor(() => {
+        const question = screen.getByText("¿Cual es la capital de España?");
+        expect(question).toBeInTheDocument();
+
+        const timer = screen.getByText("Tiempo restante: 30 segundos");
+        expect(timer).toBeInTheDocument();
+
+        const timerBar = screen.getByRole("progressbar");
+        expect(timerBar).toBeInTheDocument();
+
         const buttons = screen.getAllByRole('button');
         expect(buttons).toHaveLength(4);
 
@@ -66,16 +75,15 @@ describe('Login component', () => {
         expect(button2).toBeInTheDocument();
         expect(button3).toBeInTheDocument();
         expect(button4).toBeInTheDocument();
+
+        const error = queryByText("Error:");
+        expect(error).toBeNull();
     });
 
     // Simulate user input
     await act(async () => {
         fireEvent.click(button2);
         expect(button2).toHaveStyle('background-color: rgb(21, 101, 192)');
-
-        fireEvent.click(button1);
-        expect(button1).toHaveStyle('background-color: rgb(21, 101, 192)');
       });
-
   });
 });
