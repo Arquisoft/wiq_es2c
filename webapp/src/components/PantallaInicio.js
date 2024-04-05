@@ -15,7 +15,7 @@ const PantallaInicio = () => {
     const navigate = useNavigate();
 
     function nuevaPartida() {
-        navigate("/Partida")
+        navigate("/Game");
     }
 
     const logoutUser = async () => {
