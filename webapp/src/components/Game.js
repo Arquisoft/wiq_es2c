@@ -138,7 +138,11 @@ const Game = () => {
       </div>
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '10px', alignItems: 'center', marginTop: '20px' }}>
         {options.map((option, index) => (
-          <Button key={index} sx={{backgroundColor: selectedOption === option ? (answerCorrect ? '#00C853' : '#FF1744') : '#FCF5B8',  color: '#413C3C',  fontWeight: 'bold' }} variant="contained" onClick={!isTimeRunning ? null : () => handleOptionClick(option)} style={{ width: '100%', height: '100%' }}>
+          <Button key={index } style={{ 
+              backgroundColor: selectedOption === option ? (answerCorrect ? '#00C853' : '#FF1744') : '#FCF5B8',
+              color: '#413C3C', 
+              fontWeight: 'bold'
+            }} variant="contained" onClick={!isTimeRunning ? null : () => {handleOptionClick(option);}}>
             {option}
           </Button>
         ))}
