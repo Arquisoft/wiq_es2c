@@ -22,6 +22,7 @@ const Game = () => {
   const [answeredQuestions,setAnsweredQuestions] = useState(1);
   const [isTimeRunning, setIsTimeRunning] = useState(true);
 
+  // Comentario de prueba para el despliegue
   const MAX_TIME = 30;
   const MAX_PREGUNTAS = 5;
 
@@ -29,11 +30,11 @@ const Game = () => {
 
   const getQuestion = useCallback(async (answeredQuestionsValue) => {
     try {
-      //console.log(" NUMERO DE PREGUNTA " + answeredQuestionsValue);
+      console.log(" NUMERO DE PREGUNTA " + answeredQuestionsValue);
 
       const createNewGame = answeredQuestionsValue > 0 ? false : true;
 
-      //console.log(" HAY QUE CREAR UN NUEVO JUEGO? " + createNewGame);
+      console.log(" HAY QUE CREAR UN NUEVO JUEGO? " + createNewGame);
       
       const response = await axios.get(`${apiEndpoint}/generateQuestion`, {
           params: {
