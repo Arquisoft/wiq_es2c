@@ -7,6 +7,7 @@ import MockAdapter from 'axios-mock-adapter';
 import Game from './Game';
 
 const mockAxios = new MockAdapter(axios);
+jest.useFakeTimers(); // Para simular el paso del tiempo
 
 describe('Start game', () => {
   beforeEach(() => {
@@ -78,7 +79,7 @@ describe('Start game', () => {
 
         const error = queryByText("Error:");
         expect(error).toBeNull();
-    });
+    }); 
 
     // Simulate user input
     await act(async () => {

@@ -12,9 +12,9 @@ import {
 } from "react-router-dom";
 
 import PantallaInicio from './components/PantallaInicio';
-import Partida from './components/Partida';
 import Login from './components/Login';
 import AddUser from './components/AddUser';
+import Game from './components/Game';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -24,10 +24,10 @@ root.render(
         <Routes>
           <Route path="/" element={<App/>}></Route>
           <Route path="/PantallaInicio" element={<PantallaInicio/>}></Route>
-          <Route path="/Partida" element={<Partida/>}></Route>
           <Route path="/Login" element={<Login />} /> 
           <Route path="/AddUser" element={<AddUser />} />
           <Route path="/App" element={<App />} />
+          <Route path="/Game" element={<Game />} />
         </Routes>
       </Router>
     </UserProvider>
