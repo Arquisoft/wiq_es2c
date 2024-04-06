@@ -48,6 +48,15 @@ const Game = () => {
     }
   }, [usernameGlobal])
 
+  const saveGameHistory = useCallback(async () => {
+    try {
+      const username = usernameGlobal;
+      await axios.post(`${apiEndpoint}/saveGameHistory`, {username});
+    } catch (error) {
+      setError(error.response.data.error);
+    }
+  }, [usernameGlobal]);
+
   useEffect(() => {
     getQuestion();
   }, [getQuestion]);
@@ -64,6 +73,7 @@ const Game = () => {
       setIsTimeRunning(false);
       if (answeredQuestions >= MAX_PREGUNTAS) {
         setAnsweredQuestions(0);
+        saveGameHistory();
         navigate("/PantallaInicio");
       }else{
         getQuestion(answeredQuestions+1);
@@ -103,6 +113,7 @@ const Game = () => {
     if (answeredQuestions>= MAX_PREGUNTAS) {
       setTimeout(() => {
         setAnsweredQuestions(0);
+        saveGameHistory();
         navigate("/PantallaInicio");
       }, 3000);
     }else{
@@ -116,15 +127,15 @@ const Game = () => {
   return (
     <Container component="main" maxWidth="xl"
             sx={{
-                marginTop: 4,
                 backgroundColor: '#F3D3FA',
                 borderRadius: '10px',
                 display: 'flex',
                 flexDirection: 'column',
                 justifyContent: 'center',
-                alignItems: 'center',
-                height: '95vh' 
+                height: '100vh', 
+                width: '100%', 
             }}>
+      <Container component="section" maxWidth="xs">
       {question && (
         <>
           <Typography variant="body1" sx={{ textAlign: 'center' }}>
@@ -156,6 +167,7 @@ const Game = () => {
       {error && (
         <Snackbar open={!!error} autoHideDuration={6000} onClose={() => setError('')} message={`Error: ${error}`} />
       )}
+    </Container>
     </Container>
   );
 };

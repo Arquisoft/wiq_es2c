@@ -13,6 +13,8 @@ RUN npm install
 # Copy the app source code to the working directory
 COPY . .
 
+COPY game-model.js /usr/src/gamehistoryservice
+
 # Expose the port the app runs on
 EXPOSE 8003
 

@@ -1,9 +1,11 @@
-const axios = require('axios');
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const GameHistory = require('./gamehistory-model.js');
-const Game = require('./questiongenerator/game-model.js');
+
+const mongoUri = process.env.MONGODB_URI || 'mongodb://localhost:27017/questiondb';
+mongoose.connect(mongoUri);
+
 
 const app = express();
 const port = 8004;
@@ -13,7 +15,7 @@ const port = 8004;
 app.use(bodyParser.json());
 
 app.use((req, res, next) => {
-    res.setHeader('Access-Control-Allow-Origin', process.env.REACT_APP_API_GENERATOR_ENDPOINT);
+    res.setHeader('Access-Control-Allow-Origin','http://localhost:3000');
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
     res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
     res.setHeader('Access-Control-Allow-Credentials', true);
@@ -22,47 +24,38 @@ app.use((req, res, next) => {
 
 app.post("/saveGameHistory", async (req, res) => {
     try {
+        const { username } = req.body;
+        await saveGameHistory(username);
+  
+    } catch (error) { 
+      res.status(400).json({ error: "Error al guardar el historial del juego: "+ error.message });
+    }
+  });
+
+    app.get("/gamehistory", async (req, res) => {
+        try {
+
+            var gamehistory = await GameHistory.findOne({ userId:req.query.username});
         
-      await saveGameHistory(req.query.username);
+            if (gamehistory) {
+                var response = {
+                    userId: gamehistory.userId,
+                    totalGamesPlayed: gamehistory.totalGamesPlayed,
+                    totalQuestionsAnswered: gamehistory.totalQuestionsAnswered,
+                    totalRightQuestions: gamehistory.totalRightQuestions,
+                    totalIncorrectQuestions: gamehistory.totalIncorrectQuestions,
+                    ratio: gamehistory.ratio,
+                    totalTime: gamehistory.totalTime
+                };
+                res.json(response);
+            } else {
+                res.json(null);
+            }
   
-    } catch (error) { 
-      res.status(400).json({ error: "Error al guardar el historial del juego: "+ error.message });
-    }
-  });
-
-app.get("/gamehistory", async (req, res) => {
-    try {
-      var data = await getGameHistory(req.query.username);
-  
-      res.json(data);
-  
-    } catch (error) { 
-      res.status(400).json({ error: "Error al guardar el historial del juego: "+ error.message });
-    }
-  });
-
-  async function getGameHistory(userId){
-    try {
-        var gamehistory = await GameHistory.findOne({ userId:userId});
-
-        if (gamehistory) {
-            return {
-                userId: gamehistory.userId,
-                totalGamesPlayed: gamehistory.totalGamesPlayed,
-                totalRightQuestions: gamehistory.totalRightQuestions,
-                totalIncorrectQuestions: gamehistory.totalIncorrectQuestions,
-                ratio: gamehistory.ratio,
-                totalTime: gamehistory.totalTime
-            };
-        } else {
-            return null; 
+        } catch (error) { 
+        res.status(400).json({ error: "Error al guardar el historial del juego: "+ error.message });
         }
-    } catch (error) {
-        console.error('Error al obtener estadísticas:', error);
-        throw error;
-    }
-}
-
+  });
 
 async function saveGameHistory(userId) {
     try {
@@ -78,7 +71,7 @@ async function saveGameHistory(userId) {
         }
 
         // Obtiene los datos del juego del usuario
-        const games = await Game.find({ userId: userId });
+        const games = await mongoose.connection.collection('games').find({ userId: userId }).toArray();
 
         const totalGamesPlayed = games.length;
         let totalRightQuestions = 0;
@@ -89,11 +82,12 @@ async function saveGameHistory(userId) {
         games.forEach(game => {
             totalRightQuestions += game.questions.filter(question => question.correct).length;
             totalIncorrectQuestions += game.questions.filter(question => !question.correct).length;
-            totalTime += game.questions.reduce((acc, curr) => acc + curr.time, 0);
+            totalTime += game.questions.reduce((acc, curr) => acc + (curr.time ?? 0), 0);
         });
 
         // Actualiza los campos del historial de juego
         gameHistory.totalGamesPlayed = totalGamesPlayed;
+        gameHistory.totalQuestionsAnswered = totalRightQuestions + totalIncorrectQuestions;
         gameHistory.totalRightQuestions = totalRightQuestions;
         gameHistory.totalIncorrectQuestions = totalIncorrectQuestions;
         gameHistory.ratio = totalRightQuestions / (totalRightQuestions + totalIncorrectQuestions);
