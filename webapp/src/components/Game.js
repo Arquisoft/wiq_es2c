@@ -13,37 +13,28 @@ const Game = () => {
   const [image, setImage] = useState('');
   const [options, setOptions] = useState([]);
   const [correctOption, setCorrectOption] = useState("");
-  const [questionId,setQuestionId] = useState(null);
   const [error, setError] = useState('');
   const [selectedOption, setSelectedOption] = useState('');
   const [openSnackbar, setOpenSnackbar] = useState(false);
   const [elapsedTime,setElapsedTime] = useState(30);
   const [answerCorrect, setAnswerCorrect] = useState(false);
-  const [answeredQuestions,setAnsweredQuestions] = useState(1);
+  const [answeredQuestions,setAnsweredQuestions] = useState(0);
   const [isTimeRunning, setIsTimeRunning] = useState(true);
 
   // Comentario de prueba para el despliegue
   const MAX_TIME = 30;
   const MAX_PREGUNTAS = 5;
-
   const navigate = useNavigate();
 
-  const getQuestion = useCallback(async (answeredQuestionsValue) => {
+  const getQuestion = useCallback(async () => {
     try {
-      //console.log(" NUMERO DE PREGUNTA " + answeredQuestionsValue);
-
       const createNewGame = answeredQuestionsValue > 0 ? false : true;
-
-      //console.log(" HAY QUE CREAR UN NUEVO JUEGO? " + createNewGame);
       
       const response = await axios.get(`${apiEndpoint}/generateQuestion`, {
-          params: {
-              user: usernameGlobal,
-              newGame: createNewGame,
-              numberOfQuestions: answeredQuestionsValue
-          }
+        params: {
+          user: usernameGlobal
+        }
       });
-      setQuestionId(response.data.question_Id);
       setQuestion(response.data.responseQuestion);
       setOptions(response.data.responseOptions);
       setCorrectOption(response.data.responseCorrectOption);
@@ -51,6 +42,7 @@ const Game = () => {
       setOpenSnackbar(true);
       setIsTimeRunning(true);
       setElapsedTime(MAX_TIME);
+      setAnsweredQuestions(prevValue => prevValue+1);
     } catch (error) {
       console.log("Error: " + error.response.data.error);
       setError(error.response.data.error);
@@ -71,11 +63,11 @@ const Game = () => {
 
     if(elapsedTime<=0){
       setIsTimeRunning(false);
-      getQuestion(answeredQuestions+1);
-      setAnsweredQuestions(answeredQuestions+1);
-      if (answeredQuestions+1 >= MAX_PREGUNTAS) {
+      if (answeredQuestions >= MAX_PREGUNTAS) {
         setAnsweredQuestions(0);
         navigate("/PantallaInicio");
+      }else{
+        getQuestion(answeredQuestions+1);
       }
     }
 
@@ -85,35 +77,39 @@ const Game = () => {
   }, [elapsedTime, getQuestion, answeredQuestions, navigate,  isTimeRunning]);
 
   const handleOptionClick = async (option) => {
+    var isTheCorrectAnswer = false;
     setSelectedOption(option);
     setOpenSnackbar(true);
     console.log(openSnackbar);
     setAnswerCorrect(correctOption === option);
     setIsTimeRunning(false);
 
+    if(correctOption === option){
+      isTheCorrectAnswer = true;
+    }
+
     try {
       const timePassed = MAX_TIME - elapsedTime;
       await axios.get(`${apiEndpoint}/updateQuestion`, {
         params: {
-          question_Id: questionId,
-          time: timePassed
+          time: timePassed,
+          correct: isTheCorrectAnswer
         }
       });
     } catch (error) {
       setError(error.response.data.error);
     }
 
-    setTimeout(() => {
-      getQuestion(answeredQuestions+1);
-    }, 1500);
 
-    setAnsweredQuestions(answeredQuestions+1);
-    if (answeredQuestions+1>= MAX_PREGUNTAS) {
+    if (answeredQuestions>= MAX_PREGUNTAS) {
       setTimeout(() => {
         setAnsweredQuestions(0);
         navigate("/PantallaInicio");
       }, 3000);
-
+    }else{
+      setTimeout(() => {
+        getQuestion(answeredQuestions+1);
+      }, 900);
     }
   };
 
@@ -145,11 +141,15 @@ const Game = () => {
         {question}
       </Typography>
       <div style={{ display: 'flex', justifyContent: 'center' }}>
-        {image !== null && image !== "" && <img src={image} alt="Imagen de la pregunta" width="40%" height="auto"/>}
+        {image !== null && image !== "" && <img src={image} alt="Imagen de la pregunta" width="20%" height="auto"/>}
       </div>
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '10px', alignItems: 'center', marginTop: '20px' }}>
         {options.map((option, index) => (
-          <Button key={index} sx={{backgroundColor: selectedOption === option ? (answerCorrect ? '#00C853' : '#FF1744') : '#FCF5B8',  color: '#413C3C',  fontWeight: 'bold' }} variant="contained" onClick={!isTimeRunning ? null : () => handleOptionClick(option)} style={{ width: '100%', height: '100%' }}>
+          <Button key={index } style={{ 
+              backgroundColor: selectedOption === option ? (answerCorrect ? '#00C853' : '#FF1744') : '#FCF5B8',
+              color: '#413C3C', 
+              fontWeight: 'bold'
+            }} variant="contained" onClick={!isTimeRunning ? null : () => {handleOptionClick(option);}}>
             {option}
           </Button>
         ))}

@@ -17,7 +17,7 @@ app.use(bodyParser.json());
 
 // Necesario para poder hacer las peticiones desde Game
 app.use((req, res, next) => {
-    res.setHeader('Access-Control-Allow-Origin', process.env.REACT_APP_API_GENERATOR_ENDPOINT);
+    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
     res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
     res.setHeader('Access-Control-Allow-Credentials', true);
@@ -27,7 +27,6 @@ app.use((req, res, next) => {
 var queries = [];
 queries = queries.concat(textQueries);
 queries = queries.concat(imagesQueries);
-console.log(queries.length);
 var questions = [];
 questions = questions.concat(textQuestions);
 questions = questions.concat(imagesQuestions);
@@ -53,7 +52,6 @@ app.get('/generateQuestion', async (req, res) => {
             gameId = null;
         }
         const user = req.query.user;
-        console.log(user);
         await generarPregunta();
         numberOfQuestions++;
         if(numberOfQuestions>=5){
@@ -70,6 +68,7 @@ app.get('/generateQuestion', async (req, res) => {
             responseImage: image,
             question_Id: id
         };
+
 
         res.status(200).json(response);
     } catch (error) {
@@ -223,7 +222,8 @@ app.get('/updateQuestion', async (req, res) => {
     try {
         const questionId = questionToSave._id;
         const newTime = req.query.time;
-        const updatedQuestion = await Question.findByIdAndUpdate(questionId,{time: newTime},{new:true});
+        const isTheCorrectAnswer = req.query.correct;
+        const updatedQuestion = await Question.findByIdAndUpdate(questionId,{time: newTime, correct: isTheCorrectAnswer},{new:true});
 
         if (!updatedQuestion) {
             return res.status(404).json({ error: "La pregunta no fue encontrada" });

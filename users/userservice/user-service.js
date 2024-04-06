@@ -29,18 +29,28 @@ function validateRequiredFields(req, requiredFields) {
 app.post('/adduser', async (req, res) => {
     try {
         // Check if required fields are present in the request body
-        validateRequiredFields(req, ['username', 'password']);
+        validateRequiredFields(req, ['username', 'email','password']);
+        const { username,email, password } = req.body;
+        const user_Username = await User.findOne({ username });
+        const user_Email = await User.findOne({ email });
+        if(user_Email || user_Username ){
+            throw new Error("Ya se ha registrado un usuario con ese email o nombre de usuario");
+        }else{
 
-        // Encrypt the password before saving it
-        const hashedPassword = await bcrypt.hash(req.body.password, 10);
 
-        const newUser = new User({
-            username: req.body.username,
-            password: hashedPassword,
-        });
+            // Encrypt the password before saving it
+            const hashedPassword = await bcrypt.hash(req.body.password, 10);
 
-        await newUser.save();
-        res.json(newUser);
+            const newUser = new User({
+                username: req.body.username,
+                email: req.body.email,
+                password: hashedPassword,
+            });
+
+            await newUser.save();
+            res.json(newUser);
+        }
+
     } catch (error) {
         res.status(400).json({ error: error.message }); 
     }});
