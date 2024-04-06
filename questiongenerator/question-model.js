@@ -21,6 +21,11 @@ const questionSchema = new mongoose.Schema({
         required:true
     },time:{
         type:Number,
+        default: 30,
+        required: false
+    },correct:{
+        type: Boolean,
+        default: false,
         required: false
     }
 
