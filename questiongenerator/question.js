@@ -27,7 +27,6 @@ app.use((req, res, next) => {
 var queries = [];
 queries = queries.concat(textQueries);
 queries = queries.concat(imagesQueries);
-console.log(queries.length);
 var questions = [];
 questions = questions.concat(textQuestions);
 questions = questions.concat(imagesQuestions);
@@ -53,7 +52,6 @@ app.get('/generateQuestion', async (req, res) => {
             gameId = null;
         }
         const user = req.query.user;
-        console.log(user);
         await generarPregunta();
         numberOfQuestions++;
         if(numberOfQuestions>=5){
@@ -225,7 +223,6 @@ app.get('/updateQuestion', async (req, res) => {
         const questionId = questionToSave._id;
         const newTime = req.query.time;
         const isTheCorrectAnswer = req.query.correct;
-        console.log("IS THE CORRECT ANSWERED: " + isTheCorrectAnswer);
         const updatedQuestion = await Question.findByIdAndUpdate(questionId,{time: newTime, correct: isTheCorrectAnswer},{new:true});
 
         if (!updatedQuestion) {
