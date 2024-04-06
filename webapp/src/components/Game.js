@@ -83,18 +83,23 @@ const Game = () => {
   }, [elapsedTime, getQuestion, answeredQuestions, navigate,  isTimeRunning]);
 
   const handleOptionClick = async (option) => {
+    var isTheCorrectAnswer = false;
     setSelectedOption(option);
     setOpenSnackbar(true);
     console.log(openSnackbar);
     setAnswerCorrect(correctOption === option);
     setIsTimeRunning(false);
 
+    if(correctOption === option){
+      isTheCorrectAnswer = true;
+    }
+
     try {
       const timePassed = MAX_TIME - elapsedTime;
       await axios.get(`${apiEndpoint}/updateQuestion`, {
         params: {
-          question_Id: questionId,
-          time: timePassed
+          time: timePassed,
+          correct: isTheCorrectAnswer
         }
       });
     } catch (error) {

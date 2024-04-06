@@ -61,7 +61,7 @@ app.get(`/generateQuestion`, async (req, res) => {
 app.get(`/updateQuestion`, async (req, res) => {
   try {
     // Forward the add user request to the user service
-    const response = await axios.get(generatorUrl+'/updateQuestion?time=' + req.query.time + "", req.body);
+    const response = await axios.get(generatorUrl+'/updateQuestion?time=' + req.query.time + "&correct=" +  req.query.correct,  req.body);
     res.json(response.data);
   } catch (error) {
     res.status(error.response.status).json({ error: error.response.data.error });

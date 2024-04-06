@@ -224,7 +224,9 @@ app.get('/updateQuestion', async (req, res) => {
     try {
         const questionId = questionToSave._id;
         const newTime = req.query.time;
-        const updatedQuestion = await Question.findByIdAndUpdate(questionId,{time: newTime},{new:true});
+        const isTheCorrectAnswer = req.query.correct;
+        console.log("IS THE CORRECT ANSWERED: " + isTheCorrectAnswer);
+        const updatedQuestion = await Question.findByIdAndUpdate(questionId,{time: newTime, correct: isTheCorrectAnswer},{new:true});
 
         if (!updatedQuestion) {
             return res.status(404).json({ error: "La pregunta no fue encontrada" });
