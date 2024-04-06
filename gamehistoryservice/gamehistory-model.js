@@ -10,6 +10,10 @@ const gameSchema = new mongoose.Schema({
         type: Number,
         required: true,
     },
+    totalQuestionsAnswered: {
+        type: Number,
+        required: true,
+    },
     totalRightQuestions: {
       type: Number,
       required: true,

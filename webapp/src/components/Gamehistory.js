@@ -1,29 +1,42 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
+import axios from 'axios';
+import { useUser } from './UserContext';
 import { Container, Typography, TableContainer, Table, TableHead, TableBody, TableRow, TableCell, Paper } from '@mui/material';
 
 
 const apiEndpoint = process.env.REACT_APP_API_ENDPOINT || 'http://localhost:8000';
 
 const Gamehistory = () => {
-  // Datos ficticios
-  const gameData = [
-    { id: 1, gamesPlayed: 10, questionsAnswered: 100, correctAnswers: 80, wrongAnswers: 20, accuracyRatio: '80%', totalTimePlayed: '5 horas' },
-    { id: 2, gamesPlayed: 15, questionsAnswered: 150, correctAnswers: 120, wrongAnswers: 30, accuracyRatio: '80%', totalTimePlayed: '7 horas' },
-    { id: 3, gamesPlayed: 20, questionsAnswered: 200, correctAnswers: 160, wrongAnswers: 40, accuracyRatio: '80%', totalTimePlayed: '9 horas' },
-  ];
+  const { usernameGlobal } = useUser();
+  const [gamehistory, setGameHistory] = useState('');
+  const [error, setError] = useState('');
+
+  const getGameHistory = useCallback(async () => {
+    try {
+      const response = await axios.get(`${apiEndpoint}/gamehistory?username=`+ usernameGlobal);
+      setGameHistory(response.data);
+    } catch (error) {
+      setError(error.response.data.error);
+    }
+  }, [usernameGlobal])
+
+  useEffect(() => {
+    getGameHistory();
+  }, [getGameHistory]);
 
   return (
     <Container component="main" maxWidth="xl"
       sx={{
-        marginTop: 4,
         backgroundColor: '#F3D3FA',
         borderRadius: '10px',
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
+        height: '100vh', 
+        width: '100%', 
       }}
-    >
+      >
       <Typography component="h1" variant="h5" align="center" sx={{ marginBottom: 2, fontWeight: 'bold' }}>
         MIS ESTADÍSTICAS
       </Typography>
@@ -31,25 +44,23 @@ const Gamehistory = () => {
         <Table>
           <TableHead>
             <TableRow>
-              <TableCell>Partidas Jugadas</TableCell>
-              <TableCell>Preguntas Respondidas</TableCell>
-              <TableCell>Aciertos</TableCell>
-              <TableCell>Fallos</TableCell>
-              <TableCell>Ratio de Acierto</TableCell>
-              <TableCell>Tiempo Jugado</TableCell>
+                <TableCell align="center"><strong>Partidas Jugadas</strong></TableCell>
+                <TableCell align="center"><strong>Preguntas respondidas</strong></TableCell>
+                <TableCell align="center"><strong>Aciertos</strong></TableCell>
+                <TableCell align="center"><strong>Fallos</strong></TableCell>
+                <TableCell align="center"><strong>Ratio de Acierto</strong></TableCell>
+                <TableCell align="center"><strong>Tiempo jugado</strong></TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {gameData.map((data) => (
-              <TableRow key={data.id}>
-                <TableCell>{data.gamesPlayed}</TableCell>
-                <TableCell>{data.questionsAnswered}</TableCell>
-                <TableCell>{data.correctAnswers}</TableCell>
-                <TableCell>{data.wrongAnswers}</TableCell>
-                <TableCell>{data.accuracyRatio}</TableCell>
-                <TableCell>{data.totalTimePlayed}</TableCell>
+              <TableRow>
+                <TableCell align="center">{gamehistory.totalGamesPlayed}</TableCell>
+                <TableCell align="center">{gamehistory.totalQuestionsAnswered}</TableCell>
+                <TableCell align="center">{gamehistory.totalRightQuestions}</TableCell>
+                <TableCell align="center">{gamehistory.totalIncorrectQuestions}</TableCell>
+                <TableCell align="center">{(gamehistory.ratio * 100).toLocaleString(undefined, { style: 'percent' })}</TableCell>
+                <TableCell align="center">{gamehistory.totalTime}</TableCell>
               </TableRow>
-            ))}
           </TableBody>
         </Table>
       </TableContainer>
