@@ -134,15 +134,15 @@ const Game = () => {
   return (
     <Container component="main" maxWidth="xl"
             sx={{
-                marginTop: 4,
                 backgroundColor: '#F3D3FA',
                 borderRadius: '10px',
                 display: 'flex',
                 flexDirection: 'column',
                 justifyContent: 'center',
-                alignItems: 'center',
-                height: '95vh' 
+                height: '100vh', 
+                width: '100%', 
             }}>
+      <Container component="section" maxWidth="xs">
       {question && (
         <>
           <Typography variant="body1" sx={{ textAlign: 'center' }}>
@@ -174,6 +174,7 @@ const Game = () => {
       {error && (
         <Snackbar open={!!error} autoHideDuration={6000} onClose={() => setError('')} message={`Error: ${error}`} />
       )}
+    </Container>
     </Container>
   );
 };

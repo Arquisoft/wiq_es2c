@@ -27,15 +27,16 @@ const Gamehistory = () => {
   return (
     <Container component="main" maxWidth="xl"
       sx={{
-        marginTop: 4,
         backgroundColor: '#F3D3FA',
         borderRadius: '10px',
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
+        height: '100vh', 
+        width: '100%', 
       }}
-    >
+      >
       <Typography component="h1" variant="h5" align="center" sx={{ marginBottom: 2, fontWeight: 'bold' }}>
         MIS ESTADÍSTICAS
       </Typography>
@@ -57,7 +58,7 @@ const Gamehistory = () => {
                 <TableCell align="center">{gamehistory.totalQuestionsAnswered}</TableCell>
                 <TableCell align="center">{gamehistory.totalRightQuestions}</TableCell>
                 <TableCell align="center">{gamehistory.totalIncorrectQuestions}</TableCell>
-                <TableCell align="center">{gamehistory.ratio}</TableCell>
+                <TableCell align="center">{(gamehistory.ratio * 100).toLocaleString(undefined, { style: 'percent' })}</TableCell>
                 <TableCell align="center">{gamehistory.totalTime}</TableCell>
               </TableRow>
           </TableBody>

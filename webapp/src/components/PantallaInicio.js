@@ -43,14 +43,14 @@ const PantallaInicio = () => {
     return (
         <Container component="main" maxWidth="xl"
             sx={{
-                marginTop: 4,
                 backgroundColor: '#F3D3FA',
                 borderRadius: '10px',
                 display: 'flex',
                 flexDirection: 'column',
                 justifyContent: 'center',
                 alignItems: 'center',
-                height: '95vh' 
+                height: '100vh', 
+                width: '100%', 
             }}>
 
             <Box sx={{

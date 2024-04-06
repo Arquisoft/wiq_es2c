@@ -16,14 +16,14 @@ function App() {
   return (
     <Container component="main" maxWidth="xl"
             sx={{
-                marginTop: 4,
-                backgroundColor: '#F3D3FA',
-                borderRadius: '10px',
-                display: 'flex',
-                flexDirection: 'column',
-                justifyContent: 'center',
-                alignItems: 'center',
-                height: '95vh' 
+              backgroundColor: '#F3D3FA',
+              borderRadius: '10px',
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'center',
+              alignItems: 'center',
+              height: '100vh', 
+              width: '100%', 
             }}>
       <CssBaseline />
       {showLogin ? <Login /> : <AddUser />}
