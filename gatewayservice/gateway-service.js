@@ -89,7 +89,8 @@ app.get('/gamehistory', async (req, res) => {
 });
 
 // Read the OpenAPI YAML file synchronously
-openapiPath='./openapi.yaml'
+// Hubo que cambiar el path porque los test e2e ahora sólo se ejecutan desde webapp
+openapiPath='../gatewayservice/openapi.yaml'
 if (fs.existsSync(openapiPath)) {
   const file = fs.readFileSync(openapiPath, 'utf8');
 

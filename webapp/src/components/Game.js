@@ -82,7 +82,7 @@ const Game = () => {
     return () => {
       clearTimeout(timerId);
     }
-  }, [elapsedTime, getQuestion, answeredQuestions, navigate,  isTimeRunning]);
+  }, [elapsedTime, getQuestion, answeredQuestions, navigate,  isTimeRunning, saveGameHistory]);
 
   const handleOptionClick = async (option) => {
     var isTheCorrectAnswer = false;
