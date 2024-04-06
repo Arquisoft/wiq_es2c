@@ -3,7 +3,10 @@ const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const GameHistory = require('./gamehistory-model.js');
-const Game = require('./questiongenerator/game-model.js');
+
+const mongoUri = process.env.MONGODB_URI || 'mongodb://localhost:27017/questiondb';
+mongoose.connect(mongoUri);
+
 
 const app = express();
 const port = 8004;
@@ -13,7 +16,7 @@ const port = 8004;
 app.use(bodyParser.json());
 
 app.use((req, res, next) => {
-    res.setHeader('Access-Control-Allow-Origin', process.env.REACT_APP_API_GENERATOR_ENDPOINT);
+    res.setHeader('Access-Control-Allow-Origin','http://localhost:3000');
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
     res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
     res.setHeader('Access-Control-Allow-Credentials', true);
@@ -32,43 +35,35 @@ app.post("/saveGameHistory", async (req, res) => {
 
 app.get("/gamehistory", async (req, res) => {
     try {
-      var data = await getGameHistory(req.query.username);
-  
-      res.json(data);
-  
-    } catch (error) { 
-      res.status(400).json({ error: "Error al guardar el historial del juego: "+ error.message });
-    }
-  });
 
-  async function getGameHistory(userId){
-    try {
-        var gamehistory = await GameHistory.findOne({ userId:userId});
+        //var gamehistory = await GameHistory.findOne({ userId:userId});
+        var gamehistory = true;
 
         if (gamehistory) {
-            return {
+            console.log(req.query.username)
+            var response = {
                 //userId: gamehistory.userId,
                 //totalGamesPlayed: gamehistory.totalGamesPlayed,
                 //totalRightQuestions: gamehistory.totalRightQuestions,
                 //totalIncorrectQuestions: gamehistory.totalIncorrectQuestions,
                 //ratio: gamehistory.ratio,
                 //totalTime: gamehistory.totalTime
-                userId: 1,
+                userId: req.query.username,
                 totalGamesPlayed: 1,
                 totalRightQuestions: 1,
                 totalIncorrectQuestions: 1,
                 ratio: 1,
                 totalTime: 1
             };
+            res.json(response);
         } else {
-            return null; 
+            res.json(null);
         }
-    } catch (error) {
-        console.error('Error al obtener estadísticas:', error);
-        throw error;
+  
+    } catch (error) { 
+      res.status(400).json({ error: "Error al guardar el historial del juego: "+ error.message });
     }
-}
-
+  });
 
 async function saveGameHistory(userId) {
     try {

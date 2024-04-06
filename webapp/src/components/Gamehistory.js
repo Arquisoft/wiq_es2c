@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 import { useUser } from './UserContext';
 import { Container, Typography, TableContainer, Table, TableHead, TableBody, TableRow, TableCell, Paper } from '@mui/material';
@@ -9,11 +9,13 @@ const apiEndpoint = process.env.REACT_APP_API_ENDPOINT || 'http://localhost:8000
 const Gamehistory = () => {
   const { usernameGlobal } = useUser();
   const [gamehistory, setGameHistory] = useState('');
+  const [error, setError] = useState('');
 
-  const getGameHistory = (async () => {
+  const getGameHistory = useCallback(async () => {
     try {
       const response = await axios.get(`${apiEndpoint}/gamehistory`, {username: usernameGlobal});
-      setGameHistory(response);
+      alert(usernameGlobal);
+      setGameHistory(response.data);
     } catch (error) {
       setError(error.response.data.error);
     }
@@ -42,22 +44,22 @@ const Gamehistory = () => {
         <Table>
           <TableHead>
             <TableRow>
-              <TableCell>Partidas Jugadas</TableCell>
-              <TableCell>Preguntas Respondidas</TableCell>
-              <TableCell>Aciertos</TableCell>
-              <TableCell>Fallos</TableCell>
-              <TableCell>Ratio de Acierto</TableCell>
-              <TableCell>Tiempo Jugado</TableCell>
+              <TableCell align="center"><strong>Partidas Jugadas</strong></TableCell>
+                <TableCell align="center"><strong>Preguntas Respondidas</strong></TableCell>
+                <TableCell align="center"><strong>Aciertos</strong></TableCell>
+                <TableCell align="center"><strong>Fallos</strong></TableCell>
+                <TableCell align="center"><strong>Ratio de Acierto</strong></TableCell>
+                <TableCell align="center"><strong>Tiempo jugado</strong></TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
               <TableRow>
-                <TableCell>{gamehistory.userId}</TableCell>
-                <TableCell>{gamehistory.totalGamesPlayed}</TableCell>
-                <TableCell>{gamehistory.totalRightQuestions}</TableCell>
-                <TableCell>{gamehistory.totalIncorrectQuestions}</TableCell>
-                <TableCell>{gamehistory.ratio}</TableCell>
-                <TableCell>{gamehistory.totalTime}</TableCell>
+                <TableCell align="center">{gamehistory.userId}</TableCell>
+                <TableCell align="center">{gamehistory.totalGamesPlayed}</TableCell>
+                <TableCell align="center">{gamehistory.totalRightQuestions}</TableCell>
+                <TableCell align="center">{gamehistory.totalIncorrectQuestions}</TableCell>
+                <TableCell align="center">{gamehistory.ratio}</TableCell>
+                <TableCell align="center">{gamehistory.totalTime}</TableCell>
               </TableRow>
           </TableBody>
         </Table>
