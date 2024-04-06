@@ -10,6 +10,9 @@ const port = 8000;
 const generatorUrl = process.env.GENERATOR_SERVICE_URL || 'http://localhost:8003';
 const authServiceUrl = process.env.AUTH_SERVICE_URL || 'http://localhost:8002';
 const userServiceUrl = process.env.USER_SERVICE_URL || 'http://localhost:8001';
+const perfilServiceUrl = process.env.PERFIL_SERVICE_URL || 'http://localhost:8004';
+
+
 
 app.use(cors());
 app.use(express.json());
@@ -45,11 +48,22 @@ app.post('/adduser', async (req, res) => {
 
 app.get(`/generateQuestion`, async (req, res) => {
   try {
-    // Forward the add user request to the user service
     const response = await axios.get(generatorUrl+'/generateQuestion', req.body);
     res.json(response.data);
   } catch (error) {
     res.status(error.response.status).json({ error: error.response.data.error });
+  }
+});
+
+app.get('/getUser', async (req, res) => {
+  try {
+      console.log('SRE LLAMAAAA');
+      const perfilResponse = await axios.get(perfilServiceUrl+'/getUser', req.body);
+      console.log('dsdsdsd'+ perfilResponse);
+      // Return a json response with what we obtained on the petition
+      res.json(perfilResponse.data);
+  } catch (error) {
+      console.log(error)
   }
 });
 

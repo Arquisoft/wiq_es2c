@@ -18,6 +18,10 @@ const PantallaInicio = () => {
         navigate("/Partida")
     }
 
+    const handleShowPerfil = () => {
+        navigate("/Perfil");
+    };
+
     const logoutUser = async () => {
         try {
             setLoginSuccess(false);
@@ -59,7 +63,7 @@ const PantallaInicio = () => {
                     <img src={require('./images/iconHistory.jpeg')} style={{ width: '50px', height: '50px' }} alt="Imagen historico"/>
                 </Button>
 
-                <Button variant="contained" color="inherit" style={{ background: 'white', border: 'none', width: '50px' }}>
+                <Button variant="contained" color="inherit" style={{ background: 'white', border: 'none', width: '50px' }} onClick={handleShowPerfil}>
                     <img src={require('./images/iconUser.jpeg')} style={{ width: '50px', height: '50px' }} alt="Imagen usuario"/>
                 </Button>
                 
