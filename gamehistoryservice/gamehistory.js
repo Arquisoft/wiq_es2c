@@ -32,37 +32,29 @@ app.post("/saveGameHistory", async (req, res) => {
     }
   });
 
-app.get("/gamehistory", async (req, res) => {
-    try {
+    app.get("/gamehistory", async (req, res) => {
+        try {
 
-        //var gamehistory = await GameHistory.findOne({ userId:userId});
-        var gamehistory = true;
-
-        if (gamehistory) {
-            var response = {
-                //userId: gamehistory.userId,
-                //totalGamesPlayed: gamehistory.totalGamesPlayed,
-                //totalQuestionsAnswered: gamehistorygamehistory.totalQuestionsAnswered,
-                //totalRightQuestions: gamehistory.totalRightQuestions,
-                //totalIncorrectQuestions: gamehistory.totalIncorrectQuestions,
-                //ratio: gamehistory.ratio,
-                //totalTime: gamehistory.totalTime
-                userId: req.query.username,
-                totalQuestionsAnswered: 1,
-                totalGamesPlayed: 1,
-                totalRightQuestions: 1,
-                totalIncorrectQuestions: 1,
-                ratio: 1,
-                totalTime: 1
-            };
-            res.json(response);
-        } else {
-            res.json(null);
-        }
+            var gamehistory = await GameHistory.findOne({ userId:req.query.username});
+        
+            if (gamehistory) {
+                var response = {
+                    userId: gamehistory.userId,
+                    totalGamesPlayed: gamehistory.totalGamesPlayed,
+                    totalQuestionsAnswered: gamehistory.totalQuestionsAnswered,
+                    totalRightQuestions: gamehistory.totalRightQuestions,
+                    totalIncorrectQuestions: gamehistory.totalIncorrectQuestions,
+                    ratio: gamehistory.ratio,
+                    totalTime: gamehistory.totalTime
+                };
+                res.json(response);
+            } else {
+                res.json(null);
+            }
   
-    } catch (error) { 
-      res.status(400).json({ error: "Error al guardar el historial del juego: "+ error.message });
-    }
+        } catch (error) { 
+        res.status(400).json({ error: "Error al guardar el historial del juego: "+ error.message });
+        }
   });
 
 async function saveGameHistory(userId) {
@@ -80,10 +72,8 @@ async function saveGameHistory(userId) {
 
         // Obtiene los datos del juego del usuario
         const games = await mongoose.connection.collection('games').find({ userId: userId }).toArray();
-        console.log(games);
 
         const totalGamesPlayed = games.length;
-        console.log(totalGamesPlayed);
         let totalRightQuestions = 0;
         let totalIncorrectQuestions = 0;
         let totalTime = 0;
@@ -92,11 +82,8 @@ async function saveGameHistory(userId) {
         games.forEach(game => {
             totalRightQuestions += game.questions.filter(question => question.correct).length;
             totalIncorrectQuestions += game.questions.filter(question => !question.correct).length;
-            totalTime += game.questions.reduce((acc, curr) => acc + curr.time, 0);
+            totalTime += game.questions.reduce((acc, curr) => acc + (curr.time ?? 0), 0);
         });
-        console.log(totalRightQuestions);
-        console.log(totalIncorrectQuestions);
-        console.log(totalTime);
 
         // Actualiza los campos del historial de juego
         gameHistory.totalGamesPlayed = totalGamesPlayed;
