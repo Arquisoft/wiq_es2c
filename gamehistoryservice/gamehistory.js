@@ -1,4 +1,3 @@
-const axios = require('axios');
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
@@ -25,8 +24,8 @@ app.use((req, res, next) => {
 
 app.post("/saveGameHistory", async (req, res) => {
     try {
-        
-      await saveGameHistory(req.query.username);
+        const { username } = req.body;
+        await saveGameHistory(username);
   
     } catch (error) { 
       res.status(400).json({ error: "Error al guardar el historial del juego: "+ error.message });
@@ -40,7 +39,6 @@ app.get("/gamehistory", async (req, res) => {
         var gamehistory = true;
 
         if (gamehistory) {
-            console.log(req.query.username)
             var response = {
                 //userId: gamehistory.userId,
                 //totalGamesPlayed: gamehistory.totalGamesPlayed,
@@ -81,9 +79,11 @@ async function saveGameHistory(userId) {
         }
 
         // Obtiene los datos del juego del usuario
-        const games = await Game.find({ userId: userId });
+        const games = await mongoose.connection.collection('games').find({ userId: userId }).toArray();
+        console.log(games);
 
         const totalGamesPlayed = games.length;
+        console.log(totalGamesPlayed);
         let totalRightQuestions = 0;
         let totalIncorrectQuestions = 0;
         let totalTime = 0;
@@ -94,6 +94,9 @@ async function saveGameHistory(userId) {
             totalIncorrectQuestions += game.questions.filter(question => !question.correct).length;
             totalTime += game.questions.reduce((acc, curr) => acc + curr.time, 0);
         });
+        console.log(totalRightQuestions);
+        console.log(totalIncorrectQuestions);
+        console.log(totalTime);
 
         // Actualiza los campos del historial de juego
         gameHistory.totalGamesPlayed = totalGamesPlayed;

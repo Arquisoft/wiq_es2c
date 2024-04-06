@@ -55,6 +55,15 @@ const Game = () => {
     }
   }, [usernameGlobal])
 
+  const saveGameHistory = useCallback(async () => {
+    try {
+      const username = usernameGlobal;
+      await axios.post(`${apiEndpoint}/saveGameHistory`, {username});
+    } catch (error) {
+      setError(error.response.data.error);
+    }
+  }, [usernameGlobal]);
+
   useEffect(() => {
     getQuestion();
   }, [getQuestion]);
@@ -71,6 +80,7 @@ const Game = () => {
       setIsTimeRunning(false);
       if (answeredQuestions >= MAX_PREGUNTAS) {
         setAnsweredQuestions(0);
+        saveGameHistory();
         navigate("/PantallaInicio");
       }else{
         getQuestion(answeredQuestions+1);
@@ -110,6 +120,7 @@ const Game = () => {
     if (answeredQuestions>= MAX_PREGUNTAS) {
       setTimeout(() => {
         setAnsweredQuestions(0);
+        saveGameHistory();
         navigate("/PantallaInicio");
       }, 3000);
     }else{
