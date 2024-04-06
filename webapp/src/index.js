@@ -15,6 +15,7 @@ import PantallaInicio from './components/PantallaInicio';
 import Login from './components/Login';
 import AddUser from './components/AddUser';
 import Game from './components/Game';
+import Gamehistory from './components/Gamehistory';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -28,6 +29,7 @@ root.render(
           <Route path="/AddUser" element={<AddUser />} />
           <Route path="/App" element={<App />} />
           <Route path="/Game" element={<Game />} />
+          <Route path="/Gamehistory" element={<Gamehistory />} />
         </Routes>
       </Router>
     </UserProvider>
