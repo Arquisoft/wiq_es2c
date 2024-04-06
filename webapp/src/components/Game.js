@@ -30,11 +30,11 @@ const Game = () => {
 
   const getQuestion = useCallback(async (answeredQuestionsValue) => {
     try {
-      console.log(" NUMERO DE PREGUNTA " + answeredQuestionsValue);
+      //console.log(" NUMERO DE PREGUNTA " + answeredQuestionsValue);
 
       const createNewGame = answeredQuestionsValue > 0 ? false : true;
 
-      console.log(" HAY QUE CREAR UN NUEVO JUEGO? " + createNewGame);
+      //console.log(" HAY QUE CREAR UN NUEVO JUEGO? " + createNewGame);
       
       const response = await axios.get(`${apiEndpoint}/generateQuestion`, {
           params: {
@@ -52,7 +52,7 @@ const Game = () => {
       setIsTimeRunning(true);
       setElapsedTime(MAX_TIME);
     } catch (error) {
-      console.log(error.message);
+      console.log("Error: " + error.response.data.error);
       setError(error.response.data.error);
     }
   }, [usernameGlobal])
@@ -154,9 +154,11 @@ const Game = () => {
           </Button>
         ))}
       </div>
-      {error && (
-        <Snackbar open={!!error} autoHideDuration={6000} onClose={() => setError('')} message={`Error: ${error}`} />
-      )}
+      <div>
+        {error && (
+          <Snackbar open={!!error} autoHideDuration={6000} onClose={() => setError('')} message={`Error: ${error}`} />
+        )}
+      </div>
     </Container>
   );
 };
