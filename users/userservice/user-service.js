@@ -31,16 +31,24 @@ app.post('/adduser', async (req, res) => {
         // Check if required fields are present in the request body
         validateRequiredFields(req, ['username', 'password']);
 
-        // Encrypt the password before saving it
-        const hashedPassword = await bcrypt.hash(req.body.password, 10);
+        const user = await User.findOne({ username });
+        if(user){
+            throw new Error("Ya se ha registrado un usuario con ese nombre");
+        }else{
 
-        const newUser = new User({
-            username: req.body.username,
-            password: hashedPassword,
-        });
 
-        await newUser.save();
-        res.json(newUser);
+            // Encrypt the password before saving it
+            const hashedPassword = await bcrypt.hash(req.body.password, 10);
+
+            const newUser = new User({
+                username: req.body.username,
+                password: hashedPassword,
+            });
+
+            await newUser.save();
+            res.json(newUser);
+        }
+
     } catch (error) {
         res.status(400).json({ error: error.message }); 
     }});

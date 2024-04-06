@@ -10,13 +10,17 @@ const AddUser = () => {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [openSnackbar, setOpenSnackbar] = useState(false);
+  const [snackbarMessage, setSnackbarMessage] = useState('');
 
   const addUser = async () => {
     try {
       await axios.post(`${apiEndpoint}/adduser`, { username, password });
       setOpenSnackbar(true);
+      setSnackbarMessage("Usuario añadido correctamente");
     } catch (error) {
       setError(error.response.data.error);
+      setOpenSnackbar(true);
+      setSnackbarMessage("Ya se ha registrado un usuario con ese nombre");
     }
   };
 
