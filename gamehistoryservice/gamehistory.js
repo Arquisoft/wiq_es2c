@@ -47,12 +47,18 @@ app.get("/gamehistory", async (req, res) => {
 
         if (gamehistory) {
             return {
-                userId: gamehistory.userId,
-                totalGamesPlayed: gamehistory.totalGamesPlayed,
-                totalRightQuestions: gamehistory.totalRightQuestions,
-                totalIncorrectQuestions: gamehistory.totalIncorrectQuestions,
-                ratio: gamehistory.ratio,
-                totalTime: gamehistory.totalTime
+                //userId: gamehistory.userId,
+                //totalGamesPlayed: gamehistory.totalGamesPlayed,
+                //totalRightQuestions: gamehistory.totalRightQuestions,
+                //totalIncorrectQuestions: gamehistory.totalIncorrectQuestions,
+                //ratio: gamehistory.ratio,
+                //totalTime: gamehistory.totalTime
+                userId: 1,
+                totalGamesPlayed: 1,
+                totalRightQuestions: 1,
+                totalIncorrectQuestions: 1,
+                ratio: 1,
+                totalTime: 1
             };
         } else {
             return null; 

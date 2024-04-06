@@ -1,16 +1,27 @@
 import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import { useUser } from './UserContext';
 import { Container, Typography, TableContainer, Table, TableHead, TableBody, TableRow, TableCell, Paper } from '@mui/material';
 
 
 const apiEndpoint = process.env.REACT_APP_API_ENDPOINT || 'http://localhost:8000';
 
 const Gamehistory = () => {
-  // Datos ficticios
-  const gameData = [
-    { id: 1, gamesPlayed: 10, questionsAnswered: 100, correctAnswers: 80, wrongAnswers: 20, accuracyRatio: '80%', totalTimePlayed: '5 horas' },
-    { id: 2, gamesPlayed: 15, questionsAnswered: 150, correctAnswers: 120, wrongAnswers: 30, accuracyRatio: '80%', totalTimePlayed: '7 horas' },
-    { id: 3, gamesPlayed: 20, questionsAnswered: 200, correctAnswers: 160, wrongAnswers: 40, accuracyRatio: '80%', totalTimePlayed: '9 horas' },
-  ];
+  const { usernameGlobal } = useUser();
+  const [gamehistory, setGameHistory] = useState('');
+
+  const getGameHistory = (async () => {
+    try {
+      const response = await axios.get(`${apiEndpoint}/gamehistory`, {username: usernameGlobal});
+      setGameHistory(response);
+    } catch (error) {
+      setError(error.response.data.error);
+    }
+  }, [usernameGlobal])
+
+  useEffect(() => {
+    getGameHistory();
+  }, [getGameHistory]);
 
   return (
     <Container component="main" maxWidth="xl"
@@ -40,16 +51,14 @@ const Gamehistory = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {gameData.map((data) => (
-              <TableRow key={data.id}>
-                <TableCell>{data.gamesPlayed}</TableCell>
-                <TableCell>{data.questionsAnswered}</TableCell>
-                <TableCell>{data.correctAnswers}</TableCell>
-                <TableCell>{data.wrongAnswers}</TableCell>
-                <TableCell>{data.accuracyRatio}</TableCell>
-                <TableCell>{data.totalTimePlayed}</TableCell>
+              <TableRow>
+                <TableCell>{gamehistory.userId}</TableCell>
+                <TableCell>{gamehistory.totalGamesPlayed}</TableCell>
+                <TableCell>{gamehistory.totalRightQuestions}</TableCell>
+                <TableCell>{gamehistory.totalIncorrectQuestions}</TableCell>
+                <TableCell>{gamehistory.ratio}</TableCell>
+                <TableCell>{gamehistory.totalTime}</TableCell>
               </TableRow>
-            ))}
           </TableBody>
         </Table>
       </TableContainer>
