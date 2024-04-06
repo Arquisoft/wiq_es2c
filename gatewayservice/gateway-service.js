@@ -51,8 +51,7 @@ app.post('/adduser', async (req, res) => {
 app.get(`/generateQuestion`, async (req, res) => {
   try {
     // Forward the add user request to the user service
-    const URL = generatorUrl + '/generateQuestion?user=' + req.query.user + '&newGame=' + req.query.newGame
-      + '&numberOfQuestions=' + req.query.numberOfQuestions;
+    const URL = generatorUrl + '/generateQuestion?user=' + req.query.user;
     const response = await axios.get(URL);
     res.json(response.data);
   } catch (error) {
@@ -63,7 +62,7 @@ app.get(`/generateQuestion`, async (req, res) => {
 app.get(`/updateQuestion`, async (req, res) => {
   try {
     // Forward the add user request to the user service
-    const response = await axios.get(generatorUrl+'/updateQuestion', req.body);
+    const response = await axios.get(generatorUrl+'/updateQuestion?time=' + req.query.time + "&correct=" +  req.query.correct,  req.body);
     res.json(response.data);
   } catch (error) {
     res.status(error.response.status).json({ error: error.response.data.error });
