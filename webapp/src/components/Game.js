@@ -19,29 +19,26 @@ const Game = () => {
   const [openSnackbar, setOpenSnackbar] = useState(false);
   const [elapsedTime,setElapsedTime] = useState(30);
   const [answerCorrect, setAnswerCorrect] = useState(false);
-  const [answeredQuestions,setAnsweredQuestions] = useState(1);
+  const [answeredQuestions,setAnsweredQuestions] = useState(0);
   const [isTimeRunning, setIsTimeRunning] = useState(true);
 
   // Comentario de prueba para el despliegue
   const MAX_TIME = 30;
   const MAX_PREGUNTAS = 5;
-
+  const answeredQuestionsValue = 0;
   const navigate = useNavigate();
 
-  const getQuestion = useCallback(async (answeredQuestionsValue) => {
+  const getQuestion = useCallback(async () => {
     try {
-      console.log(" NUMERO DE PREGUNTA " + answeredQuestionsValue);
+
 
       const createNewGame = answeredQuestionsValue > 0 ? false : true;
 
-      console.log(" HAY QUE CREAR UN NUEVO JUEGO? " + createNewGame);
-      
+
       const response = await axios.get(`${apiEndpoint}/generateQuestion`, {
-          params: {
-              user: usernameGlobal,
-              newGame: createNewGame,
-              numberOfQuestions: answeredQuestionsValue
-          }
+        params: {
+          user: usernameGlobal
+        }
       });
       setQuestionId(response.data.question_Id);
       setQuestion(response.data.responseQuestion);
@@ -51,6 +48,7 @@ const Game = () => {
       setOpenSnackbar(true);
       setIsTimeRunning(true);
       setElapsedTime(MAX_TIME);
+      setAnsweredQuestions(prevValue => prevValue+1);
     } catch (error) {
       console.log(error.message);
       setError(error.response.data.error);
@@ -71,11 +69,11 @@ const Game = () => {
 
     if(elapsedTime<=0){
       setIsTimeRunning(false);
-      getQuestion(answeredQuestions+1);
-      setAnsweredQuestions(answeredQuestions+1);
-      if (answeredQuestions+1 >= MAX_PREGUNTAS) {
+      if (answeredQuestions >= MAX_PREGUNTAS) {
         setAnsweredQuestions(0);
         navigate("/PantallaInicio");
+      }else{
+        getQuestion(answeredQuestions+1);
       }
     }
 
@@ -103,17 +101,16 @@ const Game = () => {
       setError(error.response.data.error);
     }
 
-    setTimeout(() => {
-      getQuestion(answeredQuestions+1);
-    }, 1500);
 
-    setAnsweredQuestions(answeredQuestions+1);
-    if (answeredQuestions+1>= MAX_PREGUNTAS) {
+    if (answeredQuestions>= MAX_PREGUNTAS) {
       setTimeout(() => {
         setAnsweredQuestions(0);
         navigate("/PantallaInicio");
       }, 3000);
-
+    }else{
+      setTimeout(() => {
+        getQuestion(answeredQuestions+1);
+      }, 900);
     }
   };
 
