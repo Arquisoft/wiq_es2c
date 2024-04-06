@@ -18,6 +18,10 @@ const PantallaInicio = () => {
         navigate("/Partida")
     }
 
+    function mostrarHistorico() {
+        navigate("/Gamehistory")
+    }
+
     const logoutUser = async () => {
         try {
             setLoginSuccess(false);
@@ -56,7 +60,7 @@ const PantallaInicio = () => {
                 display: "flex",
                 gap: 2, // Espacio entre los botones
             }}> 
-                <Button variant="contained" color="inherit" style={{ background: 'white', border: 'none', padding: 0 }}>
+                <Button variant="contained" color="inherit" style={{ background: 'white', border: 'none', padding: 0 }}  onClick={mostrarHistorico}>
                     <img src={require('./images/iconHistory.jpeg')} style={{ width: '50px', height: '50px' }} alt="Imagen historico"/>
                 </Button>
 
