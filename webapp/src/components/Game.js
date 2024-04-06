@@ -27,9 +27,7 @@ const Game = () => {
   const navigate = useNavigate();
 
   const getQuestion = useCallback(async () => {
-    try {
-      const createNewGame = answeredQuestionsValue > 0 ? false : true;
-      
+    try {      
       const response = await axios.get(`${apiEndpoint}/generateQuestion`, {
         params: {
           user: usernameGlobal
