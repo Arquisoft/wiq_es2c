@@ -13,7 +13,6 @@ const Game = () => {
   const [image, setImage] = useState('');
   const [options, setOptions] = useState([]);
   const [correctOption, setCorrectOption] = useState("");
-  const [questionId,setQuestionId] = useState(null);
   const [error, setError] = useState('');
   const [selectedOption, setSelectedOption] = useState('');
   const [openSnackbar, setOpenSnackbar] = useState(false);
@@ -25,22 +24,16 @@ const Game = () => {
   // Comentario de prueba para el despliegue
   const MAX_TIME = 30;
   const MAX_PREGUNTAS = 5;
-  const answeredQuestionsValue = 0;
   const navigate = useNavigate();
 
   const getQuestion = useCallback(async () => {
     try {
-
-
-      const createNewGame = answeredQuestionsValue > 0 ? false : true;
-
 
       const response = await axios.get(`${apiEndpoint}/generateQuestion`, {
         params: {
           user: usernameGlobal
         }
       });
-      setQuestionId(response.data.question_Id);
       setQuestion(response.data.responseQuestion);
       setOptions(response.data.responseOptions);
       setCorrectOption(response.data.responseCorrectOption);
@@ -147,7 +140,7 @@ const Game = () => {
         {question}
       </Typography>
       <div style={{ display: 'flex', justifyContent: 'center' }}>
-        {image !== null && image !== "" && <img src={image} alt="Imagen de la pregunta" width="40%" height="auto"/>}
+        {image !== null && image !== "" && <img src={image} alt="Imagen de la pregunta" width="20%" height="auto"/>}
       </div>
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '10px', alignItems: 'center', marginTop: '20px' }}>
         {options.map((option, index) => (
