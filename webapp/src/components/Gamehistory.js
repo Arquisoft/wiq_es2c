@@ -13,8 +13,7 @@ const Gamehistory = () => {
 
   const getGameHistory = useCallback(async () => {
     try {
-      const response = await axios.get(`${apiEndpoint}/gamehistory`, {username: usernameGlobal});
-      alert(usernameGlobal);
+      const response = await axios.get(`${apiEndpoint}/gamehistory?username=`+ usernameGlobal);
       setGameHistory(response.data);
     } catch (error) {
       setError(error.response.data.error);
@@ -44,8 +43,8 @@ const Gamehistory = () => {
         <Table>
           <TableHead>
             <TableRow>
-              <TableCell align="center"><strong>Partidas Jugadas</strong></TableCell>
-                <TableCell align="center"><strong>Preguntas Respondidas</strong></TableCell>
+                <TableCell align="center"><strong>Partidas Jugadas</strong></TableCell>
+                <TableCell align="center"><strong>Preguntas respondidas</strong></TableCell>
                 <TableCell align="center"><strong>Aciertos</strong></TableCell>
                 <TableCell align="center"><strong>Fallos</strong></TableCell>
                 <TableCell align="center"><strong>Ratio de Acierto</strong></TableCell>
@@ -54,8 +53,8 @@ const Gamehistory = () => {
           </TableHead>
           <TableBody>
               <TableRow>
-                <TableCell align="center">{gamehistory.userId}</TableCell>
                 <TableCell align="center">{gamehistory.totalGamesPlayed}</TableCell>
+                <TableCell align="center">{gamehistory.totalQuestionsAnswered}</TableCell>
                 <TableCell align="center">{gamehistory.totalRightQuestions}</TableCell>
                 <TableCell align="center">{gamehistory.totalIncorrectQuestions}</TableCell>
                 <TableCell align="center">{gamehistory.ratio}</TableCell>

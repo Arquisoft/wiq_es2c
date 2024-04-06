@@ -44,11 +44,13 @@ app.get("/gamehistory", async (req, res) => {
             var response = {
                 //userId: gamehistory.userId,
                 //totalGamesPlayed: gamehistory.totalGamesPlayed,
+                //totalQuestionsAnswered: gamehistorygamehistory.totalQuestionsAnswered,
                 //totalRightQuestions: gamehistory.totalRightQuestions,
                 //totalIncorrectQuestions: gamehistory.totalIncorrectQuestions,
                 //ratio: gamehistory.ratio,
                 //totalTime: gamehistory.totalTime
                 userId: req.query.username,
+                totalQuestionsAnswered: 1,
                 totalGamesPlayed: 1,
                 totalRightQuestions: 1,
                 totalIncorrectQuestions: 1,
@@ -95,6 +97,7 @@ async function saveGameHistory(userId) {
 
         // Actualiza los campos del historial de juego
         gameHistory.totalGamesPlayed = totalGamesPlayed;
+        gameHistory.totalQuestionsAnswered = totalRightQuestions + totalIncorrectQuestions;
         gameHistory.totalRightQuestions = totalRightQuestions;
         gameHistory.totalIncorrectQuestions = totalIncorrectQuestions;
         gameHistory.ratio = totalRightQuestions / (totalRightQuestions + totalIncorrectQuestions);
