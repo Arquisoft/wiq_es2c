@@ -34,7 +34,6 @@ app.post("/saveGameHistory", async (req, res) => {
 
 app.get("/gamehistory", async (req, res) => {
     try {
-
         var gamehistory = await GameHistory.findOne({ userId:req.query.username});
     
         if (gamehistory) {
@@ -61,7 +60,9 @@ app.get("/gamehistory", async (req, res) => {
             res.json(response);
         }
 
-    } catch (error) { }
+    } catch (error) { 
+        res.status(400).json({ error: "Error al obtener el historial del juego: "+ error.message });
+    }
 });
 
 async function saveGameHistory(userId) {
