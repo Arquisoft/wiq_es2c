@@ -14,7 +14,7 @@ const NavigationBar = () => {
 
     const location = useLocation();
 
-    const isHiddenRoute = location.pathname === '/' || location.pathname === '/App';
+    const isHiddenRoute = location.pathname === '/' || location.pathname === '/App' || location.pathname === '/Game';
 
 
     const showHome = () => {
@@ -44,7 +44,7 @@ const NavigationBar = () => {
   
 
   return (
-    <AppBar position="fixed" sx={{ backgroundColor: '#AF33FF' }}>
+    <AppBar position="fixed" sx={{ backgroundColor: '#9A77B0' }}>
             <Grid container justifyContent="space-between">
                 {/* Columna izquierda */}
                 <Grid item>
