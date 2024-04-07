@@ -20,11 +20,23 @@ describe('User Service', () => {
   it('should add a new user on POST /adduser', async () => {
     const newUser = {
       username: 'testuser',
-      password: 'testpassword',
+      email: 'testuser@correo.com',
+      password: 'testpassword'
     };
 
     const response = await request(app).post('/adduser').send(newUser);
     expect(response.status).toBe(200);
-    expect(response.body).toHaveProperty('username', 'testuser');
+    expect(response.body).toHaveProperty('email', 'testuser@correo.com');
+  });
+
+  it('trying to add a new user on POST /adduser withouth an email', async () => {
+    const newUser = {
+      username: 'testuser',
+      password: 'testpassword'
+    };
+
+    const response = await request(app).post('/adduser').send(newUser);
+    expect(response.status).toBe(400);
+    expect(response.body).toHaveProperty('error', 'Missing required field: email');
   });
 });

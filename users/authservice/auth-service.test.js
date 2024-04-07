@@ -12,6 +12,10 @@ const user = {
   password: 'testpassword',
 };
 
+const badUser = {
+  username: 'testuser'
+}
+
 async function addUser(user){
   const hashedPassword = await bcrypt.hash(user.password, 10);
   const newUser = new User({
@@ -41,5 +45,11 @@ describe('Auth Service', () => {
     const response = await request(app).post('/login').send(user);
     expect(response.status).toBe(200);
     expect(response.body).toHaveProperty('username', 'testuser');
+  });
+  
+  it('Should not perform a login operation /login withouth a password', async () => {
+    const response = await request(app).post('/login').send(badUser);
+    expect(response.status).toBe(500);
+    expect(response.body).toHaveProperty('error', 'Internal Server Error');
   });
 });

@@ -18,8 +18,8 @@ COPY game-model.js /usr/src/gamehistoryservice
 # Expose the port the app runs on
 EXPOSE 8003
 
-ARG API_GENERATOR_URI="http://localhost:3000"
-ENV REACT_APP_API_GENERATOR_ENDPOINT=$API_GENERATOR_URI
+ARG API_ORIGIN_URI="http://localhost:3000"
+ENV REACT_APP_API_ORIGIN_ENDPOINT=$API_ORIGIN_URI
 
 # Define the command to run your app
 CMD ["node", "question.js"]

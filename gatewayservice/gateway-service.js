@@ -10,7 +10,6 @@ const YAML = require('yaml')
 const app = express();
 const port = 8000;
 
-// Descomentar esta línea si se va a trabajar en local
 const gamehistoryUrl = process.env.GAMEHISTORY_SERVICE_URL || 'http://localhost:8004';
 const generatorUrl = process.env.GENERATOR_SERVICE_URL || 'http://localhost:8003';
 const authServiceUrl = process.env.AUTH_SERVICE_URL || 'http://localhost:8002';
@@ -89,7 +88,8 @@ app.get('/gamehistory', async (req, res) => {
 });
 
 // Read the OpenAPI YAML file synchronously
-openapiPath='./openapi.yaml'
+// Hubo que cambiar el path porque los test e2e ahora sólo se ejecutan desde webapp
+openapiPath='../gatewayservice/openapi.yaml'
 if (fs.existsSync(openapiPath)) {
   const file = fs.readFileSync(openapiPath, 'utf8');
 

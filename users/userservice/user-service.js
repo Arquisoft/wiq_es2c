@@ -15,8 +15,6 @@ app.use(bodyParser.json());
 const mongoUri = process.env.MONGODB_URI || 'mongodb://localhost:27017/userdb';
 mongoose.connect(mongoUri);
 
-
-
 // Function to validate required fields in the request body
 function validateRequiredFields(req, requiredFields) {
     for (const field of requiredFields) {
@@ -36,8 +34,6 @@ app.post('/adduser', async (req, res) => {
         if(user_Email || user_Username ){
             throw new Error("Ya se ha registrado un usuario con ese email o nombre de usuario");
         }else{
-
-
             // Encrypt the password before saving it
             const hashedPassword = await bcrypt.hash(req.body.password, 10);
 
@@ -52,7 +48,8 @@ app.post('/adduser', async (req, res) => {
         }
 
     } catch (error) {
-        res.status(400).json({ error: error.message }); 
+      console.log("Error: " + error)
+      res.status(400).json({ error: error.message }); 
     }});
 
 const server = app.listen(port, () => {

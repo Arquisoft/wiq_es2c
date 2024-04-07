@@ -62,6 +62,7 @@ describe('Gateway Service', () => {
     server.close(true);
   });
 
+  // Test /updateQuestion endpoint
   it('should update the question', async () => {
     const updatedQuestion = {
       _id: '660434f228670016dfcac277',
@@ -80,5 +81,5 @@ describe('Gateway Service', () => {
 
     expect(response.status).toBe(200);
     expect(response.body).toEqual({ message: "Tiempo de pregunta actualizado exitosamente", updatedQuestion });
-  })
+  });
 });
