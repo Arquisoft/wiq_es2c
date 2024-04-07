@@ -58,7 +58,7 @@ const Gamehistory = () => {
                 <TableCell align="center">{gamehistory.totalQuestionsAnswered}</TableCell>
                 <TableCell align="center">{gamehistory.totalRightQuestions}</TableCell>
                 <TableCell align="center">{gamehistory.totalIncorrectQuestions}</TableCell>
-                <TableCell align="center">{(gamehistory.ratio).toLocaleString(undefined, { style: 'percent' })}</TableCell>
+                <TableCell align="center">{gamehistory.ratio} %</TableCell>
                 <TableCell align="center">{gamehistory.totalTime} s</TableCell>
               </TableRow>
           </TableBody>

@@ -100,7 +100,7 @@ async function saveGameHistory(userId) {
         gameHistory.totalQuestionsAnswered = totalRightQuestions + totalIncorrectQuestions;
         gameHistory.totalRightQuestions = totalRightQuestions;
         gameHistory.totalIncorrectQuestions = totalIncorrectQuestions;
-        gameHistory.ratio = totalRightQuestions / (totalRightQuestions + totalIncorrectQuestions);
+        gameHistory.ratio =  parseInt((totalRightQuestions / (totalRightQuestions + totalIncorrectQuestions))*100);
         gameHistory.totalTime = totalTime;
 
         // Guarda el historial del juego en la base de datos
