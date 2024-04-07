@@ -456,7 +456,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#section-system-scope-and-context">3. Alcance y Contexto del Sistema</a>
 <ul class="sectlevel2">
 <li><a href="#_contexto_de_negocio">3.1. Contexto de Negocio</a></li>
-<li><a href="#_contexto_técnico">3.2. Contexto técnico</a></li>
+<li><a href="#_technical_context">3.2. Technical Context</a></li>
 </ul>
 </li>
 <li><a href="#section-solution-strategy">4. Estrategia de solución</a></li>
@@ -575,10 +575,7 @@ El equipo de desarrollo comprometido a materializar este proyecto está formado 
 <p>David Muños Rio</p>
 </li>
 <li>
-<p>Ángela Roza Moreno</p>
-</li>
-<li>
-<p>Jorge Adrián Larriva</p>
+<p>Ángela Roza Moren</p>
 </li>
 </ul>
 </div>
@@ -738,7 +735,7 @@ Estas partes interesadas determinan el alcance y el nivel de detalle de su traba
 <tbody>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Equipo de desarrollo/Estudiantes</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Marina Seijo Gómez Rubén Pérez Dafonte David Muños Rio Ángela Roza Moreno Jorge Adrián Larriva</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Marina Seijo Gómez Rubén Pérez Dafonte David Muños Rio Ángela Roza Moreno</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Encargados del completo desarrollo y diseño de la aplicación. Aumentarán y mejorarán su experiencia como programadores y diseñadores. Además, aprenderán a trabajar en equipo.</p></td>
 </tr>
 <tr>
@@ -851,7 +848,7 @@ convenciones (por ejemplo, pautas de programación o control de versiones, docum
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Tamaño del equipo</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">El equipo está formado por 5 personas.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">El equipo está formado por 4 personas.</p></td>
 </tr>
 </tbody>
 </table>
@@ -871,7 +868,7 @@ convenciones (por ejemplo, pautas de programación o control de versiones, docum
 <div class="sidebarblock arc42help">
 <div class="content">
 <div class="paragraph">
-<p><span class="image"><img src="./images/3_BusinessContext_V2.PNG" alt="Diagram"></span></p>
+<p><span class="image"><img src="./images/3_BusinessContext.png" alt="Diagram"></span></p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
@@ -915,77 +912,15 @@ convenciones (por ejemplo, pautas de programación o control de versiones, docum
 </table>
 </div>
 </div>
-<div class="paragraph">
-<p><span class="image"><img src="./images/3_BusinessContext_V2.PNG" alt="Diagram"></span></p>
-</div>
-<table class="tableblock frame-all grid-all stretch">
-<colgroup>
-<col style="width: 10%;">
-<col style="width: 20%;">
-<col style="width: 30%;">
-<col style="width: 40%;">
-</colgroup>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Elementos</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Descripción</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Inputs</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Outputs</strong></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">WIQ</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">La aplicación que gestiona el juego de preguntas. Utiliza los datos del usuario, Wikidata y MongoDB para generar y administrar el juego de preguntas y respuestas.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Datos de registro del usuario, datos de Wikidata basados en el tipo de pregunta que se quiere obtener, y búsquedas y registros de información de MongoDB relacionados con el sistema.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Preguntas y respuestas generadas para el juego, historial de partidas y estadísticas del usuario.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">User</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Participa en el juego respondiendo preguntas y poseerá un historial de las partidas que jugó y sus estadísticas</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Datos de registro</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Historial de partidas y estadísticas</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Wikidata</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Proporcionará los datos necesarios para generar preguntas y respuestas de manera automática. El propósito es acceder a esta información y se extraer aquellos datos que puedan resultar útiles para generar dichas preguntas</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Datos en base al tipo de pregunta que se quiere obtener</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Datos en base a la consulta para generar las preguntas y respuestas</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Base de datos (MongoDB)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Se encargará de guardar información pertinente de WIQ</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Realización de búsquedas y registro de información asociada relacionados con el sistema</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Cualquier dato que haya sido almacenado perteneciente al sistema</p></td>
-</tr>
-</tbody>
-</table>
 </div>
 <div class="sect2">
-<h3 id="_contexto_técnico">3.2. Contexto técnico</h3>
+<h3 id="_technical_context">3.2. Technical Context</h3>
 <div class="sidebarblock arc42help">
 <div class="content">
 <div class="paragraph">
-<div class="title">Contenido</div>
-<p>Interfaces técnicas (canales y medios de transmisión) que vinculan su sistema con su entorno. Además, una asignación de entrada/salida específica del dominio a los canales, es decir, una explicación de qué E/S utiliza qué canal.</p>
-</div>
-<div class="paragraph">
-<div class="title">Motivación</div>
-<p>Muchas partes interesadas toman decisiones arquitectónicas basadas en las interfaces técnicas entre el sistema y su contexto. Especialmente los diseñadores de infraestructura o hardware deciden estas interfaces técnicas.</p>
-</div>
-<div class="paragraph">
-<div class="title">Forma</div>
-<p>P.ej. Diagrama de implementación UML que describe canales a sistemas vecinos,
-junto con una tabla de mapeo que muestra las relaciones entre canales y entrada/salida.</p>
+<p><span class="image"><img src="./images/3_TechnicalContext.png" alt="Diagram"></span></p>
 </div>
 </div>
-</div>
-<div class="paragraph">
-<p><strong>&lt;Diagram or Table&gt;</strong></p>
-</div>
-<div class="paragraph">
-<p><strong>&lt;optionally: Explanation of technical interfaces&gt;</strong></p>
-</div>
-<div class="paragraph">
-<p><strong>&lt;Mapping Input/Output to Channels&gt;</strong></p>
 </div>
 <div style="page-break-after: always;"></div>
 </div>
@@ -1537,7 +1472,7 @@ junto con una tabla de mapeo que muestra las relaciones entre canales y entrada/
 <div id="footer">
 <div id="footer-text">
 Version 8.2 EN<br>
-Last updated 2024-03-10 12:49:57 +0100
+Last updated 2024-04-07 18:15:41 +0200
 </div>
 </div>
 </body>
