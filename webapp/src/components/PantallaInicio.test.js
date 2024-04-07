@@ -15,7 +15,7 @@ describe('PantallaInicio component', () => {
 
   it('muestra la pantalla de inicio correctamente', async () => {
 
-    const { getByAltText } = render(<UserProvider>
+    render(<UserProvider>
       <Router>
         <PantallaInicio />
       </Router>
@@ -26,37 +26,10 @@ describe('PantallaInicio component', () => {
 
     // Verifica si el elemento se encuentra en el DOM
     expect(element).toBeInTheDocument();
-    var logoutButton = getByAltText('Imagen logout');
-    expect(logoutButton).toBeInTheDocument();
 
     // Simulate user input
     await act(async () => {
         fireEvent.click(nuevaPartidaButton);
       });
-      
   });
-
-  it('logout', async () => {
-    const { getByAltText } = render(<UserProvider>
-      <Router>
-        <PantallaInicio />
-      </Router>
-    </UserProvider>);
-
-    const element = screen.getByText(/¡BIENVENIDO A WIQ/);
-
-    // Verifica si el elemento se encuentra en el DOM
-    expect(element).toBeInTheDocument();
-    var logoutButton = getByAltText('Imagen logout');
-    expect(logoutButton).toBeInTheDocument();
-
-    // Simulate user input
-    await act(async () => {
-        fireEvent.click(logoutButton);
-    });
-    
-    var closeSession = screen.getByText("Sesion cerrada");
-    expect(closeSession).toBeInTheDocument();
-  });
-
 });

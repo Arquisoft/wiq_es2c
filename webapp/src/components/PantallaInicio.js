@@ -9,7 +9,7 @@ const PantallaInicio = () => {
     const [openSnackbar, setOpenSnackbar] = useState(false);
     const [error, setError] = useState('');
     
-    const { usernameGlobal, setUsernameGlobal } = useUser();
+    const { usernameGlobal} = useUser();
 
     const navigate = useNavigate();
 

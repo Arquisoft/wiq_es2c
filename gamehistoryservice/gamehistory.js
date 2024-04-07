@@ -23,7 +23,6 @@ app.use((req, res, next) => {
 });
 
 app.post("/saveGameHistory", async (req, res) => {
-    console.log("HA ENTRADO");
     try {
         const { username } = req.body;
         await saveGameHistory(username);

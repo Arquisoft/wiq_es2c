@@ -135,46 +135,46 @@ const Game = () => {
                 width: '100%', 
             }}>
       <Container component="section" maxWidth="xs">
-      {question && (
-        <>
-          <Typography variant="body1" sx={{ textAlign: 'center' }}>
-            {answeredQuestions} / {MAX_PREGUNTAS}
-          </Typography>
-          <Typography variant="body1" sx={{ textAlign: 'center' }}>
-            Tiempo restante: {elapsedTime} segundos
-          </Typography>
-          <LinearProgress variant="determinate" value={(elapsedTime / MAX_TIME) * 100 } sx={ {
-            width: '80%',
-            margin: 'auto',
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-          }}/> {/* Barra de progreso */}
-        </>
-      )}
-      <Typography component="h1" variant="h5" sx={{ textAlign: 'center' }}>
-        {question}
-      </Typography>
-      <div style={{ display: 'flex', justifyContent: 'center' }}>
-        {image !== null && image !== "" && <img src={image} alt="Imagen de la pregunta" width="20%" height="auto"/>}
-      </div>
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '10px', alignItems: 'center', marginTop: '20px' }}>
-        {options.map((option, index) => (
-          <Button key={index } style={{ 
-              backgroundColor: selectedOption === option ? (answerCorrect ? '#00C853' : '#FF1744') : '#FCF5B8',
-              color: '#413C3C', 
-              fontWeight: 'bold'
-            }} variant="contained" onClick={!isTimeRunning ? null : () => {handleOptionClick(option);}}>
-            {option}
-          </Button>
-        ))}
-      </div>
-      <div>
-        {error && (
-          <Snackbar open={!!error} autoHideDuration={6000} onClose={() => setError('')} message={`Error: ${error}`} />
+        {question && (
+          <>
+            <Typography variant="body1" sx={{ textAlign: 'center' }}>
+              {answeredQuestions} / {MAX_PREGUNTAS}
+            </Typography>
+            <Typography variant="body1" sx={{ textAlign: 'center' }}>
+              Tiempo restante: {elapsedTime} segundos
+            </Typography>
+            <LinearProgress variant="determinate" value={(elapsedTime / MAX_TIME) * 100 } sx={ {
+              width: '80%',
+              margin: 'auto',
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}/> {/* Barra de progreso */}
+          </>
         )}
-      </div>
-    </Container>
+        <Typography component="h1" variant="h5" sx={{ textAlign: 'center' }}>
+          {question}
+        </Typography>
+        <div style={{ display: 'flex', justifyContent: 'center' }}>
+          {image !== null && image !== "" && <img src={image} alt="Imagen de la pregunta" width="40%" height="auto"/>}
+        </div>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '10px', alignItems: 'center', marginTop: '20px' }}>
+          {options.map((option, index) => (
+            <Button key={index } style={{ 
+                backgroundColor: selectedOption === option ? (answerCorrect ? '#00C853' : '#FF1744') : '#FCF5B8',
+                color: '#413C3C', 
+                fontWeight: 'bold'
+              }} variant="contained" onClick={!isTimeRunning ? null : () => {handleOptionClick(option);}}>
+              {option}
+            </Button>
+          ))}
+        </div>
+        <div>
+          {error && (
+            <Snackbar open={!!error} autoHideDuration={6000} onClose={() => setError('')} message={`Error: ${error}`} />
+          )}
+        </div>
+      </Container>
     </Container>
   );
 };
