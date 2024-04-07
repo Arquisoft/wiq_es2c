@@ -44,17 +44,24 @@ app.get("/gamehistory", async (req, res) => {
                 totalQuestionsAnswered: gamehistory.totalQuestionsAnswered,
                 totalRightQuestions: gamehistory.totalRightQuestions,
                 totalIncorrectQuestions: gamehistory.totalIncorrectQuestions,
-                ratio: gamehistory.ratio,
-                totalTime: gamehistory.totalTime
+                ratio: gamehistory.ratio + " %",
+                totalTime: gamehistory.totalTime + " s"
             };
             res.json(response);
         } else {
-            res.json(null);
+            var response = {
+                userId: gamehistory.userId,
+                totalGamesPlayed: 0,
+                totalQuestionsAnswered: 0,
+                totalRightQuestions: 0,
+                totalIncorrectQuestions: 0,
+                ratio: 0,
+                totalTime: 0
+            };
+            res.json(response);
         }
 
-    } catch (error) { 
-    res.status(400).json({ error: "Error al guardar el historial del juego: "+ error.message });
-    }
+    } catch (error) { }
 });
 
 async function saveGameHistory(userId) {
