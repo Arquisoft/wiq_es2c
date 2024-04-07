@@ -6,7 +6,7 @@ const GameHistory = require('./gamehistory-model.js');
 const mongoUri = process.env.MONGODB_URI || 'mongodb://localhost:27017/questiondb';
 mongoose.connect(mongoUri);
 
-const generatorEndpoint = process.env.REACT_APP_API_ORIGIN_ENDPOINT || 'http://localhost:3000';
+const originEndpoint = process.env.REACT_APP_API_ORIGIN_ENDPOINT || 'http://localhost:3000';
 
 const app = express();
 const port = 8004;
@@ -15,7 +15,7 @@ const port = 8004;
 app.use(bodyParser.json());
 
 app.use((req, res, next) => {
-    res.setHeader('Access-Control-Allow-Origin', generatorEndpoint);
+    res.setHeader('Access-Control-Allow-Origin', originEndpoint);
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
     res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
     res.setHeader('Access-Control-Allow-Credentials', true);
@@ -26,7 +26,7 @@ app.post("/saveGameHistory", async (req, res) => {
     try {
         const { username } = req.body;
         await saveGameHistory(username);
-        res.status(200);
+        res.status(200).json({ success: true });
     } catch (error) { 
       res.status(400).json({ error: "Error al guardar el historial del juego: "+ error.message });
     }

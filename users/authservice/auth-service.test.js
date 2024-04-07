@@ -14,7 +14,12 @@ const user = {
 
 const badUser = {
   username: 'testuser'
-}
+};
+
+const userWithBadPassword = {
+  username: 'testuser',
+  password: ''
+};
 
 async function addUser(user){
   const hashedPassword = await bcrypt.hash(user.password, 10);
@@ -51,5 +56,11 @@ describe('Auth Service', () => {
     const response = await request(app).post('/login').send(badUser);
     expect(response.status).toBe(500);
     expect(response.body).toHaveProperty('error', 'Internal Server Error');
+  });
+
+  it('Should not perform a login operation /login with an incorrect password', async () => {
+    const response = await request(app).post('/login').send(userWithBadPassword);
+    expect(response.status).toBe(401);
+    expect(response.body).toHaveProperty('error', 'Invalid credentials');
   });
 });
