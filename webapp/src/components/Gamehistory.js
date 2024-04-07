@@ -13,7 +13,12 @@ const Gamehistory = () => {
 
   const getGameHistory = useCallback(async () => {
     try {
-      const response = await axios.get(`${apiEndpoint}/gamehistory?username=`+ usernameGlobal);
+      const response = await axios.get(`${apiEndpoint}/gamehistory`,{
+        params: {
+          username: usernameGlobal
+        }
+      });
+      console.log(response);
       setGameHistory(response.data);
     } catch (error) {
       setError(error.response.data.error);
