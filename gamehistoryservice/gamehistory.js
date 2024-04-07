@@ -70,19 +70,29 @@ async function saveGameHistory(userId) {
             });
         }
 
-        // Obtiene los datos del juego del usuario
-        const games = await mongoose.connection.collection('games').find({ userId: userId }).toArray();
-
+        const games = await mongoose.connection.collection('games').aggregate([
+            { 
+                $match: { userId: userId } 
+            },
+            {
+                $lookup: {
+                    from: 'questions',
+                    localField: 'questions',
+                    foreignField: '_id',
+                    as: 'questionsData'
+                }
+            }
+        ]).toArray();
+        
         const totalGamesPlayed = games.length;
         let totalRightQuestions = 0;
         let totalIncorrectQuestions = 0;
         let totalTime = 0;
-
-        // Calcula los totales de preguntas correctas, incorrectas y el tiempo total
+        
         games.forEach(game => {
-            totalRightQuestions += game.questions.filter(question => question.correct).length;
-            totalIncorrectQuestions += game.questions.filter(question => !question.correct).length;
-            totalTime += game.questions.reduce((acc, curr) => acc + (curr.time ?? 0), 0);
+            totalRightQuestions += game.questionsData.filter(question => question.correct).length;
+            totalIncorrectQuestions += game.questionsData.filter(question => !question.correct).length;
+            totalTime += game.questionsData.reduce((acc, curr) => acc + (curr.time ?? 0), 0);
         });
 
         // Actualiza los campos del historial de juego
