@@ -6,7 +6,6 @@ import { useNavigate } from 'react-router-dom';
 
 const PantallaInicio = () => {
 
-    const [loginSuccess, setLoginSuccess] = useState(false);
     const [openSnackbar, setOpenSnackbar] = useState(false);
     const [error, setError] = useState('');
     
@@ -17,23 +16,6 @@ const PantallaInicio = () => {
     function nuevaPartida() {
         navigate("/Game");
     }
-
-    function mostrarHistorico() {
-        navigate("/Gamehistory")
-    }
-
-    const logoutUser = async () => {
-        try {
-            setLoginSuccess(false);
-            console.log(loginSuccess);
-            setUsernameGlobal('');
-            navigate('/App');
-            
-            setOpenSnackbar(true);
-        } catch (error) {
-            setError(error.response.data.error);
-        }
-    };
 
     const handleCloseSnackbar = () => {
         setOpenSnackbar(false);
@@ -51,36 +33,7 @@ const PantallaInicio = () => {
                 alignItems: 'center',
                 height: '100vh', 
                 width: '100%', 
-            }}>
-
-            <Box sx={{
-                position: "absolute",
-                top: 50,
-                right: 20,
-                display: "flex",
-                gap: 2, // Espacio entre los botones
             }}> 
-                <Button variant="contained" color="inherit" style={{ background: 'white', border: 'none', padding: 0 }}  onClick={mostrarHistorico}>
-                    <img src={require('./images/iconHistory.jpeg')} style={{ width: '50px', height: '50px' }} alt="Imagen historico"/>
-                </Button>
-
-                <Button variant="contained" color="inherit" style={{ background: 'white', border: 'none', width: '50px' }}>
-                    <img src={require('./images/iconUser.jpeg')} style={{ width: '50px', height: '50px' }} alt="Imagen usuario"/>
-                </Button>
-                
-            </Box>
-
-            <Box sx={{
-                position: "absolute",
-                top: 50,
-                left: 20,
-                display: "flex",
-            }}> 
-                <Button variant="contained" color="inherit" style={{ background: 'white', border: 'none', padding: 0 }} onClick={logoutUser}>
-                    <img src={require('./images/logout.png')} style={{ width: '50px', height: '50px' }} alt="Imagen logout"/>
-                </Button>
-                
-            </Box>
 
             <Box sx={{
                 display: 'flex',
