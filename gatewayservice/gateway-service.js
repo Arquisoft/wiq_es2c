@@ -10,7 +10,6 @@ const YAML = require('yaml')
 const app = express();
 const port = 8000;
 
-// Descomentar esta línea si se va a trabajar en local
 const gamehistoryUrl = process.env.GAMEHISTORY_SERVICE_URL || 'http://localhost:8004';
 const generatorUrl = process.env.GENERATOR_SERVICE_URL || 'http://localhost:8003';
 const authServiceUrl = process.env.AUTH_SERVICE_URL || 'http://localhost:8002';

@@ -56,7 +56,7 @@ jobs:
       uses: elgohr/Publish-Docker-Github-Action@v5
       env:
         API_URI: http://${{ secrets.DEPLOY_HOST }}:8000
-        API_GENERATOR_URI: http://${{ secrets.DEPLOY_HOST }}:3000
+        API_ORIGIN_URI: http://${{ secrets.DEPLOY_HOST }}:3000
       with:
           name: arquisoft/wiq_es2c/webapp
           username: ${{ github.actor }}
@@ -65,7 +65,7 @@ jobs:
           workdir: webapp
           buildargs: |
             API_URI
-            API_GENERATOR_URI
+            API_ORIGIN_URI
   docker-push-authservice:
     name: Push auth service Docker Image to GitHub Packages
     runs-on: ubuntu-latest

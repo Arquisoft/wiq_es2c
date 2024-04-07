@@ -5,7 +5,6 @@ import { UserProvider } from './UserContext';
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 import Game from './Game';
-
 const mockAxios = new MockAdapter(axios);
 jest.useFakeTimers(); // Para simular el paso del tiempo
 
@@ -84,9 +83,12 @@ describe('Start game', () => {
 
     // Simulamos la interacción del usuario
     await act(async () => {
-        fireEvent.click(button2);
-        expect(button2).toHaveStyle('background-color: rgb(21, 101, 192)');
-      });
+        fireEvent.click(button1);
+    });
+
+    await waitFor(() => {
+      expect(button1).toHaveStyle('background-color: #00C853');
+    });
   });
 
   it('error', async () => {

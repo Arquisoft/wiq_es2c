@@ -7,17 +7,17 @@ const Game = require('./game-model');
 const { queries:textQueries, questions:textQuestions } = require('./text_questions');
 const { queries:imagesQueries, questions:imagesQuestions } = require('./image_questions');
 
+const generatorEndpoint = process.env.REACT_APP_API_ORIGIN_ENDPOINT || 'http://localhost:3000';
+
 const app = express();
 const port = 8003;
-
-
 
 // Middleware to parse JSON in request body
 app.use(bodyParser.json());
 
 // Necesario para poder hacer las peticiones desde Game
 app.use((req, res, next) => {
-    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
+    res.setHeader('Access-Control-Allow-Origin', generatorEndpoint);
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
     res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
     res.setHeader('Access-Control-Allow-Credentials', true);
