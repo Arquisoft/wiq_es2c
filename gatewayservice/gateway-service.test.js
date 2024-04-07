@@ -12,6 +12,23 @@ afterAll(async () => {
 
 jest.mock('axios');
 
+const simulateApiError = async (method, path, errorMessage, errorData) => {
+  const error = new Error(errorMessage);
+  error.response = {
+    status: 400,
+    data: errorData
+  };
+
+  sinon.stub(axios, method).rejects(error);
+
+  const response = await request(app)[method](path);
+
+  expect(response.statusCode).toBe(400);
+  expect(response.body.error).toBe(errorData.error);
+
+  axios[method].restore();
+};
+
 describe('Gateway Service', () => {
   // Mock responses from external services
   axios.post.mockImplementation((url, data) => {
@@ -43,23 +60,7 @@ describe('Gateway Service', () => {
 
   // Test /login endpoint
   it('should catch the errors when send /login that might appear during runtime', async () => {
-    const error = new Error('Authentication error');
-    error.response = {
-      status: 400,
-      data: { error: 'Unauthorized' }
-    };
-
-    // Sobreescribimos la función axios.post para que arroje el error simulado
-    sinon.stub(axios, 'post').rejects(error);
-
-    const response = await request(app)
-      .post('/login');
-
-    expect(response.statusCode).toBe(400);
-    expect(response.body.error).toBe('Unauthorized');
-
-    // Restauramos axios para que no nos afecte en futuras pruebas
-    axios.post.restore();
+    await simulateApiError('post', '/login', 'Authentication error', { error: 'Unauthorized' });
   });
 
   // Test /adduser endpoint
@@ -74,44 +75,12 @@ describe('Gateway Service', () => {
 
   // Test /adduser endpoint
   it('should catch the errors when send /adduser that might appear during runtime', async () => {
-    const error = new Error('Registration error');
-    error.response = {
-      status: 400,
-      data: { error: 'Uncomplete information' }
-    };
-
-    // Sobreescribimos la función axios.post para que arroje el error simulado
-    sinon.stub(axios, 'post').rejects(error);
-
-    const response = await request(app)
-      .post('/adduser');
-
-    expect(response.statusCode).toBe(400);
-    expect(response.body.error).toBe('Uncomplete information');
-
-    // Restauramos axios para que no nos afecte en futuras pruebas
-    axios.post.restore();
+    await simulateApiError('post', '/adduser', 'Registration error', { error: 'Uncomplete information' });
   });
 
   // Test /generateQuestion endpoint
   it('should catch the errors when send /generateQuestion that might appear during runtime', async () => {
-    const error = new Error('Generation error');
-    error.response = {
-      status: 400,
-      data: { error: 'Cannot generate a question' }
-    };
-
-    // Sobreescribimos la función axios.post para que arroje el error simulado
-    sinon.stub(axios, 'get').rejects(error);
-
-    const response = await request(app)
-      .get('/generateQuestion');
-
-    expect(response.statusCode).toBe(400);
-    expect(response.body.error).toBe('Cannot generate a question');
-
-    // Restauramos axios para que no nos afecte en futuras pruebas
-    axios.get.restore();
+    await simulateApiError('get', '/generateQuestion', 'Generation error', { error: 'Cannot generate a question' });
   });
 
   // Test /generateQuestion endpoint
@@ -159,23 +128,7 @@ describe('Gateway Service', () => {
 
   // Test /updateQuestion endpoint
   it('should catch the errors when send /updateQuestion that might appear during runtime', async () => {
-    const error = new Error('Update error');
-    error.response = {
-      status: 400,
-      data: { error: 'An error has occured updating a question' }
-    };
-
-    // Sobreescribimos la función axios.post para que arroje el error simulado
-    sinon.stub(axios, 'get').rejects(error);
-
-    const response = await request(app)
-      .get('/updateQuestion');
-
-    expect(response.statusCode).toBe(400);
-    expect(response.body.error).toBe('An error has occured updating a question');
-
-    // Restauramos axios para que no nos afecte en futuras pruebas
-    axios.get.restore();
+    await simulateApiError('get', '/updateQuestion', 'Update error', { error: 'An error has occured updating a question' });
   });
 
   // Test /saveGameHistory endpoint
@@ -196,23 +149,7 @@ describe('Gateway Service', () => {
 
   // Test /saveGameHistory endpoint
   it('should catch the errors when send /saveGameHistory that might appear during runtime', async () => {
-    const error = new Error('saving game history error');
-    error.response = {
-      status: 400,
-      data: { error: 'An error has occured saving the game history' }
-    };
-
-    // Sobreescribimos la función axios.post para que arroje el error simulado
-    sinon.stub(axios, 'post').rejects(error);
-
-    const response = await request(app)
-      .post('/saveGameHistory');
-
-    expect(response.statusCode).toBe(400);
-    expect(response.body.error).toBe('An error has occured saving the game history');
-
-    // Restauramos axios para que no nos afecte en futuras pruebas
-    axios.post.restore();
+    await simulateApiError('post', '/saveGameHistory', 'Saving game history error', { error: 'An error has occured saving the game history' });
   });
 
   // Test /gamehistory endpoint
@@ -246,22 +183,6 @@ describe('Gateway Service', () => {
 
   // Test /gamehistory endpoint
   it('should catch the errors when send /gamehistory that might appear during runtime', async () => {
-    const error = new Error('saving game history error');
-    error.response = {
-      status: 400,
-      data: { error: 'An error has occured getting the game history' }
-    };
-
-    // Sobreescribimos la función axios.post para que arroje el error simulado
-    sinon.stub(axios, 'get').rejects(error);
-
-    const response = await request(app)
-      .get('/gamehistory');
-
-    expect(response.statusCode).toBe(400);
-    expect(response.body.error).toBe('An error has occured getting the game history');
-
-    // Restauramos axios para que no nos afecte en futuras pruebas
-    axios.get.restore();
+    await simulateApiError('get', '/gamehistory', 'Getting game history error', { error: 'An error has occured getting the game history' });
   });
 });
