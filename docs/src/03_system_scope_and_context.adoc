@@ -6,15 +6,15 @@ ifndef::imagesdir[:imagesdir: ../images]
 
 [role="arc42help"]
 ****
-
 ****
 
 
 === Contexto de Negocio
 
+
 [role="arc42help"]
 ****
-
+****
 image:3_BusinessContext.png[Diagram]
 
 [cols="1,2,3,4"]
@@ -45,12 +45,12 @@ image:3_BusinessContext.png[Diagram]
 |Realización de búsquedas y registro de información asociada relacionados con el sistema
 |Cualquier dato que haya sido almacenado perteneciente al sistema
 
-****
+|===
 
 === Technical Context
-
 [role="arc42help"]
 ****
-image:3_TechnicalContext.png[Diagram]
 ****
+image:3_TechnicalContext.png[Diagram]
+
 
