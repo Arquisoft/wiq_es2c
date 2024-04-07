@@ -144,7 +144,13 @@ const Game = () => {
           <Typography variant="body1" sx={{ textAlign: 'center' }}>
             Tiempo restante: {elapsedTime} segundos
           </Typography>
-          <LinearProgress variant="determinate" value={(elapsedTime / MAX_TIME) * 100 } sx={{ width: '30%' }}/> {/* Barra de progreso */}
+          <LinearProgress variant="determinate" value={(elapsedTime / MAX_TIME) * 100 } sx={ {
+            width: '80%',
+            margin: 'auto',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}/> {/* Barra de progreso */}
         </>
       )}
       <Typography component="h1" variant="h5" sx={{ textAlign: 'center' }}>
