@@ -44,6 +44,6 @@ Consulte https://docs.arc42.org/section-2/[Architecture Restriints] en la docume
 |Restricción|Explicación
 | Reuniones | Se realizarán reuniones semanales los lunes de 13:00 a 15:00. Estas reuniones se verán reflejadas en GitHub a través de un acta. Podrían realizarse reuniones entre semana si fuese necesario.
 | GitHub Issues | Para permitir al profesorado llevar un seguimiento del trabajo en equipo se emplearán los Issues de GitHub para reflejar la asignación de tareas así como el diágolo entre semana del equipo.
-| Tamaño del equipo | El equipo está formado por 5 personas.
+| Tamaño del equipo | El equipo está formado por 4 personas.
 |===
 

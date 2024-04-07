@@ -44,17 +44,24 @@ app.get("/gamehistory", async (req, res) => {
                 totalQuestionsAnswered: gamehistory.totalQuestionsAnswered,
                 totalRightQuestions: gamehistory.totalRightQuestions,
                 totalIncorrectQuestions: gamehistory.totalIncorrectQuestions,
-                ratio: gamehistory.ratio,
-                totalTime: gamehistory.totalTime
+                ratio: gamehistory.ratio + " %",
+                totalTime: gamehistory.totalTime + " s"
             };
             res.json(response);
         } else {
-            res.json(null);
+            var response = {
+                userId: gamehistory.userId,
+                totalGamesPlayed: 0,
+                totalQuestionsAnswered: 0,
+                totalRightQuestions: 0,
+                totalIncorrectQuestions: 0,
+                ratio: 0,
+                totalTime: 0
+            };
+            res.json(response);
         }
 
-    } catch (error) { 
-    res.status(400).json({ error: "Error al guardar el historial del juego: "+ error.message });
-    }
+    } catch (error) { }
 });
 
 async function saveGameHistory(userId) {
@@ -70,19 +77,29 @@ async function saveGameHistory(userId) {
             });
         }
 
-        // Obtiene los datos del juego del usuario
-        const games = await mongoose.connection.collection('games').find({ userId: userId }).toArray();
-
+        const games = await mongoose.connection.collection('games').aggregate([
+            { 
+                $match: { userId: userId } 
+            },
+            {
+                $lookup: {
+                    from: 'questions',
+                    localField: 'questions',
+                    foreignField: '_id',
+                    as: 'questionsData'
+                }
+            }
+        ]).toArray();
+        
         const totalGamesPlayed = games.length;
         let totalRightQuestions = 0;
         let totalIncorrectQuestions = 0;
         let totalTime = 0;
-
-        // Calcula los totales de preguntas correctas, incorrectas y el tiempo total
+        
         games.forEach(game => {
-            totalRightQuestions += game.questions.filter(question => question.correct).length;
-            totalIncorrectQuestions += game.questions.filter(question => !question.correct).length;
-            totalTime += game.questions.reduce((acc, curr) => acc + (curr.time ?? 0), 0);
+            totalRightQuestions += game.questionsData.filter(question => question.correct).length;
+            totalIncorrectQuestions += game.questionsData.filter(question => !question.correct).length;
+            totalTime += game.questionsData.reduce((acc, curr) => acc + (curr.time ?? 0), 0);
         });
 
         // Actualiza los campos del historial de juego
@@ -90,7 +107,7 @@ async function saveGameHistory(userId) {
         gameHistory.totalQuestionsAnswered = totalRightQuestions + totalIncorrectQuestions;
         gameHistory.totalRightQuestions = totalRightQuestions;
         gameHistory.totalIncorrectQuestions = totalIncorrectQuestions;
-        gameHistory.ratio = totalRightQuestions / (totalRightQuestions + totalIncorrectQuestions);
+        gameHistory.ratio =  parseInt((totalRightQuestions / (totalRightQuestions + totalIncorrectQuestions))*100);
         gameHistory.totalTime = totalTime;
 
         // Guarda el historial del juego en la base de datos

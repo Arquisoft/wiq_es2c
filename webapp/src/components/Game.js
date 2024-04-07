@@ -145,6 +145,7 @@ const Game = () => {
             </Typography>
             <LinearProgress variant="determinate" value={(elapsedTime / MAX_TIME) * 100 } sx={ {
               width: '80%',
+              height: '1vh',
               margin: 'auto',
               display: 'flex',
               justifyContent: 'center',
@@ -161,6 +162,8 @@ const Game = () => {
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '10px', alignItems: 'center', marginTop: '20px' }}>
           {options.map((option, index) => (
             <Button key={index } style={{ 
+                width: '100%',
+                height: '17vh',
                 backgroundColor: selectedOption === option ? (answerCorrect ? '#00C853' : '#FF1744') : '#FCF5B8',
                 color: '#413C3C', 
                 fontWeight: 'bold'
