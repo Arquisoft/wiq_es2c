@@ -47,7 +47,7 @@ image:3_BusinessContext.png[Diagram]
 
 |===
 
-=== Technical Context
+=== Contexto técnico
 [role="arc42help"]
 ****
 ****
