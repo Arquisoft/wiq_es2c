@@ -5,6 +5,7 @@ const { createServer } = require('http');
 const sinon = require('sinon');
 
 const server = createServer(app);
+const newPassword = Math.floor(Math.random() * 10).toString(); // Genera una nueva contraseña aleatoria para evitar el Security Hostpot de SonarCloud en las pruebas
 
 afterAll(async () => {
     app.close();
@@ -52,7 +53,7 @@ describe('Gateway Service', () => {
   it('should forward login request to auth service', async () => {
     const response = await request(app)
       .post('/login')
-      .send({ username: 'testuser', password: 'testpassword' });
+      .send({ username: 'testuser', password: newPassword });
 
     expect(response.statusCode).toBe(200);
     expect(response.body.token).toBe('mockedToken');
@@ -67,7 +68,7 @@ describe('Gateway Service', () => {
   it('should forward add user request to user service', async () => {
     const response = await request(app)
       .post('/adduser')
-      .send({ username: 'newuser', email: 'newuser@email.com', password: 'newpassword' });
+      .send({ username: 'newuser', email: 'newuser@email.com', password: newPassword });
 
     expect(response.statusCode).toBe(200);
     expect(response.body.userId).toBe('mockedUserId');

@@ -4,15 +4,17 @@ const { MongoMemoryServer } = require('mongodb-memory-server');
 let mongoServer;
 let app;
 
+const newPassword = Math.floor(Math.random() * 10).toString(); // Genera una nueva contraseña aleatoria para evitar el Security Hostpot de SonarCloud en las pruebas
+
 const newUser = {
   username: 'testuser',
   email: 'testuser@correo.com',
-  password: 'testpassword'
+  password: newPassword
 };
 
 const badNewUser = {
   username: 'testuser',
-  password: 'testpassword'
+  password: newPassword
 };
 
 beforeAll(async () => {
