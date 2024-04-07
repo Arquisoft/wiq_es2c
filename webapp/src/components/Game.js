@@ -66,7 +66,7 @@ const Game = () => {
         setAnsweredQuestions(0);
         navigate("/PantallaInicio");
       }else{
-        getQuestion(answeredQuestions+1);
+        getQuestion();
       }
     }
 
@@ -107,7 +107,7 @@ const Game = () => {
       }, 3000);
     }else{
       setTimeout(() => {
-        getQuestion(answeredQuestions+1);
+        getQuestion();
       }, 900);
     }
   };
@@ -133,7 +133,7 @@ const Game = () => {
           <Typography variant="body1" sx={{ textAlign: 'center' }}>
             Tiempo restante: {elapsedTime} segundos
           </Typography>
-          <LinearProgress variant="determinate" value={(elapsedTime / MAX_TIME) * 100 } sx={{ height: '10px' }}/> {/* Barra de progreso */}
+          <LinearProgress variant="determinate" value={(elapsedTime / MAX_TIME) * 100 } sx={{ width: '30%' }}/> {/* Barra de progreso */}
         </>
       )}
       <Typography component="h1" variant="h5" sx={{ textAlign: 'center' }}>
