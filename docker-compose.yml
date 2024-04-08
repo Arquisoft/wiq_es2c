@@ -61,7 +61,7 @@ services:
     depends_on:
       - mongodb
     ports:
-      - "8004:8004"
+      - "8005:8005"
     networks:
       - mynetwork
     environment:
@@ -86,7 +86,7 @@ services:
       GENERATOR_SERVICE_URL: http://questiongenerator:8003
       AUTH_SERVICE_URL: http://authservice:8002
       USER_SERVICE_URL: http://userservice:8001
-      PERFIL_SERVICE_URL: http://usersapi:8004
+      PERFIL_SERVICE_URL: http://usersapi:8005
 
   webapp:
     container_name: webapp-${teamname:-defaultASW}

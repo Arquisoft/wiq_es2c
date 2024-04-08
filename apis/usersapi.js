@@ -1,12 +1,9 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const User = require('./user-model')
-//import { useUser } from '../webapp/src/components/UserContext';
 
 const app = express();
-const port = 8004;
-
-//const { usernameGlobal  } = useUser();
+const port = 8005;
 
 app.use(express.json());
 
@@ -15,19 +12,21 @@ mongoose.connect(mongoUri);
 
 
 app.get('/getUser', async (req, res) => {
-    console.log('ENTRA A USERSAPIiiii')
-    const users = await User.find({}); // Busca un usuario con el nombre de usuario especificado
-    console.log('ENTRA A USERSAPI')
-    if (!users) {
-        return res.status(404).json({ message: 'Usuario no encontrado' });
+    try{
+
+        var user = await User.findOne({ username:req.query.username});
+
+        var response = {
+            username: user.username,
+            email: user.email,
+            creado: user.createdAt
+        };
+        res.json(response);
+
+    } catch (error) {
+        console.error('Error al buscar el usuario:', error);
+        res.status(500).json({ message: 'Error interno del servidor' });
     }
-
-    var solution = [];
-    users.forEach(row => {
-        solution.push([row.username,row.createdAt]);
-    });
-
-    res.status(200).json(solution);
 });
 
 const server = app.listen(port, () => {
