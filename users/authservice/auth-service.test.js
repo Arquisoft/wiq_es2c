@@ -6,10 +6,21 @@ const User = require('./auth-model');
 let mongoServer;
 let app;
 
+const newPassword = Math.floor(Math.random() * 10).toString(); // Genera una nueva contraseña aleatoria para evitar el Security Hostpot de SonarCloud en las pruebas
+
 //test user
 const user = {
   username: 'testuser',
-  password: 'testpassword',
+  password: newPassword
+};
+
+const badUser = {
+  username: 'testuser'
+};
+
+const userWithBadPassword = {
+  username: 'testuser',
+  password: ''
 };
 
 async function addUser(user){
@@ -41,5 +52,17 @@ describe('Auth Service', () => {
     const response = await request(app).post('/login').send(user);
     expect(response.status).toBe(200);
     expect(response.body).toHaveProperty('username', 'testuser');
+  });
+  
+  it('Should not perform a login operation /login withouth a password', async () => {
+    const response = await request(app).post('/login').send(badUser);
+    expect(response.status).toBe(500);
+    expect(response.body).toHaveProperty('error', 'Internal Server Error');
+  });
+
+  it('Should not perform a login operation /login with an incorrect password', async () => {
+    const response = await request(app).post('/login').send(userWithBadPassword);
+    expect(response.status).toBe(401);
+    expect(response.body).toHaveProperty('error', 'Invalid credentials');
   });
 });

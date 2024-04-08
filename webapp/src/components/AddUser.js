@@ -8,15 +8,20 @@ const apiEndpoint = process.env.REACT_APP_API_ENDPOINT || 'http://localhost:8000
 const AddUser = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [email, setEmail] = useState('');
   const [error, setError] = useState('');
   const [openSnackbar, setOpenSnackbar] = useState(false);
+  const [snackbarMessage, setSnackbarMessage] = useState('');
 
   const addUser = async () => {
     try {
-      await axios.post(`${apiEndpoint}/adduser`, { username, password });
+      await axios.post(`${apiEndpoint}/adduser`, { username, email, password });
       setOpenSnackbar(true);
+      setSnackbarMessage("Usuario añadido correctamente");
     } catch (error) {
       setError(error.response.data.error);
+      setOpenSnackbar(true);
+      setSnackbarMessage("Ya se ha registrado un usuario con ese nombre");
     }
   };
 
@@ -48,6 +53,15 @@ const AddUser = () => {
         sx={{ width: '50vh', marginBottom: 2, backgroundColor: '#FFFFFF'}}
       />
       <TextField
+        name="email"
+        margin="normal"
+        fullWidth
+        label="Email"
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+        sx={{ width: '50vh', marginBottom: 2, backgroundColor: '#FFFFFF'}}
+      />
+      <TextField
         name="password"
         margin="normal"
         fullWidth
@@ -57,10 +71,11 @@ const AddUser = () => {
         onChange={(e) => setPassword(e.target.value)}
         sx={{ width: '50vh', marginBottom: 2, backgroundColor: '#FFFFFF' }}
       />
+
       <Button variant="contained" color="primary" sx={{marginTop: 4,marginBottom: 4, backgroundColor: '#FCF5B8',  color: '#413C3C',  fontWeight: 'bold' }} onClick={addUser}>
         REGÍSTRATE
       </Button>
-      <Snackbar open={openSnackbar} autoHideDuration={6000} onClose={handleCloseSnackbar} message="Usuario añadido correctamente" />
+      <Snackbar open={openSnackbar} autoHideDuration={6000} onClose={handleCloseSnackbar} message={snackbarMessage} />
       {error && (
         <Snackbar open={!!error} autoHideDuration={6000} onClose={() => setError('')} message={`Error: ${error}`} />
       )}

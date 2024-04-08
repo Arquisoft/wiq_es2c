@@ -1,25 +1,47 @@
 import React from 'react';
 import { render, fireEvent, screen, waitFor, act } from '@testing-library/react';
+import { BrowserRouter as Router } from 'react-router-dom';
+import { UserProvider } from './UserContext';
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 import Game from './Game';
-
 const mockAxios = new MockAdapter(axios);
+jest.useFakeTimers(); // Para simular el paso del tiempo
 
-describe('Login component', () => {
+describe('Start game', () => {
   beforeEach(() => {
     mockAxios.reset();
   });
 
   it('play', async () => {
-    // Mock the axios.post request to simulate a successful response
+    // Mockeamos la petición al generador de preguntas y la respuesta
     const responseOptionsResult = ["Madrid", "Barcelona", "Oviedo", "Valladolid"];
-    mockAxios.onGet('http://localhost:8003/generateQuestion').reply(200, 
+    const updatedQuestion = {
+      _id: '660434f228670016dfcac277',
+      enunciado: '¿Cual es la capital de España?',
+      respuesta_correcta: 'Madrid',
+      respuesta_falsa1: 'Barcelona',
+      respuesta_falsa2: 'Oviedo',
+      respuesta_falsa3: 'Valladolid',
+      __v: 0
+      }
+
+    mockAxios.onGet('http://localhost:8000/generateQuestion').reply(200, 
         {  responseQuestion: "¿Cual es la capital de España?",
         responseOptions: responseOptionsResult,
-        responseCorrectOption: "Madrid"});        
+        responseCorrectOption: "Madrid",
+        question_Id: "1",
+        responseImage: ""});
 
-    render(<Game />);
+    mockAxios.onGet('http://localhost:8000/updateQuestion').reply(200, 
+        { message: "Tiempo de pregunta actualizado exitosamente", 
+        updatedQuestion });
+
+    render(<UserProvider>
+      <Router>
+        <Game/>
+      </Router>
+    </UserProvider>);
 
     var button1;
     var button2;
@@ -27,6 +49,15 @@ describe('Login component', () => {
     var button4;
 
     await waitFor(() => {
+        const question = screen.getByText("¿Cual es la capital de España?");
+        expect(question).toBeInTheDocument();
+
+        const timer = screen.getByText("Tiempo restante: 30 segundos");
+        expect(timer).toBeInTheDocument();
+
+        const timerBar = screen.getByRole("progressbar");
+        expect(timerBar).toBeInTheDocument();
+
         const buttons = screen.getAllByRole('button');
         expect(buttons).toHaveLength(4);
 
@@ -39,16 +70,52 @@ describe('Login component', () => {
         expect(button2).toBeInTheDocument();
         expect(button3).toBeInTheDocument();
         expect(button4).toBeInTheDocument();
+    }); 
+
+    // Comprobamos que pase el tiempo
+    await act(() => {
+      jest.advanceTimersByTime(1000);
     });
 
-    // Simulate user input
+    await waitFor(() => {
+      expect(screen.getByText('Tiempo restante: 29 segundos')).toBeInTheDocument();
+    });
+
+    // Simulamos la interacción del usuario
     await act(async () => {
-        fireEvent.click(button2);
-        expect(button2).toHaveStyle('background-color: rgb(21, 101, 192)');
-
         fireEvent.click(button1);
-        expect(button1).toHaveStyle('background-color: rgb(21, 101, 192)');
-      });
+    });
 
+    await waitFor(() => {
+      expect(button1).toHaveStyle('background-color: #00C853');
+    });
+  });
+
+  it('error', async () => {
+    const updatedQuestion = {
+      _id: '660434f228670016dfcac277',
+      enunciado: '¿Cual es la capital de España?',
+      respuesta_correcta: 'Madrid',
+      respuesta_falsa1: 'Barcelona',
+      respuesta_falsa2: 'Oviedo',
+      respuesta_falsa3: 'Valladolid',
+      __v: 0
+      }
+
+    mockAxios.onGet('http://localhost:8000/generateQuestion').reply(500, {error: "Error al generar la pregunta"});
+
+    mockAxios.onGet('http://localhost:8000/updateQuestion').reply(200, 
+        { message: "Tiempo de pregunta actualizado exitosamente", 
+        updatedQuestion });
+
+    render(<UserProvider>
+      <Router>
+        <Game/>
+      </Router>
+    </UserProvider>);
+
+    await waitFor(() => {
+      expect(screen.getByText('Error: Error al generar la pregunta')).toBeInTheDocument();
+    });
   });
 });

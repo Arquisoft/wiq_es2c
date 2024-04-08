@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const questionsSchema = new mongoose.Schema({
+const questionSchema = new mongoose.Schema({
     enunciado:{
         type: String,
         required: true,
@@ -19,6 +19,14 @@ const questionsSchema = new mongoose.Schema({
     },respuesta_falsa3:{
         type:String,
         required:true
+    },time:{
+        type:Number,
+        default: 30,
+        required: false
+    },correct:{
+        type: Boolean,
+        default: false,
+        required: false
     }
 
 });

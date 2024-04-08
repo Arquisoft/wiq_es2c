@@ -21,21 +21,15 @@ describe('PantallaInicio component', () => {
       </Router>
     </UserProvider>);
 
-
     const element = screen.getByText(/¡BIENVENIDO A WIQ/);
     const nuevaPartidaButton = screen.getByRole('button', { name: 'NUEVA PARTIDA' });
 
     // Verifica si el elemento se encuentra en el DOM
     expect(element).toBeInTheDocument();
-    
 
     // Simulate user input
     await act(async () => {
         fireEvent.click(nuevaPartidaButton);
       });
-
-
-      
   });
-
 });

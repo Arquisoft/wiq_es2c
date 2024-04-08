@@ -4,3 +4,4 @@ ifndef::imagesdir[:imagesdir: ../images]
 == Vista de ejecución
 
 image:6_RuntimeView.PNG[Diagram]
+image:6_RuntimeView_Historico.png[Diagram]

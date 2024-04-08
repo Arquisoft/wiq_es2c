@@ -15,6 +15,8 @@ services:
     container_name: authservice-${teamname:-defaultASW}
     image: ghcr.io/arquisoft/wiq_es2c/authservice:latest
     profiles: ["dev", "prod"]
+    volumes:
+      - mongodb_data:/data/db
     build: ./users/authservice
     depends_on:
       - mongodb
@@ -29,6 +31,8 @@ services:
     container_name: userservice-${teamname:-defaultASW}
     image: ghcr.io/arquisoft/wiq_es2c/userservice:latest
     profiles: ["dev", "prod"]
+    volumes:
+      - mongodb_data:/data/db
     build: ./users/userservice
     depends_on:
       - mongodb
@@ -43,6 +47,8 @@ services:
     container_name: questiongenerator-${teamname:-defaultASW}
     image: ghcr.io/arquisoft/wiq_es2c/questiongenerator:latest
     profiles: ["dev", "prod"]
+    volumes:
+      - mongodb_data:/data/db
     build: ./questiongenerator
     depends_on:
       - mongodb
@@ -52,7 +58,23 @@ services:
       - mynetwork
     environment:
       MONGODB_URI: mongodb://mongodb:27017/userdb
-  
+
+  gamehistoryservice:
+    container_name: gamehistoryservice-${teamname:-defaultASW}
+    image: ghcr.io/arquisoft/wiq_es2c/gamehistoryservice:latest
+    profiles: ["dev", "prod"]
+    volumes:
+      - mongodb_data:/data/db
+    build: ./gamehistoryservice
+    depends_on:
+      - mongodb
+    ports:
+      - "8004:8004"
+    networks:
+      - mynetwork
+    environment:
+      MONGODB_URI: mongodb://mongodb:27017/userdb
+
   usersapi:
     container_name: useraspi-${teamname:-defaultASW}
     image: ghcr.io/arquisoft/wiq_es2c/apis/usersapi:latest
@@ -66,11 +88,13 @@ services:
       - mynetwork
     environment:
       MONGODB_URI: mongodb://mongodb:27017/userdb
-
+  
   gatewayservice:
     container_name: gatewayservice-${teamname:-defaultASW}
     image: ghcr.io/arquisoft/wiq_es2c/gatewayservice:latest
     profiles: ["dev", "prod"]
+    volumes:
+      - mongodb_data:/data/db
     build: ./gatewayservice
     depends_on:
       - mongodb
@@ -78,11 +102,13 @@ services:
       - authservice
       - questiongenerator
       - usersapi
+      - gamehistoryservice
     ports:
       - "8000:8000"
     networks:
       - mynetwork
     environment:
+      GAMEHISTORY_SERVICE_URL: http://gamehistoryservice:8004
       GENERATOR_SERVICE_URL: http://questiongenerator:8003
       AUTH_SERVICE_URL: http://authservice:8002
       USER_SERVICE_URL: http://userservice:8001
@@ -92,6 +118,8 @@ services:
     container_name: webapp-${teamname:-defaultASW}
     image: ghcr.io/arquisoft/wiq_es2c/webapp:latest
     profiles: ["dev", "prod"]
+    volumes:
+      - mongodb_data:/data/db
     build: ./webapp
     depends_on:
       - gatewayservice

@@ -41,9 +41,10 @@ image:5_level2.PNG[Diagram]
 | **Name** | **Responsibility**
 | Usuario | Usuario que interactuará con la aplicación
 | GUI | Interfaz gráfica de usuario. Mostrará las preguntas junto con sus posibles respuestas
-| Servicio de usuarios | Gestiona la creación de nuevos usuarios
+| Servicio de registro de usuarios | Gestiona la creación de nuevos usuarios
 | Servicio de autenticación | Gestiona la autenticación de los usuarios (Logging)
 | Servicio de generación de preguntas | Realiza consultas a WikiData para generar las preguntas y respuestas
+| Servicio de historial | Genera y consulta el historial de los usuarios
 | Base de datos | Almacenaje de información acerca de los usuarios y las preguntas generadas
 | WIQ | Responsable de la gestión de la aplicación. Engloba la GUI, los microservicios y la base de datos.
 | WikiData | Permite generar preguntas y respuestas

@@ -3,12 +3,14 @@ import axios from 'axios';
 import LinearProgress from '@mui/material/LinearProgress';
 import { Container, Typography, Button, Snackbar } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
+import { useUser } from './UserContext';
 
-// Cambio de prueba
-const apiEndpoint = process.env.REACT_APP_API_GENERATOR_ENDPOINT || 'http://localhost:8003';
+const apiEndpoint = process.env.REACT_APP_API_ENDPOINT || 'http://localhost:8000';
 
 const Game = () => {
+  const { usernameGlobal } = useUser();
   const [question, setQuestion] = useState('');
+  const [image, setImage] = useState('');
   const [options, setOptions] = useState([]);
   const [correctOption, setCorrectOption] = useState("");
   const [error, setError] = useState('');
@@ -17,24 +19,42 @@ const Game = () => {
   const [elapsedTime,setElapsedTime] = useState(30);
   const [answerCorrect, setAnswerCorrect] = useState(false);
   const [answeredQuestions,setAnsweredQuestions] = useState(0);
+  const [isTimeRunning, setIsTimeRunning] = useState(true);
 
+  // Comentario de prueba para el despliegue
   const MAX_TIME = 30;
-  const MAX_PREGUNTAS = 5;  
-
+  const MAX_PREGUNTAS = 5;
   const navigate = useNavigate();
 
   const getQuestion = useCallback(async () => {
-    try {
-      const response = await axios.get(`${apiEndpoint}/generateQuestion`, { });
+    try {      
+      const response = await axios.get(`${apiEndpoint}/generateQuestion`, {
+        params: {
+          user: usernameGlobal
+        }
+      });
       setQuestion(response.data.responseQuestion);
       setOptions(response.data.responseOptions);
       setCorrectOption(response.data.responseCorrectOption);
+      setImage(response.data.responseImage);
       setOpenSnackbar(true);
+      setIsTimeRunning(true);
       setElapsedTime(MAX_TIME);
+      setAnsweredQuestions(prevValue => prevValue+1);
+    } catch (error) {
+      console.log("Error: " + error.response.data.error);
+      setError(error.response.data.error);
+    }
+  }, [usernameGlobal])
+
+  const saveGameHistory = useCallback(async () => {
+    try {
+      const username = usernameGlobal;
+      await axios.post(`${apiEndpoint}/saveGameHistory`, {username});
     } catch (error) {
       setError(error.response.data.error);
     }
-  }, [])
+  }, [usernameGlobal]);
 
   useEffect(() => {
     getQuestion();
@@ -43,60 +63,121 @@ const Game = () => {
   useEffect(() => {
 
     const timerId = setTimeout(()=>{
-      setElapsedTime(time => time - 1);
+      if (isTimeRunning) {
+        setElapsedTime(time => time - 1);
+      }
     },1000);
 
     if(elapsedTime<=0){
-      getQuestion();
+      setIsTimeRunning(false);
+      if (answeredQuestions >= MAX_PREGUNTAS) {
+        setAnsweredQuestions(0);
+        saveGameHistory();
+        navigate("/PantallaInicio");
+      }else{
+        getQuestion();
+      }
     }
 
     return () => {
       clearTimeout(timerId);
     }
-  }, [elapsedTime, getQuestion]);
+  }, [elapsedTime, getQuestion, answeredQuestions, navigate,  isTimeRunning, saveGameHistory]);
 
-  const handleOptionClick = (option) => {
+  const handleOptionClick = async (option) => {
+    var isTheCorrectAnswer = false;
     setSelectedOption(option);
     setOpenSnackbar(true);
     console.log(openSnackbar);
     setAnswerCorrect(correctOption === option);
-    setTimeout(() => {
-      getQuestion();
-    }, 1500);
+    setIsTimeRunning(false);
 
-    setAnsweredQuestions(answeredQuestions+1)
+    if(correctOption === option){
+      isTheCorrectAnswer = true;
+    }
 
-    if (answeredQuestions >= MAX_PREGUNTAS) {
-      navigate("/PantallaInicio");
+    try {
+      const timePassed = MAX_TIME - elapsedTime;
+      await axios.get(`${apiEndpoint}/updateQuestion`, {
+        params: {
+          time: timePassed,
+          correct: isTheCorrectAnswer
+        }
+      });
+    } catch (error) {
+      setError(error.response.data.error);
+    }
+
+
+    if (answeredQuestions>= MAX_PREGUNTAS) {
+      setTimeout(() => {
+        setAnsweredQuestions(0);
+        saveGameHistory();
+        navigate("/PantallaInicio");
+      }, 3000);
+    }else{
+      setTimeout(() => {
+        getQuestion();
+      }, 900);
     }
   };
 
+
   return (
-    <Container component="main" maxWidth="xs" sx={{ marginTop: 4 }}>
-      {question && (
-        <>
-          <Typography variant="body1" sx={{ textAlign: 'center' }}>
-            {answeredQuestions} / {MAX_PREGUNTAS}
-          </Typography>
-          <Typography variant="body1" sx={{ textAlign: 'center' }}>
-            Tiempo restante: {elapsedTime} segundos
-          </Typography>
-          <LinearProgress variant="determinate" value={(elapsedTime / MAX_TIME) * 100 } sx={{ height: '10px' }}/> {/* Barra de progreso */}
-        </>
-      )}
-      <Typography component="h1" variant="h5" sx={{ textAlign: 'center' }}>
-        {question}
-      </Typography>
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '10px', alignItems: 'center', marginTop: '20px' }}>
-        {options.map((option, index) => (
-          <Button key={index} sx={{backgroundColor: '#FCF5B8',  color: '#413C3C',  fontWeight: 'bold' }} variant="contained" color={selectedOption === option ? (answerCorrect ? 'success' : 'error') : 'primary'} onClick={() => handleOptionClick(option)} style={{ width: '100%', height: '100%' }}>
-            {option}
-          </Button>
-        ))}
-      </div>
-      {error && (
-        <Snackbar open={!!error} autoHideDuration={6000} onClose={() => setError('')} message={`Error: ${error}`} />
-      )}
+    <Container component="main" maxWidth="xl"
+            sx={{
+                backgroundColor: '#F3D3FA',
+                borderRadius: '10px',
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'center',
+                height: '100vh', 
+                width: '100%', 
+            }}>
+      <Container component="section" maxWidth="xs">
+        {question && (
+          <>
+            <Typography variant="body1" sx={{ textAlign: 'center' }}>
+              {answeredQuestions} / {MAX_PREGUNTAS}
+            </Typography>
+            <Typography variant="body1" sx={{ textAlign: 'center' }}>
+              Tiempo restante: {elapsedTime} segundos
+            </Typography>
+            <LinearProgress variant="determinate" value={(elapsedTime / MAX_TIME) * 100 } sx={ {
+              width: '80%',
+              height: '1vh',
+              margin: 'auto',
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}/> {/* Barra de progreso */}
+          </>
+        )}
+        <Typography component="h1" variant="h5" sx={{ textAlign: 'center' }}>
+          {question}
+        </Typography>
+        <div style={{ display: 'flex', justifyContent: 'center' }}>
+          {image !== null && image !== "" && <img src={image} alt="Imagen de la pregunta" width="40%" height="auto"/>}
+        </div>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '10px', alignItems: 'center', marginTop: '20px' }}>
+          {options.map((option, index) => (
+            <Button key={index } style={{ 
+                width: '100%',
+                height: '17vh',
+                backgroundColor: selectedOption === option ? (answerCorrect ? '#00C853' : '#FF1744') : '#FCF5B8',
+                color: '#413C3C', 
+                fontWeight: 'bold'
+              }} variant="contained" onClick={!isTimeRunning ? null : () => {handleOptionClick(option);}}>
+              {option}
+            </Button>
+          ))}
+        </div>
+        <div>
+          {error && (
+            <Snackbar open={!!error} autoHideDuration={6000} onClose={() => setError('')} message={`Error: ${error}`} />
+          )}
+        </div>
+      </Container>
     </Container>
   );
 };

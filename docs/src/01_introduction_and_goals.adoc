@@ -21,8 +21,7 @@ El equipo de desarrollo comprometido a materializar este proyecto está formado 
 * Marina Seijo Gómez
 * Rubén Pérez Dafonte
 * David Muños Rio
-* Ángela Roza Moreno
-* Jorge Adrián Larriva
+* Ángela Roza Moren
 
 WIQ es una aplicación web que presentará un juego de preguntas y respuestas en el que los usuarios tendrán un tiempo limitado para seleccionar, entre diferentes opciones, la respuesta correcta a una pregunta.
 
@@ -113,7 +112,7 @@ Tabla con nombres de roles, nombres de personas y sus expectativas con respecto 
 [options="header",cols="1,2,2"]
 |===
 |Rol/Nombre|Contacto|Expectativas
-| Equipo de desarrollo/Estudiantes | Marina Seijo Gómez Rubén Pérez Dafonte David Muños Rio Ángela Roza Moreno Jorge Adrián Larriva | Encargados del completo desarrollo y diseño de la aplicación. Aumentarán y mejorarán su experiencia como programadores y diseñadores. Además, aprenderán a trabajar en equipo.
+| Equipo de desarrollo/Estudiantes | Marina Seijo Gómez Rubén Pérez Dafonte David Muños Rio Ángela Roza Moreno  | Encargados del completo desarrollo y diseño de la aplicación. Aumentarán y mejorarán su experiencia como programadores y diseñadores. Además, aprenderán a trabajar en equipo.
 | Profesores | Jose Emilio Labra Gayo, Pablo González González, Cristian Augusto Alonso, Jorge Fidalgo Álvarez | Evaluarán el resultado final de la aplicación y ofrecerán ayuda al equipo de desarrollo.
 | RTVE | Radiotelevisión Española | Solicitantes del servicio. Esperan que los requisitos exigidos sean completados satisfactoriamente
 | Usuarios | Cualquier usuario de la aplicación  | Serán quienes emplearán el servicio. Deberán encontrarlo entretenido y sencillo de usar
