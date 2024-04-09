@@ -43,6 +43,8 @@ var numberOfQuestions = 0;
 //  Número aleatorio que decide la consulta y la pregunta que se mostrarán
 var randomNumber;
 
+var maxQuestions = 5;
+
 const mongoUri = process.env.MONGODB_URI || 'mongodb://localhost:27017/questiondb';
 mongoose.connect(mongoUri);
 
@@ -54,7 +56,7 @@ app.get('/generateQuestion', async (req, res) => {
         const user = req.query.user;
         await generarPregunta();
         numberOfQuestions++;
-        if(numberOfQuestions>=5){
+        if(numberOfQuestions>=maxQuestions){
             numberOfQuestions = 0;
         }
         var id = await saveData();
@@ -76,9 +78,23 @@ app.get('/generateQuestion', async (req, res) => {
     }
 });
 
+app.post('/configureGame', async (req, res) => {
+    console.log("Llega al question");
+    try {
+        maxQuestions = req.body.valueQuestion;
+        console.log("HI?");
+        res.status(200).json(maxQuestions);
+    } catch (error) {
+        console.log("Error: " + error)
+        res.status(400).json({ error: error.message });
+    }
+});
+
 var server = app.listen(port, () => {
   console.log(`Questions Generation Service listening at http://localhost:${port}`);
 });
+
+
 
 async function generarPregunta() {
     randomNumber = Math.floor(Math.random() * 2);
