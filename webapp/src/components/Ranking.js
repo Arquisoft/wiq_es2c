@@ -4,6 +4,26 @@ import { Container} from '@mui/material';
 import '../App.css';
 
 const Ranking = () => {
+
+  const { usernameGlobal } = useUser();
+  const [ranking, setRanking] = useState('');
+  const [error, setError] = useState('');
+
+  const getRanking = useCallback(async () => {
+
+  try {
+    const response = await axios.get(`${apiEndpoint}/topUsers`);
+    console.log(response);
+    setRanking(response.data);
+  } catch (error) {
+    setError(error.response.data.error);
+  }
+  }, [usernameGlobal])
+
+  useEffect(() => {
+    getRanking();
+  }, [getRanking]);
+
   return (
     <Container component="main" maxWidth="xl"
       sx={{

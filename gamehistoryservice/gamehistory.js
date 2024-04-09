@@ -121,6 +121,17 @@ async function saveGameHistory(userId) {
     }
 }
 
+app.get("/topUsers", async (req, res) => {
+    try {
+        const topUsers = await GameHistory.find()
+            .sort({ accuracyPercentage: -1 }) // Ordena porcentaje de aciertos de mayor a menor
+            .limit(3); // Limita a los tres mejores usuarios
+
+        res.json(topUsers);
+    } catch (error) {
+        //res.status(400).json({ error: "Error al obtener el ranking de usuarios: " + error.message });
+    }
+});
 
 const server = app.listen(port, () => {
     console.log(`Stats Service listening at http://localhost:${port}`);
