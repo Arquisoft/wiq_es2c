@@ -77,6 +77,15 @@ app.post('/saveGameHistory', async (req, res) => {
   }
 });
 
+app.post('/configureGame', async (req, res) => {
+  try {
+    const response = await axios.post(generatorUrl+'/configureGame', req.body);
+    res.json(response.data);
+  } catch (error) {
+    res.status(error.response.status).json({ error: error.response.data.error });
+  }
+});
+
 app.get('/gamehistory', async (req, res) => {
   try {
     const URL = gamehistoryUrl + '/gamehistory?username=' + req.query.username;

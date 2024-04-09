@@ -16,7 +16,7 @@ const PantallaInicio = () => {
     const navigate = useNavigate();
 
     function nuevaPartida() {
-        navigate("/Game");
+        navigate("/GameConfiguration");
     }
 
     const handleCloseSnackbar = () => {

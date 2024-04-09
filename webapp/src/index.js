@@ -17,6 +17,7 @@ import AddUser from './components/AddUser';
 import Game from './components/Game';
 import Gamehistory from './components/Gamehistory';
 import Ranking from './components/Ranking';
+import GameConfiguration from './components/GameConfiguration';
 import EndGame from './components/EndGame';
 import Footer from './components/fragments/Footer';
 import NavigationBar from './components/fragments/NavigationBar';
@@ -36,6 +37,7 @@ root.render(
           <Route path="/Game" element={<Game />} />
           <Route path="/Gamehistory" element={<Gamehistory />} />
           <Route path="/Ranking" element={<Ranking />} />
+          <Route path="/GameConfiguration" element={<GameConfiguration />} />
           <Route path="/EndGame" element={<EndGame />} />
         </Routes>
         <Footer /> 
