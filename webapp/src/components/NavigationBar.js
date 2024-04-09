@@ -23,6 +23,10 @@ const NavigationBar = () => {
         navigate("/Gamehistory")
     };
 
+    const showRanking = () => {
+        navigate("/Ranking")
+    };
+
     const showLogout = () => {
         try {
             setUsernameGlobal('');
@@ -42,19 +46,22 @@ const NavigationBar = () => {
         <Grid container justifyContent="space-between">
             {/* Columna izquierda */}
             <Grid item>
-                <Button variant="contained" color="inherit" style={{ background: 'white', border: 'none', padding: 0, marginRight: '10px', marginLeft: '10px'}} onClick={showHome}>
+                <Button variant="contained" color="inherit" style={{ background: '#9A77B0', border: 'none', padding: 0, marginRight: '10px', marginLeft: '10px'}} onClick={showHome}>
                     <img src={require('./images/home.png')} style={{ width: '50px', height: '50px' }} alt="Imagen home"/>
                 </Button>
-                <Button variant="contained" color="inherit" style={{ background: 'white', border: 'none', padding: 0, marginRight: '10px' }} onClick={showGameHistory}>
-                    <img src={require('./images/iconHistory.jpeg')} style={{ width: '50px', height: '50px' }} alt="Imagen historico"/>
+                <Button variant="contained" color="inherit" style={{ background: '#9A77B0', border: 'none', padding: 0, marginRight: '10px' }} onClick={showGameHistory}>
+                    <img src={require('./images/iconHistory.png')} style={{ width: '50px', height: '50px' }} alt="Imagen historico"/>
                 </Button>
-                <Button variant="contained" color="inherit" style={{ background: 'white', border: 'none', padding: 0, width: '50px', marginRight: '10px' }}>
-                    <img src={require('./images/iconUser.jpeg')} style={{ width: '50px', height: '50px' }} alt="Imagen usuario"/>
+                <Button variant="contained" color="inherit" style={{ background: '#9A77B0', border: 'none', padding: 0, marginRight: '10px' }} onClick={showRanking}>
+                    <img src={require('./images/iconRanking.png')} style={{ width: '50px', height: '50px' }} alt="Imagen ranking"/>
                 </Button>
             </Grid>
             {/* Columna derecha */}
             <Grid item>
-                <Button variant="contained" color="inherit" style={{ background: 'white', border: 'none', padding: 0, marginRight: '10px' }} onClick={showLogout}>
+                <Button variant="contained" color="inherit" style={{ background: '#9A77B0', border: 'none', padding: 0, width: '50px', marginRight: '10px' }}>
+                    <img src={require('./images/iconUser.png')} style={{ width: '50px', height: '50px' }} alt="Imagen usuario"/>
+                </Button>
+                <Button variant="contained" color="inherit" style={{ background: '#9A77B0', border: 'none', padding: 0, marginRight: '10px' }} onClick={showLogout}>
                     <img src={require('./images/logout.png')} style={{ width: '50px', height: '50px' }} alt="Imagen logout"/>
                 </Button>
             </Grid>

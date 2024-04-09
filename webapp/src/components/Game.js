@@ -4,6 +4,7 @@ import LinearProgress from '@mui/material/LinearProgress';
 import { Container, Typography, Button, Snackbar } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { useUser } from './UserContext';
+import '../App.css';
 
 const apiEndpoint = process.env.REACT_APP_API_ENDPOINT || 'http://localhost:8000';
 
@@ -125,15 +126,14 @@ const Game = () => {
 
   return (
     <Container component="main" maxWidth="xl"
-            sx={{
-                backgroundColor: '#F3D3FA',
-                borderRadius: '10px',
-                display: 'flex',
-                flexDirection: 'column',
-                justifyContent: 'center',
-                height: '100vh', 
-                width: '100%', 
-            }}>
+      sx={{
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center',
+        height: '100vh', 
+        width: '100%', 
+      }}>
       <Container component="section" maxWidth="xs">
         {question && (
           <>

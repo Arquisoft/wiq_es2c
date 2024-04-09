@@ -17,6 +17,7 @@ import Login from './components/Login';
 import AddUser from './components/AddUser';
 import Game from './components/Game';
 import Gamehistory from './components/Gamehistory';
+import Ranking from './components/Ranking';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -32,6 +33,7 @@ root.render(
           <Route path="/App" element={<App />} />
           <Route path="/Game" element={<Game />} />
           <Route path="/Gamehistory" element={<Gamehistory />} />
+          <Route path="/Ranking" element={<Ranking />} />
         </Routes>
       </Router>
     </UserProvider>
