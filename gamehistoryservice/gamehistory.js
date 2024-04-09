@@ -124,12 +124,16 @@ async function saveGameHistory(userId) {
 app.get("/topUsers", async (req, res) => {
     try {
         const topUsers = await GameHistory.find()
-            .sort({ accuracyPercentage: -1 }) // Ordena porcentaje de aciertos de mayor a menor
-            .limit(3); // Limita a los tres mejores usuarios
-
-        res.json(topUsers);
+            .sort({ ratio: -1 }) // Ordena porcentaje de aciertos de mayor a menor        
+        const response = {
+            primero: topUsers[0] || null,
+            segundo: topUsers[1] || null,
+            tercero: topUsers[2] || null
+        };
+        console.log(response);
+        res.json(response);
     } catch (error) {
-        //res.status(400).json({ error: "Error al obtener el ranking de usuarios: " + error.message });
+        res.status(400).json({ error: "Error al obtener el ranking de usuarios: " + error.message });
     }
 });
 

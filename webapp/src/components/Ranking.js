@@ -1,7 +1,11 @@
-import React from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
+import axios from 'axios';
 import { Star, StarBorder, StarHalf } from '@mui/icons-material';
 import { Container} from '@mui/material';
+import { useUser } from './UserContext';
 import '../App.css';
+
+const apiEndpoint = process.env.REACT_APP_API_ENDPOINT || 'http://localhost:8000';
 
 const Ranking = () => {
 
@@ -10,14 +14,13 @@ const Ranking = () => {
   const [error, setError] = useState('');
 
   const getRanking = useCallback(async () => {
-
-  try {
-    const response = await axios.get(`${apiEndpoint}/topUsers`);
-    console.log(response);
-    setRanking(response.data);
-  } catch (error) {
-    setError(error.response.data.error);
-  }
+    try {
+      const response = await axios.get(`${apiEndpoint}/topUsers`);
+      setRanking(response.data);
+      console.log(ranking);
+    } catch (error) {
+      setError(error.response.data.error);
+    }
   }, [usernameGlobal])
 
   useEffect(() => {
