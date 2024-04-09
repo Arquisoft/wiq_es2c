@@ -18,6 +18,7 @@ import AddUser from './components/AddUser';
 import Game from './components/Game';
 import Gamehistory from './components/Gamehistory';
 import Ranking from './components/Ranking';
+import GameConfiguration from './components/GameConfiguration';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -34,6 +35,7 @@ root.render(
           <Route path="/Game" element={<Game />} />
           <Route path="/Gamehistory" element={<Gamehistory />} />
           <Route path="/Ranking" element={<Ranking />} />
+          <Route path="/GameConfiguration" element={<GameConfiguration />} />
         </Routes>
       </Router>
     </UserProvider>
