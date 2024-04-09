@@ -18,7 +18,6 @@ const Gamehistory = () => {
           username: usernameGlobal
         }
       });
-      console.log(response);
       setGameHistory(response.data);
     } catch (error) {
       setError(error.response.data.error);
