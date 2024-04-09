@@ -96,6 +96,16 @@ app.get('/topUsers', async (req, res) => {
   }
 });
 
+app.get('/endgamestats', async (req, res) => {
+  try {
+    const URL = gamehistoryUrl + '/endgamestats?username=' + req.query.username;
+    const response = await axios.get(URL);
+    res.json(response.data);
+  } catch (error) {
+    res.status(error.response.status).json({ error: error.response.data.error });
+  }
+});
+
 // Read the OpenAPI YAML file synchronously
 // Hubo que cambiar el path porque los test e2e ahora sólo se ejecutan desde webapp
 openapiPath='../gatewayservice/openapi.yaml'

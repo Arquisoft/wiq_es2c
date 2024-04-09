@@ -72,9 +72,11 @@ const Game = () => {
     if(elapsedTime<=0){
       setIsTimeRunning(false);
       if (answeredQuestions >= MAX_PREGUNTAS) {
-        setAnsweredQuestions(0);
-        saveGameHistory();
-        navigate("/PantallaInicio");
+        setTimeout(() => {
+          setAnsweredQuestions(0);
+          saveGameHistory();
+          navigate("/EndGame");
+        }, 3000);
       }else{
         getQuestion();
       }
@@ -114,7 +116,7 @@ const Game = () => {
       setTimeout(() => {
         setAnsweredQuestions(0);
         saveGameHistory();
-        navigate("/PantallaInicio");
+        navigate("/EndGame");
       }, 3000);
     }else{
       setTimeout(() => {
