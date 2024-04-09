@@ -43,8 +43,8 @@ app.get("/gamehistory", async (req, res) => {
                 totalQuestionsAnswered: gamehistory.totalQuestionsAnswered,
                 totalRightQuestions: gamehistory.totalRightQuestions,
                 totalIncorrectQuestions: gamehistory.totalIncorrectQuestions,
-                ratio: gamehistory.ratio + " %",
-                totalTime: gamehistory.totalTime + " s"
+                ratio: gamehistory.ratio + "%",
+                totalTime: gamehistory.totalTime + "s"
             };
             res.json(response);
         } else {
@@ -64,6 +64,28 @@ app.get("/gamehistory", async (req, res) => {
         res.status(400).json({ error: "Error al obtener el historial del juego: "+ error.message });
     }
 });
+
+app.get("/endgamestats", async (req, res) => {
+    try {
+        const userId = req.query.username;
+        const gameStats = await getEndGameStats(userId);
+        
+        // Formatea la respuesta JSON
+        const response = {
+            totalRightQuestions: gameStats.totalRightQuestions || 0,
+            totalIncorrectQuestions: gameStats.totalIncorrectQuestions || 0,
+            ratio: (gameStats.ratio || 0) + "%",
+            totalTime: (gameStats.totalTime || 0) + "s"
+        };
+
+        // Envía la respuesta JSON
+        res.json(response);
+
+    } catch (error) { 
+        res.status(400).json({ error: "Error al obtener las estadísticas de la partida: " + error.message });
+    }
+});
+
 
 async function saveGameHistory(userId) {
     try {
@@ -117,6 +139,63 @@ async function saveGameHistory(userId) {
         console.log('Historial del juego guardado exitosamente.');
     } catch (error) {
         console.error('Error al guardar el historial del juego:', error);
+        throw error;
+    }
+}
+
+app.get("/topUsers", async (req, res) => {
+    try {
+        const topUsers = await GameHistory.find()
+            .sort({ ratio: -1 }) // Ordena porcentaje de aciertos de mayor a menor        
+        const response = {
+            primero: topUsers[0] ? topUsers[0].userId + " - " + topUsers[0].ratio + "%" : "",
+            segundo: topUsers[1] ? topUsers[1].userId + " - " + topUsers[1].ratio + "%": "",
+            tercero: topUsers[2] ? topUsers[2].userId + " - " + topUsers[2].ratio + "%": ""
+        };
+        res.json(response);
+    } catch (error) {
+        res.status(400).json({ error: "Error al obtener el ranking de usuarios: " + error.message });
+    }
+});
+
+async function getEndGameStats(userId) {
+    try {
+        // Busca las partidas del usuario y ordena por fecha descendente para obtener la última partida
+        const games = await mongoose.connection.collection('games').aggregate([
+            { 
+                $match: { userId: userId } 
+            },
+            { 
+                $sort: { createdAt: -1 } 
+            },
+            {
+                $lookup: {
+                    from: 'questions',
+                    localField: 'questions',
+                    foreignField: '_id',
+                    as: 'questionsData'
+                }
+            },
+        ]).toArray();
+
+        // Calcula las estadísticas de la última partida
+        const lastGame = games[0];
+        const totalQuestionsAnswered = lastGame.questionsData.length;
+        const totalRightQuestions = lastGame.questionsData.filter(question => question.correct).length;
+        const totalIncorrectQuestions = totalQuestionsAnswered - totalRightQuestions;
+        const totalTime = lastGame.questionsData.reduce((acc, curr) => acc + (curr.time ?? 0), 0);
+        const ratio = totalQuestionsAnswered === 0 ? 0 : parseInt((totalRightQuestions / totalQuestionsAnswered) * 100);
+
+        // Devuelve las estadísticas
+        return {
+            totalRightQuestions,
+            totalIncorrectQuestions,
+            ratio,
+            totalTime
+        };
+
+    } catch (error) {
+        console.error('Error al obtener las estadísticas de la partida:', error);
         throw error;
     }
 }
