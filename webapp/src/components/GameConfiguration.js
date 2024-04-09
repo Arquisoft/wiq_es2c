@@ -46,7 +46,6 @@ const GameConfiguration = () => {
         try {
             await axios.post(`${apiEndpoint}/configureGame`, {valueTime, valueQuestion});
             navigate("/Game", {state: {time: valueTime, question:valueQuestion}});
-            console.log("HUH");
         } catch (error) {
             setError(error.response.data.error);
             setOpenSnackbar(true);

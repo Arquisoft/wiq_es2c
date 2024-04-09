@@ -79,10 +79,8 @@ app.get('/generateQuestion', async (req, res) => {
 });
 
 app.post('/configureGame', async (req, res) => {
-    console.log("Llega al question");
     try {
         maxQuestions = req.body.valueQuestion;
-        console.log("HI?");
         res.status(200).json(maxQuestions);
     } catch (error) {
         console.log("Error: " + error)

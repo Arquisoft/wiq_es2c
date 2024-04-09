@@ -78,7 +78,6 @@ app.post('/saveGameHistory', async (req, res) => {
 });
 
 app.post('/configureGame', async (req, res) => {
-  console.log("Llega al gateway");
   try {
     const response = await axios.post(generatorUrl+'/configureGame', req.body);
     res.json(response.data);
