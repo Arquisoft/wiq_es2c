@@ -130,7 +130,6 @@ app.get("/topUsers", async (req, res) => {
             segundo: topUsers[1] || null,
             tercero: topUsers[2] || null
         };
-        console.log(response);
         res.json(response);
     } catch (error) {
         res.status(400).json({ error: "Error al obtener el ranking de usuarios: " + error.message });

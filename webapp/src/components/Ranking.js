@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
-import { Star, StarBorder, StarHalf } from '@mui/icons-material';
-import { Container} from '@mui/material';
+import { Container, Box, Typography} from '@mui/material';
 import { useUser } from './UserContext';
 import '../App.css';
 
@@ -17,7 +16,6 @@ const Ranking = () => {
     try {
       const response = await axios.get(`${apiEndpoint}/topUsers`);
       setRanking(response.data);
-      console.log(ranking);
     } catch (error) {
       setError(error.response.data.error);
     }
@@ -37,19 +35,24 @@ const Ranking = () => {
         height: '100vh', 
         width: '100%', 
       }}>
-      <div style={{ display: 'flex', justifyContent: 'center' }}>
-        <div style={{ display: 'flex', justifyContent: 'space-around', width: '300px' }}>
-          <div className="podium-item" style={{ backgroundColor: 'gold' }}>
-            <Star fontSize="large" style={{ fontSize: '24px', fontWeight: 'bold' }} />
-          </div>
-          <div className="podium-item" style={{ backgroundColor: 'silver' }}>
-            <StarBorder fontSize="large" style={{ fontSize: '24px', fontWeight: 'bold' }} />
-          </div>
-          <div className="podium-item" style={{ backgroundColor: '#cd7f32' }}>
-            <StarHalf fontSize="large" style={{ fontSize: '24px', fontWeight: 'bold' }} />
-          </div>
-        </div>
-      </div>
+      {ranking && (
+        <Box>
+          <img src={require('./images/medalla-de-plata.png')} alt="Segundo" />
+          <Typography>{ranking.segundo.ratio}%</Typography>
+        </Box>
+      )}
+      {ranking && (
+        <Box>
+          <img src={require('./images/medalla-de-oro.png')} alt="Primero" />
+          <Typography>{ranking.primero.ratio}%</Typography>
+        </Box>
+      )}
+      {ranking && (
+        <Box>
+          <img src={require('./images/medalla-de-bronce.png')} alt="Tercero" />
+          <Typography>{ranking.tercero.ratio}%</Typography>
+        </Box>
+      )}
     </Container>
   );
 };
