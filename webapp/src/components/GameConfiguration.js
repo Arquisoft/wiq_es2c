@@ -79,7 +79,7 @@ const GameConfiguration = () => {
                 inputProps={{
                     inputMode: 'numeric',
                     pattern: '[0-9]*',
-                    min: 5,
+                    min: 1,
                     max: 30,
                 }}
             />
