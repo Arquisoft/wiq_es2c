@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { Container, Typography, Button, Box, Snackbar } from '@mui/material';
 import { useUser } from './UserContext';
 import { useNavigate } from 'react-router-dom';
+import NewGameIcon from '@mui/icons-material/SportsEsports';
+import '../App.css';
 
 
 const PantallaInicio = () => {
@@ -25,15 +27,13 @@ const PantallaInicio = () => {
     return (
         <Container component="main" maxWidth="xl"
             sx={{
-                backgroundColor: '#F3D3FA',
-                borderRadius: '10px',
                 display: 'flex',
                 flexDirection: 'column',
                 justifyContent: 'center',
                 alignItems: 'center',
                 height: '100vh', 
                 width: '100%', 
-            }}> 
+            }}>
 
             <Box sx={{
                 display: 'flex',
@@ -45,7 +45,7 @@ const PantallaInicio = () => {
                     ¡BIENVENIDO A WIQ  {usernameGlobal}!
                 </Typography>
 
-                <Button variant="contained" color="primary" align="center" sx={{ marginTop: 4, backgroundColor: '#FCF5B8',  color: '#413C3C',  fontWeight: 'bold' }}
+                <Button startIcon={<NewGameIcon />} variant="contained" color="primary" align="center" sx={{ marginTop: 4, backgroundColor: '#FCF5B8',  color: '#413C3C',  fontWeight: 'bold' }}
                     onClick={nuevaPartida}>
                     NUEVA PARTIDA
                 </Button>

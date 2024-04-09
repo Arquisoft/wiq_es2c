@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { Container, Typography, TextField, Button, Snackbar } from '@mui/material';
 import { useUser } from './UserContext';
+import '../App.css';
 
 const Login = () => {
   const [username, setUsername] = useState('');
@@ -53,7 +54,6 @@ const Login = () => {
     <Container component="main" maxWidth="xl"
             sx={{
                 marginTop: 4,
-                backgroundColor: '#F3D3FA',
                 borderRadius: '10px',
                 display: 'flex',
                 flexDirection: 'column',
