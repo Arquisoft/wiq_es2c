@@ -1,12 +1,14 @@
 // src/components/AddUser.js
 import React, { useState } from 'react';
 import axios from 'axios';
+import { useNavigate} from 'react-router-dom';
 import { Container, Typography, TextField, Button, Snackbar } from '@mui/material';
 import '../App.css';
 
 const apiEndpoint = process.env.REACT_APP_API_ENDPOINT || 'http://localhost:8000';
 
 const GameConfiguration = () => {
+    const navigate = useNavigate();
     const [openSnackbar, setOpenSnackbar] = useState(false);
     const [error, setError] = useState('');
     const [snackbarMessage, setSnackbarMessage] = useState('');
@@ -37,6 +39,17 @@ const GameConfiguration = () => {
 
             inputValue = Math.min(inputValue, maxQuestions);
             setValueQuestion(inputValue);
+        }
+    };
+
+    const configureAndStart = async () => {
+        try {
+            await axios.post(`${apiEndpoint}/configureGame`, {valueTime, valueQuestion});
+            navigate("/Game", {state: {time: valueTime, question:valueQuestion}});
+            console.log("HUH");
+        } catch (error) {
+            setError(error.response.data.error);
+            setOpenSnackbar(true);
         }
     };
 
@@ -87,8 +100,9 @@ const GameConfiguration = () => {
                     max: 60,
                 }}
             />
-            <Button variant="contained" color="primary" sx={{marginTop: 4,marginBottom: 4, backgroundColor: '#FCF5B8',  color: '#413C3C',  fontWeight: 'bold'  }}>
-                REGÍSTRATE
+            <Button variant="contained" color="primary" sx={{marginTop: 4,marginBottom: 4, backgroundColor: '#FCF5B8',  color: '#413C3C',  fontWeight: 'bold'}}
+                onClick={configureAndStart}>
+                JUGAR
             </Button>
             <Snackbar open={openSnackbar} autoHideDuration={6000} onClose={handleCloseSnackbar} message={snackbarMessage} />
             {error && (

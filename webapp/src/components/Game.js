@@ -2,7 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 import LinearProgress from '@mui/material/LinearProgress';
 import { Container, Typography, Button, Snackbar } from '@mui/material';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { useUser } from './UserContext';
 import '../App.css';
 
@@ -22,10 +22,17 @@ const Game = () => {
   const [answeredQuestions,setAnsweredQuestions] = useState(0);
   const [isTimeRunning, setIsTimeRunning] = useState(true);
 
+
+
   // Comentario de prueba para el despliegue
-  const MAX_TIME = 30;
-  const MAX_PREGUNTAS = 5;
+
+  const location = useLocation();
+
+  const MAX_TIME = location.state ? location.state.time : null;
+  const MAX_PREGUNTAS = location.state ? location.state.question : null;
   const navigate = useNavigate();
+
+
 
   const getQuestion = useCallback(async () => {
     try {      
