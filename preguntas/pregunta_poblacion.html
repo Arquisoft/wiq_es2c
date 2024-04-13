@@ -10,16 +10,13 @@
 <body>
 <h1>Ejemplo de pregunta usando WikiData</h1>
 <script>
-    // Definir la consulta SPARQL para obtener todos los paises y capitales del mundo
     const sparqlQuery = `
-    SELECT ?countryLabel ?mountainRangeLabel
+    SELECT ?countryLabel ?population
     WHERE {
-        ?country wdt:P31 wd:Q6256.             # Encuentra todos los elementos que son instancias de 'país'.
-        ?country wdt:P610 ?mountainRange.      # Obtiene la cadena montañosa de cada país.
-        ?mountainRange wdt:P2044 ?elevation.   # Obtiene la elevación de cada cadena montañosa.
+        ?country wdt:P31 wd:Q6256.    # Encuentra todos los elementos que son instancias de 'país'.
+        ?country wdt:P1082 ?population.  # Obtiene la población de cada país.
         SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],es". }
     }
-    GROUP BY ?country ?countryLabel ?mountainRangeLabel
     `;
 
     // API de Wikidata
@@ -50,22 +47,22 @@
 
         for(var i=0; i<4; i++) {
             var pos = Math.floor(Math.random() * results.length);
+            var populationLabel = results[pos].population.value;
             var countryLabel = results[pos].countryLabel.value;
-            var mountainLabel = results[pos].mountainRangeLabel.value;
 
-            if(!options.includes(countryLabel) && !question.includes(mountainLabel)) {
-                options.push(mountainLabel);
-                question.push(countryLabel);
+            if(!options.includes(populationLabel) && !question.includes(countryLabel)) {
+                options.push(countryLabel);
+                question.push(populationLabel);
             } else {
                 i--;
             }
         }
 
         var num = Math.floor(Math.random() * 4);
-        var correctMountain = options[num];
-        var country = question[num];
+        var correctCountry = options[num];
+        var population = question[num];
 
-        $("h1").after("<p>¿Que montaña se encuentra en " + country + "?</p>")
+        $("h1").after("<p>¿Que país tiene una población de " + population + " personas?</p>")
         $("p:last").after("<p>Opción A: " + options[0] + "</p>");
         $("p:last").after("<p>Opción B: " + options[1] + "</p>");
         $("p:last").after("<p>Opción C: " + options[2] + "</p>");

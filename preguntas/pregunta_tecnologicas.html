@@ -10,16 +10,14 @@
 <body>
 <h1>Ejemplo de pregunta usando WikiData</h1>
 <script>
-    // Definir la consulta SPARQL para obtener todos los paises y capitales del mundo
     const sparqlQuery = `
-    SELECT ?countryLabel ?mountainRangeLabel
+    SELECT ?companyLabel ?founderLabel
     WHERE {
-        ?country wdt:P31 wd:Q6256.             # Encuentra todos los elementos que son instancias de 'país'.
-        ?country wdt:P610 ?mountainRange.      # Obtiene la cadena montañosa de cada país.
-        ?mountainRange wdt:P2044 ?elevation.   # Obtiene la elevación de cada cadena montañosa.
+        ?company wdt:P31 wd:Q4830453.       
+        ?company wdt:P112 ?founder.          
         SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],es". }
     }
-    GROUP BY ?country ?countryLabel ?mountainRangeLabel
+    LIMIT 200
     `;
 
     // API de Wikidata
@@ -50,22 +48,22 @@
 
         for(var i=0; i<4; i++) {
             var pos = Math.floor(Math.random() * results.length);
-            var countryLabel = results[pos].countryLabel.value;
-            var mountainLabel = results[pos].mountainRangeLabel.value;
+            var companyLabel = results[pos].companyLabel.value;
+            var founderLabel = results[pos].founderLabel.value;
 
-            if(!options.includes(countryLabel) && !question.includes(mountainLabel)) {
-                options.push(mountainLabel);
-                question.push(countryLabel);
+            if(!options.includes(companyLabel) && !question.includes(founderLabel) && companyLabel[0] != 'Q') {
+                options.push(companyLabel);
+                question.push(founderLabel);
             } else {
                 i--;
             }
         }
 
         var num = Math.floor(Math.random() * 4);
-        var correctMountain = options[num];
-        var country = question[num];
+        var correctCompany = options[num];
+        var founder = question[num];
 
-        $("h1").after("<p>¿Que montaña se encuentra en " + country + "?</p>")
+        $("h1").after("<p>¿Que tecnologica fue fundada por " + founder + "?</p>")
         $("p:last").after("<p>Opción A: " + options[0] + "</p>");
         $("p:last").after("<p>Opción B: " + options[1] + "</p>");
         $("p:last").after("<p>Opción C: " + options[2] + "</p>");

@@ -10,16 +10,17 @@
 <body>
 <h1>Ejemplo de pregunta usando WikiData</h1>
 <script>
-    // Definir la consulta SPARQL para obtener todos los paises y capitales del mundo
     const sparqlQuery = `
-    SELECT ?countryLabel ?mountainRangeLabel
+    SELECT ?languageLabel ?formattedDate
     WHERE {
-        ?country wdt:P31 wd:Q6256.             # Encuentra todos los elementos que son instancias de 'país'.
-        ?country wdt:P610 ?mountainRange.      # Obtiene la cadena montañosa de cada país.
-        ?mountainRange wdt:P2044 ?elevation.   # Obtiene la elevación de cada cadena montañosa.
+        ?language wdt:P31 wd:Q7397.        
+        ?language wdt:P571 ?releaseDate.   
+        BIND(SUBSTR(?releaseDate, 9, 2) AS ?day)    # Extrae el día
+        BIND(SUBSTR(?releaseDate, 6, 2) AS ?month)  # Extrae el mes
+        BIND(SUBSTR(?releaseDate, 1, 4) AS ?year)   # Extrae el año
+        BIND(CONCAT(?day, "/", ?month, "/", ?year) AS ?formattedDate)  # Formatea la fecha como DD/MM/YYYY
         SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],es". }
     }
-    GROUP BY ?country ?countryLabel ?mountainRangeLabel
     `;
 
     // API de Wikidata
@@ -50,22 +51,22 @@
 
         for(var i=0; i<4; i++) {
             var pos = Math.floor(Math.random() * results.length);
-            var countryLabel = results[pos].countryLabel.value;
-            var mountainLabel = results[pos].mountainRangeLabel.value;
+            var dateLabel = results[pos].formattedDate.value;
+            var softwareLabel = results[pos].languageLabel.value;
 
-            if(!options.includes(countryLabel) && !question.includes(mountainLabel)) {
-                options.push(mountainLabel);
-                question.push(countryLabel);
+            if(!options.includes(dateLabel) && !question.includes(softwareLabel) && softwareLabel[0] != 'Q') {
+                options.push(softwareLabel);
+                question.push(dateLabel);
             } else {
                 i--;
             }
         }
 
         var num = Math.floor(Math.random() * 4);
-        var correctMountain = options[num];
-        var country = question[num];
+        var correctSoftware = options[num];
+        var date = question[num];
 
-        $("h1").after("<p>¿Que montaña se encuentra en " + country + "?</p>")
+        $("h1").after("<p>¿Que software se lanzo el " + date + "?</p>")
         $("p:last").after("<p>Opción A: " + options[0] + "</p>");
         $("p:last").after("<p>Opción B: " + options[1] + "</p>");
         $("p:last").after("<p>Opción C: " + options[2] + "</p>");

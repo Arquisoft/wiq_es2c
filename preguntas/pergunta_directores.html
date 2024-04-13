@@ -10,16 +10,16 @@
 <body>
 <h1>Ejemplo de pregunta usando WikiData</h1>
 <script>
-    // Definir la consulta SPARQL para obtener todos los paises y capitales del mundo
     const sparqlQuery = `
-    SELECT ?countryLabel ?mountainRangeLabel
+    SELECT DISTINCT ?movieLabel ?directorLabel
     WHERE {
-        ?country wdt:P31 wd:Q6256.             # Encuentra todos los elementos que son instancias de 'país'.
-        ?country wdt:P610 ?mountainRange.      # Obtiene la cadena montañosa de cada país.
-        ?mountainRange wdt:P2044 ?elevation.   # Obtiene la elevación de cada cadena montañosa.
+        ?movie wdt:P31 wd:Q11424;               
+                wdt:P57 ?director.              
+        ?movie wdt:P577 ?publicationDate.      
+        FILTER(YEAR(?publicationDate) >= 2000)  
         SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],es". }
     }
-    GROUP BY ?country ?countryLabel ?mountainRangeLabel
+    LIMIT 200
     `;
 
     // API de Wikidata
@@ -50,22 +50,22 @@
 
         for(var i=0; i<4; i++) {
             var pos = Math.floor(Math.random() * results.length);
-            var countryLabel = results[pos].countryLabel.value;
-            var mountainLabel = results[pos].mountainRangeLabel.value;
+            var movieLabel = results[pos].movieLabel.value;
+            var directorLabel = results[pos].directorLabel.value;
 
-            if(!options.includes(countryLabel) && !question.includes(mountainLabel)) {
-                options.push(mountainLabel);
-                question.push(countryLabel);
+            if(!options.includes(movieLabel) && !question.includes(directorLabel)) {
+                options.push(directorLabel);
+                question.push(movieLabel);
             } else {
                 i--;
             }
         }
 
         var num = Math.floor(Math.random() * 4);
-        var correctMountain = options[num];
-        var country = question[num];
+        var correctDirector = options[num];
+        var movie = question[num];
 
-        $("h1").after("<p>¿Que montaña se encuentra en " + country + "?</p>")
+        $("h1").after("<p>¿Que director dirigio " + movie + "?</p>")
         $("p:last").after("<p>Opción A: " + options[0] + "</p>");
         $("p:last").after("<p>Opción B: " + options[1] + "</p>");
         $("p:last").after("<p>Opción C: " + options[2] + "</p>");

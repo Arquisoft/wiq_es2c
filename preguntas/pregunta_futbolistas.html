@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ejemplo API WikiData con jQuery</title>
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+</head>
+<body>
+    <h1>Ejemplo de pregunta usando WikiData</h1>
+<script>
+    const sparqlQuery = `
+    SELECT ?futbolistaLabel ?image
+    WHERE {
+        ?futbolista wdt:P106 wd:Q937857; 
+                    wdt:P18 ?image.    
+        SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],es". }
+    }
+    LIMIT 200
+    `;
+
+    // Construir la URL de la API de Wikidata
+    const apiUrl = 'https://query.wikidata.org/sparql';
+
+    // Configurar la solicitud HTTP con jQuery
+    $.ajax( {
+        url: apiUrl,
+        data: {
+            query: sparqlQuery,
+            format: 'json'
+        },
+        dataType: 'json',
+        type: 'GET',
+    success: function(data) {
+        // Manejar la respuesta de la API
+        processData(data);
+    },
+    error: function(error) {
+        // Manejar errores
+        console.error('Error al realizar la solicitud:', error);
+    }
+    });
+
+    // Función para procesar los resultados
+    function processData(data) {
+        var results = data.results.bindings;
+        var options = [];
+        var questions = [];
+
+        for(var i=0; i<4; i++) {
+            var pos = Math.floor(Math.random() * results.length);
+            var nameLabel = results[pos].futbolistaLabel.value;
+            var image = results[pos].image.value;
+
+            if(nameLabel[0] != 'Q' && !options.includes(nameLabel) && !questions.includes(image)) {
+                options.push(nameLabel);
+                questions.push(image);
+            } else {
+                i--;
+            }
+        }
+
+        var num = Math.floor(Math.random() * 4);
+        var correctPresident = options[num];
+        var image = questions[num];
+
+        $("h1").after("<img src=" + image + " alt='Foto Cuadro.'/>");
+		$("img").attr("width", "30%").attr("height", "auto");
+        $("img:last").after("<p>Opción A: " + options[0] + "</p>");
+        $("img:last").after("<p>Opción B: " + options[1] + "</p>");
+        $("img:last").after("<p>Opción C: " + options[2] + "</p>");
+        $("img:last").after("<p>Opción D: " + options[3] + "</p>");
+    }
+
+</script>
+</body>
