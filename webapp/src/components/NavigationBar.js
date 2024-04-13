@@ -23,6 +23,10 @@ const NavigationBar = () => {
         navigate("/Gamehistory")
     };
 
+    const showPerfil = () => {
+        navigate("/Perfil")
+    };
+
     const showLogout = () => {
         try {
             setUsernameGlobal('');
@@ -37,7 +41,7 @@ const NavigationBar = () => {
         return null; // Si no estás en / o /App, no muestra la barra de navegación
     }
 
-  return (
+    return (
     <AppBar position="fixed" sx={{ backgroundColor: '#9A77B0' }}>
         <Grid container justifyContent="space-between">
             {/* Columna izquierda */}
@@ -48,7 +52,7 @@ const NavigationBar = () => {
                 <Button variant="contained" color="inherit" style={{ background: 'white', border: 'none', padding: 0, marginRight: '10px' }} onClick={showGameHistory}>
                     <img src={require('./images/iconHistory.jpeg')} style={{ width: '50px', height: '50px' }} alt="Imagen historico"/>
                 </Button>
-                <Button variant="contained" color="inherit" style={{ background: 'white', border: 'none', padding: 0, width: '50px', marginRight: '10px' }}>
+                <Button variant="contained" color="inherit" style={{ background: 'white', border: 'none', padding: 0, width: '50px', marginRight: '10px' }} onClick={showPerfil}>
                     <img src={require('./images/iconUser.jpeg')} style={{ width: '50px', height: '50px' }} alt="Imagen usuario"/>
                 </Button>
             </Grid>
@@ -60,7 +64,7 @@ const NavigationBar = () => {
             </Grid>
         </Grid>
     </AppBar>
-  );
+    );
 };
 
 export default NavigationBar;

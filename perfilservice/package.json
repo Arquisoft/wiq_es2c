@@ -1,10 +1,10 @@
 {
-  "name": "usersapi",
+  "name": "perfil-api",
   "version": "1.0.0",
-  "description": "Users API",
-  "main": "usersapi.js",
+  "description": "Perfil API",
+  "main": "perfil-api.js",
   "scripts": {
-    "start": "node usersapi.js",
+    "start": "node perfil-api.js",
     "test": "jest"
   },
   "repository": {

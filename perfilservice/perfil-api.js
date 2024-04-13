@@ -1,14 +1,26 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const User = require('./user-model')
+const bodyParser = require('body-parser');
 
 const app = express();
 const port = 8005;
 
-app.use(express.json());
+const originEndpoint = process.env.REACT_APP_API_ORIGIN_ENDPOINT || 'http://localhost:3000';
 
 const mongoUri = process.env.MONGODB_URI || 'mongodb://localhost:27017/userdb';
 mongoose.connect(mongoUri);
+
+// Middleware to parse JSON in request body
+app.use(bodyParser.json());
+
+app.use((req, res, next) => {
+    res.setHeader('Access-Control-Allow-Origin', originEndpoint);
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+    res.setHeader('Access-Control-Allow-Credentials', true);
+    next();
+});
 
 
 app.get('/getUser', async (req, res) => {
@@ -22,6 +34,7 @@ app.get('/getUser', async (req, res) => {
             creado: user.createdAt
         };
         res.json(response);
+        
 
     } catch (error) {
         console.error('Error al buscar el usuario:', error);

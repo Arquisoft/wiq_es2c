@@ -26,7 +26,7 @@ const Perfil = () => {
                 username: usernameGlobal
             }
             });
-            console.log(response);
+            console.log(usernameGlobal);
             setUser(response.data);
         } catch (error) {
             setError(error.response.data.error);
@@ -68,7 +68,7 @@ const Perfil = () => {
                 <TableRow>
                     <TableCell align="center">{user.username}</TableCell>
                     <TableCell align="center">{user.email}</TableCell>
-                    <TableCell align="center">{user.createdAt}</TableCell>
+                    <TableCell align="center">{user.creado}</TableCell>
                 </TableRow>
             </TableBody>
             </Table>

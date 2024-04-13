@@ -75,11 +75,11 @@ services:
     environment:
       MONGODB_URI: mongodb://mongodb:27017/userdb
 
-  usersapi:
-    container_name: useraspi-${teamname:-defaultASW}
-    image: ghcr.io/arquisoft/wiq_es2c/apis/usersapi:latest
+  perfilservice:
+    container_name: perfilservice-${teamname:-defaultASW}
+    image: ghcr.io/arquisoft/wiq_es2c/perfilservice/perfil-api:latest
     profiles: ["dev", "prod"]
-    build: ./apis
+    build: ./perfilservice
     depends_on:
       - mongodb
     ports:
@@ -101,7 +101,7 @@ services:
       - userservice
       - authservice
       - questiongenerator
-      - usersapi
+      - perfilservice
       - gamehistoryservice
     ports:
       - "8000:8000"
@@ -112,7 +112,7 @@ services:
       GENERATOR_SERVICE_URL: http://questiongenerator:8003
       AUTH_SERVICE_URL: http://authservice:8002
       USER_SERVICE_URL: http://userservice:8001
-      PERFIL_SERVICE_URL: http://usersapi:8005
+      PERFIL_SERVICE_URL: http://perfilservice:8005
 
   webapp:
     container_name: webapp-${teamname:-defaultASW}

@@ -94,7 +94,7 @@ app.get('/getUser', async (req, res) => {
   try {
       const URL = perfilServiceUrl + '/getUser?username=' + req.query.username;
       const perfilResponse = await axios.get(URL);
-      console.log(req.query.username)
+      console.log(perfilResponse)
       res.json(perfilResponse.data);
   } catch (error) {
       console.log(error)
