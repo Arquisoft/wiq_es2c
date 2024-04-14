@@ -24,12 +24,8 @@ app.use((req, res, next) => {
     next();
 });
 
-var queries = [];
-queries = queries.concat(textQueries);
-queries = queries.concat(imagesQueries);
-var questions = [];
-questions = questions.concat(textQuestions);
-questions = questions.concat(imagesQuestions);
+var queries = getAllQueries(textQueries, imagesQueries);
+var questions = getAllQueries(textQuestions, imagesQuestions);
 
 var correctOption = "";
 var options = [];
@@ -48,13 +44,30 @@ var maxQuestions = 5;
 const mongoUri = process.env.MONGODB_URI || 'mongodb://localhost:27017/questiondb';
 mongoose.connect(mongoUri);
 
+function getAllQueries(textData, imageData) {
+    var results = {};
+    for (var thematic in textData) {
+        results[thematic] = textData[thematic];
+    }
+    
+    for (var thematic in imageData) {
+        if (results[thematic]) {
+            results[thematic] = results[thematic].concat(imageData[thematic]);
+        } else {
+            results[thematic] = imageData[thematic];
+        }
+    }
+
+    return results;
+}
+
 app.get('/generateQuestion', async (req, res) => {
     try {
         if(numberOfQuestions == 0){
             gameId = null;
         }
         const user = req.query.user;
-        await generarPregunta();
+        await generarPregunta(req.query.thematic);
         numberOfQuestions++;
         if(numberOfQuestions>=maxQuestions){
             numberOfQuestions = 0;
@@ -94,14 +107,34 @@ var server = app.listen(port, () => {
 
 
 
-async function generarPregunta() {
+async function generarPregunta(thematic) {
+    if(thematic === "Geografia") {
+        changeQueriesAndQuestions("Geografia");
+    } else if(thematic === "Cultura") {
+        changeQueriesAndQuestions("Cultura");
+    } else if(thematic === "Informatica") {
+        changeQueriesAndQuestions("Informatica");
+    } else if(thematic === "Personajes") {
+        changeQueriesAndQuestions("Personajes");
+    }
+
     randomNumber = Math.floor(Math.random() * 2);
     try {
         // Petición a la API de WikiData
-        randomNumber = Math.floor(Math.random() * queries.length);
+        // TODO Arreglar el mismo problema que aquí pero con las preguntas
+        // TODO En queries y questions hay que mirar como se pueden poner todos los valores sin clave en los arrays, como estaba antes, dependiendo de la tematica
+        let thematics = Object.keys(queries);
+        randomNumber = Math.floor(Math.random() * thematics.length);
+        console.log("TEMATICAS: " + thematics);
+        let key = thematics[randomNumber];
+        console.log("CLAVE: " + key);
+
+        let thematicQueries = queries[key];
+        randomNumber = Math.floor(Math.random() * thematicQueries.length);
+        console.log("CONSULTA: " + thematicQueries[randomNumber]);
         var response = await axios.get(url, {
             params: {
-                query: queries[randomNumber],
+                query: thematicQueries[randomNumber],
                 format: 'json'
             },
             headers: {
@@ -116,6 +149,11 @@ async function generarPregunta() {
         console.error('Error al realizar la solicitud:', error);
         throw new Error('Error al obtener datos ' + error);
     }
+}
+
+function changeQueriesAndQuestions(thematic) {
+    queries = queries[thematic];
+    questions = questions[thematic];
 }
 
 function procesarDatos(data) {
@@ -150,14 +188,16 @@ function procesarDatos(data) {
     // Escogemos un índice aleatorio como la opción correcta
     var correctIndex = Math.floor(Math.random() * 4);
     correctOption = data[randomIndexes[correctIndex]].optionLabel.value;
+    let thematics = Object.keys(questions);
+    let key = thematics[randomNumber];
 
     if(quest == "") {
-        question = questions[randomNumber];
+        question = questions[key];
         image = data[randomIndexes[correctIndex]].imageLabel.value;
     } else {
         image = "";
         questionValue = data[randomIndexes[correctIndex]].questionLabel.value;
-        question = questions[randomNumber] + questionValue + "?";
+        question = questions[key] + questionValue + "?";
     }
 
 

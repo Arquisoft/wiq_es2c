@@ -24,10 +24,10 @@ queries['Geografia'] =
         `,
         // pregunta = poblacion, opcion = pais
         `
-        SELECT ?optionLabel ?questionLabel
+        SELECT ?optionLabel ?question ?questionLabel
         WHERE {
             ?option wdt:P31 wd:Q6256.    
-            ?option wdt:P1082 ?questionLabel.  
+            ?option wdt:P1082 ?question.  
             SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],es". }
         }
     `]
@@ -45,6 +45,38 @@ queries['Cultura'] =
             SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],es. }
         }
         LIMIT 200
+        `,
+        // pregunta = termino, opcion = universo
+        `
+        SELECT DISTINCT ?question ?questionLabel ?option ?optionLabel
+        WHERE {
+            {
+                ?term wdt:P1080 wd:Q19595297;   # Relacionado con Warhammer 40000
+                    rdfs:label ?termLabel.
+                BIND("Warhammer 40000" AS ?option)
+            }
+            UNION
+            {
+                ?term wdt:P1080 wd:Q19786052;         # Relacionado con Star Wars
+                    rdfs:label ?termLabel.
+                BIND("Star Wars" AS ?option)
+            }
+            UNION
+            {
+                ?term wdt:P1080 wd:Q18043309;         # Relacionado con Star Trek
+                    rdfs:label ?termLabel.
+                BIND("Star Trek" AS ?option)
+            }
+            UNION
+            {
+                ?term wdt:P1080 wd:Q81738;      # Relacionado con Legendarium
+                    rdfs:label ?termLabel.
+                BIND("Legendarium" AS ?option)
+            }
+            FILTER(LANG(?termLabel) = "es")
+            SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],es". }
+        }
+        LIMIT 200
         `
     ];
 
@@ -52,10 +84,10 @@ queries['Informatica'] =
     [
         // pregunta = software, opcion = fecha
         `
-        SELECT ?questionLabel ?optionLabel
+        SELECT ?questionLabel ?option ?optionLabel
         WHERE {
             ?question wdt:P31 wd:Q7397.        
-            ?question wdt:P571 ?optionLabel.   
+            ?question wdt:P571 ?option.   
             SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],es". }
         }
         `,
@@ -82,9 +114,17 @@ queries['Informatica'] =
     ];
 
 // Todas las preguntas, en el mismo orden que las consultas
-var questions = ["¿Cuál es la capital de ",
-                "¿En que campo juega el ",
-                "¿Cuál es el elemento de la tabla periódica número ",
-                "¿En que año ocurrio la "];
+var questions = {};
+
+questions['Geografia'] = ["¿Cuál es la capital de ",
+                "¿Que montaña se encuentra en ",
+                "¿Que pais tiene una poblacion de personas de "];
+
+questions['Cultura'] = ["¿Que director dirigio ",
+                "¿Con que universo ficticio está relacionado el siguiente término: "];
+
+questions['Informatica'] = ["¿En que fecha se creó ",
+                "¿Quién creo el sistema opertativo ",
+                "¿Que empresa tecnológica fue creada por "];
 
 module.exports = { queries, questions };

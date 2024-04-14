@@ -22,23 +22,19 @@ const Game = () => {
   const [answeredQuestions,setAnsweredQuestions] = useState(0);
   const [isTimeRunning, setIsTimeRunning] = useState(true);
 
-
-
-  // Comentario de prueba para el despliegue
-
   const location = useLocation();
 
   const MAX_TIME = location.state ? location.state.time : null;
   const MAX_PREGUNTAS = location.state ? location.state.question : null;
+  const THEMATIC = location.state ? location.state.thematic : null;
   const navigate = useNavigate();
-
-
 
   const getQuestion = useCallback(async () => {
     try {      
       const response = await axios.get(`${apiEndpoint}/generateQuestion`, {
         params: {
-          user: usernameGlobal
+          user: usernameGlobal,
+          thematic: THEMATIC
         }
       });
       setQuestion(response.data.responseQuestion);

@@ -21,8 +21,7 @@ const PantallaInicio = () => {
 
     const handleCloseSnackbar = () => {
         setOpenSnackbar(false);
-    };
-
+    }; 
 
     return (
         <Container component="main" maxWidth="xl"

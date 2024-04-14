@@ -62,11 +62,29 @@ queries['Personajes'] =
           SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],es". }
       }
       LIMIT 200
+      `,
+      // pregunta = Imagen de un presidente de EE.UU., opcion = Nombres de presidentes de EE.UU.
+      `
+      SELECT ?option ?optionLabel ?imageLabel
+      WHERE {
+          ?option wdt:P31 wd:Q5;  
+                      wdt:P39 wd:Q11696;  
+                      wdt:P18 ?imageLabel.   
+          SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],es". }
+      }
       `
   ];
 
 // Todas las preguntas, en el mismo orden que las consultas
-var questions = ["¿Que presidente de EE.UU es el que se muestra en la imagen?",
-                "¿Que país es el que aparece en la siguiente imagen?"];
+var questions = {};
+
+questions['Geografia'] = ["¿Que país es el que aparece en la siguiente imagen?"];
+
+questions['Cultura'] = ["¿Cuál es el nombre del siguiente cuadro?"];
+
+questions['Personajes'] = ["¿Cuál es el nombre de este pintor?",
+        "¿Cuál es el nombre de este futbolista?",
+        "¿Cuál es el nombre de este cantante?",
+        "¿Que presidente de EE.UU es el que se muestra en la imagen?"];
 
 module.exports = { queries, questions };
