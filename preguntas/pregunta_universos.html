@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>API WikiData</title>
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+</head>
+
+<body>
+<h1>Ejemplo de pregunta usando WikiData</h1>
+<script>
+    const sparqlQuery = `
+    SELECT DISTINCT ?term ?termLabel ?relatedTo
+    WHERE {
+    {
+        ?term wdt:P1080 wd:Q19595297;   # Relacionado con Warhammer 40000
+            rdfs:label ?termLabel.
+        BIND("Warhammer 40000" AS ?relatedTo)
+    }
+    UNION
+    {
+        ?term wdt:P1080 wd:Q19786052;         # Relacionado con Star Wars
+            rdfs:label ?termLabel.
+        BIND("Star Wars" AS ?relatedTo)
+    }
+    UNION
+    {
+        ?term wdt:P1080 wd:Q18043309;         # Relacionado con Star Trek
+            rdfs:label ?termLabel.
+        BIND("Star Trek" AS ?relatedTo)
+    }
+    UNION
+    {
+        ?term wdt:P1080 wd:Q81738;      # Relacionado con Legendarium
+            rdfs:label ?termLabel.
+        BIND("Legendarium" AS ?relatedTo)
+    }
+    FILTER(LANG(?termLabel) = "es")
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],es". }
+    }
+    LIMIT 200
+    `;
+
+    // API de Wikidata
+    const apiUrl = 'https://query.wikidata.org/sparql';
+
+    // Utilizo JQuery
+    $.ajax( {
+        url: apiUrl,
+        data: {
+            query: sparqlQuery,
+            format: 'json'
+        },
+        dataType: 'json',
+        type: 'GET',
+    success: function(data) {
+        processData(data);
+    },
+    error: function(error) {
+        console.error('Error al realizar la solicitud:', error);
+    }
+    });
+
+    // Función para procesar los resultados
+    function processData(results) {
+        var results = results.results.bindings;
+        var options = [];
+        var question = [];
+
+        for(var i=0; i<4; i++) {
+            var pos = Math.floor(Math.random() * results.length);
+            var universeLabel = results[pos].relatedTo.value;
+            var termLabel = results[pos].termLabel.value;
+
+            if(!options.includes(universeLabel) && !question.includes(termLabel) && universeLabel[0] != 'Q') {
+                options.push(universeLabel);
+                question.push(termLabel);
+            } else {
+                i--;
+            }
+        }
+
+        var num = Math.floor(Math.random() * 4);
+        var correctDescription = options[num];
+        var character = question[num];
+
+        $("h1").after("<p>¿En que universo de ficcion podemos encontrar: " + character + "?</p>")
+        $("p:last").after("<p>Opción A: " + options[0] + "</p>");
+        $("p:last").after("<p>Opción B: " + options[1] + "</p>");
+        $("p:last").after("<p>Opción C: " + options[2] + "</p>");
+        $("p:last").after("<p>Opción D: " + options[3] + "</p>");
+    }
+</script>
+</body>
