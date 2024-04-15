@@ -3,6 +3,8 @@ import React, { useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { AppBar, Button, Grid } from '@mui/material';
 import { useUser } from './UserContext';
+import Tooltip from '@mui/material/Tooltip';
+
 
 const NavigationBar = () => {
 
@@ -51,21 +53,29 @@ const NavigationBar = () => {
         <Grid container justifyContent="space-between">
             {/* Columna izquierda */}
             <Grid item>
+                <Tooltip title="Inicio">
                 <Button variant="contained" color="inherit" style={{ background: 'white', border: 'none', padding: 0, marginRight: '10px', marginLeft: '10px'}} onClick={showHome}>
                     <img src={require('./images/home.png')} style={{ width: '50px', height: '50px' }} alt="Imagen home"/>
                 </Button>
+                </Tooltip>
+                <Tooltip title="Histórico">
                 <Button variant="contained" color="inherit" style={{ background: 'white', border: 'none', padding: 0, marginRight: '10px' }} onClick={showGameHistory}>
                     <img src={require('./images/iconHistory.jpeg')} style={{ width: '50px', height: '50px' }} alt="Imagen historico"/>
                 </Button>
+                </Tooltip>
+                <Tooltip title="Perfil">
                 <Button variant="contained" color="inherit" style={{ background: 'white', border: 'none', padding: 0, width: '50px', marginRight: '10px' }} onClick={showPerfil}>
                     <img src={require('./images/iconUser.jpeg')} style={{ width: '50px', height: '50px' }} alt="Imagen usuario"/>
                 </Button>
+                </Tooltip>
             </Grid>
             {/* Columna derecha */}
             <Grid item>
+                <Tooltip title="Cerrar sesión">
                 <Button variant="contained" color="inherit" style={{ background: 'white', border: 'none', padding: 0, marginRight: '10px' }} onClick={showLogout}>
                     <img src={require('./images/logout.png')} style={{ width: '50px', height: '50px' }} alt="Imagen logout"/>
                 </Button>
+                </Tooltip>
             </Grid>
         </Grid>
     </AppBar>
