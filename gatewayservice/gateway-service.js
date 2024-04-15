@@ -117,7 +117,6 @@ app.get('/endgamestats', async (req, res) => {
 
 app.get('/restartGame', async (req, res) => {
   try {
-    console.log("ENTRA EN EL GATEWAY");
     const URL = generatorUrl + '/restartGame';
     const response = await axios.get(URL);
     res.json(response.data);

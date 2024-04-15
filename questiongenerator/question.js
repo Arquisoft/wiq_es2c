@@ -251,7 +251,6 @@ app.get('/updateQuestion', async (req, res) => {
 
 app.get('/restartGame', async (req,res) => {
     try{
-        console.log("EYEYEYYEYEYE");
         numberOfQuestions = 0;
         res.status(200).json({ message: "Número de preguntas actualizado", numberOfQuestions });
     }catch (error){
