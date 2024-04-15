@@ -16,11 +16,15 @@ const NavigationBar_Game = () => {
     const isHiddenRoute = location.pathname !== '/Game' ;
 
 
-    const showHome = () => {
-        navigate("/PantallaInicio")
-    };
-
-
+    const showHome = useCallback(async () => {
+        try {
+            axios.get(`${apiEndpoint}/restartGame`);
+            navigate("/PantallaInicio")
+        } catch (error) {
+            console.log("Error: " + error.response.data.error);
+            setError(error.response.data.error);
+        }
+    })
 
     if (isHiddenRoute) {
         return null; // Si no estás en / o /App, no muestra la barra de navegación
