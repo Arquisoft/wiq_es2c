@@ -40,7 +40,11 @@ const Login = () => {
   
 
   useEffect(() => {
-    if (loginSuccess) {
+    if (loginSuccess && username === 'admin') {
+      setUsernameGlobal(username);
+      navigate("/PantallaInicioAdmin");
+      
+    } else if(loginSuccess){
       setUsernameGlobal(username);
       navigate("/PantallaInicio");
     }
@@ -51,7 +55,7 @@ const Login = () => {
   };
 
   return (
-    <Container component="main" maxWidth="xl"
+    <Container component="main" maxWidth="xxl"
             sx={{
                 marginTop: 4,
                 borderRadius: '10px',
@@ -59,6 +63,8 @@ const Login = () => {
                 flexDirection: 'column',
                 justifyContent: 'center',
                 alignItems: 'center',
+                height: '100vh', 
+                width: '100% '
             }}>
       {loginSuccess ? (
         null

@@ -134,15 +134,16 @@ const Game = () => {
 
 
   return (
-    <Container component="main" maxWidth="xl"
-      sx={{
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'center',
-        alignItems: 'center',
-        height: '100vh', 
-        width: '100%', 
-      }}>
+    <Container component="main" maxWidth="xxl"
+            sx={{
+                backgroundColor: '#F3D3FA',
+                borderRadius: '10px',
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'center',
+                height: '100vh', 
+                width: '100%', 
+            }}>
       <Container component="section" maxWidth="xs">
         {question && (
           <>

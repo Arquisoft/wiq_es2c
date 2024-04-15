@@ -4,6 +4,7 @@ import axios from 'axios';
 import { Container, Typography, TextField, Button, Snackbar } from '@mui/material';
 import '../App.css';
 
+
 const apiEndpoint = process.env.REACT_APP_API_ENDPOINT || 'http://localhost:8000';
 
 const AddUser = () => {
@@ -13,6 +14,7 @@ const AddUser = () => {
   const [error, setError] = useState('');
   const [openSnackbar, setOpenSnackbar] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState('');
+
 
   const addUser = async () => {
     try {
@@ -25,13 +27,13 @@ const AddUser = () => {
       setSnackbarMessage("Ya se ha registrado un usuario con ese nombre");
     }
   };
-
+  
   const handleCloseSnackbar = () => {
     setOpenSnackbar(false);
   };
 
   return (
-<Container component="main" maxWidth="xl"
+<Container component="main" maxWidth="xxl"
             sx={{
                 marginTop: 4,
                 borderRadius: '10px',
@@ -39,6 +41,8 @@ const AddUser = () => {
                 flexDirection: 'column',
                 justifyContent: 'center',
                 alignItems: 'center',
+                height: '100vh', 
+                width: '100%'
             }}>
       <Typography component="h1" variant="h5" align="center" sx={{ marginBottom: 2, fontWeight: 'bold' }}>
         REGÍSTRATE
