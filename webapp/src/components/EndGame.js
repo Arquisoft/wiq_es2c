@@ -36,6 +36,17 @@ const EndGame = () => {
     getEndGame();
   }, [getEndGame]);
 
+  const selectImage = () => {
+
+    if (endGame.endgameImageWithRatio >= 0 && endGame.endgameImageWithRatio < 25) {
+      return require('./images/ronnie-muletas.png');
+    } else if (endGame.endgameImageWithRatio >= 25 && endGame.endgameImageWithRatio < 50) {
+      return require('./images/ronnie-comiendo.png');
+    } else {
+      return require('./images/ronnie.gif');
+    }
+  };
+
   return (
     <Container component="main" maxWidth="xl"
     sx={{
@@ -47,7 +58,7 @@ const EndGame = () => {
       width: '100%', 
     }}>
     <Box border={2} borderColor="black" p={3} borderRadius={8} bgcolor="#9A77B0" width="30%" maxWidth={800} height="auto" maxHeight="600px">
-        <img src={require('./images/ronnie.gif')} alt="End Game" style={{ width: '100%', marginBottom: '16px', borderRadius: '8px' }} />    
+        <img src={selectImage()} alt="End Game" style={{ width: '100%', marginBottom: '16px', borderRadius: '8px' }} />    
         <Typography variant="h5" align="center" gutterBottom style={{ color: 'white', fontWeight: 'bold', marginBottom: '16px' }}>
           Estadísticas de la última partida
         </Typography>
