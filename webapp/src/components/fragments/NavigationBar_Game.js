@@ -1,7 +1,7 @@
 import React, {useCallback, useState} from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { AppBar, Button, Grid } from '@mui/material';
-import { useUser } from './UserContext';
+import { useUser } from '../UserContext';
 import axios from 'axios';
 
 const apiEndpoint = process.env.REACT_APP_API_ENDPOINT || 'http://localhost:8000';
@@ -36,7 +36,7 @@ const NavigationBar_Game = () => {
                 {/* Columna izquierda */}
                 <Grid item>
                     <Button variant="contained" color="inherit" style={{ background: '#9A77B0', border: 'none', padding: 0, marginRight: '10px', marginLeft: '10px'}} onClick={showHome}>
-                        <img src={require('./images/home.png')} style={{ width: '50px', height: '50px' }} alt="Imagen home"/>
+                        <img src={require('../images/home.png')} style={{ width: '50px', height: '50px' }} alt="Imagen home"/>
                     </Button>
                 </Grid>
             </Grid>

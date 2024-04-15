@@ -2,7 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
-import NavigationBar from './components/NavigationBar';
+import NavigationBar from './components/fragments/NavigationBar';
+import NavigationBar_Game from './components/fragments/NavigationBar_Game';
 import reportWebVitals from './reportWebVitals';
 import { UserProvider } from './components/UserContext';
 
@@ -25,7 +26,8 @@ root.render(
   <React.StrictMode>
     <UserProvider>
       <Router>
-        <NavigationBar /> 
+        <NavigationBar />
+        <NavigationBar_Game/>
         <Routes>
           <Route path="/" element={<App/>}></Route>
           <Route path="/PantallaInicio" element={<PantallaInicio/>}></Route>
