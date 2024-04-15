@@ -15,6 +15,7 @@ const generatorUrl = process.env.GENERATOR_SERVICE_URL || 'http://localhost:8003
 const authServiceUrl = process.env.AUTH_SERVICE_URL || 'http://localhost:8002';
 const userServiceUrl = process.env.USER_SERVICE_URL || 'http://localhost:8001';
 const perfilServiceUrl = process.env.PERFIL_SERVICE_URL || 'http://localhost:8005';
+const allUsersServiceUrl = process.env.ALLUSERS_SERVICE_URL || 'http://localhost:8006';
 
 
 
@@ -96,6 +97,16 @@ app.get('/getUser', async (req, res) => {
       const perfilResponse = await axios.get(URL);
       console.log(perfilResponse)
       res.json(perfilResponse.data);
+  } catch (error) {
+      console.log(error)
+  }
+});
+
+app.get('/getAllUsers', async (req, res) => {
+  try {
+      const URL = allUsersServiceUrl + '/getAllUsers';
+      const allUsersResponse = await axios.get(URL, req.body);
+      res.json(allUsersResponse.data);
   } catch (error) {
       console.log(error)
   }

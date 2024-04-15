@@ -1,40 +1,35 @@
 import axios from 'axios';
 import React, { useState, useEffect, useCallback } from 'react';
 import { useNavigate} from 'react-router-dom';
-import { Container, Typography, TableContainer, Table, TableHead, TableBody, TableRow, TableCell, Paper, Snackbar } from '@mui/material';
-import { useUser } from './UserContext';
+import { Container, Typography, TableContainer, Table, TableHead, TableBody, TableRow, TableCell, Paper, Snackbar,Button } from '@mui/material';
 
-const Perfil = () => {
+const AllUsers = () => {
 
     const navigate = useNavigate();
     const apiEndpoint = process.env.REACT_APP_API_ENDPOINT || 'http://localhost:8000';
 
-    const { usernameGlobal } = useUser();
 
-    const [user, setUser] = useState([]);
+    const [users, setUsers] = useState([]);
     const [error, setError] = useState('');
 
 
-    const handlePreviousPage = async () => {
+
+    const showHome = async () => {
         navigate('/PantallaInicio'); 
     }
 
-    const getPerfil = useCallback(async () => {
+    const getAllUsers = useCallback(async () => {
         try {
-            const response = await axios.get(`${apiEndpoint}/getUser`,{
-            params: {
-                username: usernameGlobal
-            }
-            });
-            setUser(response.data);
+            const response = await axios.get(`${apiEndpoint}/getAllUsers`,{});
+            setUsers(response.data);
         } catch (error) {
             setError(error.response.data.error);
         }
-    }, [usernameGlobal])
+    })
     
     useEffect(() => {
-        getPerfil();
-    }, [getPerfil]);
+        getAllUsers();
+    }, [getAllUsers]);
     
 
     return (
@@ -49,10 +44,12 @@ const Perfil = () => {
             alignItems: 'center',
             height: '100vh', 
             width: '100%', 
-        }}
-        >
+        }}>
+        <Button variant="contained" color="inherit" style={{ background: 'white', border: 'none', padding: 0, marginRight: '10px', marginLeft: '10px'}} onClick={showHome}>
+                <img src={require('./images/home.png')} style={{ width: '50px', height: '50px' }} alt="Imagen home"/>
+        </Button>
         <Typography component="h1" variant="h5" align="center" sx={{ marginBottom: 2, fontWeight: 'bold' }}>
-            PERFIL
+            TODOS LOS USUARIOS
         </Typography>
         <TableContainer component={Paper} sx={{ maxWidth: '80%', marginBottom: 4 }}>
             <Table>
@@ -64,11 +61,13 @@ const Perfil = () => {
                 </TableRow>
             </TableHead>
             <TableBody>
-                <TableRow>
-                    <TableCell align="center">{user.username}</TableCell>
-                    <TableCell align="center">{user.email}</TableCell>
-                    <TableCell align="center">{user.creado}</TableCell>
-                </TableRow>
+                {users.map((user) => (
+                    <TableRow key={user._id}>
+                        <TableCell align="center">{user.username}</TableCell>
+                        <TableCell align="center">{user.email}</TableCell>
+                        <TableCell align="center">{user.creado}</TableCell>
+                    </TableRow>
+                ))}
             </TableBody>
             </Table>
         </TableContainer>
@@ -81,4 +80,4 @@ const Perfil = () => {
     );
 };
 
-export default Perfil;
+export default AllUsers;
