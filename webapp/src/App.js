@@ -29,11 +29,11 @@ function App() {
       {showLogin ? <Login /> : <AddUser />}
       <Typography component="div" align="center" sx={{ marginTop: 2 }}>
         {showLogin ? (
-          <Link name="gotoregister" component="button" variant="body2" onClick={handleToggleView}>
+          <Link name="gotoregister" align="center" component="button" variant="body2" onClick={handleToggleView}>
             ¿No tienes cuenta? Registrate aquí.
           </Link>
         ) : (
-          <Link component="button" variant="body2" onClick={handleToggleView}>
+          <Link component="button" align="center" variant="body2" onClick={handleToggleView}>
             ¿Ya tienes cuenta? Inicia sesión aquí.
           </Link>
         )}

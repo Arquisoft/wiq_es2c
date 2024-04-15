@@ -37,7 +37,6 @@ const NavigationBar = () => {
     const showLogout = () => {
         try {
             setUsernameGlobal('');
-            console.log(usernameGlobal);
             navigate('/App');
         } catch (error) {
             setError(error.response.data.error);

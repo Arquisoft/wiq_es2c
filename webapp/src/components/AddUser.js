@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { Container, Typography, TextField, Button, Snackbar } from '@mui/material';
 
+
 const apiEndpoint = process.env.REACT_APP_API_ENDPOINT || 'http://localhost:8000';
 
 const AddUser = () => {
@@ -12,6 +13,7 @@ const AddUser = () => {
   const [error, setError] = useState('');
   const [openSnackbar, setOpenSnackbar] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState('');
+
 
   const addUser = async () => {
     try {
@@ -24,7 +26,7 @@ const AddUser = () => {
       setSnackbarMessage("Ya se ha registrado un usuario con ese nombre");
     }
   };
-
+  
   const handleCloseSnackbar = () => {
     setOpenSnackbar(false);
   };
