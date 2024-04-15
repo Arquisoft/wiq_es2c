@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
+import NavigationBar from './components/NavigationBar';
 import reportWebVitals from './reportWebVitals';
 import { UserProvider } from './components/UserContext';
 
@@ -18,9 +19,6 @@ import Game from './components/Game';
 import Gamehistory from './components/Gamehistory';
 import Ranking from './components/Ranking';
 import GameConfiguration from './components/GameConfiguration';
-import EndGame from './components/EndGame';
-import Footer from './components/fragments/Footer';
-import NavigationBar from './components/fragments/NavigationBar';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -38,9 +36,7 @@ root.render(
           <Route path="/Gamehistory" element={<Gamehistory />} />
           <Route path="/Ranking" element={<Ranking />} />
           <Route path="/GameConfiguration" element={<GameConfiguration />} />
-          <Route path="/EndGame" element={<EndGame />} />
         </Routes>
-        <Footer /> 
       </Router>
     </UserProvider>
   </React.StrictMode>
