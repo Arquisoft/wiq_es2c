@@ -30,7 +30,7 @@ const AddUser = () => {
   };
 
   return (
-<Container component="main" maxWidth="xl"
+<Container component="main" maxWidth="xxl"
             sx={{
                 marginTop: 4,
                 backgroundColor: '#F3D3FA',
@@ -39,6 +39,8 @@ const AddUser = () => {
                 flexDirection: 'column',
                 justifyContent: 'center',
                 alignItems: 'center',
+                height: '100vh', 
+                width: '100%'
             }}>
       <Typography component="h1" variant="h5" align="center" sx={{ marginBottom: 2, fontWeight: 'bold' }}>
         REGÍSTRATE

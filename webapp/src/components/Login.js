@@ -54,7 +54,7 @@ const Login = () => {
   };
 
   return (
-    <Container component="main" maxWidth="xl"
+    <Container component="main" maxWidth="xxl"
             sx={{
                 marginTop: 4,
                 backgroundColor: '#F3D3FA',
@@ -63,6 +63,8 @@ const Login = () => {
                 flexDirection: 'column',
                 justifyContent: 'center',
                 alignItems: 'center',
+                height: '100vh', 
+                width: '100% '
             }}>
       {loginSuccess ? (
         null

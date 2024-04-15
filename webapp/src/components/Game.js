@@ -124,7 +124,7 @@ const Game = () => {
 
 
   return (
-    <Container component="main" maxWidth="xl"
+    <Container component="main" maxWidth="xxl"
             sx={{
                 backgroundColor: '#F3D3FA',
                 borderRadius: '10px',
