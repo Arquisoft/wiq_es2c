@@ -12,7 +12,7 @@ const GameConfiguration = () => {
     const [openSnackbar, setOpenSnackbar] = useState(false);
     const [error, setError] = useState('');
     const [snackbarMessage, setSnackbarMessage] = useState('');
-    const [selectedOption, setSelectedOption] = useState(null);
+    const [selectedOption, setSelectedOption] = useState("Todas");
 
     const maxTime = 60;
     const [valueTime, setValueTime] = useState(30);
@@ -54,6 +54,7 @@ const GameConfiguration = () => {
     };
 
     const handleOptionSelect = (event) => {
+        console.log(event.target.value);
         setSelectedOption(event.target.value);
     };
 
@@ -104,9 +105,11 @@ const GameConfiguration = () => {
                     max: 60,
                 }}
             />
+            <Typography component="p" variant="p" align="center" sx={{ marginBottom: 2, fontWeight: 'bold' }}>
+                Selecciona las tematicas de la pregunta para poder jugar
+            </Typography>
             <div>
                 <select onChange={handleOptionSelect}>
-                    <option value="">Selecciona la temática de las preguntas:</option>
                     <option value="Todas">Todas</option>
                     <option value="Geografia">Geografia</option>
                     <option value="Cultura">Cultura</option>

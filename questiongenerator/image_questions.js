@@ -27,7 +27,7 @@ queries['Cultura'] =
           ?option wdt:P18 ?imageLabel.       
           SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],es". }
       }
-      LIMIT 200
+      LIMIT 100
       `
   ];
 
@@ -41,7 +41,7 @@ queries['Personajes'] =
                   wdt:P18 ?imageLabel.        
           SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],es". }
       }
-      LIMIT 200
+      LIMIT 100
       `,
       // pregunta = imagen futbolista, opcion = nombre futbolista
       `
@@ -51,7 +51,7 @@ queries['Personajes'] =
                       wdt:P18 ?imageLabel. 
           SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],es". }
       }
-      LIMIT 200
+      LIMIT 100
       `,
       // pregunta = imagen cantante, opcion = nombre cantante
       `
@@ -61,7 +61,7 @@ queries['Personajes'] =
                     wdt:P18 ?imageLabel.              
           SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],es". }
       }
-      LIMIT 200
+      LIMIT 100
       `,
       // pregunta = Imagen de un presidente de EE.UU., opcion = Nombres de presidentes de EE.UU.
       `

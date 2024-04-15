@@ -24,8 +24,13 @@ app.use((req, res, next) => {
     next();
 });
 
-var queries = getAllQueries(textQueries, imagesQueries);
-var questions = getAllQueries(textQuestions, imagesQuestions);
+// Consultas y preguntas generales
+var generalQueries = getQueriesAndQuestions(textQueries, imagesQueries);
+var generalQuestions = getQueriesAndQuestions(textQuestions, imagesQuestions);
+
+// Consultas y preguntas concretas
+var queries = [];
+var questions = [];
 
 var correctOption = "";
 var options = [];
@@ -44,8 +49,8 @@ var maxQuestions = 5;
 const mongoUri = process.env.MONGODB_URI || 'mongodb://localhost:27017/questiondb';
 mongoose.connect(mongoUri);
 
-function getAllQueries(textData, imageData) {
-    var results = {};
+function getQueriesAndQuestions(textData, imageData) {
+    let results = {};
     for (var thematic in textData) {
         results[thematic] = textData[thematic];
     }
@@ -63,11 +68,14 @@ function getAllQueries(textData, imageData) {
 
 app.get('/generateQuestion', async (req, res) => {
     try {
+        queries = [];
+        questions = [];
         if(numberOfQuestions == 0){
             gameId = null;
         }
         const user = req.query.user;
-        await generarPregunta(req.query.thematic);
+        await getQueriesAndQuestionsByThematic(req.query.thematic);
+        await generarPregunta();
         numberOfQuestions++;
         if(numberOfQuestions>=maxQuestions){
             numberOfQuestions = 0;
@@ -105,36 +113,47 @@ var server = app.listen(port, () => {
   console.log(`Questions Generation Service listening at http://localhost:${port}`);
 });
 
-
-
-async function generarPregunta(thematic) {
-    if(thematic === "Geografia") {
+async function getQueriesAndQuestionsByThematic(thematic) {
+    if(thematic == "Geografia") {
         changeQueriesAndQuestions("Geografia");
-    } else if(thematic === "Cultura") {
+    } else if(thematic == "Cultura") {
         changeQueriesAndQuestions("Cultura");
-    } else if(thematic === "Informatica") {
+    } else if(thematic == "Informatica") {
         changeQueriesAndQuestions("Informatica");
-    } else if(thematic === "Personajes") {
+    } else if(thematic == "Personajes") {
         changeQueriesAndQuestions("Personajes");
+    } else {
+        queries = getAllValues(generalQueries);
+        questions = getAllValues(generalQuestions);
+    }
+}
+
+function changeQueriesAndQuestions(thematic) {
+    queries = generalQueries[thematic];
+    questions = generalQuestions[thematic];
+}
+
+function getAllValues(data) {
+    // TODO Mirar que al hacer esto cuadren las preguntas con sus consultas; ahora hay problemas con personajes porque solo hay imagenes y se descuadra con las
+    // preguntas de texto
+    let results = [];
+    for (var thematic in data) {
+        results = results.concat(data[thematic]);
     }
 
+    return results;
+}
+
+
+async function generarPregunta() {
     randomNumber = Math.floor(Math.random() * 2);
     try {
         // Petición a la API de WikiData
-        // TODO Arreglar el mismo problema que aquí pero con las preguntas
-        // TODO En queries y questions hay que mirar como se pueden poner todos los valores sin clave en los arrays, como estaba antes, dependiendo de la tematica
-        let thematics = Object.keys(queries);
-        randomNumber = Math.floor(Math.random() * thematics.length);
-        console.log("TEMATICAS: " + thematics);
-        let key = thematics[randomNumber];
-        console.log("CLAVE: " + key);
-
-        let thematicQueries = queries[key];
-        randomNumber = Math.floor(Math.random() * thematicQueries.length);
-        console.log("CONSULTA: " + thematicQueries[randomNumber]);
+        randomNumber = Math.floor(Math.random() * queries.length);
+        console.log("CONSULTA: " + queries[randomNumber]);
         var response = await axios.get(url, {
             params: {
-                query: thematicQueries[randomNumber],
+                query: queries[randomNumber],
                 format: 'json'
             },
             headers: {
@@ -144,16 +163,10 @@ async function generarPregunta(thematic) {
 
         procesarDatos(response.data);
 
-
     } catch (error) {
         console.error('Error al realizar la solicitud:', error);
         throw new Error('Error al obtener datos ' + error);
     }
-}
-
-function changeQueriesAndQuestions(thematic) {
-    queries = queries[thematic];
-    questions = questions[thematic];
 }
 
 function procesarDatos(data) {
@@ -188,16 +201,14 @@ function procesarDatos(data) {
     // Escogemos un índice aleatorio como la opción correcta
     var correctIndex = Math.floor(Math.random() * 4);
     correctOption = data[randomIndexes[correctIndex]].optionLabel.value;
-    let thematics = Object.keys(questions);
-    let key = thematics[randomNumber];
 
     if(quest == "") {
-        question = questions[key];
+        question = questions[randomNumber];
         image = data[randomIndexes[correctIndex]].imageLabel.value;
     } else {
         image = "";
         questionValue = data[randomIndexes[correctIndex]].questionLabel.value;
-        question = questions[key] + questionValue + "?";
+        question = questions[randomNumber] + questionValue + "?";
     }
 
 
