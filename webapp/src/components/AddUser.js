@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { Container, Typography, TextField, Button, Snackbar } from '@mui/material';
+import '../App.css';
 
 
 const apiEndpoint = process.env.REACT_APP_API_ENDPOINT || 'http://localhost:8000';
@@ -35,7 +36,6 @@ const AddUser = () => {
 <Container component="main" maxWidth="xxl"
             sx={{
                 marginTop: 4,
-                backgroundColor: '#F3D3FA',
                 borderRadius: '10px',
                 display: 'flex',
                 flexDirection: 'column',

@@ -2,9 +2,8 @@
 import React, { useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { AppBar, Button, Grid } from '@mui/material';
-import { useUser } from './UserContext';
 import Tooltip from '@mui/material/Tooltip';
-
+import { useUser } from '../UserContext';
 
 const NavigationBar = () => {
 
@@ -32,6 +31,10 @@ const NavigationBar = () => {
 
     const showPerfil = () => {
         navigate("/Perfil")
+    }
+
+    const showRanking = () => {
+        navigate("/Ranking")
     };
 
     const showLogout = () => {
@@ -62,17 +65,25 @@ const NavigationBar = () => {
                     <img src={require('./images/iconHistory.jpeg')} style={{ width: '50px', height: '50px' }} alt="Imagen historico"/>
                 </Button>
                 </Tooltip>
-                <Tooltip title="Perfil">
-                <Button variant="contained" color="inherit" style={{ background: 'white', border: 'none', padding: 0, width: '50px', marginRight: '10px' }} onClick={showPerfil}>
-                    <img src={require('./images/iconUser.jpeg')} style={{ width: '50px', height: '50px' }} alt="Imagen usuario"/>
+                
+                <Tooltip title="Ranking">
+                <Button variant="contained" color="inherit" style={{ background: '#9A77B0', border: 'none', padding: 0, marginRight: '10px' }} onClick={showRanking}>
+                    <img src={require('../images/iconRanking.png')} style={{ width: '50px', height: '50px' }} alt="Imagen ranking"/>
                 </Button>
                 </Tooltip>
+                
             </Grid>
             {/* Columna derecha */}
             <Grid item>
                 <Tooltip title="Cerrar sesión">
-                <Button variant="contained" color="inherit" style={{ background: 'white', border: 'none', padding: 0, marginRight: '10px' }} onClick={showLogout}>
+                <Button variant="contained" color="inherit" style={{ background: '#9A77B0', border: 'none', padding: 0, marginRight: '10px' }} onClick={showLogout}>
                     <img src={require('./images/logout.png')} style={{ width: '50px', height: '50px' }} alt="Imagen logout"/>
+                </Button>
+                </Tooltip>
+
+                <Tooltip title="Perfil">
+                <Button variant="contained" color="inherit" style={{ background: '#9A77B0', border: 'none', padding: 0, width: '50px', marginRight: '10px' }} onClick={showPerfil}>
+                    <img src={require('./images/iconUser.png')} style={{ width: '50px', height: '50px' }} alt="Imagen usuario"/>
                 </Button>
                 </Tooltip>
             </Grid>

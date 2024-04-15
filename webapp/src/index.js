@@ -2,7 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
-import NavigationBar from './components/NavigationBar';
+import NavigationBar from './components/fragments/NavigationBar';
+import NavigationBar_Game from './components/fragments/NavigationBar_Game';
 import reportWebVitals from './reportWebVitals';
 import { UserProvider } from './components/UserContext';
 
@@ -21,14 +22,16 @@ import Gamehistory from './components/Gamehistory';
 import Perfil from './components/Perfil';
 import AllUsers from './components/AllUsers';
 import AllQuestions from './components/AllQuestions';
-
+import Ranking from './components/Ranking';
+import GameConfiguration from './components/GameConfiguration';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <UserProvider>
       <Router>
-        <NavigationBar /> 
+        <NavigationBar />
+        <NavigationBar_Game/>
         <Routes>
           <Route path="/" element={<App/>}></Route>
           <Route path="/PantallaInicio" element={<PantallaInicio/>}></Route>
@@ -41,6 +44,8 @@ root.render(
           <Route path="/Perfil" element={<Perfil />} />
           <Route path="/AllUsers" element={<AllUsers />} />
           <Route path="/AllQuestions" element={<AllQuestions />} />
+          <Route path="/Ranking" element={<Ranking />} />
+          <Route path="/GameConfiguration" element={<GameConfiguration />} />
         </Routes>
       </Router>
     </UserProvider>

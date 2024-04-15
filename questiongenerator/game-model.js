@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const gameSchema = new mongoose.Schema({
-    userId:{
+    userId: {
         type: String,
         ref: 'User',
         required: true,
@@ -9,12 +9,15 @@ const gameSchema = new mongoose.Schema({
     questions: [
         {
             type: mongoose.Schema.Types.ObjectId,
-            ref:'Question'
+            ref: 'Question'
         }
-    ]
-
+    ],
+    createdAt: {
+        type: Date,
+        default: Date.now
+    }
 });
 
 const Game = mongoose.model('Game', gameSchema);
 
-module.exports = Game
+module.exports = Game;

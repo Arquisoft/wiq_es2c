@@ -2,7 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 import { useUser } from './UserContext';
 import { Container, Typography, TableContainer, Table, TableHead, TableBody, TableRow, TableCell, Paper, Snackbar } from '@mui/material';
-
+import '../App.css';
 
 const apiEndpoint = process.env.REACT_APP_API_ENDPOINT || 'http://localhost:8000';
 
@@ -18,7 +18,6 @@ const Gamehistory = () => {
           username: usernameGlobal
         }
       });
-      console.log(response);
       setGameHistory(response.data);
     } catch (error) {
       setError(error.response.data.error);
@@ -32,16 +31,13 @@ const Gamehistory = () => {
   return (
     <Container component="main" maxWidth="xxl"
       sx={{
-        backgroundColor: '#F3D3FA',
-        borderRadius: '10px',
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
         height: '100vh', 
         width: '100%', 
-      }}
-      >
+      }}>
       <Typography component="h1" variant="h5" align="center" sx={{ marginBottom: 2, fontWeight: 'bold' }}>
         MIS ESTADÍSTICAS
       </Typography>
