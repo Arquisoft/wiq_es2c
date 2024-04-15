@@ -103,6 +103,20 @@ services:
     environment:
       MONGODB_URI: mongodb://mongodb:27017/userdb
   
+  allquestionservice:
+    container_name: allquestionservice-${teamname:-defaultASW}
+    image: ghcr.io/arquisoft/wiq_es2c/apis/allquestionservice/allquestions-api:latest
+    profiles: ["dev", "prod"]
+    build: ./apis/allquestionservice
+    depends_on:
+      - mongodb
+    ports:
+      - "8007:8007"
+    networks:
+      - mynetwork
+    environment:
+      MONGODB_URI: mongodb://mongodb:27017/userdb
+  
   gatewayservice:
     container_name: gatewayservice-${teamname:-defaultASW}
     image: ghcr.io/arquisoft/wiq_es2c/gatewayservice:latest
@@ -118,6 +132,7 @@ services:
       - perfilservice
       - gamehistoryservice
       - alluserservice
+      - allquestionservice
     ports:
       - "8000:8000"
     networks:
@@ -129,6 +144,7 @@ services:
       USER_SERVICE_URL: http://userservice:8001
       PERFIL_SERVICE_URL: http://perfilservice:8005
       ALLUSERS_SERVICE_URL: http://alluserservice:8006
+      ALLQUESTIONS_SERVICE_URL: http://allquestionservice:8007
 
   webapp:
     container_name: webapp-${teamname:-defaultASW}

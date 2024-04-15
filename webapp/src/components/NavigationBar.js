@@ -31,6 +31,10 @@ const NavigationBar = () => {
         navigate("/AllUsers")
     };
 
+    const showAllQuestions = () => {
+        navigate("/AllQuestions")
+    };
+
     const showLogout = () => {
         try {
             setUsernameGlobal('');
@@ -60,7 +64,10 @@ const NavigationBar = () => {
                     <img src={require('./images/iconUser.jpeg')} style={{ width: '50px', height: '50px' }} alt="Imagen usuario"/>
                 </Button>
                 <Button variant="contained" color="inherit" style={{ background: 'white', border: 'none', padding: 0, marginRight: '10px' }} onClick={showAllUsers}>
-                    <img src={require('./images/allusers.png')} style={{ width: '50px', height: '50px' }} alt="Imagen logout"/>
+                    <img src={require('./images/allusers.png')} style={{ width: '50px', height: '50px' }} alt="Imagen all users"/>
+                </Button>
+                <Button variant="contained" color="inherit" style={{ background: 'white', border: 'none', padding: 0, marginRight: '10px' }} onClick={showAllQuestions}>
+                    <img src={require('./images/questions.png')} style={{ width: '50px', height: '50px' }} alt="Imagen questions"/>
                 </Button>
             </Grid>
             {/* Columna derecha */}

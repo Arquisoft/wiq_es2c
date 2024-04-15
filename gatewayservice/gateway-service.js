@@ -16,6 +16,7 @@ const authServiceUrl = process.env.AUTH_SERVICE_URL || 'http://localhost:8002';
 const userServiceUrl = process.env.USER_SERVICE_URL || 'http://localhost:8001';
 const perfilServiceUrl = process.env.PERFIL_SERVICE_URL || 'http://localhost:8005';
 const allUsersServiceUrl = process.env.ALLUSERS_SERVICE_URL || 'http://localhost:8006';
+const allQuestionsServiceUrl = process.env.ALLQUESTIONS_SERVICE_URL || 'http://localhost:8007';
 
 
 
@@ -107,6 +108,16 @@ app.get('/getAllUsers', async (req, res) => {
       const URL = allUsersServiceUrl + '/getAllUsers';
       const allUsersResponse = await axios.get(URL, req.body);
       res.json(allUsersResponse.data);
+  } catch (error) {
+      console.log(error)
+  }
+});
+
+app.get('/getAllQuestions', async (req, res) => {
+  try {
+      const URL = allQuestionsServiceUrl + '/getAllQuestions';
+      const allQuestionsResponse = await axios.get(URL, req.body);
+      res.json(allQuestionsResponse.data);
   } catch (error) {
       console.log(error)
   }

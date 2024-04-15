@@ -19,6 +19,7 @@ import Game from './components/Game';
 import Gamehistory from './components/Gamehistory';
 import Perfil from './components/Perfil';
 import AllUsers from './components/AllUsers';
+import AllQuestions from './components/AllQuestions';
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -37,6 +38,7 @@ root.render(
           <Route path="/Gamehistory" element={<Gamehistory />} />
           <Route path="/Perfil" element={<Perfil />} />
           <Route path="/AllUsers" element={<AllUsers />} />
+          <Route path="/AllQuestions" element={<AllQuestions />} />
         </Routes>
       </Router>
     </UserProvider>
