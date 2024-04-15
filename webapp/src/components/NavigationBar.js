@@ -16,7 +16,12 @@ const NavigationBar = () => {
 
 
     const showHome = () => {
-        navigate("/PantallaInicio")
+        if (usernameGlobal === 'admin') {
+            navigate("/PantallaInicioAdmin");
+            
+        } else {
+            navigate("/PantallaInicio");
+        }
     };
 
     const showGameHistory = () => {
@@ -25,14 +30,6 @@ const NavigationBar = () => {
 
     const showPerfil = () => {
         navigate("/Perfil")
-    };
-
-    const showAllUsers = () => {
-        navigate("/AllUsers")
-    };
-
-    const showAllQuestions = () => {
-        navigate("/AllQuestions")
     };
 
     const showLogout = () => {
@@ -62,12 +59,6 @@ const NavigationBar = () => {
                 </Button>
                 <Button variant="contained" color="inherit" style={{ background: 'white', border: 'none', padding: 0, width: '50px', marginRight: '10px' }} onClick={showPerfil}>
                     <img src={require('./images/iconUser.jpeg')} style={{ width: '50px', height: '50px' }} alt="Imagen usuario"/>
-                </Button>
-                <Button variant="contained" color="inherit" style={{ background: 'white', border: 'none', padding: 0, marginRight: '10px' }} onClick={showAllUsers}>
-                    <img src={require('./images/allusers.png')} style={{ width: '50px', height: '50px' }} alt="Imagen all users"/>
-                </Button>
-                <Button variant="contained" color="inherit" style={{ background: 'white', border: 'none', padding: 0, marginRight: '10px' }} onClick={showAllQuestions}>
-                    <img src={require('./images/questions.png')} style={{ width: '50px', height: '50px' }} alt="Imagen questions"/>
                 </Button>
             </Grid>
             {/* Columna derecha */}

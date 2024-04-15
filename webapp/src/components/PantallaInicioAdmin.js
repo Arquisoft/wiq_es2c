@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import { Container, Typography, Button, Box, Snackbar } from '@mui/material';
-import { useUser } from './UserContext';
+import { Container, Button, Box, Snackbar } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 
 
@@ -8,14 +7,8 @@ const PantallaInicio = () => {
 
     const [openSnackbar, setOpenSnackbar] = useState(false);
     const [error, setError] = useState('');
-    
-    const { usernameGlobal} = useUser();
 
     const navigate = useNavigate();
-
-    function nuevaPartida() {
-        navigate("/Game");
-    }
 
     const handleCloseSnackbar = () => {
         setOpenSnackbar(false);
@@ -49,11 +42,11 @@ const PantallaInicio = () => {
                 justifyContent: 'center', // Centra horizontalmente
                 alignItems: 'center'
             }}>
-                <Button variant="contained" color="inherit" align="center" style={{ background: 'white', border: 'none', padding: 0, marginRight: '10px' }} onClick={showAllUsers}>
-                    <img src={require('./images/allusers.png')} style={{ width: '50px', height: '50px' }} alt="Imagen all users"/>
+                <Button variant="contained" color="primary" sx={{marginTop: 4,marginBottom: 4, backgroundColor: '#FCF5B8',  color: '#413C3C',  fontWeight: 'bold' }} onClick={showAllUsers}>
+                    USUARIOS
                 </Button>
-                <Button variant="contained" color="inherit" align="center" style={{ background: 'white', border: 'none', padding: 0, marginRight: '10px' }} onClick={showAllQuestions}>
-                    <img src={require('./images/questions.png')} style={{ width: '50px', height: '50px' }} alt="Imagen questions"/>
+                <Button variant="contained" color="primary" sx={{marginTop: 4,marginBottom: 4, backgroundColor: '#FCF5B8',  color: '#413C3C',  fontWeight: 'bold' }} onClick={showAllQuestions}>
+                    PREGUNTAS
                 </Button>
             </Box>
             <Snackbar open={openSnackbar} autoHideDuration={6000} onClose={handleCloseSnackbar} message="Sesion cerrada" />

@@ -1,12 +1,10 @@
 import axios from 'axios';
 import React, { useState, useEffect, useCallback } from 'react';
-import { useNavigate} from 'react-router-dom';
 import { Container, Typography, TableContainer, Table, TableHead, TableBody, TableRow, TableCell, Paper, Snackbar } from '@mui/material';
 import { useUser } from './UserContext';
 
 const Perfil = () => {
 
-    const navigate = useNavigate();
     const apiEndpoint = process.env.REACT_APP_API_ENDPOINT || 'http://localhost:8000';
 
     const { usernameGlobal } = useUser();
@@ -14,10 +12,6 @@ const Perfil = () => {
     const [user, setUser] = useState([]);
     const [error, setError] = useState('');
 
-
-    const handlePreviousPage = async () => {
-        navigate('/PantallaInicio'); 
-    }
 
     const getPerfil = useCallback(async () => {
         try {
