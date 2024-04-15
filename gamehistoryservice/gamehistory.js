@@ -75,7 +75,8 @@ app.get("/endgamestats", async (req, res) => {
             totalRightQuestions: gameStats.totalRightQuestions || 0,
             totalIncorrectQuestions: gameStats.totalIncorrectQuestions || 0,
             ratio: (gameStats.ratio || 0) + "%",
-            totalTime: (gameStats.totalTime || 0) + "s"
+            totalTime: (gameStats.totalTime || 0) + "s",
+            endgameImageWithRatio: gameStats.ratio
         };
 
         // Envía la respuesta JSON
