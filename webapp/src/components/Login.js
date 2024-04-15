@@ -36,6 +36,13 @@ const Login = () => {
       setError(error.response.data.error);
     }
   };
+
+  useEffect(() => {
+    if (loginSuccess && username == 'admin') {
+      setUsernameGlobal(username);
+      navigate("/PantallaInicioAdmin");
+    }
+  }, [loginSuccess, navigate, setUsernameGlobal, username]);
   
 
   useEffect(() => {
