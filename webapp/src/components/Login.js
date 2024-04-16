@@ -40,7 +40,11 @@ const Login = () => {
   
 
   useEffect(() => {
-    if (loginSuccess) {
+    if (loginSuccess && username === 'admin') {
+      setUsernameGlobal(username);
+      navigate("/PantallaInicioAdmin");
+      
+    } else if(loginSuccess){
       setUsernameGlobal(username);
       navigate("/PantallaInicio");
     }
