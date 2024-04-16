@@ -83,7 +83,7 @@ const NavigationBar = () => {
                     <MenuItem onClick={showHome}>Inicio</MenuItem>
                     <MenuItem onClick={showGameHistory}>Historial de Juegos</MenuItem>
                     <MenuItem onClick={showRanking}>Ranking</MenuItem>
-                    <MenuItem>Perfil</MenuItem>
+                    <MenuItem onClick={showPerfil}>Perfil</MenuItem>
                     <MenuItem onClick={showLogout}>Cerrar Sesión</MenuItem>
                 </Menu>
                 <Hidden smDown>
@@ -105,8 +105,8 @@ const NavigationBar = () => {
                   </Tooltip>
                 </Grid>
                 <Grid container justifyContent="flex-end">
-                  <Tooltip title="Cerrar sesión">
-                    <Button variant="contained" color="inherit" style={{ background: '#9A77B0', border: 'none', padding: 0, width: '50px', marginRight: '10px' }}>
+                  <Tooltip title="Perfil">
+                    <Button variant="contained" color="inherit" style={{ background: '#9A77B0', border: 'none', padding: 0, width: '50px', marginRight: '10px' }} onClick={showPerfil}>
                         <img src={require('../images/iconUser.png')} style={{ width: '50px', height: '50px' }} alt="Imagen usuario"/>
                     </Button>
                   </Tooltip>
