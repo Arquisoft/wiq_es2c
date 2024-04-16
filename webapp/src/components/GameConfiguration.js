@@ -55,60 +55,63 @@ const GameConfiguration = () => {
     return (
         <Container component="main" maxWidth="xl"
                    sx={{
-                       marginTop: 10,
+                       marginTop: 25,
                        borderRadius: '10px',
                        display: 'flex',
                        flexDirection: 'column',
                        justifyContent: 'center',
                        alignItems: 'center',
                    }}>
-            <Typography component="h1" variant="h5" align="center" sx={{ marginBottom: 2, fontWeight: 'bold' }}>
-                Configuración de la partida
-            </Typography>
-            <TextField
-                name="questions"
-                margin="normal"
-                fullWidth
-                label="Número de preguntas"
-                onChange={handleChangeQuestions}
-                value={valueQuestion}
-                type="number"
-                step="1"
-                sx={{ width: '50vh', marginBottom: 2, backgroundColor: '#FFFFFF'}}
+            <div style={{display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}>
+                <Typography component="h1" variant="h5" align="center" sx={{ marginBottom: 2, fontWeight: 'bold' }}>
+                    Personaliza tu partida
+                </Typography>
+                <TextField
+                    name="questions"
+                    margin="normal"
+                    fullWidth
+                    label="Número de preguntas"
+                    onChange={handleChangeQuestions}
+                    value={valueQuestion}
+                    type="number"
+                    step="1"
+                    sx={{ marginBottom: 4, marginTop: 3, backgroundColor: '#FFFFFF'}}
 
-                inputProps={{
-                    inputMode: 'numeric',
-                    pattern: '[0-9]*',
-                    min: 1,
-                    max: 30,
-                }}
-            />
-            <TextField
-                name="time"
-                margin="normal"
-                fullWidth
-                label="Tiempo disponible por pregunta"
-                onChange={handleChangeTime}
-                value={valueTime}
-                type="number"
-                step="1"
-                sx={{ width: '50vh', marginBottom: 2, backgroundColor: '#FFFFFF'}}
-                inputProps={{
-                    inputMode: 'numeric',
-                    min: 10,
-                    max: 60,
-                }}
-            />
-            <Button variant="contained" color="primary" sx={{marginTop: 4,marginBottom: 4, backgroundColor: '#FCF5B8',  color: '#413C3C',  fontWeight: 'bold'}}
-                onClick={configureAndStart}>
-                JUGAR
-            </Button>
-            <Snackbar open={openSnackbar} autoHideDuration={6000} onClose={handleCloseSnackbar} message={snackbarMessage} />
-            {error && (
-                <Snackbar open={!!error} autoHideDuration={6000} onClose={() => setError('')} message={`Error: ${error}`} />
-            )}
+                    inputProps={{
+                        inputMode: 'numeric',
+                        pattern: '[0-9]*',
+                        min: 1,
+                        max: 30,
+                    }}
+                />
+                <TextField
+                    name="time"
+                    margin="normal"
+                    fullWidth
+                    label="Tiempo disponible por pregunta"
+                    onChange={handleChangeTime}
+                    value={valueTime}
+                    type="number"
+                    step="1"
+                    sx={{ marginBottom: 4, marginTop: 3 , backgroundColor: '#FFFFFF'}}
+                    inputProps={{
+                        inputMode: 'numeric',
+                        min: 10,
+                        max: 60,
+                    }}
+                />
+                <Button variant="contained" color="primary" color="primary" sx={{marginTop: 4,marginBottom: 4, backgroundColor: '#FCF5B8',  color: '#413C3C',  fontWeight: 'bold'}} onClick={configureAndStart}>
+                    JUGAR
+                </Button>
+                <Snackbar open={openSnackbar} autoHideDuration={6000} onClose={handleCloseSnackbar}
+                          message={snackbarMessage}/>
+                {error && (
+                    <Snackbar open={!!error} autoHideDuration={6000} onClose={() => setError('')}
+                              message={`Error: ${error}`}/>
+                )}
+            </div>
         </Container>
-    );
+);
 };
 
 export default GameConfiguration;
