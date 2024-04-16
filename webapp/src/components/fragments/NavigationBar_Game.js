@@ -3,6 +3,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import { AppBar, Toolbar, IconButton, Menu, MenuItem, Grid, Button, Hidden} from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import axios from 'axios';
+import Tooltip from '@mui/material/Tooltip';
 
 const apiEndpoint = process.env.REACT_APP_API_ENDPOINT || 'http://localhost:8000';
 const NavigationBar_Game = () => {
@@ -63,9 +64,11 @@ const NavigationBar_Game = () => {
                 </Menu>
                 <Hidden smDown>
                     <Grid container justifyContent="flex-start">
+                        <Tooltip title="Inicio">
                         <Button variant="contained" color="inherit" style={{ background: '#9A77B0', border: 'none', padding: 0, marginRight: '10px' }} onClick={showHome}>
                             <img src={require('../images/home.png')} style={{ width: '50px', height: '50px' }} alt="Imagen home"/>
                         </Button>
+                        </Tooltip>
                     </Grid>
                 </Hidden>
             </Toolbar>
