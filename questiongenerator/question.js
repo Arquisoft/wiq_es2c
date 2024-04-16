@@ -4,8 +4,8 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const Question = require('./question-model');
 const Game = require('./game-model');
-const { queries:textQueries, questions:textQuestions } = require('./text_questions');
-const { queries:imagesQueries, questions:imagesQuestions } = require('./image_questions');
+const { queries:textQueries } = require('./text_questions');
+const { queries:imagesQueries } = require('./image_questions');
 
 const generatorEndpoint = process.env.REACT_APP_API_ORIGIN_ENDPOINT || 'http://localhost:3000';
 
@@ -24,13 +24,11 @@ app.use((req, res, next) => {
     next();
 });
 
-// Consultas y preguntas generales
+// Consultas generales
 var generalQueries = getQueriesAndQuestions(textQueries, imagesQueries);
-var generalQuestions = getQueriesAndQuestions(textQuestions, imagesQuestions);
 
-// Consultas y preguntas concretas
+// Consultas concretas
 var queries = [];
-var questions = [];
 
 var correctOption = "";
 var options = [];
@@ -74,7 +72,7 @@ app.get('/generateQuestion', async (req, res) => {
             gameId = null;
         }
         const user = req.query.user;
-        await getQueriesAndQuestionsByThematic(req.query.thematic);
+        await getQueriesByThematic(req.query.thematic);
         await generarPregunta();
         numberOfQuestions++;
         if(numberOfQuestions>=maxQuestions){
@@ -113,7 +111,7 @@ var server = app.listen(port, () => {
   console.log(`Questions Generation Service listening at http://localhost:${port}`);
 });
 
-async function getQueriesAndQuestionsByThematic(thematic) {
+async function getQueriesByThematic(thematic) {
     if(thematic == "Geografia") {
         changeQueriesAndQuestions("Geografia");
     } else if(thematic == "Cultura") {
@@ -123,22 +121,18 @@ async function getQueriesAndQuestionsByThematic(thematic) {
     } else if(thematic == "Personajes") {
         changeQueriesAndQuestions("Personajes");
     } else {
-        queries = getAllValues(generalQueries);
-        questions = getAllValues(generalQuestions);
+        queries = getAllValues();
     }
 }
 
 function changeQueriesAndQuestions(thematic) {
     queries = generalQueries[thematic];
-    questions = generalQuestions[thematic];
 }
 
-function getAllValues(data) {
-    // TODO Mirar que al hacer esto cuadren las preguntas con sus consultas; ahora hay problemas con personajes porque solo hay imagenes y se descuadra con las
-    // preguntas de texto
+function getAllValues() {
     let results = [];
-    for (var thematic in data) {
-        results = results.concat(data[thematic]);
+    for (var thematic in generalQueries) {
+        results = results.concat(generalQueries[thematic]);
     }
 
     return results;
@@ -150,10 +144,9 @@ async function generarPregunta() {
     try {
         // Petición a la API de WikiData
         randomNumber = Math.floor(Math.random() * queries.length);
-        console.log("CONSULTA: " + queries[randomNumber]);
         var response = await axios.get(url, {
             params: {
-                query: queries[randomNumber],
+                query: queries[randomNumber][0],
                 format: 'json'
             },
             headers: {
@@ -175,6 +168,9 @@ function procesarDatos(data) {
     var data = data.results.bindings;
     var randomIndexes = [];
 
+    // Mantenemos a los options que ya se han seleccionado para que no se repitan
+    var optionsSelected = [];
+
     // Obtenemos cuatro índices aleatorios sin repetición
     while (randomIndexes.length < 4) {
         var randomIndex = Math.floor(Math.random() * data.length);
@@ -190,11 +186,13 @@ function procesarDatos(data) {
         // Comprobamos que tanto la opción como la pregunta no sean entidades de WikiData ni enlaces o que la pregunta ya 
         // venga en el array (estara vacia)
         if (!randomIndexes.includes(randomIndex) && (quest == ""
-            || (!(option.startsWith("Q") || option.startsWith("http"))
-                && !(quest.startsWith("Q") || quest.startsWith("http"))
-                )
-            )) {
+                || (!(option.startsWith("Q") || option.startsWith("http"))
+                    && !(quest.startsWith("Q") || quest.startsWith("http"))
+                    )
+                ) 
+            && !options.includes(option)) {
             randomIndexes.push(randomIndex);
+            optionsSelected.push(option);
         }
     }
 
@@ -203,19 +201,20 @@ function procesarDatos(data) {
     correctOption = data[randomIndexes[correctIndex]].optionLabel.value;
 
     if(quest == "") {
-        question = questions[randomNumber];
+        question = queries[randomNumber][1];
         image = data[randomIndexes[correctIndex]].imageLabel.value;
     } else {
         image = "";
         questionValue = data[randomIndexes[correctIndex]].questionLabel.value;
-        question = questions[randomNumber] + questionValue + "?";
+        question = queries[randomNumber][1] + questionValue + "?";
     }
 
 
     // Varriamos las opciones, incluyendo la correcta
     for (let i = 0; i < 4; i++) {
-        var optionIndex = randomIndexes[i];
-        options.push(data[optionIndex].optionLabel.value);
+        let optionIndex = randomIndexes[i];
+        let option = data[optionIndex].optionLabel.value;
+        options.push(option);
     }
 }
 
