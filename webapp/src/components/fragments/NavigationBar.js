@@ -74,6 +74,7 @@ const NavigationBar = () => {
                     <MenuItem onClick={showHome}>Inicio</MenuItem>
                     <MenuItem onClick={showGameHistory}>Historial de Juegos</MenuItem>
                     <MenuItem onClick={showRanking}>Ranking</MenuItem>
+                    <MenuItem>Perfil</MenuItem>
                     <MenuItem onClick={showLogout}>Cerrar Sesión</MenuItem>
                 </Menu>
                 <Hidden smDown>
