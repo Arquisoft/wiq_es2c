@@ -106,6 +106,8 @@ const GameConfiguration = () => {
                     max: 60,
                 }}
             />
+            <Typography component="p" variant="p" align="center" sx={{ marginBottom: 2, fontWeight: 'bold' }}>
+                Selecciona las tematicas de la pregunta para poder jugar
             </Typography>
             <div>
                 <select onChange={handleOptionSelect}>
@@ -124,6 +126,7 @@ const GameConfiguration = () => {
             {error && (
                 <Snackbar open={!!error} autoHideDuration={6000} onClose={() => setError('')} message={`Error: ${error}`} />
             )}
+            </div>
         </Container>
 );
 };
