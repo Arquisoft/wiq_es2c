@@ -4,8 +4,8 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const Question = require('./question-model');
 const Game = require('./game-model');
-const { queries:textQueries, questions:textQuestions } = require('./text_questions');
-const { queries:imagesQueries, questions:imagesQuestions } = require('./image_questions');
+const { queries:textQueries } = require('./text_questions');
+const { queries:imagesQueries } = require('./image_questions');
 
 const generatorEndpoint = process.env.REACT_APP_API_ORIGIN_ENDPOINT || 'http://localhost:3000';
 
@@ -24,12 +24,11 @@ app.use((req, res, next) => {
     next();
 });
 
+// Consultas generales
+var generalQueries = getQueriesAndQuestions(textQueries, imagesQueries);
+
+// Consultas concretas
 var queries = [];
-queries = queries.concat(textQueries);
-queries = queries.concat(imagesQueries);
-var questions = [];
-questions = questions.concat(textQuestions);
-questions = questions.concat(imagesQuestions);
 
 var correctOption = "";
 var options = [];
@@ -48,12 +47,32 @@ var maxQuestions = 5;
 const mongoUri = process.env.MONGODB_URI || 'mongodb://localhost:27017/questiondb';
 mongoose.connect(mongoUri);
 
+function getQueriesAndQuestions(textData, imageData) {
+    let results = {};
+    for (var thematic in textData) {
+        results[thematic] = textData[thematic];
+    }
+    
+    for (var thematic in imageData) {
+        if (results[thematic]) {
+            results[thematic] = results[thematic].concat(imageData[thematic]);
+        } else {
+            results[thematic] = imageData[thematic];
+        }
+    }
+
+    return results;
+}
+
 app.get('/generateQuestion', async (req, res) => {
     try {
+        queries = [];
+        questions = [];
         if(numberOfQuestions == 0){
             gameId = null;
         }
         const user = req.query.user;
+        await getQueriesByThematic(req.query.thematic);
         await generarPregunta();
         numberOfQuestions++;
         if(numberOfQuestions>=maxQuestions){
@@ -92,6 +111,32 @@ var server = app.listen(port, () => {
   console.log(`Questions Generation Service listening at http://localhost:${port}`);
 });
 
+async function getQueriesByThematic(thematic) {
+    if(thematic == "Geografia") {
+        changeQueriesAndQuestions("Geografia");
+    } else if(thematic == "Cultura") {
+        changeQueriesAndQuestions("Cultura");
+    } else if(thematic == "Informatica") {
+        changeQueriesAndQuestions("Informatica");
+    } else if(thematic == "Personajes") {
+        changeQueriesAndQuestions("Personajes");
+    } else {
+        queries = getAllValues();
+    }
+}
+
+function changeQueriesAndQuestions(thematic) {
+    queries = generalQueries[thematic];
+}
+
+function getAllValues() {
+    let results = [];
+    for (var thematic in generalQueries) {
+        results = results.concat(generalQueries[thematic]);
+    }
+
+    return results;
+}
 
 
 async function generarPregunta() {
@@ -101,7 +146,7 @@ async function generarPregunta() {
         randomNumber = Math.floor(Math.random() * queries.length);
         var response = await axios.get(url, {
             params: {
-                query: queries[randomNumber],
+                query: queries[randomNumber][0],
                 format: 'json'
             },
             headers: {
@@ -110,7 +155,6 @@ async function generarPregunta() {
         });
 
         procesarDatos(response.data);
-
 
     } catch (error) {
         console.error('Error al realizar la solicitud:', error);
@@ -123,6 +167,9 @@ function procesarDatos(data) {
     options = [];
     var data = data.results.bindings;
     var randomIndexes = [];
+
+    // Mantenemos a los options que ya se han seleccionado para que no se repitan
+    var optionsSelected = [];
 
     // Obtenemos cuatro índices aleatorios sin repetición
     while (randomIndexes.length < 4) {
@@ -139,11 +186,13 @@ function procesarDatos(data) {
         // Comprobamos que tanto la opción como la pregunta no sean entidades de WikiData ni enlaces o que la pregunta ya 
         // venga en el array (estara vacia)
         if (!randomIndexes.includes(randomIndex) && (quest == ""
-            || (!(option.startsWith("Q") || option.startsWith("http"))
-                && !(quest.startsWith("Q") || quest.startsWith("http"))
-                )
-            )) {
+                || (!(option.startsWith("Q") || option.startsWith("http"))
+                    && !(quest.startsWith("Q") || quest.startsWith("http"))
+                    )
+                ) 
+            && !optionsSelected.includes(option)) {
             randomIndexes.push(randomIndex);
+            optionsSelected.push(option);
         }
     }
 
@@ -152,19 +201,20 @@ function procesarDatos(data) {
     correctOption = data[randomIndexes[correctIndex]].optionLabel.value;
 
     if(quest == "") {
-        question = questions[randomNumber];
+        question = queries[randomNumber][1];
         image = data[randomIndexes[correctIndex]].imageLabel.value;
     } else {
         image = "";
         questionValue = data[randomIndexes[correctIndex]].questionLabel.value;
-        question = questions[randomNumber] + questionValue + "?";
+        question = queries[randomNumber][1] + questionValue + "?";
     }
 
 
     // Varriamos las opciones, incluyendo la correcta
     for (let i = 0; i < 4; i++) {
-        var optionIndex = randomIndexes[i];
-        options.push(data[optionIndex].optionLabel.value);
+        let optionIndex = randomIndexes[i];
+        let option = data[optionIndex].optionLabel.value;
+        options.push(option);
     }
 }
 

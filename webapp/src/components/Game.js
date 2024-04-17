@@ -22,23 +22,19 @@ const Game = () => {
   const [answeredQuestions,setAnsweredQuestions] = useState(0);
   const [isTimeRunning, setIsTimeRunning] = useState(true);
 
-
-
-  // Comentario de prueba para el despliegue
-
   const location = useLocation();
 
   const MAX_TIME = location.state ? location.state.time : null;
   const MAX_PREGUNTAS = location.state ? location.state.question : null;
+  const THEMATIC = location.state ? location.state.thematic : null;
   const navigate = useNavigate();
-
-
 
   const getQuestion = useCallback(async () => {
     try {      
       const response = await axios.get(`${apiEndpoint}/generateQuestion`, {
         params: {
-          user: usernameGlobal
+          user: usernameGlobal,
+          thematic: THEMATIC
         }
       });
       setQuestion(response.data.responseQuestion);
@@ -167,7 +163,7 @@ const Game = () => {
           {question}
         </Typography>
         <div style={{ display: 'flex', justifyContent: 'center' }}>
-          {image !== null && image !== "" && <img src={image} alt="Imagen de la pregunta" width="40%" height="auto"/>}
+          {image !== null && image !== "" && <img src={image} alt="Imagen de la pregunta" width="60%" height="auto"/>}
         </div>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '10px', alignItems: 'center', marginTop: '20px' }}>
           {options.map((option, index) => (
