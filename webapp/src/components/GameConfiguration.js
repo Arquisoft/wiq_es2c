@@ -61,26 +61,27 @@ const GameConfiguration = () => {
     return (
         <Container component="main" maxWidth="xl"
                    sx={{
-                       marginTop: 10,
+                       marginTop: 25,
                        borderRadius: '10px',
                        display: 'flex',
                        flexDirection: 'column',
                        justifyContent: 'center',
                        alignItems: 'center',
                    }}>
-            <Typography component="h1" variant="h5" align="center" sx={{ marginBottom: 2, fontWeight: 'bold' }}>
-                Configuración de la partida
-            </Typography>
-            <TextField
-                name="questions"
-                margin="normal"
-                fullWidth
-                label="Número de preguntas"
-                onChange={handleChangeQuestions}
-                value={valueQuestion}
-                type="number"
-                step="1"
-                sx={{ width: '50vh', marginBottom: 2, backgroundColor: '#FFFFFF'}}
+            <div style={{display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}>
+                <Typography component="h1" variant="h5" align="center" sx={{ marginBottom: 2, fontWeight: 'bold' }}>
+                    Personaliza tu partida
+                </Typography>
+                <TextField
+                    name="questions"
+                    margin="normal"
+                    fullWidth
+                    label="Número de preguntas"
+                    onChange={handleChangeQuestions}
+                    value={valueQuestion}
+                    type="number"
+                    step="1"
+                    sx={{ marginBottom: 4, marginTop: 3, backgroundColor: '#FFFFFF'}}
 
                 inputProps={{
                     inputMode: 'numeric',
@@ -105,8 +106,6 @@ const GameConfiguration = () => {
                     max: 60,
                 }}
             />
-            <Typography component="p" variant="p" align="center" sx={{ marginBottom: 2, fontWeight: 'bold' }}>
-                Selecciona las tematicas de la pregunta para poder jugar
             </Typography>
             <div>
                 <select onChange={handleOptionSelect}>
@@ -126,7 +125,7 @@ const GameConfiguration = () => {
                 <Snackbar open={!!error} autoHideDuration={6000} onClose={() => setError('')} message={`Error: ${error}`} />
             )}
         </Container>
-    );
+);
 };
 
 export default GameConfiguration;
