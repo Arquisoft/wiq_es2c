@@ -190,7 +190,7 @@ function procesarDatos(data) {
                     && !(quest.startsWith("Q") || quest.startsWith("http"))
                     )
                 ) 
-            && !options.includes(option)) {
+            && !optionsSelected.includes(option)) {
             randomIndexes.push(randomIndex);
             optionsSelected.push(option);
         }

@@ -31,25 +31,8 @@ queries['Cultura'] =
         SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],es". }
       }
       LIMIT 100
-      `
-      ]
+      `, "¿Que monumento español es este?"]
   ];
-
-queries['Informatica'] = 
-  [
-    // pregunta = iamgen ordenador, opcion = nombre
-      [
-      `
-      SELECT ?option ?optionLabel ?imageLabel
-      WHERE {
-        ?option wdt:P31 wd:Q68.        
-        ?option wdt:P18 ?imageLabel.    
-        SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],es". }
-      }
-      LIMIT 100
-      `
-      ]
-  ]
 
 queries['Personajes'] = 
   [

@@ -162,7 +162,7 @@ const Game = () => {
           {question}
         </Typography>
         <div style={{ display: 'flex', justifyContent: 'center' }}>
-          {image !== null && image !== "" && <img src={image} alt="Imagen de la pregunta" width="40%" height="auto"/>}
+          {image !== null && image !== "" && <img src={image} alt="Imagen de la pregunta" width="80%" height="auto"/>}
         </div>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '10px', alignItems: 'center', marginTop: '20px' }}>
           {options.map((option, index) => (
