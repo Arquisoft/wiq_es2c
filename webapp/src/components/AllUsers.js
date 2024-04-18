@@ -1,8 +1,12 @@
 import axios from 'axios';
 import React, { useState, useEffect, useCallback } from 'react';
 import { Container, Typography, TableContainer, Table, TableHead, TableBody, TableRow, TableCell, Paper, Snackbar } from '@mui/material';
+import { useTranslation } from 'react-i18next';
 
 const AllUsers = () => {
+
+    const [t, i18n] = useTranslation("global");
+
 
     const apiEndpoint = process.env.REACT_APP_API_ENDPOINT || 'http://localhost:8000';
 
@@ -39,15 +43,15 @@ const AllUsers = () => {
             width: '100%', 
         }}>
         <Typography component="h1" variant="h5" align="center" sx={{ marginBottom: 2, fontWeight: 'bold' }}>
-            TODOS LOS USUARIOS
+            {t("textoAllUsers")}   
         </Typography>
         <TableContainer component={Paper} sx={{ maxWidth: '80%', marginBottom: 4 }}>
             <Table>
             <TableHead>
                 <TableRow>
-                    <TableCell align="center"><strong>Usuario</strong></TableCell>
-                    <TableCell align="center"><strong>Email</strong></TableCell>
-                    <TableCell align="center"><strong>Creado</strong></TableCell>
+                    <TableCell align="center"><strong>{t("usuario")}</strong></TableCell>
+                    <TableCell align="center"><strong>{t("email")}</strong></TableCell>
+                    <TableCell align="center"><strong>{t("creado")}</strong></TableCell>
                 </TableRow>
             </TableHead>
             <TableBody>
