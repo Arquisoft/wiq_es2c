@@ -5,8 +5,13 @@ import axios from 'axios';
 import { Container, Typography, TextField, Button, Snackbar } from '@mui/material';
 import { useUser } from './UserContext';
 import '../App.css';
+import { useTranslation } from 'react-i18next';
+
 
 const Login = () => {
+  
+  const [t, i18n] = useTranslation("global");
+
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
@@ -54,28 +59,30 @@ const Login = () => {
     setOpenSnackbar(false);
   };
 
+  
+
   return (
       <Container component="main" maxWidth="xl"
-                 sx={{
-                     marginTop: 4,
-                     borderRadius: '10px',
-                     display: 'flex',
-                     flexDirection: 'column',
-                     justifyContent: 'center',
-                     alignItems: 'center',
-                 }}>
+                sx={{
+                    marginTop: 4,
+                    borderRadius: '10px',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                }}>
           {loginSuccess ? (
               null
 
           ) : (
               <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
                   <Typography component="h1" variant="h5" align="center" sx={{ marginBottom: 2, fontWeight: 'bold' }}>
-                      Inicia sesión
+                    {t("login")}
                   </Typography>
                   <TextField
                       margin="normal"
                       fullWidth
-                      label="Usuario"
+                      label={t("usuario")}
                       value={username}
                       onChange={(e) => setUsername(e.target.value)}
                       sx={{ marginBottom: 4, backgroundColor: '#FFFFFF'}}
@@ -83,16 +90,16 @@ const Login = () => {
                   <TextField
                       margin="normal"
                       fullWidth
-                      label="Contraseña"
+                      label={t("password")}
                       type="password"
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}
                       sx={{ marginBottom: 4, backgroundColor: '#FFFFFF'}}
                   />
                   <Button variant="contained" color="primary" sx={{marginTop: 4,marginBottom: 4, backgroundColor: '#FCF5B8',  color: '#413C3C',  fontWeight: 'bold' }} onClick={loginUser}>
-                      Entra
+                    {t("botonLogin")}
                   </Button>
-                  <Snackbar open={openSnackbar} autoHideDuration={6000} onClose={handleCloseSnackbar} message="Inicio de sesión correcto" />
+                  <Snackbar open={openSnackbar} autoHideDuration={6000} onClose={handleCloseSnackbar} message={i18n.t('password')} />
                   {error && (
                       <Snackbar open={!!error} autoHideDuration={6000} onClose={() => setError('')} message={`Error: ${error}`} />
                   )}

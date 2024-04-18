@@ -6,6 +6,7 @@ import NewGameIcon from '@mui/icons-material/SportsEsports';
 import '../App.css';
 
 
+
 const PantallaInicio = () => {
 
     const [openSnackbar, setOpenSnackbar] = useState(false);
@@ -41,7 +42,7 @@ const PantallaInicio = () => {
                 alignItems: 'center'
             }}>
                 <Typography component="h1" variant="h6" align="center" sx={{ marginBottom: 4, fontWeight: 'bold' }}>
-                    ¡BIENVENIDO A WIQ  {usernameGlobal}!
+                    HOLA {usernameGlobal}!
                 </Typography>
 
                 <Button startIcon={<NewGameIcon />} variant="contained" color="primary" align="center" sx={{ marginTop: 4, backgroundColor: '#FCF5B8',  color: '#413C3C',  fontWeight: 'bold' }}
