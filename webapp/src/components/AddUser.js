@@ -53,8 +53,8 @@ const AddUser = () => {
                   name="username"
                   margin="normal"
                   fullWidth
-                  label="Usuario"
-                  value={t("usuario")}
+                  label={t("usuario")}
+                  value={username}
                   onChange={(e) => setUsername(e.target.value)}
                   sx={{ marginBottom: 4, backgroundColor: '#FFFFFF'}}
               />
@@ -62,8 +62,8 @@ const AddUser = () => {
                   name="email"
                   margin="normal"
                   fullWidth
-                  label="Email"
-                  value={t("email")}
+                  label={t("email")}
+                  value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   sx={{ marginBottom: 4, backgroundColor: '#FFFFFF'}}
               />
@@ -71,9 +71,9 @@ const AddUser = () => {
                   name="password"
                   margin="normal"
                   fullWidth
-                  label="Contraseña"
+                  label={t("password")}
                   type="password"
-                  value={t("password")}
+                  value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   sx={{ marginBottom: 4, backgroundColor: '#FFFFFF'}}
               />
