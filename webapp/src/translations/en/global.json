@@ -36,5 +36,15 @@
     "tematicaPersonajes": "Characters",
     "botonJugar": "PLAY",
     "textoTiempoRest": "Time left: ",
-    "mensajeLogin": "Successful login"
+    "textoTiempoRest2": " seconds", 
+    "mensajeLogin": "Successful login",
+    "textoAllUsers": "ALL USERS",
+    "textoAllQuestions": "ALL QUESTIONS",
+    "botonUsuarios": "USERS",
+    "botonPreguntas": "QUESTIONS",
+    "textoPregunta": "Question",
+    "textoRespuesta": "Answer",
+    "mensajeAddOk": "User added successfully",
+    "mensajeAddFail": "An user with that name has already registered",
+    "mensajeLogOut": "Closed session"
 }

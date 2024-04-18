@@ -5,9 +5,12 @@ import { AppBar, Toolbar, IconButton, Menu, MenuItem, Grid, Button, Hidden} from
 import Tooltip from '@mui/material/Tooltip';
 import { useUser } from '../UserContext';
 import MenuIcon from '@mui/icons-material/Menu';
+import { useTranslation } from 'react-i18next';
 
 
 const NavigationBar = () => {
+
+    const [t, i18n] = useTranslation("global");
 
     const [setError] = useState('');
     const { usernameGlobal, setUsernameGlobal } = useUser();
@@ -91,29 +94,29 @@ const NavigationBar = () => {
                 </Menu>
                 <Hidden smDown>
                 <Grid container justifyContent="flex-start">
-                    <Tooltip title="Inicio">
+                    <Tooltip title={t("toolInicio")}>
                     <Button variant="contained" color="inherit" style={{ background: 'white', border: 'none', padding: 0, marginRight: '10px' }} onClick={showHome}>
                         <img src={require('../images/home.png')} style={{ width: '50px', height: '50px' }} alt="Imagen home"/>
                     </Button>
                     </Tooltip>
-                    <Tooltip title="Histórico">
+                    <Tooltip title={t("toolHistorico")}>
                     <Button variant="contained" color="inherit" style={{ background: 'white', border: 'none', padding: 0, marginRight: '10px' }} onClick={showGameHistory}>
                         <img src={require('../images/iconHistory.png')} style={{ width: '50px', height: '50px' }} alt="Imagen historico"/>
                     </Button>
                     </Tooltip>
-                    <Tooltip title="Ranking">
+                    <Tooltip title={t("toolRanking")}>
                     <Button variant="contained" color="inherit" style={{ background: 'white', border: 'none', padding: 0, marginRight: '10px' }} onClick={showRanking}>
                         <img src={require('../images/iconRanking.png')} style={{ width: '50px', height: '50px' }} alt="Imagen ranking"/>
                     </Button>
                     </Tooltip>
                 </Grid>
                 <Grid container justifyContent="flex-end">
-                    <Tooltip title="Perfil">
+                    <Tooltip title={t("toolPerfil")}>
                     <Button variant="contained" color="inherit" style={{ background: 'white', border: 'none', padding: 0, width: '50px', marginRight: '10px' }} onClick={showPerfil}>
                         <img src={require('../images/iconUser.png')} style={{ width: '50px', height: '50px' }} alt="Imagen usuario"/>
                     </Button>
                     </Tooltip>
-                    <Tooltip title="Cerrar sesión">
+                    <Tooltip title={t("toolLogOut")}>
                     <Button variant="contained" color="inherit" style={{ background: 'white', border: 'none', padding: 0, marginRight: '10px' }} onClick={showLogout}>
                         <img src={require('../images/logout.png')} style={{ width: '50px', height: '50px' }} alt="Imagen logout"/>
                     </Button>

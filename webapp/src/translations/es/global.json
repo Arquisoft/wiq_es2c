@@ -36,6 +36,16 @@
     "tematicaPersonajes": "Personajes",
     "botonJugar": "JUGAR",
     "textoTiempoRest": "Tiempo restante: ", 
-    "mensajeLogin": "Inicio de sesión correcto"
+    "textoTiempoRest2": " segundos", 
+    "mensajeLogin": "Inicio de sesión correcto",
+    "textoAllUsers": "TODOS LOS USUARIOS",
+    "textoAllQuestions": "TODOS LOS USUARIOS",
+    "botonUsuarios": "USUARIOS",
+    "botonPreguntas": "PREGUNTAS",
+    "textoPregunta": "Pregunta",
+    "textoRespuesta": "Respuesta",
+    "mensajeAddOk": "Usuario añadido correctamente",
+    "mensajeAddFail": "Ya se ha registrado un usuario con ese nombre",
+    "mensajeLogOut": "Sesion cerrada"
 }
 
