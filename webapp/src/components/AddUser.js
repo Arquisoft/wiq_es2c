@@ -3,6 +3,8 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { Container, Typography, TextField, Button, Snackbar } from '@mui/material';
 import '../App.css';
+import { useTranslation } from 'react-i18next';
+
 
 const apiEndpoint = process.env.REACT_APP_API_ENDPOINT || 'http://localhost:8000';
 
@@ -13,6 +15,9 @@ const AddUser = () => {
   const [error, setError] = useState('');
   const [openSnackbar, setOpenSnackbar] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState('');
+
+  const [t, i18n] = useTranslation("global");
+
 
   const addUser = async () => {
     try {
@@ -25,62 +30,66 @@ const AddUser = () => {
       setSnackbarMessage("Ya se ha registrado un usuario con ese nombre");
     }
   };
-
+  
   const handleCloseSnackbar = () => {
     setOpenSnackbar(false);
   };
 
   return (
-<Container component="main" maxWidth="xl"
-            sx={{
-                marginTop: 4,
-                borderRadius: '10px',
-                display: 'flex',
-                flexDirection: 'column',
-                justifyContent: 'center',
-                alignItems: 'center',
-            }}>
-      <Typography component="h1" variant="h5" align="center" sx={{ marginBottom: 2, fontWeight: 'bold' }}>
-        REGÍSTRATE
-      </Typography>
-      <TextField
-        name="username"
-        margin="normal"
-        fullWidth
-        label="Usuario"
-        value={username}
-        onChange={(e) => setUsername(e.target.value)}
-        sx={{ width: '50vh', marginBottom: 2, backgroundColor: '#FFFFFF'}}
-      />
-      <TextField
-        name="email"
-        margin="normal"
-        fullWidth
-        label="Email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-        sx={{ width: '50vh', marginBottom: 2, backgroundColor: '#FFFFFF'}}
-      />
-      <TextField
-        name="password"
-        margin="normal"
-        fullWidth
-        label="Contraseña"
-        type="password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-        sx={{ width: '50vh', marginBottom: 2, backgroundColor: '#FFFFFF' }}
-      />
+      <Container component="main" maxWidth="xl"
+                sx={{
+                    marginTop: 4,
+                    borderRadius: '10px',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                }}>
+          <div style={{display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}>
+              <Typography component="h1" variant="h5" align="center" sx={{marginBottom: 2, fontWeight: 'bold'}}>
+                {t("registro")}
+              </Typography>
+              <TextField
+                  name="username"
+                  margin="normal"
+                  fullWidth
+                  label={t("usuario")}
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
+                  sx={{ marginBottom: 4, backgroundColor: '#FFFFFF'}}
+              />
+              <TextField
+                  name="email"
+                  margin="normal"
+                  fullWidth
+                  label={t("email")}
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  sx={{ marginBottom: 4, backgroundColor: '#FFFFFF'}}
+              />
+              <TextField
+                  name="password"
+                  margin="normal"
+                  fullWidth
+                  label={t("password")}
+                  type="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  sx={{ marginBottom: 4, backgroundColor: '#FFFFFF'}}
+              />
 
-      <Button variant="contained" color="primary" sx={{marginTop: 4,marginBottom: 4, backgroundColor: '#FCF5B8',  color: '#413C3C',  fontWeight: 'bold' }} onClick={addUser}>
-        REGÍSTRATE
-      </Button>
-      <Snackbar open={openSnackbar} autoHideDuration={6000} onClose={handleCloseSnackbar} message={snackbarMessage} />
-      {error && (
-        <Snackbar open={!!error} autoHideDuration={6000} onClose={() => setError('')} message={`Error: ${error}`} />
-      )}
-    </Container>
-  );
+              <Button variant="contained" color="primary" sx={{marginTop: 4,marginBottom: 4, backgroundColor: '#FCF5B8',  color: '#413C3C',  fontWeight: 'bold' }} onClick={addUser}>
+                {t("botonRegistro")}
+              </Button>
+              <Snackbar open={openSnackbar} autoHideDuration={6000} onClose={handleCloseSnackbar}
+                        message={snackbarMessage}/>
+              {error && (
+                  <Snackbar open={!!error} autoHideDuration={6000} onClose={() => setError('')}
+                            message={`Error: ${error}`}/>
+              )}
+          </div>
+      </Container>
+);
 };
 
 export default AddUser;

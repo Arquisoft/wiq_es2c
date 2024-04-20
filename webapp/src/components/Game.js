@@ -2,13 +2,17 @@ import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 import LinearProgress from '@mui/material/LinearProgress';
 import { Container, Typography, Button, Snackbar } from '@mui/material';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { useUser } from './UserContext';
 import '../App.css';
+import { useTranslation } from 'react-i18next';
 
 const apiEndpoint = process.env.REACT_APP_API_ENDPOINT || 'http://localhost:8000';
 
 const Game = () => {
+  
+  const [t, i18n] = useTranslation("global");
+
   const { usernameGlobal } = useUser();
   const [question, setQuestion] = useState('');
   const [image, setImage] = useState('');
@@ -22,16 +26,19 @@ const Game = () => {
   const [answeredQuestions,setAnsweredQuestions] = useState(0);
   const [isTimeRunning, setIsTimeRunning] = useState(true);
 
-  // Comentario de prueba para el despliegue
-  const MAX_TIME = 30;
-  const MAX_PREGUNTAS = 5;
+  const location = useLocation();
+
+  const MAX_TIME = location.state ? location.state.time : null;
+  const MAX_PREGUNTAS = location.state ? location.state.question : null;
+  const THEMATIC = location.state ? location.state.thematic : null;
   const navigate = useNavigate();
 
   const getQuestion = useCallback(async () => {
     try {      
       const response = await axios.get(`${apiEndpoint}/generateQuestion`, {
         params: {
-          user: usernameGlobal
+          user: usernameGlobal,
+          thematic: THEMATIC
         }
       });
       setQuestion(response.data.responseQuestion);
@@ -127,15 +134,16 @@ const Game = () => {
 
 
   return (
-    <Container component="main" maxWidth="xl"
-      sx={{
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'center',
-        alignItems: 'center',
-        height: '100vh', 
-        width: '100%', 
-      }}>
+    <Container component="main" maxWidth="xxl"
+            sx={{
+                backgroundColor: '#F3D3FA',
+                borderRadius: '10px',
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'center',
+                height: '100vh', 
+                width: '100%', 
+            }}>
       <Container component="section" maxWidth="xs">
         {question && (
           <>
@@ -143,7 +151,7 @@ const Game = () => {
               {answeredQuestions} / {MAX_PREGUNTAS}
             </Typography>
             <Typography variant="body1" sx={{ textAlign: 'center' }}>
-              Tiempo restante: {elapsedTime} segundos
+              {t("textoTiempoRest")} {elapsedTime} {t("textoTiempoRest2")}
             </Typography>
             <LinearProgress variant="determinate" value={(elapsedTime / MAX_TIME) * 100 } sx={ {
               width: '80%',
@@ -159,7 +167,7 @@ const Game = () => {
           {question}
         </Typography>
         <div style={{ display: 'flex', justifyContent: 'center' }}>
-          {image !== null && image !== "" && <img src={image} alt="Imagen de la pregunta" width="40%" height="auto"/>}
+          {image !== null && image !== "" && <img src={image} alt="Imagen de la pregunta" width="60%" height="auto"/>}
         </div>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '10px', alignItems: 'center', marginTop: '20px' }}>
           {options.map((option, index) => (
