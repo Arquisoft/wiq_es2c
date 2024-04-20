@@ -163,7 +163,7 @@ const Game = () => {
         </div>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '10px', alignItems: 'center', marginTop: '20px' }}>
           {options.map((option, index) => (
-            <Button key={index } style={{ 
+            <Button key={index} style={{ 
                 width: '100%',
                 height: '17vh',
                 backgroundColor: selectedOption === option ? (answerCorrect ? '#00C853' : '#FF1744') : '#FCF5B8',
