@@ -1,9 +1,15 @@
-import React from 'react';
+  import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
+import NavigationBar from './components/fragments/NavigationBar';
+import NavigationBar_Game from './components/fragments/NavigationBar_Game';
 import reportWebVitals from './reportWebVitals';
 import { UserProvider } from './components/UserContext';
+import { I18nextProvider } from 'react-i18next';
+import i18next from 'i18next';
+import global_es from "./translations/es/global.json";
+import global_en from "./translations/en/global.json";
 
 import {
   Route,
@@ -12,35 +18,56 @@ import {
 } from "react-router-dom";
 
 import PantallaInicio from './components/PantallaInicio';
+import PantallaInicioAdmin from './components/PantallaInicioAdmin';
 import Login from './components/Login';
 import AddUser from './components/AddUser';
 import Game from './components/Game';
 import Gamehistory from './components/Gamehistory';
+import Perfil from './components/Perfil';
+import AllUsers from './components/AllUsers';
+import AllQuestions from './components/AllQuestions';
 import Ranking from './components/Ranking';
-import EndGame from './components/EndGame';
-import Footer from './components/fragments/Footer';
-import NavigationBar from './components/fragments/NavigationBar';
+import GameConfiguration from './components/GameConfiguration';
+
+i18next.init( {
+  interpolation: { escapevalue: false},
+  lng:"es",
+  resources: {
+    es: {
+      global: global_es
+    },
+    en: {
+      global: global_en
+    }
+  }
+})
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
+    <I18nextProvider i18n={i18next}>
     <UserProvider>
       <Router>
-        <NavigationBar /> 
+        <NavigationBar />
+        <NavigationBar_Game/>
         <Routes>
           <Route path="/" element={<App/>}></Route>
           <Route path="/PantallaInicio" element={<PantallaInicio/>}></Route>
+          <Route path="/PantallaInicioAdmin" element={<PantallaInicioAdmin/>}></Route>
           <Route path="/Login" element={<Login />} /> 
           <Route path="/AddUser" element={<AddUser />} />
           <Route path="/App" element={<App />} />
           <Route path="/Game" element={<Game />} />
           <Route path="/Gamehistory" element={<Gamehistory />} />
+          <Route path="/Perfil" element={<Perfil />} />
+          <Route path="/AllUsers" element={<AllUsers />} />
+          <Route path="/AllQuestions" element={<AllQuestions />} />
           <Route path="/Ranking" element={<Ranking />} />
-          <Route path="/EndGame" element={<EndGame />} />
+          <Route path="/GameConfiguration" element={<GameConfiguration />} />
         </Routes>
-        <Footer /> 
       </Router>
     </UserProvider>
+    </I18nextProvider>
   </React.StrictMode>
 );
 

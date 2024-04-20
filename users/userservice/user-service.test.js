@@ -2,19 +2,16 @@ const request = require('supertest');
 const { MongoMemoryServer } = require('mongodb-memory-server');
 
 let mongoServer;
-let app;
-
-const newPassword = Math.floor(Math.random() * 10).toString(); // Genera una nueva contraseña aleatoria para evitar el Security Hostpot de SonarCloud en las pruebas
-
+let 
 const newUser = {
   username: 'testuser',
-  email: 'testuser@correo.com',
-  password: newPassword
+  email: 'testuser@gmail.com',
+  password: newString
 };
 
 const badNewUser = {
   username: 'testuser',
-  password: newPassword
+  password: newString
 };
 
 beforeAll(async () => {
@@ -33,7 +30,7 @@ describe('User Service', () => {
   it('should add a new user on POST /adduser', async () => {
     const response = await request(app).post('/adduser').send(newUser);
     expect(response.status).toBe(200);
-    expect(response.body).toHaveProperty('email', 'testuser@correo.com');
+    expect(response.body).toHaveProperty('email', 'testuser@gmail.com');
   });
 
   it('trying to add a new user on POST /adduser withouth an email', async () => {

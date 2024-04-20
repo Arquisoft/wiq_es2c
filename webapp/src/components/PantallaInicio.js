@@ -4,9 +4,14 @@ import { useUser } from './UserContext';
 import { useNavigate } from 'react-router-dom';
 import NewGameIcon from '@mui/icons-material/SportsEsports';
 import '../App.css';
+import { useTranslation } from 'react-i18next';
+
 
 
 const PantallaInicio = () => {
+
+    const [t, i18n] = useTranslation("global");
+
 
     const [openSnackbar, setOpenSnackbar] = useState(false);
     const [error, setError] = useState('');
@@ -16,16 +21,15 @@ const PantallaInicio = () => {
     const navigate = useNavigate();
 
     function nuevaPartida() {
-        navigate("/Game");
+        navigate("/GameConfiguration");
     }
 
     const handleCloseSnackbar = () => {
         setOpenSnackbar(false);
-    };
-
+    }; 
 
     return (
-        <Container component="main" maxWidth="xl"
+        <Container component="main" maxWidth="xxl"
             sx={{
                 display: 'flex',
                 flexDirection: 'column',
@@ -42,12 +46,12 @@ const PantallaInicio = () => {
                 alignItems: 'center'
             }}>
                 <Typography component="h1" variant="h6" align="center" sx={{ marginBottom: 4, fontWeight: 'bold' }}>
-                    ¡BIENVENIDO A WIQ  {usernameGlobal}!
+                    {t("textoInicio")} {usernameGlobal}!
                 </Typography>
 
                 <Button startIcon={<NewGameIcon />} variant="contained" color="primary" align="center" sx={{ marginTop: 4, backgroundColor: '#FCF5B8',  color: '#413C3C',  fontWeight: 'bold' }}
                     onClick={nuevaPartida}>
-                    NUEVA PARTIDA
+                    {t("botonPartida")}
                 </Button>
             </Box>
             <Snackbar open={openSnackbar} autoHideDuration={6000} onClose={handleCloseSnackbar} message="Sesion cerrada" />

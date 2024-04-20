@@ -142,3 +142,274 @@ paths:
                     type: string
                     description: Error information.
                     example: Internal Server Error
+  /generateQuestion:
+    get:
+      summary: Generate a question.
+      operationId: generateQuestion
+      responses:
+        '200':
+          description: Generation successful. Returns the question, the options, the correct option, the image (if neccessary) and the question id
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  responseQuestion:
+                    type: string
+                    description: Question.
+                    example: ¿Cual es la capital de España?
+                  responseOptions:
+                    type: array
+                    description: Options of the question.
+                    example: [Barcelona, Madrid, Oviedo, Valladolid]
+                  responseCorrectOption:
+                    type: string
+                    description: Correct option.
+                    example: Madrid
+                  responseImage:
+                    type: URL
+                    description: URL of the image of the question if neccessary.
+                    example: https://upload.wikimedia.org/wikipedia/commons/thumb/6/68/Joe_Biden_presidential_portrait.jpg/220px-Joe_Biden_presidential_portrait.jpg
+        '400':
+          description: Error during the question generator.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Shows the error info.
+                    example: numberOfQuestions is not defined
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Error information.
+                    example: Internal Server Error
+  /updateQuestion:
+    get:
+      summary: Update a question.
+      operationId: updateQuestion
+      parameters:
+        time:
+          in: query
+          description: Time of the question.
+          example: 10
+          required: true
+          schema:
+            type: string
+        correct:
+          in: query
+          description: If the question was answered correctly.
+          example: true
+          required: true
+          schema:
+            type: boolean
+      responses:
+        '200':
+          description: Update successful. Returns a message ans the updated question
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: A message indicating the operation was succesful.
+                    example: Tiempo de pregunta actualizado exitosamente
+                  updatedQuestion:
+                    type: object
+                    description: The question updated.
+                    example: {enunciado: ¿Cual es la capital de España?, respuesta_correcta: Madrid, respuesta_falsa1: Barcelona, respuesta_falsa2: Oviedo, respuesta_falsa3: Valladolid, 
+                      time: 10, correct: true}
+        '404':
+          description: Cannot find the question.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Shows the error info.
+                    example: La pregunta no fue encontrada
+        '400':
+          description: Error when update the question
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Shows the error info.
+                    example: Cannot read property 'time' of undefined
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Error information.
+                    example: Internal Server Error
+  /saveGameHistory:
+  post:
+    summary: Save the game history.
+    operationId: saveGameHistory
+    responses:
+      '200':
+        description: Succesful saving the game history
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                success:
+                  type: boolean
+                  description: Indicates if the operation has been succesful.
+                  example: true
+      '400':
+        description: Error when saving the game history
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                error:
+                  type: string
+                  description: Shows the error info.
+                  example: Error al guardar el historial del juego
+      '500':
+        description: Internal server error.
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                error:
+                  type: string
+                  description: Error information.
+                  example: Internal Server Error
+  /configureGame:
+    post:
+      summary: Configure the game.
+      operationId: configureGame
+      responses:
+        '200':
+          description: Succesful configure the game number of questions
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  maxQuestions:
+                    type: int
+                    description: The new number of questions of the question.
+                    example: 10
+        '400':
+          description: Error when configuring the game
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Shows the error info.
+                    example: Cannot read property 'valueQuestion' of undefined
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Error information.
+                    example: Internal Server Error
+  /gamehistory:
+    get:
+      summary: Charge the game history.
+      operationId: gamehistory
+      parameters:
+        username:
+          in: query
+          description: User which game history we want to recover.
+          example: Pepito
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Succesful charge the game history
+        '400':
+          description: Error when charging the game history
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Error information.
+                    example: Internal Server Error
+  /topUsers:
+    get:
+      summary: Charge the top users.
+      operationId: topUsers
+      responses:
+        '200':
+          description: Succesful charge the top users
+        '400':
+          description: Error when charging the top users
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Error information.
+                    example: Internal Server Error
+  /endgamestats:
+    get:
+      summary: Charge the end game statistics.
+      operationId: endgamestats
+      parameters:
+        username:
+          in: query
+          description: User which game statistics we want to charge.
+          example: Pepito
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Succesful charge the end game statitics
+        '400':
+          description: Error when charging the end game statistics
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Error information.
+                    example: Internal Server Error
