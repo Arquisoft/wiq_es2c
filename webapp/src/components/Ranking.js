@@ -1,6 +1,21 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
-import { Container, Box, Typography, Grid} from '@mui/material';
+import {
+  Container,
+  Box,
+  Typography,
+  Grid,
+  Select,
+  MenuItem,
+  FormControl,
+  InputLabel,
+  TextField,
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableRow,
+} from '@mui/material';
 import { useUser } from './UserContext';
 import '../App.css';
 import { useTranslation } from 'react-i18next';
@@ -14,6 +29,9 @@ const Ranking = () => {
   const { usernameGlobal } = useUser();
   const [ranking, setRanking] = useState('');
   const [error, setError] = useState('');
+  const [rankingTable, setRankingTable] = useState([]);
+  const [sortBy, setSortBy] = useState('ratio');
+  const [userLimit, setUserLimit] = useState(10);
 
   const getRanking = useCallback(async () => {
     try {
@@ -24,8 +42,24 @@ const Ranking = () => {
     }
   }, [usernameGlobal])
 
+  const getRankingGlobal = useCallback(async () => {
+    try {
+      const response = await axios.get(
+        `${apiEndpoint}/ranking`, {
+        params: {
+          sortBy: sortBy,
+          userLimit: userLimit
+        }
+      });
+      setRankingTable(response.data);
+    } catch (error) {
+      setError(error.response.data.error);
+    }
+  }, [sortBy, userLimit]);
+
   useEffect(() => {
     getRanking();
+    getRankingGlobal();
   }, [getRanking]);
 
   return (
@@ -71,6 +105,76 @@ const Ranking = () => {
         </Grid>
       </Grid>
     </Box>
+
+    <Box
+        sx={{
+          marginTop: '16px',
+          width: '80%',
+          maxWidth: 1200,
+          borderRadius: 8,
+          padding: 3,
+          bgcolor: '#fff',
+          border: '1px solid #ddd',
+        }}
+      >
+        <Grid container spacing={2} alignItems="center">
+          <Grid item xs={12} md={6}>
+            <FormControl fullWidth>
+              <InputLabel>Ordenar por</InputLabel>
+              <Select
+                value={sortBy}
+                onChange={(e) => setSortBy(e.target.value)}
+              >
+                <MenuItem value="ratio">Ratio</MenuItem>
+                <MenuItem value="totalRightQuestions">Aciertos</MenuItem>
+                <MenuItem value="totalQuestionsAnswered">Preguntas respondidas</MenuItem>
+                <MenuItem value="totalGamesPlayed">Partidas jugadas</MenuItem>
+                <MenuItem value="totalTime">Tiempo jugado</MenuItem>
+              </Select>
+            </FormControl>
+          </Grid>
+          <Grid item xs={12} md={6}>
+            <FormControl fullWidth>
+              <TextField
+                label="Número de usuarios"
+                tipo="number"
+                value={userLimit}
+                onChange={(e) => setUserLimit(parseInt(e.target.value))}
+                inputProps={{ min: 1, max: 10 }}
+              />
+            </FormControl>
+          </Grid>
+        </Grid>
+
+        <Table>
+          <TableHead>
+            <TableRow>
+              <TableCell>Usuario</TableCell>
+              <TableCell>
+                {sortBy === "ratio" ? "Ratio" :
+                 sortBy === "totalQuestionsAnswered" ? "Preguntas respondidas" :
+                 sortBy === "totalRightQuestions" ? "Aciertos" :
+                 sortBy === "totalGamesPlayed" ? "Partidas jugadas" :
+                 sortBy === "totalTime" ? "Tiempo total" : ""}
+              </TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {rankingTable.map((user, index) => (
+              <TableRow key={index}>
+                <TableCell>{user.userId}</TableCell>
+                <TableCell>
+                  {sortBy === "ratio" ? user.ratio :
+                   sortBy === "totalQuestionsAnswered" ? user.totalQuestionsAnswered :
+                   sortBy === "totalRightQuestions" ? user.totalRightQuestions :
+                   sortBy === "totalGamesPlayed" ? user.totalGamesPlayed :
+                   sortBy === "totalTime" ? user.totalTime : ""}
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </Box>
   </Container> 
   );
 };
