@@ -5,7 +5,10 @@ import { UserProvider } from './UserContext';
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 import GameHistory from './Gamehistory';
+import { I18nextProvider } from "react-i18next";
+import i18n from "../translations/i18n";
 
+i18n.changeLanguage("es");
 const mockAxios = new MockAdapter(axios);
 
 describe('Game history', () => {
@@ -24,20 +27,22 @@ describe('Game history', () => {
           ratio: "60 %",
           totalTime: "10 s"});
 
-    render(<UserProvider>
-      <Router>
-        <GameHistory/>
-      </Router>
-    </UserProvider>);
+    render(<I18nextProvider i18n={i18n}>
+        <UserProvider>
+          <Router>
+            <GameHistory/>
+          </Router>
+        </UserProvider>
+      </I18nextProvider>);
 
     await waitFor(() => {
         expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent('MIS ESTADÍSTICAS');
 
-        expect(screen.getByText('Partidas Jugadas')).toBeInTheDocument();
+        expect(screen.getByText('Partidas jugadas')).toBeInTheDocument();
         expect(screen.getByText('Preguntas respondidas')).toBeInTheDocument();
         expect(screen.getByText('Aciertos')).toBeInTheDocument();
         expect(screen.getByText('Fallos')).toBeInTheDocument();
-        expect(screen.getByText('Ratio de Acierto')).toBeInTheDocument();
+        expect(screen.getByText('Ratio de acierto')).toBeInTheDocument();
         expect(screen.getByText('Tiempo jugado')).toBeInTheDocument();
 
         expect(screen.getByText('1')).toBeInTheDocument();

@@ -16,5 +16,8 @@ COPY . .
 # Expose the port the app runs on
 EXPOSE 8006
 
+ARG API_ORIGIN_URI="http://localhost:3000"
+ENV REACT_APP_API_ORIGIN_ENDPOINT=$API_ORIGIN_URI
+
 # Define the command to run your app
 CMD ["node", "allusers-api.js"]

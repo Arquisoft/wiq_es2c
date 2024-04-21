@@ -19,6 +19,9 @@ jobs:
     - run: npm --prefix webapp ci
     - run: npm --prefix questiongenerator ci
     - run: npm --prefix gamehistoryservice ci
+    - run: npm --prefix apis/allquestionservice ci
+    - run: npm --prefix apis/alluserservice ci
+    - run: npm --prefix perfilservice ci
     - run: npm --prefix users/authservice test -- --coverage
     - run: npm --prefix users/userservice test -- --coverage
     - run: npm --prefix gatewayservice test -- --coverage
