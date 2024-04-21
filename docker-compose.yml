@@ -10,11 +10,6 @@ services:
       - "27017:27017"
     networks:
       - mynetwork
-    environment:
-      MONGO_INITDB_ROOT_USERNAME: "ASWUSer"
-      MONGO_INITDB_ROOT_PASSWORD: "b4g4824QxMiH4Yq"
-      MONGO_INITDB_ROOT_AUTHENTICATION_DATABASE: "admin"
-    command: ["--auth"]
 
   authservice:
     container_name: authservice-${teamname:-defaultASW}
