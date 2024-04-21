@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate} from 'react-router-dom';
-import { Container, Typography, TextField, Button, Snackbar, skeletonClasses } from '@mui/material';
+import { Container, Typography, TextField, Button, Snackbar } from '@mui/material';
 import '../App.css';
 import { useTranslation } from 'react-i18next';
 
@@ -10,7 +10,7 @@ const apiEndpoint = process.env.REACT_APP_API_ENDPOINT || 'http://localhost:8000
 
 const GameConfiguration = () => {
 
-    const [t, i18n] = useTranslation("global");
+    const [t] = useTranslation("global");
 
     const navigate = useNavigate();
     const [openSnackbar, setOpenSnackbar] = useState(false);
@@ -53,6 +53,7 @@ const GameConfiguration = () => {
             navigate("/Game", {state: {time: valueTime, question:valueQuestion, thematic:selectedOption}});
         } catch (error) {
             setError(error.response.data.error);
+            setSnackbarMessage(error);
             setOpenSnackbar(true);
         }
     };

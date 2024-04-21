@@ -10,7 +10,7 @@ import { useTranslation } from 'react-i18next';
 
 const Login = () => {
   
-  const [t, i18n] = useTranslation("");
+  const [t] = useTranslation("");
 
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');

@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next';
 
 const PantallaInicio = () => {
 
-    const [t, i18n] = useTranslation("global");
+    const [t] = useTranslation("global");
 
 
     const [openSnackbar, setOpenSnackbar] = useState(false);

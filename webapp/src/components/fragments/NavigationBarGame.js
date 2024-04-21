@@ -1,6 +1,6 @@
 import React, {useCallback, useState} from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { AppBar, Toolbar, IconButton, Menu, MenuItem, Grid, Button, Hidden} from '@mui/material';
+import { AppBar, Toolbar, IconButton, Menu, MenuItem, Grid, Button, Hidden, Snackbar} from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import axios from 'axios';
 import Tooltip from '@mui/material/Tooltip';
@@ -9,7 +9,7 @@ import { useTranslation } from 'react-i18next';
 const apiEndpoint = process.env.REACT_APP_API_ENDPOINT || 'http://localhost:8000';
 const NavigationBar_Game = () => {
 
-    const [t, i18n] = useTranslation("global");
+    const [t] = useTranslation("global");
 
     const [error, setError] = useState('');
     const navigate = useNavigate();
@@ -29,7 +29,6 @@ const NavigationBar_Game = () => {
         setAnchorEl(null);
     };
 
-
     const showHome = useCallback(async () => {
         try {
             axios.get(`${apiEndpoint}/restartGame`);
@@ -38,7 +37,7 @@ const NavigationBar_Game = () => {
             console.log("Error: " + error.response.data.error);
             setError(error.response.data.error);
         }
-    })
+    }, [navigate]);
 
     if (isHiddenRoute) {
         return null; // Si no estás en / o /App, no muestra la barra de navegación
@@ -75,6 +74,11 @@ const NavigationBar_Game = () => {
                     </Grid>
                 </Hidden>
             </Toolbar>
+            <div>
+                {error && (
+                    <Snackbar open={!!error} autoHideDuration={6000} onClose={() => setError('')} message={`Error: ${error}`} />
+                )}
+            </div>
         </AppBar>
     );
 };
