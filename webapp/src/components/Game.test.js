@@ -1,6 +1,6 @@
 import React from 'react';
 import { render, fireEvent, screen, waitFor, act } from '@testing-library/react';
-import { BrowserRouter as Router } from 'react-router-dom';
+import { MemoryRouter as Router } from 'react-router-dom';
 import { UserProvider } from './UserContext';
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
@@ -12,6 +12,11 @@ i18n.changeLanguage("es");
 const mockAxios = new MockAdapter(axios);
 jest.useFakeTimers(); // Para simular el paso del tiempo
 
+// Simulamos la configuración del juego
+const MAX_TIME = 30;
+const MAX_PREGUNTAS = 5;
+const THEMATIC = 'Geografia';
+
 describe('Start game', () => {
   beforeEach(() => {
     mockAxios.reset();
@@ -19,16 +24,6 @@ describe('Start game', () => {
 
   it('play', async () => {
     // Mockeamos la petición al generador de preguntas y la respuesta
-    const locationState = {
-      time: 30,
-      question: 5,
-      thematic: 'Geografia',
-    };
-
-    const location = {
-      state: locationState,
-    };
-
     const responseOptionsResult = ["Madrid", "Barcelona", "Oviedo", "Valladolid"];
     const updatedQuestion = {
       _id: '660434f228670016dfcac277',
@@ -53,8 +48,8 @@ describe('Start game', () => {
 
     render(<I18nextProvider i18n={i18n}>
         <UserProvider>
-          <Router>
-            <Game location={location}/>
+          <Router initialEntries={[{ state: { time: MAX_TIME, question: MAX_PREGUNTAS, thematic: THEMATIC } }]}>
+            <Game />
           </Router>
         </UserProvider>
       </I18nextProvider>);
@@ -68,7 +63,7 @@ describe('Start game', () => {
         const question = screen.getByText("¿Cual es la capital de España?");
         expect(question).toBeInTheDocument();
 
-        const timer = screen.getByText("Tiempo restante: ");
+        const timer = screen.getByText("Tiempo restante: 30 segundos");
         expect(timer).toBeInTheDocument();
 
         const timerBar = screen.getByRole("progressbar");
@@ -107,7 +102,6 @@ describe('Start game', () => {
     });
   });
 
-  /*
   it('error', async () => {
     const updatedQuestion = {
       _id: '660434f228670016dfcac277',
@@ -125,15 +119,16 @@ describe('Start game', () => {
         { message: "Tiempo de pregunta actualizado exitosamente", 
         updatedQuestion });
 
-    render(<UserProvider>
-      <Router>
-        <Game/>
-      </Router>
-    </UserProvider>);
+    render(<I18nextProvider i18n={i18n}>
+      <UserProvider>
+        <Router initialEntries={[{ state: { time: MAX_TIME, question: MAX_PREGUNTAS, thematic: THEMATIC } }]}>
+          <Game />
+        </Router>
+      </UserProvider>
+    </I18nextProvider>);
 
     await waitFor(() => {
       expect(screen.getByText('Error: Error al generar la pregunta')).toBeInTheDocument();
     });
   });
-  */
 });

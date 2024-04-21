@@ -16,7 +16,7 @@ const AddUser = () => {
   const [openSnackbar, setOpenSnackbar] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState('');
 
-  const [t, i18n] = useTranslation("global");
+  const [t, i18n] = useTranslation("");
 
 
   const addUser = async () => {

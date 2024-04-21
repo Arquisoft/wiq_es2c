@@ -23,7 +23,7 @@ const theme = createTheme({
 
 function App() {
 
-  const [t, i18n] = useTranslation("global");
+  const [t, i18n] = useTranslation("");
   
   const [showLogin, setShowLogin] = useState(true);
 
