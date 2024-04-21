@@ -9,7 +9,7 @@ const apiEndpoint = process.env.REACT_APP_API_ENDPOINT || 'http://localhost:8000
 
 const Gamehistory = () => {
 
-  const [t] = useTranslation("");
+  const [t] = useTranslation("global");
 
   const { usernameGlobal } = useUser();
   const [gamehistory, setGameHistory] = useState('');

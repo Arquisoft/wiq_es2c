@@ -20,10 +20,10 @@ i18n
     },
     resources: {
         en: {
-            translation: eng,
+            global: eng,
         },
         es: {
-            translation: esp,
+            global: esp,
         }
     }
     });
