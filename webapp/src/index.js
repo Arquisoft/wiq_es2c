@@ -22,6 +22,7 @@ import PantallaInicioAdmin from './components/PantallaInicioAdmin';
 import Login from './components/Login';
 import AddUser from './components/AddUser';
 import Game from './components/Game';
+import EndGame from './components/EndGame';
 import Gamehistory from './components/Gamehistory';
 import Perfil from './components/Perfil';
 import AllUsers from './components/AllUsers';
@@ -58,6 +59,7 @@ root.render(
           <Route path="/AddUser" element={<AddUser />} />
           <Route path="/App" element={<App />} />
           <Route path="/Game" element={<Game />} />
+          <Route path="/EndGame" element={<EndGame />} />
           <Route path="/Gamehistory" element={<Gamehistory />} />
           <Route path="/Perfil" element={<Perfil />} />
           <Route path="/AllUsers" element={<AllUsers />} />
