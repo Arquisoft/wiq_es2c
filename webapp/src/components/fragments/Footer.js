@@ -14,7 +14,7 @@ const Footer = () => {
                 textAlign: 'center'
             }}
         >
-            <Typography variant="body1" fontWeight="bold">&copy; {new Date().getFullYear()} ASW - WIQ_ES5B</Typography> 
+            <Typography variant="body1" fontWeight="bold">&copy; {new Date().getFullYear()} ASW - WIQ_ES2C</Typography>
         </Box>
     );
 }
