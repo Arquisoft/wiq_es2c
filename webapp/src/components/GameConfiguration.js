@@ -85,7 +85,7 @@ const GameConfiguration = () => {
                     value={valueQuestion}
                     type="number"
                     step="1"
-                    sx={{ marginBottom: 4, marginTop: 3, backgroundColor: '#FFFFFF'}}
+                    sx={{  width: '50vh', marginBottom: 4, marginTop: 3, backgroundColor: '#FFFFFF'}}
 
                 inputProps={{
                     inputMode: 'numeric',
@@ -113,7 +113,7 @@ const GameConfiguration = () => {
             <Typography component="p" variant="p" align="center" sx={{ marginBottom: 2, fontWeight: 'bold' }}>
                 {t("textoTematicas")}
             </Typography>
-            <FormControl fullWidth>
+            <FormControl fullWidth sx={{ width: '50vh', marginBottom: 2, backgroundColor: '#FFFFFF'}}> 
                 <InputLabel>Temáticas</InputLabel>
                 <Select
                     defaultValue="Todas"

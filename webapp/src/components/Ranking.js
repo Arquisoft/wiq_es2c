@@ -63,28 +63,25 @@ const Ranking = () => {
   }, [getRanking]);
 
   return (
-    <Container
-      component="main"
-      maxWidth="xl"
+    <Container component="main" maxWidth="xl"
       sx={{
         display: 'flex',
-        flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
         height: '100vh',
         width: '100%',
       }}
     >
-      <Grid container spacing={2} alignItems="center" justifyContent="center" sx={{ width: '100%' }}>
-        {/* Columnas con tamaños proporcionales */}
-        <Grid item xs={12} md={4}> {/* 40% para el Top */}
+      <Grid container xs={12} spacing={4} alignItems="center" justifyContent="center">
+        {/* Left Column: Top 3 */}
+        <Grid item xs={12} md={8}>
           <Box border={2} borderColor="black" p={3} borderRadius={8} bgcolor="#9A77B0" width="100%" height="auto">
-            <Typography variant="h5" align="center" gutterBottom style={{ color: 'white', fontWeight: 'bold', marginBottom: '16px' }}>
+            <Typography variant="h5" align="center" style={{ color: 'white', fontWeight: 'bold', marginBottom: '16px' }}>
               {t("textoTop")}
             </Typography>
+            {/* Top 3 content */}
             <Grid container spacing={2} justifyContent="center">
-              {/* Top 1 */}
-              <Grid item xs={12} md={12} textAlign="center">
+              <Grid item xs={12} md={4} textAlign="center">
                 {ranking && (
                   <Box>
                     <img src={require('./images/medalla-de-oro.png')} alt="Primero" style={{ width: '80%', maxWidth: '160px', marginBottom: '8px' }} />
@@ -92,9 +89,8 @@ const Ranking = () => {
                   </Box>
                 )}
               </Grid>
-              {/* Top 2 y 3 */}
               <Grid item container xs={12} spacing={2} justifyContent="center">
-                <Grid item xs={12} sm={6} md={6} textAlign="center">
+                <Grid item xs={12} sm={6} md={4} textAlign="center">
                   {ranking && (
                     <Box>
                       <img src={require('./images/medalla-de-plata.png')} alt="Segundo" style={{ width: '70%', maxWidth: '120px', marginBottom: '6px' }} />
@@ -102,7 +98,7 @@ const Ranking = () => {
                     </Box>
                   )}
                 </Grid>
-                <Grid item xs={12} sm={6} md={6} textAlign="center">
+                <Grid item xs={12} sm={6} md={4} textAlign="center">
                   {ranking && (
                     <Box>
                       <img src={require('./images/medalla-de-bronce.png')} alt="Tercero" style={{ width: '70%', maxWidth: '120px', marginBottom: '6px' }} />
@@ -115,8 +111,8 @@ const Ranking = () => {
           </Box>
         </Grid>
 
-        {/* Tabla de clasificación */}
-        <Grid item xs={12} md={8}> {/* 60% para la tabla */}
+        {/* Right Column: User Ranking Table */}
+        <Grid item xs={12} md={8}> {/* Ajustar el tamaño para que tenga más espacio */}
           <Box
             sx={{
               borderRadius: 8,
@@ -132,8 +128,9 @@ const Ranking = () => {
                   <Select
                     value={sortBy}
                     onChange={(e) => setSortBy(e.target.value)}
+                    sx
                   >
-                    <MenuItem value="ratio">Ratio</MenuItem
+                    <MenuItem value="ratio">Ratio</MenuItem>
                     <MenuItem value="totalRightQuestions">Aciertos</MenuItem>
                     <MenuItem value="totalQuestionsAnswered">Preguntas respondidas</MenuItem>
                     <MenuItem value="totalGamesPlayed">Partidas jugadas</MenuItem>
@@ -146,16 +143,10 @@ const Ranking = () => {
                   <TextField
                     name="Número de usuarios"
                     onChange={(e) => setUserLimit(parseInt(e.target.value))}
-                    value=userLimit
+                    value={userLimit}
                     type="number"
                     step="1"
-                    sx={{ marginBottom: 4, marginTop: 3, backgroundColor: '#FFFFFF'}}
-                    inputProps={{
-                      inputMode: 'numeric',
-                      pattern: '[0-9]*',
-                      min: 1,
-                      max: 10,
-                    }}
+                    sx
                   />
                 </FormControl>
               </Grid>
@@ -164,7 +155,7 @@ const Ranking = () => {
             <Table>
               <TableHead>
                 <TableRow>
-                  <TableCell><strong>Posición</strong></TableCell> {/* Número de ranking */}
+                  <TableCell><strong>Posición</strong></TableCell>
                   <TableCell><strong>Usuario</strong></TableCell>
                   <TableCell>
                     <strong>
@@ -200,17 +191,16 @@ const Ranking = () => {
                         : sortBy === "totalTime"
                         ? user.totalTime
                         : ""}
-                  </TableCell>
+                    </TableCell>
+                  </TableRow>
                 ))}
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </Box>
-    </Grid>
-  </Grid>
-</Container>
-);
+              </TableBody>
+            </Table>
+          </Box>
+        </Grid>
+      </Grid>
+    </Container>
+  );
 };
 
 export default Ranking;
