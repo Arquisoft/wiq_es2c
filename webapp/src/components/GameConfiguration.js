@@ -80,13 +80,12 @@ const GameConfiguration = () => {
                 <TextField
                     name="questions"
                     margin="normal"
-                    fullWidth
                     label={t("textoNumPreg")}
                     onChange={handleChangeQuestions}
                     value={valueQuestion}
                     type="number"
                     step="1"
-                    sx={{ marginBottom: 4, marginTop: 3, backgroundColor: '#FFFFFF'}}
+                    sx={{ width: '40vh',marginBottom: 4, marginTop: 3, backgroundColor: '#FFFFFF'}}
 
                 inputProps={{
                     inputMode: 'numeric',
@@ -104,7 +103,7 @@ const GameConfiguration = () => {
                 value={valueTime}
                 type="number"
                 step="1"
-                sx={{ width: '50vh', marginBottom: 2, backgroundColor: '#FFFFFF'}}
+                sx={{ width: '40vh', marginBottom: 2, backgroundColor: '#FFFFFF'}}
                 inputProps={{
                     inputMode: 'numeric',
                     min: 10,
