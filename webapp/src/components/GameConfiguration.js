@@ -75,13 +75,12 @@ const GameConfiguration = () => {
                 <TextField
                     name="questions"
                     margin="normal"
-                    fullWidth
                     label="Número de preguntas"
                     onChange={handleChangeQuestions}
                     value={valueQuestion}
                     type="number"
                     step="1"
-                    sx={{ marginBottom: 4, marginTop: 3, backgroundColor: '#FFFFFF'}}
+                    sx={{ width: '40vw', marginBottom: 2, backgroundColor: '#FFFFFF'}}
 
                 inputProps={{
                     inputMode: 'numeric',
@@ -93,13 +92,12 @@ const GameConfiguration = () => {
             <TextField
                 name="time"
                 margin="normal"
-                fullWidth
-                label="Tiempo disponible por pregunta"
+                label="Tiempo por pregunta"
                 onChange={handleChangeTime}
                 value={valueTime}
                 type="number"
                 step="1"
-                sx={{ width: '50vh', marginBottom: 2, backgroundColor: '#FFFFFF'}}
+                sx={{ width: '40vw', marginBottom: 2, backgroundColor: '#FFFFFF'}}
                 inputProps={{
                     inputMode: 'numeric',
                     min: 10,
