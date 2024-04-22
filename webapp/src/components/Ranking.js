@@ -58,16 +58,10 @@ const Ranking = () => {
   }, [sortBy, userLimit]);
 
   const handleLimit = (event) => {
-    alert("valor")
-    alert(event.target.value)
     let inputValue = parseInt(event.target.value);
-    alert(inputValue)
     if (!isNaN(inputValue) && inputValue >= 0) {
-        console.log("valor")
-        console.log(inputValue)
         inputValue = Math.min(inputValue, 20);
         setUserLimit(inputValue);
-        console.log(userLimit);
         getRankingGlobal();
     }
   };

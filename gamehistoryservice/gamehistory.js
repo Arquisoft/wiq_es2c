@@ -204,6 +204,7 @@ async function getEndGameStats(userId) {
 app.get('/ranking', async (req, res) => {
     try {
         const sortBy = req.query.sortBy || 'ratio'; // Campo por el cual ordenar
+        console.log(sortBy)
         const limit = req.query.userLimit || 10; // Número de usuarios a devolver
         console.log("*********")
         console.log(req.query.userLimit)
