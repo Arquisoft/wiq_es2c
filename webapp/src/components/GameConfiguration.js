@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate} from 'react-router-dom';
-import { Container, Typography, TextField, Button, Snackbar, skeletonClasses } from '@mui/material';
+import { Container, Typography, TextField, Button, Snackbar, skeletonClasses, FormControl, InputLabel, Select, MenuItem} from '@mui/material';
 import '../App.css';
 import { useTranslation } from 'react-i18next';
 
@@ -113,15 +113,19 @@ const GameConfiguration = () => {
             <Typography component="p" variant="p" align="center" sx={{ marginBottom: 2, fontWeight: 'bold' }}>
                 {t("textoTematicas")}
             </Typography>
-            <div>
-                <select onChange={handleOptionSelect}>
-                    <option value="Todas">{t("tematicaTodas")}</option>
-                    <option value="Geografia">{t("tematicaGeo")}</option>
-                    <option value="Cultura">{t("tematicaCult")}</option>
-                    <option value="Informatica">{t("tematicaInf")}</option>
-                    <option value="Personajes">{t("tematicaPersonajes")}</option>
-                </select>
-            </div>
+            <FormControl fullWidth>
+                <InputLabel>Temáticas</InputLabel>
+                <Select
+                    defaultValue="Todas"
+                    onChange={handleOptionSelect}
+                >
+                    <MenuItem value="Todas">{t("tematicaTodas")}</MenuItem>
+                    <MenuItem value="Geografia">{t("tematicaGeo")}</MenuItem>
+                    <MenuItem value="Cultura">{t("tematicaCult")}</MenuItem>
+                    <MenuItem value="Informatica">{t("tematicaInf")}</MenuItem>
+                    <MenuItem value="Personajes">{t("tematicaPersonajes")}</MenuItem>
+                </Select>
+            </FormControl>
             <Button variant="contained" color="primary" sx={{marginTop: 4,marginBottom: 4, backgroundColor: '#FCF5B8',  color: '#413C3C',  fontWeight: 'bold'}}
                 onClick={configureAndStart}>
                 {t("botonJugar")}
