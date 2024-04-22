@@ -188,7 +188,7 @@ jobs:
         username: ${{ github.actor }}
         password: ${{ secrets.GITHUB_TOKEN }}
         registry: ghcr.io
-        workdir: allquestionservice
+        workdir: apis/allquestionservice
   docker-push-alluserservice:
     name: Push all user service service Docker Image to GitHub Packages
     runs-on: ubuntu-latest
@@ -205,7 +205,7 @@ jobs:
         username: ${{ github.actor }}
         password: ${{ secrets.GITHUB_TOKEN }}
         registry: ghcr.io
-        workdir: alluserservice
+        workdir: apis/alluserservice
   deploy:
     name: Deploy over SSH
     runs-on: ubuntu-latest
