@@ -186,4 +186,30 @@ describe('Gateway Service', () => {
   it('should catch the errors when send /gamehistory that might appear during runtime', async () => {
     await simulateApiError('get', '/gamehistory', 'Getting game history error', { error: 'An error has occured getting the game history' });
   });
+
+  // Test /getUser endpoint
+  it('should get the profile', async () => {
+    // Sobreescribimos la función axios.post para que arroje el error simulado
+    const axiosStub = sinon.stub(axios, 'get');
+          axiosStub.returns(Promise.resolve({data: {username: 'angela',
+          email: 'angela@gmail.com',
+          creado: '2024-04-14T20:21:34.969Z' } }));
+
+    const response = await request(app)
+      .get('/getUser')
+      .send({ username: 'testuser' });
+
+    expect(response.status).toBe(200);
+    expect(response.body).toHaveProperty('username');
+    expect(response.body).toHaveProperty('email');
+    expect(response.body).toHaveProperty('creado');
+
+    // Restauramos axios para que no nos afecte en futuras pruebas
+    axios.get.restore();
+  });
+
+  // Test /getUser endpoint
+  it('should catch the errors when send /getUser that might appear during runtime', async () => {
+    await simulateApiError('get', '/getUser', 'Getting profile error', { error: 'An error has occured getting the profile' });
+  });
 });
