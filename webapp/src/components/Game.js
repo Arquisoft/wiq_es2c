@@ -5,10 +5,14 @@ import { Container, Typography, Button, Snackbar } from '@mui/material';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useUser } from './UserContext';
 import '../App.css';
+import { useTranslation } from 'react-i18next';
 
 const apiEndpoint = process.env.REACT_APP_API_ENDPOINT || 'http://localhost:8000';
 
 const Game = () => {
+  
+  const [t] = useTranslation("global");
+
   const { usernameGlobal } = useUser();
   const [question, setQuestion] = useState('');
   const [image, setImage] = useState('');
@@ -49,7 +53,7 @@ const Game = () => {
       console.log("Error: " + error.response.data.error);
       setError(error.response.data.error);
     }
-  }, [usernameGlobal])
+  }, [usernameGlobal, MAX_TIME, THEMATIC]);
 
   const saveGameHistory = useCallback(async () => {
     try {
@@ -88,7 +92,7 @@ const Game = () => {
     return () => {
       clearTimeout(timerId);
     }
-  }, [elapsedTime, getQuestion, answeredQuestions, navigate,  isTimeRunning, saveGameHistory]);
+  }, [elapsedTime, getQuestion, answeredQuestions, navigate,  isTimeRunning, saveGameHistory, MAX_PREGUNTAS]);
 
   const handleOptionClick = async (option) => {
     var isTheCorrectAnswer = false;
@@ -147,7 +151,7 @@ const Game = () => {
               {answeredQuestions} / {MAX_PREGUNTAS}
             </Typography>
             <Typography variant="body1" sx={{ textAlign: 'center' }}>
-              Tiempo restante: {elapsedTime} segundos
+              {t("textoTiempoRest")} {elapsedTime} {t("textoTiempoRest2")}
             </Typography>
             <LinearProgress variant="determinate" value={(elapsedTime / MAX_TIME) * 100 } sx={ {
               width: '80%',

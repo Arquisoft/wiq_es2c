@@ -1,9 +1,13 @@
 import React, { useState } from 'react';
 import { Container, Button, Box, Snackbar } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 
 const PantallaInicio = () => {
+
+    const [t] = useTranslation("global");
+
 
     const [openSnackbar, setOpenSnackbar] = useState(false);
     const [error, setError] = useState('');
@@ -43,13 +47,13 @@ const PantallaInicio = () => {
                 alignItems: 'center'
             }}>
                 <Button variant="contained" color="primary" sx={{marginTop: 4,marginBottom: 4, backgroundColor: '#FCF5B8',  color: '#413C3C',  fontWeight: 'bold' }} onClick={showAllUsers}>
-                    USUARIOS
+                    {t("botonUsuarios")}
                 </Button>
                 <Button variant="contained" color="primary" sx={{marginTop: 4,marginBottom: 4, backgroundColor: '#FCF5B8',  color: '#413C3C',  fontWeight: 'bold' }} onClick={showAllQuestions}>
-                    PREGUNTAS
+                    {t("botonPreguntas")}
                 </Button>
             </Box>
-            <Snackbar open={openSnackbar} autoHideDuration={6000} onClose={handleCloseSnackbar} message="Sesion cerrada" />
+            <Snackbar open={openSnackbar} autoHideDuration={6000} onClose={handleCloseSnackbar} message={t("mensajeLogOut")} />
             {error && (
                 <Snackbar open={!!error} autoHideDuration={6000} onClose={() => setError('')} message={`Error: ${error}`} />
             )}

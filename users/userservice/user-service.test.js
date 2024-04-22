@@ -2,7 +2,7 @@ const request = require('supertest');
 const { MongoMemoryServer } = require('mongodb-memory-server');
 
 let mongoServer;
-let 
+let newString = "testadduser";
 const newUser = {
   username: 'testuser',
   email: 'testuser@gmail.com',
