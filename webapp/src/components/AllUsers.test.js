@@ -2,18 +2,18 @@ import React from 'react';
 import { render, fireEvent, screen, waitFor, act } from '@testing-library/react';
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
-import Perfil from './Perfil';
+import AllUsers from './AllUsers';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { UserProvider } from './UserContext';
 
 const mockAxios = new MockAdapter(axios);
 
-describe('Perfil component', () => {
+describe('AllUsers component', () => {
   beforeEach(() => {
     mockAxios.reset();
   });
 
-  it('muestra el perfil correctamente', async () => {
+  it('muestra la api usuarios correctamente', async () => {
 
     // Mockeamos la petición que devuelve el histórico
     mockAxios.onGet("http://localhost:8000/getAllUsers").reply(200, 
@@ -24,7 +24,7 @@ describe('Perfil component', () => {
 
     render(<UserProvider>
       <Router>
-        <Perfil />
+        <AllUsers />
       </Router>
     </UserProvider>);
 
