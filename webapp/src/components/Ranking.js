@@ -57,6 +57,21 @@ const Ranking = () => {
     }
   }, [sortBy, userLimit]);
 
+  const handleLimit = (event) => {
+    console.log("valor")
+    console.log(event.target.value)
+    let inputValue = parseInt(event.target.value);
+    console.log(inputValue)
+    if (!isNaN(inputValue) && inputValue >= 0) {
+        console.log("valor")
+        console.log(inputValue)
+        inputValue = Math.min(inputValue, 20);
+        setUserLimit(inputValue);
+        console.log(userLimit);
+        getRankingGlobal();
+    }
+  };
+
   useEffect(() => {
     getRanking();
     getRankingGlobal();
@@ -139,7 +154,7 @@ const Ranking = () => {
                 <FormControl fullWidth>
                   <TextField
                     name="Número de usuarios"
-                    onChange={(e) => setUserLimit(parseInt(e.target.value))}
+                    onChange={handleLimit}
                     value={userLimit}
                     type="number"
                     step="1"
