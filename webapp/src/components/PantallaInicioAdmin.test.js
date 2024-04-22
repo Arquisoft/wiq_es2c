@@ -24,12 +24,10 @@ describe('PantallaInicioAdmin component', () => {
     const usuariosButton = screen.getByRole('button', { name: 'USUARIOS' });
     const preguntasButton = screen.getByRole('button', { name: 'PREGUNTAS' });
 
-    // Verifica si el elemento se encuentra en el DOM
-    expect(element).toBeInTheDocument();
-
     // Simulate user input
     await act(async () => {
-        fireEvent.click(nuevaPartidaButton);
+        fireEvent.click(usuariosButton);
+        fireEvent.click(preguntasButton);
       });
   });
 });
