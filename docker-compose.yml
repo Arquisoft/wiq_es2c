@@ -80,6 +80,8 @@ services:
     image: ghcr.io/arquisoft/wiq_es2c/perfilservice/perfil-api:latest
     profiles: ["dev", "prod"]
     build: ./perfilservice
+    volumes:
+      - mongodb_data:/data/db
     depends_on:
       - mongodb
     ports:
@@ -94,6 +96,8 @@ services:
     image: ghcr.io/arquisoft/wiq_es2c/apis/alluserservice/allusers-api:latest
     profiles: ["dev", "prod"]
     build: ./apis/alluserservice
+    volumes:
+      - mongodb_data:/data/db
     depends_on:
       - mongodb
     ports:
@@ -108,6 +112,8 @@ services:
     image: ghcr.io/arquisoft/wiq_es2c/apis/allquestionservice/allquestions-api:latest
     profiles: ["dev", "prod"]
     build: ./apis/allquestionservice
+    volumes:
+      - mongodb_data:/data/db
     depends_on:
       - mongodb
     ports:

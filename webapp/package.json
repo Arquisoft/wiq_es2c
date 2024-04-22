@@ -55,6 +55,9 @@
     "mongodb-memory-server": "^9.1.4",
     "puppeteer": "^21.7.0",
     "serve": "^14.2.1",
-    "start-server-and-test": "^2.0.3"
+    "start-server-and-test": "^2.0.3",
+    "i18next": "^23.11.2",
+    "i18next-browser-languagedetector": "^7.2.1",
+    "react-i18next": "^14.1.0"
   }
 }

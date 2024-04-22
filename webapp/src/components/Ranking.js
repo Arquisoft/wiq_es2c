@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
-import { Container, Box, Typography, Grid} from '@mui/material';
-import { useUser } from './UserContext';
+import { Container, Box, Typography, Grid, Snackbar} from '@mui/material';
 import '../App.css';
 import { useTranslation } from 'react-i18next';
 
@@ -9,9 +8,8 @@ const apiEndpoint = process.env.REACT_APP_API_ENDPOINT || 'http://localhost:8000
 
 const Ranking = () => {
 
-  const [t, i18n] = useTranslation("global");
+  const [t] = useTranslation("global");
 
-  const { usernameGlobal } = useUser();
   const [ranking, setRanking] = useState('');
   const [error, setError] = useState('');
 
@@ -22,7 +20,7 @@ const Ranking = () => {
     } catch (error) {
       setError(error.response.data.error);
     }
-  }, [usernameGlobal])
+  }, []);
 
   useEffect(() => {
     getRanking();
@@ -71,6 +69,11 @@ const Ranking = () => {
         </Grid>
       </Grid>
     </Box>
+    <div>
+      {error && (
+        <Snackbar open={!!error} autoHideDuration={6000} onClose={() => setError('')} message={`Error: ${error}`} />
+      )}
+    </div>
   </Container> 
   );
 };

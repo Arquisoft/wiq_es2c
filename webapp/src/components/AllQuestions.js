@@ -5,10 +5,9 @@ import { useTranslation } from 'react-i18next';
 
 const AllQuestions = () => {
 
-    const [t, i18n] = useTranslation("global");
+    const [t] = useTranslation("global");
 
     const apiEndpoint = process.env.REACT_APP_API_ENDPOINT || 'http://localhost:8000';
-
 
     const [questions, setQuestions] = useState([]);
     const [error, setError] = useState('');
@@ -20,7 +19,7 @@ const AllQuestions = () => {
         } catch (error) {
             setError(error.response.data.error);
         }
-    })
+    }, [apiEndpoint]);
     
     useEffect(() => {
         getAllQuestions();

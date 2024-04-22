@@ -11,7 +11,7 @@ const apiEndpoint = process.env.REACT_APP_API_ENDPOINT || 'http://localhost:8000
 
 const Game = () => {
   
-  const [t, i18n] = useTranslation("global");
+  const [t] = useTranslation("global");
 
   const { usernameGlobal } = useUser();
   const [question, setQuestion] = useState('');
@@ -53,7 +53,7 @@ const Game = () => {
       console.log("Error: " + error.response.data.error);
       setError(error.response.data.error);
     }
-  }, [usernameGlobal])
+  }, [usernameGlobal, MAX_TIME, THEMATIC]);
 
   const saveGameHistory = useCallback(async () => {
     try {
@@ -92,7 +92,7 @@ const Game = () => {
     return () => {
       clearTimeout(timerId);
     }
-  }, [elapsedTime, getQuestion, answeredQuestions, navigate,  isTimeRunning, saveGameHistory]);
+  }, [elapsedTime, getQuestion, answeredQuestions, navigate,  isTimeRunning, saveGameHistory, MAX_PREGUNTAS]);
 
   const handleOptionClick = async (option) => {
     var isTheCorrectAnswer = false;
