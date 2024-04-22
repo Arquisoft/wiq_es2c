@@ -7,7 +7,6 @@ import '../App.css';
 import { useTranslation } from 'react-i18next';
 
 
-
 const PantallaInicio = () => {
 
     const [t] = useTranslation("global");

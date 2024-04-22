@@ -5,7 +5,9 @@ import MockAdapter from 'axios-mock-adapter';
 import PantallaInicioAdmin from './PantallaInicioAdmin';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { UserProvider } from './UserContext';
+import { I18nextProvider } from "react-i18next";
 import i18n from "../translations/i18n";
+
 
 i18n.changeLanguage("es");
 const mockAxios = new MockAdapter(axios);

@@ -6,6 +6,8 @@ import Perfil from './Perfil';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { UserProvider } from './UserContext';
 import i18n from "../translations/i18n";
+import { I18nextProvider } from "react-i18next";
+
 
 i18n.changeLanguage("es");
 const mockAxios = new MockAdapter(axios);
