@@ -5,7 +5,9 @@ import MockAdapter from 'axios-mock-adapter';
 import PantallaInicioAdmin from './PantallaInicioAdmin';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { UserProvider } from './UserContext';
+import i18n from "../translations/i18n";
 
+i18n.changeLanguage("es");
 const mockAxios = new MockAdapter(axios);
 
 describe('PantallaInicioAdmin component', () => {
@@ -15,11 +17,13 @@ describe('PantallaInicioAdmin component', () => {
 
   it('muestra la pantalla de inicio admin correctamente', async () => {
 
-    render(<UserProvider>
-      <Router>
-        <PantallaInicioAdmin />
-      </Router>
-    </UserProvider>);
+    render(<I18nextProvider i18n={i18n}>
+      <UserProvider>
+        <Router>
+          <PantallaInicioAdmin />
+        </Router>
+      </UserProvider>
+    </I18nextProvider>);
 
     const usuariosButton = screen.getByRole('button', { name: 'USUARIOS' });
     const preguntasButton = screen.getByRole('button', { name: 'PREGUNTAS' });

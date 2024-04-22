@@ -5,7 +5,9 @@ import MockAdapter from 'axios-mock-adapter';
 import Perfil from './Perfil';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { UserProvider } from './UserContext';
+import i18n from "../translations/i18n";
 
+i18n.changeLanguage("es");
 const mockAxios = new MockAdapter(axios);
 
 describe('Perfil component', () => {
@@ -22,11 +24,13 @@ describe('Perfil component', () => {
           creado: "2024-04-14T20:21:34.969Z"});
 
 
-    render(<UserProvider>
+    render(<I18nextProvider i18n={i18n}>
+      <UserProvider>
       <Router>
         <Perfil />
       </Router>
-    </UserProvider>);
+    </UserProvider>
+    </I18nextProvider>);
 
     await waitFor(() => {
       expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent('PERFIL');

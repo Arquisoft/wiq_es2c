@@ -5,7 +5,9 @@ import MockAdapter from 'axios-mock-adapter';
 import AllQuestions from './AllQuestions';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { UserProvider } from './UserContext';
+import i18n from "../translations/i18n";
 
+i18n.changeLanguage("es");
 const mockAxios = new MockAdapter(axios);
 
 describe('AllQuestions component', () => {
@@ -21,11 +23,13 @@ describe('AllQuestions component', () => {
         respuesta_correcta: "Campo Municipal de Urritxe"});
 
 
-    render(<UserProvider>
-      <Router>
-        <AllQuestions />
-      </Router>
-    </UserProvider>);
+    render(<I18nextProvider i18n={i18n}>
+      <UserProvider>
+        <Router>
+          <AllQuestions />
+        </Router>
+      </UserProvider>
+    </I18nextProvider>);
 
     await waitFor(() => {
       expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent('TODAS LAS PREGUNTAS');

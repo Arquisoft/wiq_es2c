@@ -4,6 +4,7 @@ const app = require('./gateway-service');
 const { createServer } = require('http');
 const sinon = require('sinon');
 
+
 const server = createServer(app);
 const newPassword = Math.floor(Math.random() * 10).toString(); // Genera una nueva contraseña aleatoria para evitar el Security Hostpot de SonarCloud en las pruebas
 
