@@ -100,6 +100,9 @@ app.get('/generateQuestion', async (req, res) => {
 app.post('/configureGame', async (req, res) => {
     try {
         maxQuestions = req.body.valueQuestion;
+        if(maxQuestions === undefined) {
+            throw new Error("Número de preguntas incorrecta");
+        }
         res.status(200).json(maxQuestions);
     } catch (error) {
         console.log("Error: " + error)
