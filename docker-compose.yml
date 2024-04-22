@@ -93,7 +93,7 @@ services:
 
   alluserservice:
     container_name: alluserservice-${teamname:-defaultASW}
-    image: ghcr.io/arquisoft/wiq_es2c/apis/alluserservice/allusers-api:latest
+    image: ghcr.io/arquisoft/wiq_es2c/apis/alluserservice:latest
     profiles: ["dev", "prod"]
     build: ./apis/alluserservice
     volumes:
@@ -109,7 +109,7 @@ services:
   
   allquestionservice:
     container_name: allquestionservice-${teamname:-defaultASW}
-    image: ghcr.io/arquisoft/wiq_es2c/apis/allquestionservice/allquestions-api:latest
+    image: ghcr.io/arquisoft/wiq_es2c/apis/allquestionservice:latest
     profiles: ["dev", "prod"]
     build: ./apis/allquestionservice
     volumes:
