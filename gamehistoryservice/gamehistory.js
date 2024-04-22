@@ -205,6 +205,9 @@ app.get('/ranking', async (req, res) => {
     try {
         const sortBy = req.query.sortBy || 'ratio'; // Campo por el cual ordenar
         const limit = parseInt(req.query.userLimit) || 10; // Número de usuarios a devolver
+        console.log("*********")
+        console.log(req.query.userLimit)
+        console.log(limit)
         
         const topUsers = await GameHistory.find()
             .sort({ [sortBy]: -1 }) // Siempre ordena de mayor a menor

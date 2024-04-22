@@ -4,6 +4,7 @@ import './index.css';
 import App from './App';
 import NavigationBar from './components/fragments/NavigationBar';
 import NavigationBar_Game from './components/fragments/NavigationBar_Game';
+import Footer from './components/fragments/Footer';
 import reportWebVitals from './reportWebVitals';
 import { UserProvider } from './components/UserContext';
 import { I18nextProvider } from 'react-i18next';
@@ -67,6 +68,7 @@ root.render(
           <Route path="/Ranking" element={<Ranking />} />
           <Route path="/GameConfiguration" element={<GameConfiguration />} />
         </Routes>
+       <Footer/>
       </Router>
     </UserProvider>
     </I18nextProvider>
