@@ -72,14 +72,12 @@ const Ranking = () => {
         width: '100%',
       }}
     >
-      <Grid container xs={12} spacing={4} alignItems="center" justifyContent="center">
-        {/* Left Column: Top 3 */}
-        <Grid item xs={12} md={8}>
+      <Grid container spacing={12} alignItems="center" justifyContent="center">
+        <Grid item xs={12} md={4}>
           <Box border={2} borderColor="black" p={3} borderRadius={8} bgcolor="#9A77B0" width="100%" height="auto">
             <Typography variant="h5" align="center" style={{ color: 'white', fontWeight: 'bold', marginBottom: '16px' }}>
               {t("textoTop")}
             </Typography>
-            {/* Top 3 content */}
             <Grid container spacing={2} justifyContent="center">
               <Grid item xs={12} md={4} textAlign="center">
                 {ranking && (
@@ -111,8 +109,7 @@ const Ranking = () => {
           </Box>
         </Grid>
 
-        {/* Right Column: User Ranking Table */}
-        <Grid item xs={12} md={8}> {/* Ajustar el tamaño para que tenga más espacio */}
+        <Grid item xs={12} md={8}>
           <Box
             sx={{
               borderRadius: 8,
@@ -147,6 +144,12 @@ const Ranking = () => {
                     type="number"
                     step="1"
                     sx
+                    inputProps={{
+                      inputMode: 'numeric',
+                      pattern: '[0-9]*',
+                      min: 1,
+                      max: 20,
+                    }}
                   />
                 </FormControl>
               </Grid>
@@ -155,9 +158,9 @@ const Ranking = () => {
             <Table>
               <TableHead>
                 <TableRow>
-                  <TableCell><strong>Posición</strong></TableCell>
-                  <TableCell><strong>Usuario</strong></TableCell>
-                  <TableCell>
+                  <TableCell align="center"><strong>Posición</strong></TableCell>
+                  <TableCell align="center"><strong>Usuario</strong></TableCell>
+                  <TableCell align="center">
                     <strong>
                       {sortBy === "ratio"
                         ? "Ratio"
@@ -177,9 +180,9 @@ const Ranking = () => {
               <TableBody>
                 {rankingTable.map((user, index) => (
                   <TableRow key={index}>
-                    <TableCell>{index + 1}</TableCell> {/* Número de ranking */}
-                    <TableCell>{user.userId}</TableCell>
-                    <TableCell>
+                    <TableCell align="center">{index + 1}</TableCell> 
+                    <TableCell align="center">{user.userId}</TableCell>
+                    <TableCell align="center">
                       {sortBy === "ratio"
                         ? user.ratio
                         : sortBy === "totalQuestionsAnswered"
