@@ -58,10 +58,10 @@ const Ranking = () => {
   }, [sortBy, userLimit]);
 
   const handleLimit = (event) => {
-    console.log("valor")
-    console.log(event.target.value)
+    alert("valor")
+    alert(event.target.value)
     let inputValue = parseInt(event.target.value);
-    console.log(inputValue)
+    alert(inputValue)
     if (!isNaN(inputValue) && inputValue >= 0) {
         console.log("valor")
         console.log(inputValue)
@@ -80,6 +80,7 @@ const Ranking = () => {
   return (
     <Container component="main" maxWidth="xl"
       sx={{
+        marginTop: 10,
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
@@ -161,7 +162,6 @@ const Ranking = () => {
                     sx
                     inputProps={{
                       inputMode: 'numeric',
-                      pattern: '[0-9]*',
                       min: 1,
                       max: 20,
                     }}

@@ -119,7 +119,7 @@ const Game = () => {
       setError(error.response.data.error);
     }
 
-    if (!isCorrectAnswer) {
+    if (!answerCorrect) {
       setHighlightedCorrectOption(correctOption);
     } else {
         setHighlightedCorrectOption('');  
@@ -142,6 +142,7 @@ const Game = () => {
   return (
     <Container component="main" maxWidth="xxl"
             sx={{
+                marginTop: 10,
                 backgroundColor: '#F3D3FA',
                 borderRadius: '10px',
                 display: 'flex',

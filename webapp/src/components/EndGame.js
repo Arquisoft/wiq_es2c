@@ -50,6 +50,7 @@ const EndGame = () => {
   return (
     <Container component="main" maxWidth="xl"
     sx={{
+      marginTop: 10,
       display: 'flex',
       flexDirection: 'column',
       justifyContent: 'center',
