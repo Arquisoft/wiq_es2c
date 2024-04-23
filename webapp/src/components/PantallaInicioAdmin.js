@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Container, Button, Box, Snackbar } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import '../App.css';
 
 
 const PantallaInicio = () => {
@@ -31,7 +32,6 @@ const PantallaInicio = () => {
         <Container component="main" maxWidth="xxl"
             sx={{
                 backgroundColor: '#F3D3FA',
-                borderRadius: '10px',
                 display: 'flex',
                 flexDirection: 'column',
                 justifyContent: 'center',

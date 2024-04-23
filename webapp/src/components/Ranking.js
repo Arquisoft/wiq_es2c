@@ -86,14 +86,15 @@ const Ranking = () => {
       sx={{
         marginTop: 10,
         display: 'flex',
+        flexDirection: 'column',  // Asegura que el layout es vertical
         justifyContent: 'center',
         alignItems: 'center',
         height: '100vh',
         width: '100%',
       }}
     >
-      <Grid container spacing={12} alignItems="center" justifyContent="center">
-        <Grid item xs={12} md={4}>
+      <Grid container spacing={12} justifyContent="center">
+        <Grid item xs={12}>
           <Box border={2} borderColor="black" p={3} borderRadius={8} bgcolor="#9A77B0" width="100%" height="auto">
             <Typography variant="h5" align="center" style={{ color: 'white', fontWeight: 'bold', marginBottom: '16px' }}>
               {t("textoTop")}
@@ -129,7 +130,7 @@ const Ranking = () => {
           </Box>
         </Grid>
 
-        <Grid item xs={12} md={8}>
+        <Grid item xs={12}>
           <Box
             sx={{
               borderRadius: 8,
@@ -139,96 +140,51 @@ const Ranking = () => {
             }}
           >
             <Grid container spacing={2} alignItems="center">
-              <Grid item xs={12} md={6}>
-                <FormControl fullWidth>
-                  <InputLabel>Ordenar por</InputLabel>
-                  <Select
-                    value={sortBy}
-                    onChange={handleSortByChange}
-                    sx
-                  >
-                    <MenuItem value="ratio">Ratio</MenuItem>
-                    <MenuItem value="totalRightQuestions">Aciertos</MenuItem>
-                    <MenuItem value="totalQuestionsAnswered">Preguntas respondidas</MenuItem>
-                    <MenuItem value="totalGamesPlayed">Partidas jugadas</MenuItem>
-                    <MenuItem value="totalTime">Tiempo jugado</MenuItem>
-                  </Select>
-                </FormControl>
-              </Grid>
-              <Grid item xs={12} md={6}>
-                <FormControl fullWidth>
-                  <TextField
-                    name="Número de usuarios"
-                    onChange={handleLimit}
-                    value={userLimit}
-                    type="number"
-                    step="1"
-                    sx
-                    inputProps={{
-                      inputMode: 'numeric',
-                      min: 1,
-                      max: 20,
-                    }}
-                  />
-                </FormControl>
-              </Grid>
-
-              <Grid item xs={12} md={6}>
-                <Button
-                  variant="contained"
-                  color="primary"
-                  onClick={handleFilterClick}
-                >
-                  Filtrar
-                </Button>
-              </Grid>
-
-            </Grid>
-
             <Table>
-              <TableHead>
-                <TableRow>
-                  <TableCell align="center"><strong>Posición</strong></TableCell>
-                  <TableCell align="center"><strong>Usuario</strong></TableCell>
-                  <TableCell align="center">
-                    <strong>
-                      {sortBy === "ratio"
-                        ? "Ratio"
-                        : sortBy === "totalQuestionsAnswered"
-                        ? "Preguntas respondidas"
-                        : sortBy === "totalRightQuestions"
-                        ? "Aciertos"
-                        : sortBy === "totalGamesPlayed"
-                        ? "Partidas jugadas"
-                        : sortBy === "totalTime"
-                        ? "Tiempo total"
-                        : ""}
-                    </strong>
-                  </TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {rankingTable.map((user, index) => (
-                  <TableRow key={index}>
-                    <TableCell align="center">{index + 1}</TableCell> 
-                    <TableCell align="center">{user.userId}</TableCell>
-                    <TableCell align="center">
-                      {sortBy === "ratio"
-                        ? user.ratio
-                        : sortBy === "totalQuestionsAnswered"
-                        ? user.totalQuestionsAnswered
-                        : sortBy === "totalRightQuestions"
-                        ? user.totalRightQuestions
-                        : sortBy === "totalGamesPlayed"
-                        ? user.totalGamesPlayed
-                        : sortBy === "totalTime"
-                        ? user.totalTime
-                        : ""}
-                    </TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
+                  <TableHead>
+                    <TableRow>
+                      <TableCell align="center"><strong>Posición</strong></TableCell>
+                      <TableCell align="center"><strong>Usuario</strong></TableCell>
+                      <TableCell align="center">
+                        <strong>
+                          {sortBy === "ratio"
+                            ? "Ratio"
+                            : sortBy === "totalQuestionsAnswered"
+                            ? "Preguntas respondidas"
+                            : sortBy === "totalRightQuestions"
+                            ? "Aciertos"
+                            : sortBy === "totalGamesPlayed"
+                            ? "Partidas jugadas"
+                            : sortBy === "totalTime"
+                            ? "Tiempo total"
+                            : ""}
+                        </strong>
+                      </TableCell>
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
+                    {rankingTable.map((user, index) => (
+                      <TableRow key={index}>
+                        <TableCell align="center">{index + 1}</TableCell> 
+                        <TableCell align="center">{user.userId}</TableCell>
+                        <TableCell align="center">
+                          {sortBy === "ratio"
+                            ? user.ratio
+                            : sortBy === "totalQuestionsAnswered"
+                            ? user.totalQuestionsAnswered
+                            : sortBy === "totalRightQuestions"
+                            ? user.totalRightQuestions
+                            : sortBy === "totalGamesPlayed"
+                            ? user.totalGamesPlayed
+                            : sortBy === "totalTime"
+                            ? user.totalTime
+                            : ""}
+                        </TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+            </Grid>
           </Box>
         </Grid>
       </Grid>
@@ -237,4 +193,5 @@ const Ranking = () => {
 };
 
 export default Ranking;
+
 

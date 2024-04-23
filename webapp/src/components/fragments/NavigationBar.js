@@ -61,7 +61,7 @@ const NavigationBar = () => {
         }
     };
 
-    if (location.pathname === '/App' || location.pathname === '/App') {
+    if (location.pathname === '/App' || location.pathname === '/') {
         return (
             <AppBar position="fixed" sx={{ backgroundColor: '#9A77B0' }}>
                 <Toolbar>
