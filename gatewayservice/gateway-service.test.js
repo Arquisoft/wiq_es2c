@@ -240,26 +240,25 @@ describe('Gateway Service', () => {
   });
 
   // Test /getAllQuestions endpoint
-  it('should get the all users api', async () => {
+  it('should get the all questions api', async () => {
     // Sobreescribimos la función axios.post para que arroje el error simulado
     const axiosStub = sinon.stub(axios, 'get');
           axiosStub.returns(Promise.resolve({data: {enunciado: 'pregunta1',
           respuesta_correcta: 'respuesta1' } }));
 
     const response = await request(app)
-      .get('/getAllUsers')
+      .get('/getAllQuestions')
 
     expect(response.status).toBe(200);
-    expect(response.body).toHaveProperty('username');
-    expect(response.body).toHaveProperty('email');
-    expect(response.body).toHaveProperty('creado');
+    expect(response.body).toHaveProperty('enunciado');
+    expect(response.body).toHaveProperty('respuesta');
 
     // Restauramos axios para que no nos afecte en futuras pruebas
     axios.get.restore();
   });
 
-  // Test /getAllUsers endpoint
-  it('should catch the errors when send /getAllUsers that might appear during runtime', async () => {
-    await simulateApiError('get', '/getAllUsers', 'Getting all users error', { error: 'An error has occured getting all users' });
+  // Test /getAllQuestions endpoint
+  it('should catch the errors when send /getAllQuestions that might appear during runtime', async () => {
+    await simulateApiError('get', '/getAllQuestions', 'Getting all questions error', { error: 'An error has occured getting all questions' });
   });
 });
