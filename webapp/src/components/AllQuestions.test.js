@@ -21,8 +21,9 @@ describe('AllQuestions component', () => {
 
     // Mockeamos la petición que devuelve el histórico
     mockAxios.onGet("http://localhost:8000/getAllQuestions").reply(200, 
-        {  enunciado: "¿En que campo juega el Sociedad Deportiva Amorebieta?",
-        respuesta_correcta: "Campo Municipal de Urritxe"});
+        [{  enunciado: "¿En que campo juega el Sociedad Deportiva Amorebieta?",
+        respuesta_correcta: "Campo Municipal de Urritxe"}, {  enunciado: "pregunta2",
+        respuesta_correcta: "respuesta2"}]);
 
 
     render(<I18nextProvider i18n={i18n}>
@@ -41,6 +42,9 @@ describe('AllQuestions component', () => {
 
       expect(screen.getByText('¿En que campo juega el Sociedad Deportiva Amorebieta?')).toBeInTheDocument();
       expect(screen.getByText('Campo Municipal de Urritxe')).toBeInTheDocument();
+
+      expect(screen.getByText('pregunta2')).toBeInTheDocument();
+      expect(screen.getByText('respuesta2')).toBeInTheDocument();
 
     }); 
   });

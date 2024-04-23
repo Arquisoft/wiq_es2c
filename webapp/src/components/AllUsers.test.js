@@ -21,9 +21,9 @@ describe('AllUsers component', () => {
 
     // Mockeamos la petición que devuelve el histórico
     mockAxios.onGet("http://localhost:8000/getAllUsers").reply(200, 
-        {  username: "angela",
+        [{  username: "angela",
           email: "angela@gmail.com",
-          creado: "2024-04-14T20:21:34.969Z"});
+          creado: "2024-04-14T20:21:34.969Z"}]);
 
 
     render(<I18nextProvider i18n={i18n}>
