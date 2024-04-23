@@ -1,7 +1,10 @@
 {
   "dependencies": {
+    "axios": "^1.6.8",
     "bcrypt": "^5.1.1",
+    "cors": "^2.8.5",
     "express": "^4.19.2",
+    "express-prom-bundle": "^7.0.0",
     "find-up": "^7.0.0",
     "findup": "^0.1.5",
     "i18next": "^23.11.2",
@@ -9,6 +12,9 @@
     "mongodb": "^6.5.0",
     "mongodb-memory-server": "^9.2.0",
     "mongoose": "^8.3.2",
-    "supertest": "^6.3.4"
+    "sinon": "^17.0.1",
+    "supertest": "^6.3.4",
+    "swagger-ui-express": "^5.0.0",
+    "yaml": "^2.4.1"
   }
 }
