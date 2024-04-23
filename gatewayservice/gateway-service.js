@@ -55,7 +55,7 @@ app.post('/adduser', async (req, res) => {
 app.get(`/generateQuestion`, async (req, res) => {
   try {
     // Forward the add user request to the user service
-    const URL = generatorUrl + '/generateQuestion?user=' + req.query.user + "&thematic=" + req.query.thematic;
+    const URL = generatorUrl + '/generateQuestion?user=' + req.query.user + "&thematic=" + req.query.thematic + "&language=" + req.query.language ;
     const response = await axios.get(URL);
     res.json(response.data);
   } catch (error) {
