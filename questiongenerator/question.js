@@ -66,20 +66,20 @@ function getQueriesAndQuestions(textData, imageData) {
         }
     }
     console.log("MERGEADAS: " + mergedQueries);
-    // // Combinar las consultas del segundo archivo
-    // for (let language in imageData) {
-    //     let thematicQueries2 = imageData[language];
-    //     for (let thematic in thematicQueries2) {
-    //         if (!mergedQueries[thematic]) {
-    //             mergedQueries[thematic] = {};
-    //         }
-    //         if (!mergedQueries[thematic][language]) {
-    //             mergedQueries[thematic][language] = [];
-    //         }
-    //         mergedQueries[thematic][language] = mergedQueries[thematic][language].concat(thematicQueries2[thematic]);
-    //     }
-    // }
-    // console.log(mergedQueries);
+    // Combinar las consultas del segundo archivo
+    for (let language in imageData) {
+        let thematicQueries2 = imageData[language];
+        for (let thematic in thematicQueries2) {
+            if (!mergedQueries[thematic]) {
+                mergedQueries[thematic] = {};
+            }
+            if (!mergedQueries[thematic][language]) {
+                mergedQueries[thematic][language] = [];
+            }
+            mergedQueries[thematic][language] = mergedQueries[thematic][language].concat(thematicQueries2[thematic]);
+        }
+    }
+    console.log(mergedQueries);
     return mergedQueries;
 }
 
