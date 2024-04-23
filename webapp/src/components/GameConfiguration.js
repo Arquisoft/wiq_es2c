@@ -15,10 +15,11 @@ const GameConfiguration = () => {
     const [selectedOption, setSelectedOption] = useState("Todas");
 
     const maxTime = 60;
-    const [valueTime, setValueTime] = useState(30);
+    const [valueTime, setValueTime] = useState('undefined');
+    const [previousValueTime, setPreviousValueTime] = useState('undefined');
 
     const maxQuestions = 30;
-    const [valueQuestion, setValueQuestion] = useState(5);
+    const [valueQuestion, setValueQuestion] = useState('undefined');
     const handleCloseSnackbar = () => {
         setOpenSnackbar(false);
     };
@@ -27,26 +28,36 @@ const GameConfiguration = () => {
         let inputValue = parseInt(event.target.value);
 
         if (!isNaN(inputValue) && inputValue >= 0) {
-
-            inputValue = Math.min(inputValue, maxTime);
-            setValueTime(inputValue);
+                inputValue = Math.min(inputValue, maxTime);
+                setValueTime(inputValue);
+        }else{
+            setValueTime('undefined');
         }
     };
 
     const handleChangeQuestions = (event) => {
         let inputValue = parseInt(event.target.value);
-
         if (!isNaN(inputValue) && inputValue >= 0) {
 
             inputValue = Math.min(inputValue, maxQuestions);
             setValueQuestion(inputValue);
+        }else{
+            setValueQuestion('undefined');
         }
     };
 
     const configureAndStart = async () => {
         try {
-            await axios.post(`${apiEndpoint}/configureGame`, {valueTime, valueQuestion});
-            navigate("/Game", {state: {time: valueTime, question:valueQuestion, thematic:selectedOption}});
+            if(valueTime < 10 || valueTime === 'undefined' ){
+                setError("Debe introducir un tiempo igual o mayor a 10");
+            }else if(valueQuestion < 2 || valueQuestion === 'undefined'){
+                setError("Debe introducir un número de preguntas mayor o igual a 2");
+            }else{
+                await axios.post(`${apiEndpoint}/configureGame`, {valueTime, valueQuestion});
+                navigate("/Game", {state: {time: valueTime, question:valueQuestion, thematic:selectedOption}});
+
+            }
+
         } catch (error) {
             setError(error.response.data.error);
             setOpenSnackbar(true);
@@ -76,6 +87,7 @@ const GameConfiguration = () => {
                     name="questions"
                     margin="normal"
                     label="Número de preguntas"
+                    placeholder="Número del 2 al 30"
                     onChange={handleChangeQuestions}
                     value={valueQuestion}
                     type="number"
@@ -85,7 +97,7 @@ const GameConfiguration = () => {
                 inputProps={{
                     inputMode: 'numeric',
                     pattern: '[0-9]*',
-                    min: 1,
+                    min: 0,
                     max: 30,
                 }}
             />
@@ -94,6 +106,7 @@ const GameConfiguration = () => {
                 margin="normal"
                 fullWidth
                 label="Tiempo por pregunta"
+                placeholder="Número del 10 al 60"
                 onChange={handleChangeTime}
                 value={valueTime}
                 type="number"
@@ -101,7 +114,7 @@ const GameConfiguration = () => {
                 sx={{ width: '40vh', marginBottom: 2, backgroundColor: '#FFFFFF'}}
                 inputProps={{
                     inputMode: 'numeric',
-                    min: 10,
+                    min: 0,
                     max: 60,
                 }}
             />
