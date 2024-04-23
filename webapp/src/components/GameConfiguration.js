@@ -65,12 +65,14 @@ const GameConfiguration = () => {
     return (
         <Container component="main" maxWidth="xl"
                 sx={{
-                    marginTop: 25,
+                    marginTop: 10,
                     borderRadius: '10px',
                     display: 'flex',
                     flexDirection: 'column',
                     justifyContent: 'center',
                     alignItems: 'center',
+                    height: '100vh', 
+                    width: '100%',
                 }}>
             <div style={{display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}>
                 <Typography component="h1" variant="h5" align="center" sx={{ marginBottom: 2, fontWeight: 'bold' }}>
@@ -114,10 +116,12 @@ const GameConfiguration = () => {
                 {t("textoTematicas")}
             </Typography>
             <FormControl fullWidth sx={{ width: '50vh', marginBottom: 2, backgroundColor: '#FFFFFF'}}> 
-                <InputLabel>Temáticas</InputLabel>
+                <InputLabel id="themes">Temáticas</InputLabel>
                 <Select
                     defaultValue="Todas"
                     onChange={handleOptionSelect}
+                    label="Temáticas"
+                    labelId="themes"
                 >
                     <MenuItem value="Todas">{t("tematicaTodas")}</MenuItem>
                     <MenuItem value="Geografia">{t("tematicaGeo")}</MenuItem>
