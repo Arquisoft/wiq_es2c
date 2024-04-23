@@ -29,7 +29,6 @@ const Ranking = () => {
 
   const { usernameGlobal } = useUser();
   const [ranking, setRanking] = useState('');
-  const [error, setError] = useState('');
   const [rankingTable, setRankingTable] = useState([]);
   const [sortBy, setSortBy] = useState('ratio');
   const [userLimit, setUserLimit] = useState(10);
