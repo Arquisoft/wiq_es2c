@@ -143,7 +143,7 @@ app.get('/topUsers', async (req, res) => {
 
 app.get('/ranking', async (req, res) => {
   try {
-    const response = await axios.get(gamehistoryUrl+'/ranking', req.body);
+    const response = await axios.get(gamehistoryUrl+'/ranking?sortBy=' + req.query.sortBy + "&userLimit=" +  req.query.userLimit, req.body);
     res.json(response.data);
   } catch (error) {
     res.status(error.response.status).json({ error: error.response.data.error });

@@ -61,10 +61,93 @@ const NavigationBar = () => {
         }
     };
 
+    if (location.pathname === '/App' || location.pathname === '/App') {
+        return (
+            <AppBar position="fixed" sx={{ backgroundColor: '#9A77B0' }}>
+                <Toolbar>
+                    <IconButton
+                        size="large"
+                        edge="start"
+                        color="inherit"
+                        aria-label="menu"
+                        onClick={handleMenu}
+                        sx={{ mr: 2, display: { sm: 'none' } }}
+                    >
+                        <MenuIcon />
+                    </IconButton>
+                    <Menu
+                        anchorEl={anchorEl}
+                        open={open}
+                        onClose={handleClose}
+                        onClick={handleClose}
+                    >
+                        <MenuItem onClick={() => i18n.changeLanguage('es')}>Español</MenuItem>
+                        <MenuItem onClick={() => i18n.changeLanguage('en')}>Inglés</MenuItem>
+                    </Menu>
+                    <Hidden smDown>
+                    <Grid container justifyContent="flex-start">
+                    </Grid>
+                    <Grid container justifyContent="flex-end">
+                        <Tooltip title="Español">
+                        <Button variant="contained" color="inherit" 
+                            style={{ background: '#9A77B0', border: 'none', padding: 0, marginRight: '10px' }} 
+                            onClick={() => i18n.changeLanguage('es')}>
+                            <img src={require('../images/esp.png')} style={{ width: '50px', height: '50px' }} alt="Imagen español"/>
+                        </Button>
+                        </Tooltip>
+                        <Tooltip title="Inglés">
+                        <Button variant="contained" color="inherit" 
+                            style={{ background: '#9A77B0', border: 'none', padding: 0, marginRight: '10px' }} 
+                            onClick={() => i18n.changeLanguage('en')}>
+                            <img src={require('../images/ing.png')} style={{ width: '50px', height: '50px' }} alt="Imagen español"/>
+                        </Button>
+                        </Tooltip>                    
+                    </Grid>
+                    </Hidden>
+                </Toolbar>
+            </AppBar>
+        );
+    }
+
+    if(location.pathname === '/Game') {
+        return (
+            <AppBar position="fixed" sx={{ backgroundColor: '#9A77B0' }}>
+                <Toolbar>
+                    <IconButton
+                        size="large"
+                        edge="start"
+                        color="inherit"
+                        aria-label="menu"
+                        onClick={handleMenu}
+                        sx={{ mr: 2, display: { sm: 'none' } }}
+                    >
+                        <MenuIcon />
+                    </IconButton>
+                    <Menu
+                        anchorEl={anchorEl}
+                        open={open}
+                        onClose={handleClose}
+                        onClick={handleClose}
+                    >
+                        <MenuItem onClick={showHome}>Inicio</MenuItem>
+                    </Menu>
+                    <Hidden smDown>
+                        <Grid container justifyContent="flex-start">
+                            <Tooltip title={t("toolInicio")}>
+                            <Button variant="contained" color="inherit" style={{ background: '#9A77B0', border: 'none', padding: 0, marginRight: '10px' }} onClick={showHome}>
+                                <img src={require('../images/home.png')} style={{ width: '50px', height: '50px' }} alt="Imagen home"/>
+                            </Button>
+                            </Tooltip>
+                        </Grid>
+                    </Hidden>
+                </Toolbar>
+            </AppBar>
+        );
+    }
     
 
     if (isHiddenRoute) {
-        return null; // Si no estás en / o /App, no muestra la barra de navegación
+        return null; 
     }
 
     return (

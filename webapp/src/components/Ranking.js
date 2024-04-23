@@ -29,6 +29,7 @@ const Ranking = () => {
 
   const { usernameGlobal } = useUser();
   const [ranking, setRanking] = useState('');
+  const [error, setError] = useState('');
   const [rankingTable, setRankingTable] = useState([]);
   const [sortBy, setSortBy] = useState('ratio');
   const [userLimit, setUserLimit] = useState(10);
@@ -44,9 +45,7 @@ const Ranking = () => {
 
   const getRankingGlobal = useCallback(async () => {
     try {
-      const response = await axios.get(
-        `${apiEndpoint}/ranking`, {sortBy, userLimit}
-      );
+      const response = await axios.get(`${apiEndpoint}/ranking`, {params: {sortBy, userLimit}});
       setRankingTable(response.data);
     } catch (error) {
       setError(error.response.data.error);

@@ -203,16 +203,12 @@ async function getEndGameStats(userId) {
 
 app.get('/ranking', async (req, res) => {
     try {
-        const sortBy = req.query.sortBy || 'ratio'; // Campo por el cual ordenar
-        console.log(sortBy)
-        const limit = req.query.userLimit || 10; // Número de usuarios a devolver
-        console.log("*********")
-        console.log(req.query.userLimit)
-        console.log(limit)
+        const sortBy = req.query.sortBy || 'ratio'; 
+        const limit = req.query.userLimit || 10; 
         
         const topUsers = await GameHistory.find()
-            .sort({ [sortBy]: -1 }) // Siempre ordena de mayor a menor
-            .limit(limit); // Limita el número de usuarios devueltos
+            .sort({ [sortBy]: -1 }) 
+            .limit(limit); 
         
         const response = topUsers.map(user => ({
             userId: user.userId,
