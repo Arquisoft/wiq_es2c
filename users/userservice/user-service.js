@@ -48,8 +48,8 @@ app.post('/adduser', async (req, res) => {
         validateRequiredFields(req, ['username', 'email','password']);
         validateRequiredFieldsContent(req.body.username,req.body.email,req.body.password);
         const { username,email, password } = req.body;
-        const user_Username = await User.findOne({ username });
-        const user_Email = await User.findOne({ email });
+        const user_Username = await findOne(username, null);
+        const user_Email = await findOne(null, email);
         if(user_Email || user_Username ){
             throw new Error("Ya se ha registrado un usuario con ese email o nombre de usuario");
         }else{
@@ -79,6 +79,17 @@ const server = app.listen(port, () => {
 server.on('close', () => {
     // Close the Mongoose connection
     mongoose.connection.close();
-  });
+});
+
+async function findOne(username, email) {
+    const query = {};
+    if (username) {
+        query.username = username.toString();
+    }
+    if (email) {
+        query.email = email.toString();
+    }
+    return await User.findOne(query);
+}
 
 module.exports = server

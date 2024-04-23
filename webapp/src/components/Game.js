@@ -25,6 +25,7 @@ const Game = () => {
   const [answerCorrect, setAnswerCorrect] = useState(false);
   const [answeredQuestions,setAnsweredQuestions] = useState(0);
   const [isTimeRunning, setIsTimeRunning] = useState(true);
+  const [waiting, setWaiting] = useState(false);
 
   const location = useLocation();
 
@@ -35,6 +36,7 @@ const Game = () => {
 
   const getQuestion = useCallback(async () => {
     try {      
+      setWaiting(true);
       const response = await axios.get(`${apiEndpoint}/generateQuestion`, {
         params: {
           user: usernameGlobal,
@@ -50,6 +52,7 @@ const Game = () => {
       setIsTimeRunning(true);
       setElapsedTime(MAX_TIME);
       setAnsweredQuestions(prevValue => prevValue+1);
+      setWaiting(false);
     } catch (error) {
       console.log("Error: " + error.response.data.error);
       setError(error.response.data.error);
@@ -186,6 +189,13 @@ const Game = () => {
         <div>
           {error && (
             <Snackbar open={!!error} autoHideDuration={6000} onClose={() => setError('')} message={`Error: ${error}`} />
+          )}
+        </div>
+        <div>
+          {waiting && (
+            <Typography component="p" variant="p" sx={{ textAlign: 'center' }}>
+              Cargando siguiente pregunta, espere...
+            </Typography>
           )}
         </div>
       </Container>

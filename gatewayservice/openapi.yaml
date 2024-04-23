@@ -365,6 +365,109 @@ paths:
                     type: string
                     description: Error information.
                     example: Internal Server Error
+  /getUser:
+     get:
+      summary: Get an specific user
+      operationId: getUser
+      parameters:
+        username:
+          in: query
+          description: The name of the user we want to get.
+          example: Pepito
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Succesful get the user
+          content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                  description: The name of the user.
+                  example: Pepito
+                email:
+                  type: string
+                  description: The email of the user.
+                  example: pepito@gmail.com
+                creado:
+                  type: string
+                  description: The date where the user account was created.
+                  example: 01/01/2024
+        '400':
+          description: Error when getting the user
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Error information.
+                    example: Internal Server Error
+  /getAllUsers:
+    get:
+      summary: Get all the users.
+      operationId: getAllUsers
+      responses:
+        '200':
+          description: Succesful get all the users
+          content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                users:
+                  type: array
+                  description: The information about the users (username, email, creation date).
+                  example: [Pepito, pepito@gmail.com, 01/01/2024]
+        '400':
+          description: Error when getting the users
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Error information.
+                    example: Internal Server Error
+  /getAllQuestions:
+    get:
+      summary: Get all the questions.
+      operationId: getAllQuestions
+      responses:
+        '200':
+          description: Succesful get all the questions
+          content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                users:
+                  type: array
+                  description: The information about the questions (question an correct answer).
+                  example: [¿Cual es la capital de España?,Madrid]
+        '400':
+          description: Error when getting the questions
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Error information.
+                    example: Internal Server Error
   /topUsers:
     get:
       summary: Charge the top users.
@@ -372,6 +475,15 @@ paths:
       responses:
         '200':
           description: Succesful charge the top users
+          content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                users:
+                  type: array
+                  description: The top 3 users.
+                  example: [Pepito, Fulanito, Menganito]
         '400':
           description: Error when charging the top users
         '500':
@@ -400,6 +512,72 @@ paths:
       responses:
         '200':
           description: Succesful charge the end game statitics
+          content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                totalRightQuestions:
+                  type: integer
+                  description: The number of questions that the user has answered correctly.
+                  example: 5
+                totalIncorrectQuestions:
+                  type: integer
+                  description: The number of questions that the user has answered incorrectly.
+                  example: 0
+                ratio:
+                  type: string
+                  description: The ratio between the correct and incorrect questions.
+                  example: 100%
+                totalTime:
+                  type: string
+                  description: The time the user has spend at the game.
+                  example: 20s
+                endgameImageWithRatio:
+                  type: string
+                  description: The end game ratio of questions
+                  example: 100%
+        '400':
+          description: Error when charging the end game statistics
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Error information.
+                    example: Internal Server Error
+  /restartGame:
+    get:
+      summary: Restart the game.
+      operationId: endgamestats
+      parameters:
+        username:
+          in: query
+          description: User which game statistics we want to charge.
+          example: Pepito
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Succesful charge the end game statistics
+          content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                message:
+                  type: string
+                  description: A message indicating the number of questions has been modified.
+                  example: Número de preguntas actualizado
+                numberOfQuestions:
+                  type: integer
+                  description: The number of questions that has been modified.
+                  example: 5
         '400':
           description: Error when charging the end game statistics
         '500':
