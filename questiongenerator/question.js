@@ -65,7 +65,6 @@ function getQueriesAndQuestions(textData, imageData) {
             mergedQueries[thematic][language] = mergedQueries[thematic][language].concat(thematicQueries1[thematic]);
         }
     }
-    console.log("MERGEADAS: " + mergedQueries);
     // Combinar las consultas del segundo archivo
     for (let language in imageData) {
         let thematicQueries2 = imageData[language];
@@ -79,7 +78,6 @@ function getQueriesAndQuestions(textData, imageData) {
             mergedQueries[thematic][language] = mergedQueries[thematic][language].concat(thematicQueries2[thematic]);
         }
     }
-    console.log(mergedQueries);
     return mergedQueries;
 }
 
@@ -147,11 +145,7 @@ async function getQueriesByThematic(thematic) {
 
 function changeQueriesAndQuestions(thematic) {
     queries = generalQueries[thematic];
-    console.log("DESPUES DE TEMATICA");
-    console.log(queries);
     queries = queries[language];
-    console.log("DESPUES DE TEMATICA y lenguaje");
-    console.log(queries);
 }
 
 function getAllValues() {
@@ -162,8 +156,6 @@ function getAllValues() {
             results = results.concat(thematicQueries[language]);
         }
     }
-    console.log("ALL");
-    console.log(results);
     return results;
 }
 
