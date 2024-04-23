@@ -92,7 +92,7 @@ const GameConfiguration = () => {
                     name="questions"
                     margin="normal"
                     label={t("textoNumPreg")}
-                    placeholder="Número del 2 al 30"
+                    placeholder={t("textoPlaceholderNumPreg")}
                     onChange={handleChangeQuestions}
                     value={valueQuestion}
                     type="number"
@@ -111,7 +111,7 @@ const GameConfiguration = () => {
                 margin="normal"
                 fullWidth
                 label={t("textoTiempoPreg")}
-                placeholder="Número del 10 al 60"
+                placeholder={t("textoPlaceholderTiempoPreg")}
                 onChange={handleChangeTime}
                 value={valueTime}
                 type="number"
