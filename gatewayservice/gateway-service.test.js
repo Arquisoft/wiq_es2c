@@ -4,6 +4,7 @@ const app = require('./gateway-service');
 const { createServer } = require('http');
 const sinon = require('sinon');
 
+
 const server = createServer(app);
 const newPassword = Math.floor(Math.random() * 10).toString(); // Genera una nueva contraseña aleatoria para evitar el Security Hostpot de SonarCloud en las pruebas
 
@@ -185,5 +186,79 @@ describe('Gateway Service', () => {
   // Test /gamehistory endpoint
   it('should catch the errors when send /gamehistory that might appear during runtime', async () => {
     await simulateApiError('get', '/gamehistory', 'Getting game history error', { error: 'An error has occured getting the game history' });
+  });
+
+  // Test /getUser endpoint
+  it('should get the profile', async () => {
+    // Sobreescribimos la función axios.post para que arroje el error simulado
+    const axiosStub = sinon.stub(axios, 'get');
+          axiosStub.returns(Promise.resolve({data: {username: 'angela',
+          email: 'angela@gmail.com',
+          creado: '2024-04-14T20:21:34.969Z' } }));
+
+    const response = await request(app)
+      .get('/getUser')
+      .send({ username: 'testuser' });
+
+    expect(response.status).toBe(200);
+    expect(response.body).toHaveProperty('username');
+    expect(response.body).toHaveProperty('email');
+    expect(response.body).toHaveProperty('creado');
+
+    // Restauramos axios para que no nos afecte en futuras pruebas
+    axios.get.restore();
+  });
+
+  // Test /getUser endpoint
+  it('should catch the errors when send /getUser that might appear during runtime', async () => {
+    await simulateApiError('get', '/getUser', 'Getting profile error', { error: 'An error has occured getting the profile' });
+  });
+
+  // Test /getAllUsers endpoint
+  it('should get the all users api', async () => {
+    // Sobreescribimos la función axios.post para que arroje el error simulado
+    const axiosStub = sinon.stub(axios, 'get');
+          axiosStub.returns(Promise.resolve({data: {username: 'angela',
+          email: 'angela@gmail.com',
+          creado: '2024-04-14T20:21:34.969Z' } }));
+
+    const response = await request(app)
+      .get('/getAllUsers')
+
+    expect(response.status).toBe(200);
+    expect(response.body).toHaveProperty('username');
+    expect(response.body).toHaveProperty('email');
+    expect(response.body).toHaveProperty('creado');
+
+    // Restauramos axios para que no nos afecte en futuras pruebas
+    axios.get.restore();
+  });
+
+  // Test /getAllUsers endpoint
+  it('should catch the errors when send /getAllUsers that might appear during runtime', async () => {
+    await simulateApiError('get', '/getAllUsers', 'Getting all users error', { error: 'An error has occured getting all users' });
+  });
+
+  // Test /getAllQuestions endpoint
+  it('should get the all questions api', async () => {
+    // Sobreescribimos la función axios.post para que arroje el error simulado
+    const axiosStub = sinon.stub(axios, 'get');
+          axiosStub.returns(Promise.resolve({data: {enunciado: 'pregunta1',
+          respuesta_correcta: 'respuesta1' } }));
+
+    const response = await request(app)
+      .get('/getAllQuestions')
+
+    expect(response.status).toBe(200);
+    expect(response.body).toHaveProperty('enunciado');
+    expect(response.body).toHaveProperty('respuesta');
+
+    // Restauramos axios para que no nos afecte en futuras pruebas
+    axios.get.restore();
+  });
+
+  // Test /getAllQuestions endpoint
+  it('should catch the errors when send /getAllQuestions that might appear during runtime', async () => {
+    await simulateApiError('get', '/getAllQuestions', 'Getting all questions error', { error: 'An error has occured getting all questions' });
   });
 });
