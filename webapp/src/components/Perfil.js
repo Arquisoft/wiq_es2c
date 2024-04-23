@@ -8,9 +8,8 @@ import '../App.css';
 
 const Perfil = () => {
 
-    const [t, i18n] = useTranslation("global");
-
-
+    const [t] = useTranslation("global");
+    
     const apiEndpoint = process.env.REACT_APP_API_ENDPOINT || 'http://localhost:8000';
 
     const { usernameGlobal } = useUser();
@@ -30,7 +29,7 @@ const Perfil = () => {
         } catch (error) {
             setError(error.response.data.error);
         }
-    }, [usernameGlobal])
+    }, [usernameGlobal, apiEndpoint]);
     
     useEffect(() => {
         getPerfil();

@@ -91,6 +91,11 @@ const EndGame = () => {
           </Button>
         </Box>
       </Box>
+      <div>
+        {error && (
+          <Snackbar open={!!error} autoHideDuration={6000} onClose={() => setError('')} message={`Error: ${error}`} />
+        )}
+      </div>
     </Container> 
   );
 };

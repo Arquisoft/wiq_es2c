@@ -25,9 +25,8 @@ const apiEndpoint = process.env.REACT_APP_API_ENDPOINT || 'http://localhost:8000
 
 const Ranking = () => {
 
-  const [t, i18n] = useTranslation("global");
+  const [t] = useTranslation("global");
 
-  const { usernameGlobal } = useUser();
   const [ranking, setRanking] = useState('');
   const [error, setError] = useState('');
   const [rankingTable, setRankingTable] = useState([]);
@@ -41,7 +40,7 @@ const Ranking = () => {
     } catch (error) {
       setError(error.response.data.error);
     }
-  }, [usernameGlobal])
+  }, []);
 
   const getRankingGlobal = useCallback(async () => {
     try {
@@ -214,6 +213,11 @@ const Ranking = () => {
           </TableBody>
         </Table>
       </Box>
+      <div>
+      {error && (
+        <Snackbar open={!!error} autoHideDuration={6000} onClose={() => setError('')} message={`Error: ${error}`} />
+      )}
+      </div>
     </Container>
   );
 };

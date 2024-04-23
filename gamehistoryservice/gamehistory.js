@@ -34,7 +34,7 @@ app.post("/saveGameHistory", async (req, res) => {
 
 app.get("/gamehistory", async (req, res) => {
     try {
-        var gamehistory = await GameHistory.findOne({ userId:req.query.username});
+        var gamehistory = await findOne(req.query.username);
     
         if (gamehistory) {
             var response = {
@@ -92,7 +92,7 @@ async function saveGameHistory(userId) {
     try {
 
         // Busca el historial de juego existente del usuario
-        let gameHistory = await GameHistory.findOne({ userId: userId });
+        let gameHistory = await findOne(userId);
 
         // Si no existe un historial de juego, crea uno nuevo
         if (!gameHistory) {
@@ -235,5 +235,9 @@ server.on('close', () => {
 // Close the Mongoose connection
 mongoose.connection.close();
 });
+
+async function findOne(userIdString) {
+    return await GameHistory.findOne({ userId: userIdString.toString() });
+}
 
 module.exports = server;

@@ -11,7 +11,7 @@ const apiEndpoint = process.env.REACT_APP_API_ENDPOINT || 'http://localhost:8000
 
 const Game = () => {
   
-  const [t, i18n] = useTranslation("global");
+  const {t,i18n} = useTranslation("global");
 
   const { usernameGlobal } = useUser();
   const [question, setQuestion] = useState('');
@@ -26,6 +26,7 @@ const Game = () => {
   const [answeredQuestions,setAnsweredQuestions] = useState(0);
   const [isTimeRunning, setIsTimeRunning] = useState(true);
   const [highlightedCorrectOption, setHighlightedCorrectOption] = useState('');
+  const [waiting, setWaiting] = useState(false);
 
   const location = useLocation();
 
@@ -36,10 +37,12 @@ const Game = () => {
 
   const getQuestion = useCallback(async () => {
     try {      
+      setWaiting(true);
       const response = await axios.get(`${apiEndpoint}/generateQuestion`, {
         params: {
           user: usernameGlobal,
-          thematic: THEMATIC
+          thematic: THEMATIC,
+          language: i18n.language
         }
       });
       setQuestion(response.data.responseQuestion);
@@ -50,11 +53,12 @@ const Game = () => {
       setIsTimeRunning(true);
       setElapsedTime(MAX_TIME);
       setAnsweredQuestions(prevValue => prevValue+1);
+      setWaiting(false);
     } catch (error) {
       console.log("Error: " + error.response.data.error);
       setError(error.response.data.error);
     }
-  }, [usernameGlobal])
+  }, [usernameGlobal, MAX_TIME, THEMATIC]);
 
   const saveGameHistory = useCallback(async () => {
     try {
@@ -93,7 +97,7 @@ const Game = () => {
     return () => {
       clearTimeout(timerId);
     }
-  }, [elapsedTime, getQuestion, answeredQuestions, navigate,  isTimeRunning, saveGameHistory]);
+  }, [elapsedTime, getQuestion, answeredQuestions, navigate,  isTimeRunning, saveGameHistory, MAX_PREGUNTAS]);
 
   const handleOptionClick = async (option) => {
     var isTheCorrectAnswer = false;
@@ -204,6 +208,13 @@ const Game = () => {
         <div>
           {error && (
             <Snackbar open={!!error} autoHideDuration={6000} onClose={() => setError('')} message={`Error: ${error}`} />
+          )}
+        </div>
+        <div>
+          {waiting && (
+            <Typography component="p" variant="p" sx={{ textAlign: 'center' }}>
+              Cargando siguiente pregunta, espere...
+            </Typography>
           )}
         </div>
       </Container>
