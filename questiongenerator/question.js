@@ -12,6 +12,8 @@ const generatorEndpoint = process.env.REACT_APP_API_ORIGIN_ENDPOINT || 'http://l
 const app = express();
 const port = 8003;
 
+var language = 'undefined';
+
 // Middleware to parse JSON in request body
 app.use(bodyParser.json());
 
@@ -48,24 +50,40 @@ const mongoUri = process.env.MONGODB_URI || 'mongodb://localhost:27017/questiond
 mongoose.connect(mongoUri);
 
 function getQueriesAndQuestions(textData, imageData) {
-    let results = {};
-    for (var thematic in textData) {
-        results[thematic] = textData[thematic];
-    }
-    
-    for (var thematic in imageData) {
-        if (results[thematic]) {
-            results[thematic] = results[thematic].concat(imageData[thematic]);
-        } else {
-            results[thematic] = imageData[thematic];
+    let mergedQueries = {};
+
+    // Combinar las consultas del primer archivo
+    for (let language in textData) {
+        let thematicQueries1 = textData[language];
+        for (let thematic in thematicQueries1) {
+            if (!mergedQueries[thematic]) {
+                mergedQueries[thematic] = {};
+            }
+            if (!mergedQueries[thematic][language]) {
+                mergedQueries[thematic][language] = [];
+            }
+            mergedQueries[thematic][language] = mergedQueries[thematic][language].concat(thematicQueries1[thematic]);
         }
     }
-
-    return results;
+    // Combinar las consultas del segundo archivo
+    for (let language in imageData) {
+        let thematicQueries2 = imageData[language];
+        for (let thematic in thematicQueries2) {
+            if (!mergedQueries[thematic]) {
+                mergedQueries[thematic] = {};
+            }
+            if (!mergedQueries[thematic][language]) {
+                mergedQueries[thematic][language] = [];
+            }
+            mergedQueries[thematic][language] = mergedQueries[thematic][language].concat(thematicQueries2[thematic]);
+        }
+    }
+    return mergedQueries;
 }
 
 app.get('/generateQuestion', async (req, res) => {
     try {
+        language = req.query.language;
         queries = [];
         questions = [];
         if(numberOfQuestions == 0){
@@ -130,14 +148,17 @@ async function getQueriesByThematic(thematic) {
 
 function changeQueriesAndQuestions(thematic) {
     queries = generalQueries[thematic];
+    queries = queries[language];
 }
 
 function getAllValues() {
     let results = [];
-    for (var thematic in generalQueries) {
-        results = results.concat(generalQueries[thematic]);
+    for (let thematic in generalQueries) {
+        let thematicQueries = generalQueries[thematic];
+        if (thematicQueries[language]) {
+            results = results.concat(thematicQueries[language]);
+        }
     }
-
     return results;
 }
 
@@ -179,6 +200,7 @@ function procesarDatos(data) {
         var randomIndex = Math.floor(Math.random() * data.length);
         var option = data[randomIndex].optionLabel.value;
         var quest = "";
+
 
         // Si es una pregunta de texto hay que coger la parte de la pregunta que falta; si es una pregunta de imagen
         // la pregunta ya viene en el array

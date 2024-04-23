@@ -194,7 +194,7 @@ jobs:
         username: ${{ github.actor }}
         password: ${{ secrets.GITHUB_TOKEN }}
         registry: ghcr.io
-        workdir: allquestionservice
+        workdir: apis/allquestionservice
   docker-push-alluserservice:
     name: Push all user service service Docker Image to GitHub Packages
     runs-on: ubuntu-latest
@@ -211,7 +211,7 @@ jobs:
         username: ${{ github.actor }}
         password: ${{ secrets.GITHUB_TOKEN }}
         registry: ghcr.io
-        workdir: alluserservice
+        workdir: apis/alluserservice
   docker-push-prometheus:
     name: Push Prometheus Docker Image to GitHub Packages
     runs-on: ubuntu-latest
@@ -249,7 +249,8 @@ jobs:
   deploy:
     name: Deploy over SSH
     runs-on: ubuntu-latest
-    needs: [docker-push-userservice,docker-push-authservice,docker-push-gatewayservice,docker-push-webapp,docker-push-questiongenerator,docker-push-gamehistoryservice]
+    needs: [docker-push-userservice,docker-push-authservice,docker-push-gatewayservice,docker-push-webapp,
+          docker-push-questiongenerator,docker-push-gamehistoryservice,docker-push-perfilservice,docker-push-allquestionservice,docker-push-alluserservice]
     steps:
     - name: Deploy over SSH
       uses: fifsky/ssh-action@master

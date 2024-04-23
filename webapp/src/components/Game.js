@@ -11,7 +11,7 @@ const apiEndpoint = process.env.REACT_APP_API_ENDPOINT || 'http://localhost:8000
 
 const Game = () => {
   
-  const [t] = useTranslation("global");
+  const {t,i18n} = useTranslation("global");
 
   const { usernameGlobal } = useUser();
   const [question, setQuestion] = useState('');
@@ -40,7 +40,8 @@ const Game = () => {
       const response = await axios.get(`${apiEndpoint}/generateQuestion`, {
         params: {
           user: usernameGlobal,
-          thematic: THEMATIC
+          thematic: THEMATIC,
+          language: i18n.language
         }
       });
       setQuestion(response.data.responseQuestion);

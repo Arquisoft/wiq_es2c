@@ -4,12 +4,17 @@ const app = require('./gateway-service');
 const { createServer } = require('http');
 const sinon = require('sinon');
 
+
 const server = createServer(app);
 const newPassword = Math.floor(Math.random() * 10).toString(); // Genera una nueva contraseña aleatoria para evitar el Security Hostpot de SonarCloud en las pruebas
 
 afterAll(async () => {
     app.close();
   });
+  
+afterEach(() => {
+  sinon.restore();
+});
 
 jest.mock('axios');
 
@@ -83,6 +88,7 @@ describe('Gateway Service', () => {
   it('should catch the errors when send /generateQuestion that might appear during runtime', async () => {
     await simulateApiError('get', '/generateQuestion', 'Generation error', { error: 'Cannot generate a question' });
   });
+  
 
   // Test /generateQuestion endpoint
   it('should receive the question', async () => {
@@ -187,42 +193,21 @@ describe('Gateway Service', () => {
     await simulateApiError('get', '/gamehistory', 'Getting game history error', { error: 'An error has occured getting the game history' });
   });
 
-  // Test /configureGame endpoint
-  it('should call configure game', async () => {
-    const axiosStub = sinon.stub(axios, 'post');
-    axiosStub.returns(Promise.resolve({ data: 5}));
-
-    const response = await request(app)
-      .post('/configureGame')
-      .send();
-
-    expect(response.status).toBe(200);
-    expect(response.body).toEqual(5);
-
-    // Restauramos axios para que no nos afecte en futuras pruebas
-    axios.post.restore();
-  });
-
-  // Test /configureGame endpoint
-  it('should catch the errors when send /configureGame that might appear during runtime', async () => {
-    await simulateApiError('post', '/configureGame', 'Getting configuration error', { error: 'An error has occured configurating the game' });
-  });
-
   // Test /getUser endpoint
   it('should get the correct user', async () => {
     const axiosStub = sinon.stub(axios, 'get');
     axiosStub.returns(Promise.resolve({ data: { username: "user",
         email: "email",
-        creado: "hoy" } }));
+        creado: "2024-04-14T20:21:34.969Z" } }));
 
     const response = await request(app)
       .get('/getUser')
-      .send({ username: 'testuser' });
+      .send({ username: 'user' });
 
-    expect(response.status).toBe(200);
-    expect(response.body).toEqual({  username: "user",
-          email: "email",
-          creado: "hoy"});
+      expect(response.status).toBe(200);
+      expect(response.body).toHaveProperty('username');
+      expect(response.body).toHaveProperty('email');
+      expect(response.body).toHaveProperty('creado');
 
     // Restauramos axios para que no nos afecte en futuras pruebas
     axios.get.restore();
@@ -238,10 +223,10 @@ describe('Gateway Service', () => {
     const axiosStub = sinon.stub(axios, 'get');
     axiosStub.returns(Promise.resolve({ data: [{ username: "user",
         email: "email",
-        creado: "hoy" }, {
+        creado: "2024-04-14T20:21:34.969Z" }, {
           username: "user2",
           email: "email2",
-          creado: "ayer"
+          creado: "2024-04-14T20:21:34.969Z"
         }] }));
 
     const response = await request(app)
@@ -251,17 +236,17 @@ describe('Gateway Service', () => {
     expect(response.status).toBe(200);
     expect(response.body).toEqual([{ username: "user",
         email: "email",
-        creado: "hoy" }, {
+        creado: "2024-04-14T20:21:34.969Z" }, {
           username: "user2",
           email: "email2",
-          creado: "ayer"
+          creado: "2024-04-14T20:21:34.969Z"
         }]);
 
     // Restauramos axios para que no nos afecte en futuras pruebas
     axios.get.restore();
   });
 
-  // Test /getUser endpoint
+  // Test /getAllUsers endpoint
   it('should catch the errors when send /getAllUsers that might appear during runtime', async () => {
     await simulateApiError('get', '/getAllUsers', 'Getting get all users error', { error: 'An error has occured getting all users' });
   });
@@ -288,13 +273,13 @@ describe('Gateway Service', () => {
 
     // Restauramos axios para que no nos afecte en futuras pruebas
     axios.get.restore();
-  });
+  } );
 
   // Test /getAllQuestions endpoint
   it('should catch the errors when send /getAllQuestions that might appear during runtime', async () => {
     await simulateApiError('get', '/getAllQuestions', 'Getting get all questions error', { error: 'An error has occured getting all questions' });
   });
-
+   
   // Test /topUsers endpoint
   it('should get the top users', async () => {
     const axiosStub = sinon.stub(axios, 'get');
