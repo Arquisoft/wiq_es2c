@@ -15,6 +15,7 @@ import {
   TableCell,
   TableHead,
   TableRow,
+  Button
 } from '@mui/material';
 import { useUser } from './UserContext';
 import '../App.css';
@@ -45,19 +46,23 @@ const Ranking = () => {
   const getRankingGlobal = useCallback(async () => {
     try {
       const response = await axios.get(
-        `${apiEndpoint}/ranking`, {
-        params: {
-          sortBy: sortBy,
-          userLimit: userLimit
-        }
-      });
+        `${apiEndpoint}/ranking`, {sortBy, userLimit}
+      );
       setRankingTable(response.data);
     } catch (error) {
       setError(error.response.data.error);
     }
   }, [sortBy, userLimit]);
 
-  const handleLimit = (event) => {
+  const handleSortByChange = async (event) => {
+    const newSortBy = event.target.value;
+    setSortBy(newSortBy);
+    getRankingGlobal();
+    console.log(`Nuevo orden seleccionado: ${newSortBy}`);
+  };
+
+
+  const handleLimit = async (event) => {
     let inputValue = parseInt(event.target.value);
     if (!isNaN(inputValue) && inputValue >= 0) {
         inputValue = Math.min(inputValue, 20);
@@ -66,10 +71,17 @@ const Ranking = () => {
     }
   };
 
+  const handleFilterClick = async () => {
+    alert(userLimit);
+    alert(sortBy);
+    getRankingGlobal();
+    alert(rankingTable);
+  };
+
   useEffect(() => {
     getRanking();
     getRankingGlobal();
-  }, [getRanking]);
+  }, [getRanking, getRankingGlobal]);
 
   return (
     <Container component="main" maxWidth="xl"
@@ -134,7 +146,7 @@ const Ranking = () => {
                   <InputLabel>Ordenar por</InputLabel>
                   <Select
                     value={sortBy}
-                    onChange={(e) => setSortBy(e.target.value)}
+                    onChange={handleSortByChange}
                     sx
                   >
                     <MenuItem value="ratio">Ratio</MenuItem>
@@ -162,6 +174,17 @@ const Ranking = () => {
                   />
                 </FormControl>
               </Grid>
+
+              <Grid item xs={12} md={6}>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  onClick={handleFilterClick}
+                >
+                  Filtrar
+                </Button>
+              </Grid>
+
             </Grid>
 
             <Table>
