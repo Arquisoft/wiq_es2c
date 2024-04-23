@@ -193,6 +193,27 @@ describe('Gateway Service', () => {
     await simulateApiError('get', '/gamehistory', 'Getting game history error', { error: 'An error has occured getting the game history' });
   });
 
+   // Test /configureGame endpoint
+   it('should call configure game', async () => {
+    const axiosStub = sinon.stub(axios, 'post');
+    axiosStub.returns(Promise.resolve({ data: 5}));
+
+    const response = await request(app)
+      .post('/configureGame')
+      .send();
+
+    expect(response.status).toBe(200);
+    expect(response.body).toEqual(5);
+
+    // Restauramos axios para que no nos afecte en futuras pruebas
+    axios.post.restore();
+  });
+
+  // Test /configureGame endpoint
+  it('should catch the errors when send /configureGame that might appear during runtime', async () => {
+    await simulateApiError('post', '/configureGame', 'Getting configuration error', { error: 'An error has occured configurating the game' });
+  });
+
   // Test /getUser endpoint
   it('should get the correct user', async () => {
     const axiosStub = sinon.stub(axios, 'get');

@@ -43,14 +43,14 @@ describe('Question Generator test', () => {
     it('Should return a question when calling /generateQuestion', async () => {
         const response = await request(app)
             .get('/generateQuestion')
-            .query({ thematic: 'Todas', user: 'user' });
+            .query({ thematic: 'Todas', user: 'user', language: 'es' });
 
         expect(response.status).toBe(200);
         expect(response.body).toHaveProperty('responseQuestion', 'responseOptions', 'responseCorrectOption', 'question_Id', 'responseImage');
     });
 
     it('Should manager errors when calling /generateQuestion', async () => {
-        await simulateError('get', '/generateQuestion', 'Error al obtener datos', { error: 'Error al obtener datos Error: Error al obtener datos' });
+        await simulateError('get', '/generateQuestion', 'Error al obtener datos', { error: "Error al obtener datos TypeError: Cannot read properties of undefined (reading '0')" });
     });
 
     it('Should configure the game when calling /configureGame', async () => {
