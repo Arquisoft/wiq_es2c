@@ -2,12 +2,16 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate} from 'react-router-dom';
-import { Container, Typography, TextField, Button, Snackbar, skeletonClasses } from '@mui/material';
+import { Container, Typography, TextField, Button, Snackbar } from '@mui/material';
 import '../App.css';
+import { useTranslation } from 'react-i18next';
 
 const apiEndpoint = process.env.REACT_APP_API_ENDPOINT || 'http://localhost:8000';
 
 const GameConfiguration = () => {
+
+    const [t] = useTranslation("global");
+
     const navigate = useNavigate();
     const [openSnackbar, setOpenSnackbar] = useState(false);
     const [error, setError] = useState('');
@@ -60,6 +64,7 @@ const GameConfiguration = () => {
 
         } catch (error) {
             setError(error.response.data.error);
+            setSnackbarMessage(error);
             setOpenSnackbar(true);
         }
     };
@@ -71,22 +76,22 @@ const GameConfiguration = () => {
 
     return (
         <Container component="main" maxWidth="xl"
-                   sx={{
-                       marginTop: 25,
-                       borderRadius: '10px',
-                       display: 'flex',
-                       flexDirection: 'column',
-                       justifyContent: 'center',
-                       alignItems: 'center',
-                   }}>
+                sx={{
+                    marginTop: 25,
+                    borderRadius: '10px',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                }}>
             <div style={{display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}>
                 <Typography component="h1" variant="h5" align="center" sx={{ marginBottom: 2, fontWeight: 'bold' }}>
-                    Personaliza tu partida
+                    {t("textoPersonalizar")}
                 </Typography>
                 <TextField
                     name="questions"
                     margin="normal"
-                    label="Número de preguntas"
+                    label={t("textoNumPreg")}
                     placeholder="Número del 2 al 30"
                     onChange={handleChangeQuestions}
                     value={valueQuestion}
@@ -105,7 +110,7 @@ const GameConfiguration = () => {
                 name="time"
                 margin="normal"
                 fullWidth
-                label="Tiempo por pregunta"
+                label={t("textoTiempoPreg")}
                 placeholder="Número del 10 al 60"
                 onChange={handleChangeTime}
                 value={valueTime}
@@ -119,20 +124,20 @@ const GameConfiguration = () => {
                 }}
             />
             <Typography component="p" variant="p" align="center" sx={{ marginBottom: 2, fontWeight: 'bold' }}>
-                Selecciona las tematicas de la pregunta para poder jugar
+                {t("textoTematicas")}
             </Typography>
             <div>
                 <select onChange={handleOptionSelect}>
-                    <option value="Todas">Todas</option>
-                    <option value="Geografia">Geografia</option>
-                    <option value="Cultura">Cultura</option>
-                    <option value="Informatica">Informatica</option>
-                    <option value="Personajes">Personajes</option>
+                    <option value="Todas">{t("tematicaTodas")}</option>
+                    <option value="Geografia">{t("tematicaGeo")}</option>
+                    <option value="Cultura">{t("tematicaCult")}</option>
+                    <option value="Informatica">{t("tematicaInf")}</option>
+                    <option value="Personajes">{t("tematicaPersonajes")}</option>
                 </select>
             </div>
             <Button variant="contained" color="primary" sx={{marginTop: 4,marginBottom: 4, backgroundColor: '#FCF5B8',  color: '#413C3C',  fontWeight: 'bold'}}
                 onClick={configureAndStart}>
-                JUGAR
+                {t("botonJugar")}
             </Button>
             <Snackbar open={openSnackbar} autoHideDuration={6000} onClose={handleCloseSnackbar} message={snackbarMessage} />
             {error && (
