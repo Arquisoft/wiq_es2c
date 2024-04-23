@@ -26,7 +26,7 @@ app.use((req, res, next) => {
 app.get('/getUser', async (req, res) => {
     try{
 
-        var user = await findOne({ username:req.query.username});
+        var user = await findOne(req.query.username);
 
         var response = {
             username: user.username,
@@ -50,8 +50,8 @@ server.on('close', () => {
     mongoose.connection.close();
 });
 
-async function findOne(username) {
-    return await User.findOne({ username: username.toString()});
+async function findOne(usernameString) {
+    return await User.findOne({ username: usernameString.toString()});
 }
 
 module.exports = server;
