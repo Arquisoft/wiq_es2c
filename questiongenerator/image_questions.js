@@ -103,7 +103,7 @@ queries["en"] = {
         FILTER(lang(?optionLabel) = "es")       
         FILTER EXISTS { ?option wdt:P18 ?imageLabel }
       }
-    `, "¿Que país es el que aparece en la siguiente imagen?"]
+    `, "What country is the one that appears in the following image?"]
           ],
 
       "Cultura":
@@ -119,7 +119,7 @@ queries["en"] = {
         SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],es". }
       }
       LIMIT 100
-      `, "¿Que monumento español es este?"]
+      `, "What Spanish monument is this?"]
           ],
 
       "Personajes":
@@ -136,7 +136,7 @@ queries["en"] = {
         SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],es". }
       }
       LIMIT 100
-      `, "¿Cuál es el nombre de este pintor?"],
+      `, "What is the name of this painter?"],
                 // pregunta = imagen futbolista, opcion = nombre futbolista
                 [
                       `
@@ -149,7 +149,7 @@ queries["en"] = {
         SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],es". }
       }
       LIMIT 100
-      `, "¿Cuál es el nombre de este futbolista?"],
+      `, "What is the name of this footballer?"],
                 // pregunta = imagen cantante, opcion = nombre cantante
                 [
                       `
@@ -160,7 +160,7 @@ queries["en"] = {
           SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],es". }
       }
       LIMIT 100
-      `, "¿Cuál es el nombre de este cantante?"],
+      `, "What is the name of this singer?"],
                 // pregunta = Imagen de un presidente de EE.UU., opcion = Nombres de presidentes de EE.UU.
                 [
                       `
@@ -171,7 +171,7 @@ queries["en"] = {
                       wdt:P18 ?imageLabel.   
           SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],es". }
       }
-      `, "¿Que presidente de EE.UU es el que se muestra en la imagen?"]
+      `, "Which US president is shown in the image?"]
           ]
 }
 
