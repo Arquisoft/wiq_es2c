@@ -156,14 +156,14 @@ function changeQueriesAndQuestions(thematic) {
 
 function getAllValues() {
     let results = [];
-    for (var thematic in generalQueries) {
-        results = results.concat(generalQueries[thematic]);
+    for (let thematic in generalQueries) {
+        let thematicQueries = generalQueries[thematic];
+        if (thematicQueries[language]) {
+            results = results.concat(thematicQueries[language]);
+        }
     }
     console.log("ALL");
-    console.log(results)
-    results = results[language];
-    console.log("ALL AND LANGUAGE");
-    console.log(results)
+    console.log(results);
     return results;
 }
 
