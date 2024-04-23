@@ -108,7 +108,7 @@ app.get('/getUser', async (req, res) => {
       console.log(perfilResponse)
       res.json(perfilResponse.data);
   } catch (error) {
-      console.log(error)
+      res.status(error.response.status).json({ error: error.response.data.error });
   }
 });
 
@@ -118,7 +118,7 @@ app.get('/getAllUsers', async (req, res) => {
       const allUsersResponse = await axios.get(URL, req.body);
       res.json(allUsersResponse.data);
   } catch (error) {
-      console.log(error)
+    res.status(error.response.status).json({ error: error.response.data.error });
   }
 });
 
@@ -128,7 +128,7 @@ app.get('/getAllQuestions', async (req, res) => {
       const allQuestionsResponse = await axios.get(URL, req.body);
       res.json(allQuestionsResponse.data);
   } catch (error) {
-      console.log(error)
+    res.status(error.response.status).json({ error: error.response.data.error });
   }
 });
 
