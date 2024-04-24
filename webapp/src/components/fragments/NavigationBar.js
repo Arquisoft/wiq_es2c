@@ -10,7 +10,7 @@ import { useTranslation } from 'react-i18next';
 
 const NavigationBar = () => {
 
-    const [t] = useTranslation("global");
+    const [t, i18n] = useTranslation("global");
 
     const [setError] = useState('');
     const { usernameGlobal, setUsernameGlobal } = useUser();
