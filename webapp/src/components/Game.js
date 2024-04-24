@@ -25,6 +25,7 @@ const Game = () => {
   const [answerCorrect, setAnswerCorrect] = useState(false);
   const [answeredQuestions,setAnsweredQuestions] = useState(0);
   const [isTimeRunning, setIsTimeRunning] = useState(true);
+  const [highlightedCorrectOption, setHighlightedCorrectOption] = useState('');
   const [waiting, setWaiting] = useState(false);
 
   const location = useLocation();
@@ -122,6 +123,11 @@ const Game = () => {
       setError(error.response.data.error);
     }
 
+    if (!answerCorrect) {
+      setHighlightedCorrectOption(correctOption);
+    } else {
+        setHighlightedCorrectOption('');  
+    }
 
     if (answeredQuestions>= MAX_PREGUNTAS) {
       setTimeout(() => {
@@ -140,6 +146,7 @@ const Game = () => {
   return (
     <Container component="main" maxWidth="xxl"
             sx={{
+                marginTop: 10,
                 backgroundColor: '#F3D3FA',
                 borderRadius: '10px',
                 display: 'flex',
@@ -175,13 +182,25 @@ const Game = () => {
         </div>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '10px', alignItems: 'center', marginTop: '20px' }}>
           {options.map((option, index) => (
-            <Button key={index } style={{ 
+            <Button
+              key={index}
+              style={{
                 width: '100%',
                 height: '17vh',
-                backgroundColor: selectedOption === option ? (answerCorrect ? '#00C853' : '#FF1744') : '#FCF5B8',
-                color: '#413C3C', 
-                fontWeight: 'bold'
-              }} variant="contained" onClick={!isTimeRunning ? null : () => {handleOptionClick(option);}}>
+                backgroundColor:
+                  selectedOption === option
+                    ? answerCorrect
+                      ? '#00C853' // Green for correct answer
+                      : '#FF1744' // Red for incorrect answer
+                    : highlightedCorrectOption === option
+                    ? '#00C853' // Green for correct option if user was wrong
+                    : '#FCF5B8', // Default background color
+                color: '#413C3C',
+                fontWeight: 'bold',
+              }}
+              variant="contained"
+              onClick={!isTimeRunning ? null : () => handleOptionClick(option)}
+            >
               {option}
             </Button>
           ))}

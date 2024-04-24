@@ -7,7 +7,6 @@ import Typography from '@mui/material/Typography';
 import Link from '@mui/material/Link';
 import './App.css';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import {Button, Tooltip } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 
 
@@ -18,8 +17,6 @@ const theme = createTheme({
     },
   },
 });
-
-
 
 function App() {
 
@@ -55,23 +52,6 @@ function App() {
               </Link>
             )}
           </Typography>
-          <div style={{ position: 'absolute', top: 0, right: 0 }}>
-            {/* Aquí coloca tus dos botones */}
-            <Tooltip title="Español">
-            <Button variant="contained" color="inherit" 
-              style={{ background: 'white', border: 'none', padding: 0, marginRight: '10px' }} 
-              onClick={() => i18n.changeLanguage('es')}>
-                <img src={require('./components/images/esp.png')} style={{ width: '50px', height: '50px' }} alt="Imagen español"/>
-            </Button>
-            </Tooltip>
-            <Tooltip title="Inglés">
-            <Button variant="contained" color="inherit" 
-              style={{ background: 'white', border: 'none', padding: 0, marginRight: '10px' }} 
-              onClick={() => i18n.changeLanguage('en')}>
-                <img src={require('./components/images/ing.png')} style={{ width: '50px', height: '50px' }} alt="Imagen español"/>
-            </Button>
-            </Tooltip>
-          </div>
         </Container>
     </ThemeProvider>
   );

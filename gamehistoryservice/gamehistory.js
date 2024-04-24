@@ -201,6 +201,31 @@ async function getEndGameStats(userId) {
     }
 }
 
+app.get('/ranking', async (req, res) => {
+    try {
+        const sortBy = req.query.sortBy || 'ratio'; 
+        const limit = req.query.userLimit || 10; 
+        
+        const topUsers = await GameHistory.find()
+            .sort({ [sortBy]: -1 }) 
+            .limit(limit); 
+        
+        const response = topUsers.map(user => ({
+            userId: user.userId,
+            totalGamesPlayed: user.totalGamesPlayed,
+            totalQuestionsAnswered: user.totalQuestionsAnswered,
+            totalRightQuestions: user.totalRightQuestions,
+            ratio: `${user.ratio}%`,
+            totalTime: `${user.totalTime}s`
+        }));
+
+        res.json(response);
+
+    } catch (error) {
+        res.status(400).json({ error: `Error al obtener el ranking: ${error.message}` });
+    }
+});
+
 
 const server = app.listen(port, () => {
     console.log(`Stats Service listening at http://localhost:${port}`);

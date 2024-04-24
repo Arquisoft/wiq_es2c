@@ -10,7 +10,7 @@ import { useTranslation } from 'react-i18next';
 
 const NavigationBar = () => {
 
-    const [t] = useTranslation("global");
+    const [t, i18n] = useTranslation("global");
 
     const [setError] = useState('');
     const { usernameGlobal, setUsernameGlobal } = useUser();
@@ -61,10 +61,93 @@ const NavigationBar = () => {
         }
     };
 
+    if (location.pathname === '/App' || location.pathname === '/') {
+        return (
+            <AppBar position="fixed" sx={{ backgroundColor: '#9A77B0' }}>
+                <Toolbar>
+                    <IconButton
+                        size="large"
+                        edge="start"
+                        color="inherit"
+                        aria-label="menu"
+                        onClick={handleMenu}
+                        sx={{ mr: 2, display: { sm: 'none' } }}
+                    >
+                        <MenuIcon />
+                    </IconButton>
+                    <Menu
+                        anchorEl={anchorEl}
+                        open={open}
+                        onClose={handleClose}
+                        onClick={handleClose}
+                    >
+                        <MenuItem onClick={() => i18n.changeLanguage('es')}>Español</MenuItem>
+                        <MenuItem onClick={() => i18n.changeLanguage('en')}>Inglés</MenuItem>
+                    </Menu>
+                    <Hidden smDown>
+                    <Grid container justifyContent="flex-start">
+                    </Grid>
+                    <Grid container justifyContent="flex-end">
+                        <Tooltip title="Español">
+                        <Button variant="contained" color="inherit" 
+                            style={{ background: '#9A77B0', border: 'none', padding: 0, marginRight: '10px' }} 
+                            onClick={() => i18n.changeLanguage('es')}>
+                            <img src={require('../images/esp.png')} style={{ width: '50px', height: '50px' }} alt="Imagen español"/>
+                        </Button>
+                        </Tooltip>
+                        <Tooltip title="Inglés">
+                        <Button variant="contained" color="inherit" 
+                            style={{ background: '#9A77B0', border: 'none', padding: 0, marginRight: '10px' }} 
+                            onClick={() => i18n.changeLanguage('en')}>
+                            <img src={require('../images/ing.png')} style={{ width: '50px', height: '50px' }} alt="Imagen español"/>
+                        </Button>
+                        </Tooltip>                    
+                    </Grid>
+                    </Hidden>
+                </Toolbar>
+            </AppBar>
+        );
+    }
+
+    if(location.pathname === '/Game') {
+        return (
+            <AppBar position="fixed" sx={{ backgroundColor: '#9A77B0' }}>
+                <Toolbar>
+                    <IconButton
+                        size="large"
+                        edge="start"
+                        color="inherit"
+                        aria-label="menu"
+                        onClick={handleMenu}
+                        sx={{ mr: 2, display: { sm: 'none' } }}
+                    >
+                        <MenuIcon />
+                    </IconButton>
+                    <Menu
+                        anchorEl={anchorEl}
+                        open={open}
+                        onClose={handleClose}
+                        onClick={handleClose}
+                    >
+                        <MenuItem onClick={showHome}>Inicio</MenuItem>
+                    </Menu>
+                    <Hidden smDown>
+                        <Grid container justifyContent="flex-start">
+                            <Tooltip title={t("toolInicio")}>
+                            <Button variant="contained" color="inherit" style={{ background: '#9A77B0', border: 'none', padding: 0, marginRight: '10px' }} onClick={showHome}>
+                                <img src={require('../images/home.png')} style={{ width: '50px', height: '50px' }} alt="Imagen home"/>
+                            </Button>
+                            </Tooltip>
+                        </Grid>
+                    </Hidden>
+                </Toolbar>
+            </AppBar>
+        );
+    }
     
 
     if (isHiddenRoute) {
-        return null; // Si no estás en / o /App, no muestra la barra de navegación
+        return null; 
     }
 
     return (
@@ -95,29 +178,29 @@ const NavigationBar = () => {
                 <Hidden smDown>
                 <Grid container justifyContent="flex-start">
                     <Tooltip title={t("toolInicio")}>
-                    <Button variant="contained" color="inherit" style={{ background: 'white', border: 'none', padding: 0, marginRight: '10px' }} onClick={showHome}>
+                    <Button variant="contained" color="inherit" style={{ background: '#9A77B0', border: 'none', padding: 0, marginRight: '10px' }} onClick={showHome}>
                         <img src={require('../images/home.png')} style={{ width: '50px', height: '50px' }} alt="Imagen home"/>
                     </Button>
                     </Tooltip>
                     <Tooltip title={t("toolHistorico")}>
-                    <Button variant="contained" color="inherit" style={{ background: 'white', border: 'none', padding: 0, marginRight: '10px' }} onClick={showGameHistory}>
+                    <Button variant="contained" color="inherit" style={{ background: '#9A77B0', border: 'none', padding: 0, marginRight: '10px' }} onClick={showGameHistory}>
                         <img src={require('../images/iconHistory.png')} style={{ width: '50px', height: '50px' }} alt="Imagen historico"/>
                     </Button>
                     </Tooltip>
                     <Tooltip title={t("toolRanking")}>
-                    <Button variant="contained" color="inherit" style={{ background: 'white', border: 'none', padding: 0, marginRight: '10px' }} onClick={showRanking}>
+                    <Button variant="contained" color="inherit" style={{ background: '#9A77B0', border: 'none', padding: 0, marginRight: '10px' }} onClick={showRanking}>
                         <img src={require('../images/iconRanking.png')} style={{ width: '50px', height: '50px' }} alt="Imagen ranking"/>
                     </Button>
                     </Tooltip>
                 </Grid>
                 <Grid container justifyContent="flex-end">
                     <Tooltip title={t("toolPerfil")}>
-                    <Button variant="contained" color="inherit" style={{ background: 'white', border: 'none', padding: 0, width: '50px', marginRight: '10px' }} onClick={showPerfil}>
+                    <Button variant="contained" color="inherit" style={{ background: '#9A77B0', border: 'none', padding: 0, width: '50px', marginRight: '10px' }} onClick={showPerfil}>
                         <img src={require('../images/iconUser.png')} style={{ width: '50px', height: '50px' }} alt="Imagen usuario"/>
                     </Button>
                     </Tooltip>
                     <Tooltip title={t("toolLogOut")}>
-                    <Button variant="contained" color="inherit" style={{ background: 'white', border: 'none', padding: 0, marginRight: '10px' }} onClick={showLogout}>
+                    <Button variant="contained" color="inherit" style={{ background: '#9A77B0', border: 'none', padding: 0, marginRight: '10px' }} onClick={showLogout}>
                         <img src={require('../images/logout.png')} style={{ width: '50px', height: '50px' }} alt="Imagen logout"/>
                     </Button>
                     </Tooltip>
