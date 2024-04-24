@@ -2,7 +2,6 @@ const request = require('supertest');
 const { MongoMemoryServer } = require('mongodb-memory-server');
 const sinon = require('sinon');
 const axios = require('axios');
-const User = require('./question-model');
 const Question = require('./question-model');
 
 jest.mock('./question-model'); // Mockea el modelo de pregunta
