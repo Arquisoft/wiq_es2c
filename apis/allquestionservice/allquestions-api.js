@@ -42,8 +42,7 @@ app.get('/getAllQuestions', async (req, res) => {
         
 
     } catch (error) {
-        console.error('No hay preguntas:', error);
-        res.status(500).json({ message: 'Error interno del servidor' });
+        res.status(400).json({ error: error.message }); 
     }
 });
 
