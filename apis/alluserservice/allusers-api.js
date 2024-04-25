@@ -1,6 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
+const User = require('./user-model')
 
 const app = express();
 const port = 8006;
@@ -25,7 +26,9 @@ app.use((req, res, next) => {
 app.get('/getAllUsers', async (req, res) => {
     try{
 
-        var users = await mongoose.connection.collection('users').find().toArray();
+        
+
+        var users = await User.find();
         var userList = [];
         
         users.forEach(user => {

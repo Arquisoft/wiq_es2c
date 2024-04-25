@@ -1,5 +1,6 @@
 const express = require('express');
 const mongoose = require('mongoose');
+const Question = require('./question-model')
 const bodyParser = require('body-parser');
 
 const app = express();
@@ -25,7 +26,7 @@ app.use((req, res, next) => {
 app.get('/getAllQuestions', async (req, res) => {
     try{
 
-        var questions = await mongoose.connection.collection('questions').find().toArray();
+        var questions = await Question.find({ });
 
         var questionsList = [];
         
