@@ -33,6 +33,34 @@ async function changeTime(getByLabelText, time) {
   });
 }
 
+async function showAndPlay(questions, time, simulateError, messageExpected) {
+  const { getByLabelText } = render(<I18nextProvider i18n={i18n}>
+    <UserProvider>
+      <Router>
+        <GameConfiguration/>
+      </Router>
+    </UserProvider>
+  </I18nextProvider>);
+
+  await changeQuestionsNumber(getByLabelText, questions);
+  await changeTime(getByLabelText, time);
+
+  // Prueba de juego 
+  await act(async() => {
+    if(simulateError) {
+      mockAxios.onPost('http://localhost:8000/configureGame').reply(400);
+    }
+    let button = screen.getByText('JUGAR');
+    fireEvent.click(button);
+  });
+
+  if(messageExpected != "") {
+    await waitFor(() => {
+      expect(screen.getByText(messageExpected)).toBeInTheDocument();
+    });
+  }
+}
+
 describe('Game history', () => {
   beforeEach(() => {
     mockAxios.reset();
@@ -74,69 +102,14 @@ describe('Game history', () => {
   });
 
   it('show game configuration and put incorrect number of questions', async () => {
-    const { getByLabelText } = render(<I18nextProvider i18n={i18n}>
-        <UserProvider>
-          <Router>
-            <GameConfiguration/>
-          </Router>
-        </UserProvider>
-      </I18nextProvider>);
-
-    await changeQuestionsNumber(getByLabelText, '0');
-    await changeTime(getByLabelText, '30');
-
-    // Prueba de juego 
-    await act(async() => {
-      let button = screen.getByText('JUGAR');
-      fireEvent.click(button);
-    });
-
-    await waitFor(() => {
-      expect(screen.getByText('Error: Debe introducir un número de preguntas mayor o igual a 2')).toBeInTheDocument();
-    });
+    await showAndPlay('0', '30', false, "Error: Debe introducir un número de preguntas mayor o igual a 2");
   });
 
   it('show game configuration and put incorrect number of time', async () => {
-    const { getByLabelText } = render(<I18nextProvider i18n={i18n}>
-        <UserProvider>
-          <Router>
-            <GameConfiguration/>
-          </Router>
-        </UserProvider>
-      </I18nextProvider>);
-
-    await changeQuestionsNumber(getByLabelText, '5');
-    await changeTime(getByLabelText, '5');
-
-    // Prueba de juego 
-    await act(async() => {
-      let button = screen.getByText('JUGAR');
-      fireEvent.click(button);
-    });
-
-    await waitFor(() => {
-      expect(screen.getByText('Error: Debe introducir un tiempo igual o mayor a 10')).toBeInTheDocument();
-    });
+    await showAndPlay('5', '5', false, "Error: Debe introducir un tiempo igual o mayor a 10");
   });
 
   it('send a bad request to /configuregame', async () => {
-    const { getByLabelText } = render(<I18nextProvider i18n={i18n}>
-        <UserProvider>
-          <Router>
-            <GameConfiguration/>
-          </Router>
-        </UserProvider>
-      </I18nextProvider>);
-
-    await changeQuestionsNumber(getByLabelText, '15');
-    await changeTime(getByLabelText, '30');
-
-    // Prueba de juego
-    await act(async() => {
-      mockAxios.onPost('http://localhost:8000/configureGame').reply(400);
-
-      let button = screen.getByText('JUGAR');
-      fireEvent.click(button);
-    });
+    await showAndPlay('15', '30', true, "");
   });
 });
