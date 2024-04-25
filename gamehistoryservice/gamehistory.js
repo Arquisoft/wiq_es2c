@@ -132,12 +132,9 @@ async function saveGameHistory(userId) {
         gameHistory.totalRightQuestions = isNaN(totalRightQuestions) ? 0 : totalRightQuestions;
         gameHistory.totalIncorrectQuestions = isNaN(totalIncorrectQuestions) ? 0 : totalIncorrectQuestions;
 
-        if (totalRightQuestions + totalIncorrectQuestions > 0) {
-            gameHistory.ratio = parseInt((totalRightQuestions / (totalRightQuestions + totalIncorrectQuestions)) * 100);
-        } else {
-            // Si no se han respondido preguntas, el ratio es 0
-            gameHistory.ratio = 0;
-        }
+        gameHistory.ratio = totalRightQuestions + totalIncorrectQuestions > 0
+        ? parseInt((totalRightQuestions / (totalRightQuestions + totalIncorrectQuestions)) * 100)
+        : 0;    
         gameHistory.totalTime = totalTime;
 
         // Guarda el historial del juego en la base de datos

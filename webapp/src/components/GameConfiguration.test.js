@@ -11,6 +11,28 @@ import i18n from "../translations/i18n";
 i18n.changeLanguage("es");
 const mockAxios = new MockAdapter(axios);
 
+// Prueba de cambio del número de preguntas
+async function changeQuestionsNumber(getByLabelText, questionsNumber) {
+  await act(async() => {
+    let textField = getByLabelText('Número de preguntas');
+    fireEvent.change(textField, { target: { value: questionsNumber } });
+  
+    let textFieldValue = textField.value;
+    expect(textFieldValue).toBe(questionsNumber);
+  });
+}
+
+// Prueba de cambio del tiempo
+async function changeTime(getByLabelText, time) {
+  await act(async() => {
+    let textField = getByLabelText('Tiempo disponible por pregunta');
+    fireEvent.change(textField, { target: { value: time } });
+  
+    let textFieldValue = textField.value;
+    expect(textFieldValue).toBe(time);
+  });
+}
+
 describe('Game history', () => {
   beforeEach(() => {
     mockAxios.reset();
@@ -37,23 +59,8 @@ describe('Game history', () => {
         expect(screen.getByText('Todas')).toBeInTheDocument();
     }); 
 
-    // Prueba de cambio del número de preguntas
-    await act(async() => {
-      let textField = getByLabelText('Número de preguntas');
-      fireEvent.change(textField, { target: { value: '15' } });
-  
-      let textFieldValue = textField.value;
-      expect(textFieldValue).toBe('15');
-    });
-
-    // Prueba de cambio del tiempo
-    await act(async() => {
-      let textField = getByLabelText('Tiempo disponible por pregunta');
-      fireEvent.change(textField, { target: { value: '30' } });
-  
-      let textFieldValue = textField.value;
-      expect(textFieldValue).toBe('30');
-    });
+    await changeQuestionsNumber(getByLabelText, '15');
+    await changeTime(getByLabelText, '30');
 
     // Prueba de juego
     await act(async() => {
@@ -75,23 +82,8 @@ describe('Game history', () => {
         </UserProvider>
       </I18nextProvider>);
 
-    // Prueba de cambio del número de preguntas
-    await act(async() => {
-      let textField = getByLabelText('Número de preguntas');
-      fireEvent.change(textField, { target: { value: '0' } });
-  
-      let textFieldValue = textField.value;
-      expect(textFieldValue).toBe('0');
-    });
-
-    // Prueba de cambio del tiempo
-    await act(async() => {
-      let textField = getByLabelText('Tiempo disponible por pregunta');
-      fireEvent.change(textField, { target: { value: '30' } });
-  
-      let textFieldValue = textField.value;
-      expect(textFieldValue).toBe('30');
-    });
+    await changeQuestionsNumber(getByLabelText, '0');
+    await changeTime(getByLabelText, '30');
 
     // Prueba de juego 
     await act(async() => {
@@ -113,23 +105,8 @@ describe('Game history', () => {
         </UserProvider>
       </I18nextProvider>);
 
-    // Prueba de cambio del número de preguntas
-    await act(async() => {
-      let textField = getByLabelText('Número de preguntas');
-      fireEvent.change(textField, { target: { value: '5' } });
-  
-      let textFieldValue = textField.value;
-      expect(textFieldValue).toBe('5');
-    });
-
-    // Prueba de cambio del tiempo
-    await act(async() => {
-      let textField = getByLabelText('Tiempo disponible por pregunta');
-      fireEvent.change(textField, { target: { value: '5' } });
-  
-      let textFieldValue = textField.value;
-      expect(textFieldValue).toBe('5');
-    });
+    await changeQuestionsNumber(getByLabelText, '5');
+    await changeTime(getByLabelText, '5');
 
     // Prueba de juego 
     await act(async() => {
@@ -151,23 +128,8 @@ describe('Game history', () => {
         </UserProvider>
       </I18nextProvider>);
 
-    // Prueba de cambio del número de preguntas
-    await act(async() => {
-      let textField = getByLabelText('Número de preguntas');
-      fireEvent.change(textField, { target: { value: '15' } });
-  
-      let textFieldValue = textField.value;
-      expect(textFieldValue).toBe('15');
-    });
-
-    // Prueba de cambio del tiempo
-    await act(async() => {
-      let textField = getByLabelText('Tiempo disponible por pregunta');
-      fireEvent.change(textField, { target: { value: '30' } });
-  
-      let textFieldValue = textField.value;
-      expect(textFieldValue).toBe('30');
-    });
+    await changeQuestionsNumber(getByLabelText, '15');
+    await changeTime(getByLabelText, '30');
 
     // Prueba de juego
     await act(async() => {
