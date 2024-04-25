@@ -29,6 +29,7 @@ jobs:
     - run: npm --prefix apis/alluserservice test -- --coverage
     - run: npm --prefix apis/allquestionservice test -- --coverage
     - run: npm --prefix perfilservice test -- --coverage
+    - run: npm --prefix gamehistoryservice test -- --coverage
     - run: npm --prefix webapp test -- --coverage
     - name: Analyze with SonarCloud
       uses: sonarsource/sonarcloud-github-action@master

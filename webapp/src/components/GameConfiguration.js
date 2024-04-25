@@ -20,7 +20,6 @@ const GameConfiguration = () => {
 
     const maxTime = 60;
     const [valueTime, setValueTime] = useState('undefined');
-    const [previousValueTime, setPreviousValueTime] = useState('undefined');
 
     const maxQuestions = 30;
     const [valueQuestion, setValueQuestion] = useState('undefined');
@@ -59,12 +58,11 @@ const GameConfiguration = () => {
             }else{
                 await axios.post(`${apiEndpoint}/configureGame`, {valueTime, valueQuestion});
                 navigate("/Game", {state: {time: valueTime, question:valueQuestion, thematic:selectedOption}});
-
             }
 
         } catch (error) {
-            setError(error.response.data.error);
-            setSnackbarMessage(error);
+            setError(error.response.data);
+            setSnackbarMessage(error.response.data);
             setOpenSnackbar(true);
         }
     };
@@ -100,7 +98,6 @@ const GameConfiguration = () => {
                     type="number"
                     step="1"
                     sx={{  width: '50vh', marginBottom: 4, marginTop: 3, backgroundColor: '#FFFFFF'}}
-                    sx={{ width: '40vh',marginBottom: 4, marginTop: 3, backgroundColor: '#FFFFFF'}}
                 inputProps={{
                     inputMode: 'numeric',
                     pattern: '[0-9]*',

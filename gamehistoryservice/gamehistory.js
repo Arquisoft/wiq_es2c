@@ -35,7 +35,7 @@ app.post("/saveGameHistory", async (req, res) => {
 app.get("/gamehistory", async (req, res) => {
     try {
         var gamehistory = await findOne(req.query.username);
-    
+
         if (gamehistory) {
             var response = {
                 userId: gamehistory.userId,
@@ -49,7 +49,7 @@ app.get("/gamehistory", async (req, res) => {
             res.json(response);
         } else {
             var response = {
-                userId: gamehistory.userId,
+                userId: null,
                 totalGamesPlayed: 0,
                 totalQuestionsAnswered: 0,
                 totalRightQuestions: 0,
@@ -129,9 +129,12 @@ async function saveGameHistory(userId) {
         // Actualiza los campos del historial de juego
         gameHistory.totalGamesPlayed = totalGamesPlayed;
         gameHistory.totalQuestionsAnswered = totalRightQuestions + totalIncorrectQuestions;
-        gameHistory.totalRightQuestions = totalRightQuestions;
-        gameHistory.totalIncorrectQuestions = totalIncorrectQuestions;
-        gameHistory.ratio =  parseInt((totalRightQuestions / (totalRightQuestions + totalIncorrectQuestions))*100);
+        gameHistory.totalRightQuestions = isNaN(totalRightQuestions) ? 0 : totalRightQuestions;
+        gameHistory.totalIncorrectQuestions = isNaN(totalIncorrectQuestions) ? 0 : totalIncorrectQuestions;
+
+        gameHistory.ratio = totalRightQuestions + totalIncorrectQuestions > 0
+        ? parseInt((totalRightQuestions / (totalRightQuestions + totalIncorrectQuestions)) * 100)
+        : 0;    
         gameHistory.totalTime = totalTime;
 
         // Guarda el historial del juego en la base de datos
