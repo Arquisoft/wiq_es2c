@@ -37,27 +37,7 @@ describe('Login component', () => {
         fireEvent.change(usernameInput, { target: { value: 'testUser' } });
         fireEvent.change(passwordInput, { target: { value: 'testPassword' } });
         fireEvent.click(loginButton);
-      });
-  });
 
-  it('should log in successfully if admin', async () => {
-    render(<I18nextProvider i18n={i18n}>
-        <UserProvider>
-          <Router>
-            <Login />
-          </Router>
-        </UserProvider>
-      </I18nextProvider>);
-
-    const usernameInput = screen.getByLabelText('Usuario');
-    const passwordInput = screen.getByLabelText('Contraseña');
-    const loginButton = screen.getByRole('button', { name: 'ENTRA' });
-
-    // Mock the axios.post request to simulate a successful response
-    mockAxios.onPost('http://localhost:8000/login').reply(200, { createdAt: '2024-01-01T12:34:56Z' });
-
-    // Simulate user input
-    await act(async () => {
         fireEvent.change(usernameInput, { target: { value: 'admin' } });
         fireEvent.change(passwordInput, { target: { value: 'admin' } });
         fireEvent.click(loginButton);
