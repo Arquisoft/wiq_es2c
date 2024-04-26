@@ -11,7 +11,7 @@ const apiEndpoint = process.env.REACT_APP_API_ENDPOINT || 'http://localhost:8000
 
 const Game = () => {
   
-  const {t,i18n} = useTranslation("global");
+  const [t, i18n] = useTranslation("global");
 
   const { usernameGlobal } = useUser();
   const [question, setQuestion] = useState('');
@@ -58,7 +58,7 @@ const Game = () => {
       console.log("Error: " + error.response.data.error);
       setError(error.response.data.error);
     }
-  }, [usernameGlobal, MAX_TIME, THEMATIC]);
+  }, [usernameGlobal, MAX_TIME, THEMATIC, i18n.language]);
 
   const saveGameHistory = useCallback(async () => {
     try {

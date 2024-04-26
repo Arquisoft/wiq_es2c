@@ -17,7 +17,6 @@ import {
   TableRow,
   Snackbar
 } from '@mui/material';
-import { useUser } from './UserContext';
 import '../App.css';
 import { useTranslation } from 'react-i18next';
 
@@ -45,7 +44,9 @@ const Ranking = () => {
   const getRankingGlobal = useCallback(async () => {
     try {
       const response = await axios.get(`${apiEndpoint}/ranking`, {params: {sortBy, userLimit}});
+      console.log(response.data);
       setRankingTable(response.data);
+      console.log(rankingTable);
     } catch (error) {
       setError(error.response.data.error);
     }
@@ -138,7 +139,6 @@ const Ranking = () => {
                 onChange={handleSortByChange}
                 labelId="sortBy-label"
                 label="Ordenar por"
-                sx
               >
                 <MenuItem value="ratio">Ratio</MenuItem>
                 <MenuItem value="totalRightQuestions">Aciertos</MenuItem>
@@ -157,7 +157,6 @@ const Ranking = () => {
                 type="number"
                 step="1"
                 label="Número de usuarios"
-                sx
                 inputProps={{
                   inputMode: 'numeric',
                   min: 1,
@@ -191,7 +190,7 @@ const Ranking = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {rankingTable.map((user, index) => (
+            {Array.isArray(rankingTable) && rankingTable.map((user, index) => (
               <TableRow key={index}>
                 <TableCell align="center">{index + 1}</TableCell>
                 <TableCell align="center">{user.userId}</TableCell>
