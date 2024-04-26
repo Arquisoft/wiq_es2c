@@ -1,7 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
-const User = require('./user-model')
 const bodyParser = require('body-parser');
+const User = require('./user-model')
 
 const app = express();
 const port = 8006;
@@ -26,8 +26,9 @@ app.use((req, res, next) => {
 app.get('/getAllUsers', async (req, res) => {
     try{
 
-        var users = await User.find({ });
+        
 
+        var users = await User.find();
         var userList = [];
         
         users.forEach(user => {
@@ -43,8 +44,7 @@ app.get('/getAllUsers', async (req, res) => {
         
 
     } catch (error) {
-        console.error('No hay usuarios:', error);
-        res.status(500).json({ message: 'Error interno del servidor' });
+        res.status(400).json({ error: error.message }); 
     }
 });
 
