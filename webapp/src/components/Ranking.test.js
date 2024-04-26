@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, waitFor, act } from '@testing-library/react';
+import { render, waitFor, act, fireEvent } from '@testing-library/react';
 import Ranking from './Ranking';
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
@@ -26,7 +26,7 @@ describe('Ranking test', () => {
         { userId: 'usuario2', totalGamesPlayed: 12, totalQuestionsAnswered: 60, totalRightQuestions: 45, ratio: '75%', totalTime: '120s' },
     ]);
 
-    const { getByText, getByLabelText } = render(
+    const { getByText, getByLabelText, getByRole } = render(
     <I18nextProvider i18n={i18n}>
         <UserProvider>
           <Router>

@@ -44,9 +44,7 @@ const Ranking = () => {
   const getRankingGlobal = useCallback(async () => {
     try {
       const response = await axios.get(`${apiEndpoint}/ranking`, {params: {sortBy, userLimit}});
-      console.log(response.data);
       setRankingTable(response.data);
-      console.log(rankingTable);
     } catch (error) {
       setError(error.response.data.error);
     }
@@ -58,7 +56,6 @@ const Ranking = () => {
     getRankingGlobal();
     console.log(`Nuevo orden seleccionado: ${newSortBy}`);
   };
-
 
   const handleLimit = async (event) => {
     let inputValue = parseInt(event.target.value);
