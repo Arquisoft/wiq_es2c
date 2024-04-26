@@ -46,6 +46,11 @@ describe('Start game', () => {
         { message: "Tiempo de pregunta actualizado exitosamente", 
         updatedQuestion });
 
+    mockAxios.onPost('http://localhost:8000/saveGameHistory').reply(200,
+      {
+        username: "testuser"
+      });
+
     render(<I18nextProvider i18n={i18n}>
         <UserProvider>
           <Router initialEntries={[{ state: { time: MAX_TIME, question: MAX_PREGUNTAS, thematic: THEMATIC } }]}>

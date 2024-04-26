@@ -43,7 +43,8 @@ describe('Question Generator test', () => {
     it('Should return a question when calling /generateQuestion', async () => {
         const response = await request(app)
             .get('/generateQuestion')
-            .query({ thematic: 'Todas', user: 'user', language: 'es' });
+            .query({ thematic: 'Todas', user: 'user', language: 'es' })
+            .timeout(10000);
 
         expect(response.status).toBe(200);
         expect(response.body).toHaveProperty('responseQuestion', 'responseOptions', 'responseCorrectOption', 'question_Id', 'responseImage');

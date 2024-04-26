@@ -328,6 +328,39 @@ describe('Gateway Service', () => {
     await simulateApiError('get', '/topUsers', 'Getting get the top users error', { error: 'An error has occured getting the top users' });
   });
 
+  // Test /ranking endpoint
+  it('should get the ranking', async () => {
+    const axiosStub = sinon.stub(axios, 'get');
+    axiosStub.returns(Promise.resolve({ data: { userId: "testuser",
+        totalGamesPlayed: 20,
+        totalQuestionsAnswered: 100,
+        totalRightQuestions: 75,
+        ratio: '75%',
+        totalTime: '1000s'
+      } }));
+
+    const response = await request(app)
+      .get('/ranking')
+      .send({ sortBy: "ratio", userLimit: "10"});
+
+    expect(response.status).toBe(200);
+    expect(response.body).toEqual({ userId: "testuser",
+      totalGamesPlayed: 20,
+      totalQuestionsAnswered: 100,
+      totalRightQuestions: 75,
+      ratio: '75%',
+      totalTime: '1000s'
+    });
+
+    // Restauramos axios para que no nos afecte en futuras pruebas
+    axios.get.restore();
+  });
+
+  // Test /ranking endpoint
+  it('should catch the errors when send /ranking that might appear during runtime', async () => {
+    await simulateApiError('get', '/ranking', 'Getting get the ranking error', { error: 'An error has occured getting the ranking' });
+  });
+
   // Test /endgamestats endpoint
   it('should get the end game statistics', async () => {
     const axiosStub = sinon.stub(axios, 'get');

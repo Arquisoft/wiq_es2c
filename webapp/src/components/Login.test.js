@@ -37,8 +37,11 @@ describe('Login component', () => {
         fireEvent.change(usernameInput, { target: { value: 'testUser' } });
         fireEvent.change(passwordInput, { target: { value: 'testPassword' } });
         fireEvent.click(loginButton);
-      });
 
+        fireEvent.change(usernameInput, { target: { value: 'admin' } });
+        fireEvent.change(passwordInput, { target: { value: 'admin' } });
+        fireEvent.click(loginButton);
+      });
   });
 
   it('should handle error when logging in', async () => {

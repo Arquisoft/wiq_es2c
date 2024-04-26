@@ -33,8 +33,7 @@ const NavigationBar = () => {
 
     const showHome = () => {
         if (usernameGlobal === 'admin') {
-            navigate("/PantallaInicioAdmin");
-            
+            navigate("/PantallaInicioAdmin");  
         } else {
             navigate("/PantallaInicio");
         }
@@ -84,7 +83,6 @@ const NavigationBar = () => {
                         <MenuItem onClick={() => i18n.changeLanguage('es')}>Español</MenuItem>
                         <MenuItem onClick={() => i18n.changeLanguage('en')}>Inglés</MenuItem>
                     </Menu>
-                    <Hidden smDown>
                     <Grid container justifyContent="flex-start">
                     </Grid>
                     <Grid container justifyContent="flex-end">
@@ -99,11 +97,10 @@ const NavigationBar = () => {
                         <Button variant="contained" color="inherit" 
                             style={{ background: '#9A77B0', border: 'none', padding: 0, marginRight: '10px' }} 
                             onClick={() => i18n.changeLanguage('en')}>
-                            <img src={require('../images/ing.png')} style={{ width: '50px', height: '50px' }} alt="Imagen español"/>
+                            <img src={require('../images/ing.png')} style={{ width: '50px', height: '50px' }} alt="Imagen ingles"/>
                         </Button>
                         </Tooltip>                    
                     </Grid>
-                    </Hidden>
                 </Toolbar>
             </AppBar>
         );
@@ -131,15 +128,13 @@ const NavigationBar = () => {
                     >
                         <MenuItem onClick={showHome}>Inicio</MenuItem>
                     </Menu>
-                    <Hidden smDown>
-                        <Grid container justifyContent="flex-start">
-                            <Tooltip title={t("toolInicio")}>
-                            <Button variant="contained" color="inherit" style={{ background: '#9A77B0', border: 'none', padding: 0, marginRight: '10px' }} onClick={showHome}>
-                                <img src={require('../images/home.png')} style={{ width: '50px', height: '50px' }} alt="Imagen home"/>
-                            </Button>
-                            </Tooltip>
-                        </Grid>
-                    </Hidden>
+                    <Grid container justifyContent="flex-start">
+                        <Tooltip title={t("toolInicio")}>
+                        <Button variant="contained" color="inherit" style={{ background: '#9A77B0', border: 'none', padding: 0, marginRight: '10px' }} onClick={showHome}>
+                            <img src={require('../images/home.png')} style={{ width: '50px', height: '50px' }} alt="Imagen home"/>
+                        </Button>
+                        </Tooltip>
+                    </Grid>
                 </Toolbar>
             </AppBar>
         );
@@ -175,7 +170,6 @@ const NavigationBar = () => {
                     <MenuItem onClick={showPerfil}>Perfil</MenuItem>
                     <MenuItem onClick={showLogout}>Cerrar Sesión</MenuItem>
                 </Menu>
-                <Hidden smDown>
                 <Grid container justifyContent="flex-start">
                     <Tooltip title={t("toolInicio")}>
                     <Button variant="contained" color="inherit" style={{ background: '#9A77B0', border: 'none', padding: 0, marginRight: '10px' }} onClick={showHome}>
@@ -206,7 +200,6 @@ const NavigationBar = () => {
                     </Tooltip>
                     
                 </Grid>
-                </Hidden>
             </Toolbar>
         </AppBar>
     );

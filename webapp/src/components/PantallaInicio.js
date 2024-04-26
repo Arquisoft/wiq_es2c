@@ -10,11 +10,6 @@ import { useTranslation } from 'react-i18next';
 const PantallaInicio = () => {
 
     const [t] = useTranslation("global");
-
-
-    const [openSnackbar, setOpenSnackbar] = useState(false);
-    const [error, setError] = useState('');
-    
     const { usernameGlobal} = useUser();
 
     const navigate = useNavigate();
@@ -22,10 +17,6 @@ const PantallaInicio = () => {
     function nuevaPartida() {
         navigate("/GameConfiguration");
     }
-
-    const handleCloseSnackbar = () => {
-        setOpenSnackbar(false);
-    }; 
 
     return (
         <Container component="main" maxWidth="xxl"
@@ -53,11 +44,6 @@ const PantallaInicio = () => {
                     {t("botonPartida")}
                 </Button>
             </Box>
-            <Snackbar open={openSnackbar} autoHideDuration={6000} onClose={handleCloseSnackbar} message="Sesion cerrada" />
-            {error && (
-                <Snackbar open={!!error} autoHideDuration={6000} onClose={() => setError('')} message={`Error: ${error}`} />
-            )}
-
         </Container>
         
     );

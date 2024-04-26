@@ -210,12 +210,8 @@ function procesarDatos(data) {
 
         // Comprobamos que tanto la opción como la pregunta no sean entidades de WikiData ni enlaces o que la pregunta ya 
         // venga en el array (estara vacia)
-        if (!randomIndexes.includes(randomIndex) && (quest == ""
-                || (!(option.startsWith("Q") || option.startsWith("http"))
-                    && !(quest.startsWith("Q") || quest.startsWith("http"))
-                    )
-                ) 
-            && !optionsSelected.includes(option)) {
+        if (!randomIndexes.includes(randomIndex) && (quest == "" || (!(option.startsWith("Q") || option.startsWith("http"))
+        && !(quest.startsWith("Q") || quest.startsWith("http")))) && !optionsSelected.includes(option)) {
             randomIndexes.push(randomIndex);
             optionsSelected.push(option);
         }

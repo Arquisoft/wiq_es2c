@@ -111,7 +111,7 @@ describe('Game History Service', () => {
         expect(res.body.error).toContain('Error al obtener el historial del juego');
     });
 
-    it('Should manage an error when calling withoutg a user', async () => {
+    it('Should manage an error when calling /endgamestats withouth a user', async () => {
         const res = await request(app)
             .get('/endgamestats')
             .send();
