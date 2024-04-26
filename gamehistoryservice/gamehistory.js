@@ -9,6 +9,7 @@ mongoose.connect(mongoUri);
 const originEndpoint = process.env.REACT_APP_API_ORIGIN_ENDPOINT || 'http://localhost:3000';
 
 const app = express();
+app.disable('x-powered-by');
 const port = 8004;
 
 // Middleware to parse JSON in request body

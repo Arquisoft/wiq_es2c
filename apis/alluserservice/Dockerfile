@@ -11,7 +11,12 @@ COPY package*.json ./
 RUN npm install
 
 # Copy the app source code to the working directory
-COPY . .
+COPY .dockerignore ./
+COPY allusers-api.js ./
+COPY allusers-api.test.js ./
+COPY package-lock.json ./
+COPY package.json ./
+COPY user-model.js ./
 
 # Expose the port the app runs on
 EXPOSE 8006

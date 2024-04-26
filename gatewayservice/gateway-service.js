@@ -8,6 +8,7 @@ const fs = require("fs")
 const YAML = require('yaml')
 
 const app = express();
+app.disable('x-powered-by');
 const port = 8000;
 
 const gamehistoryUrl = process.env.GAMEHISTORY_SERVICE_URL || 'http://localhost:8004';

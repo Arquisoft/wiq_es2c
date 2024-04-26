@@ -4,6 +4,7 @@ const User = require('./user-model')
 const bodyParser = require('body-parser');
 
 const app = express();
+app.disable('x-powered-by');
 const port = 8005;
 
 const originEndpoint = process.env.REACT_APP_API_ORIGIN_ENDPOINT || 'http://localhost:3000';
