@@ -130,7 +130,6 @@ describe('Game History Service', () => {
             .get('/topUsers');
 
         expect(response.status).toBe(200);
-        console.log(response.body);
         expect(response.body).toEqual({
             primero: 'user1 - 90%',
             segundo: 'user2 - 85%',

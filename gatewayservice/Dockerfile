@@ -11,7 +11,12 @@ COPY package*.json ./
 RUN npm install
 
 # Copy the app source code to the working directory
-COPY . .
+COPY .dockerignore ./
+COPY gateway-service.js ./
+COPY gateway-service.test.js ./
+COPY openapi.yaml ./
+COPY package-lock.json ./
+COPY package.json ./
 
 # Define the command to run your app
 CMD ["node", "gateway-service.js"]

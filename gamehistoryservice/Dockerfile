@@ -12,7 +12,12 @@ COPY package*.json ./
 RUN npm install
 
 # Copy the app source code to the working directory
-COPY . .
+COPY .dockerignore ./
+COPY gamehistory-model.js ./
+COPY gamehistory.js ./
+COPY gamehistory.test.js ./
+COPY package-lock.json ./
+COPY package.json ./
 
 # Expose the port the app runs on
 EXPOSE 8004 

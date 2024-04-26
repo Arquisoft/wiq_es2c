@@ -236,7 +236,7 @@ queries["en"] = {
             BIND(CONCAT(?day, "/", ?month, "/", ?year) AS ?option)  
             SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
         }
-        `, "¿En que fecha se creó "],
+        `, "Where was created "],
                     [
                             // pregunta = creador, opcion = lenguaje de programacion
                             `
