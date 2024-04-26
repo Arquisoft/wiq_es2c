@@ -109,8 +109,11 @@ const Game = () => {
 
     if(correctOption === option){
       isTheCorrectAnswer = true;
+      setHighlightedCorrectOption(''); 
+    } else {
+      setHighlightedCorrectOption(correctOption);
     }
-
+    
     try {
       const timePassed = MAX_TIME - elapsedTime;
       await axios.get(`${apiEndpoint}/updateQuestion`, {
@@ -122,13 +125,7 @@ const Game = () => {
     } catch (error) {
       setError(error.response.data.error);
     }
-
-    if (!answerCorrect) {
-      setHighlightedCorrectOption(correctOption);
-    } else {
-        setHighlightedCorrectOption('');  
-    }
-
+  
     if (answeredQuestions>= MAX_PREGUNTAS) {
       setTimeout(() => {
         setAnsweredQuestions(0);
