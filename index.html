@@ -465,6 +465,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <ul class="sectlevel2">
 <li><a href="#_funcionamiento_de_las_partidas">6.1. Funcionamiento de las partidas</a></li>
 <li><a href="#_generación_de_preguntas">6.2. Generación de preguntas</a></li>
+<li><a href="#_visualización_del_histórico_y_perfil_de_usuario">6.3. Visualización del histórico y perfil de usuario</a></li>
 </ul>
 </li>
 <li><a href="#section-deployment-view">7. Vista de despliegue</a></li>
@@ -968,6 +969,13 @@ El equipo de desarrollo comprometido a materializar este proyecto está formado 
 <div class="paragraph">
 <p>Cuando la interfaz de usuario solicita una pregunta el generador de preguntas deberá realizar una consulta a Wikidata obteniendo así información para formular la pregunta y sus respuestas.
 <span class="image"><img src="./images/6_RuntimeView_GenerarPregunta.PNG" alt="Diagram"></span></p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_visualización_del_histórico_y_perfil_de_usuario">6.3. Visualización del histórico y perfil de usuario</h3>
+<div class="paragraph">
+<p>Cuando el usuario solicite visualizar el histórico se enviará una petición al GameHistoryService quien proporcionará la información al usuario.
+<span class="image"><img src="./images/6_RuntimeView_Historico.png" alt="Diagram"></span></p>
 </div>
 <div style="page-break-after: always;"></div>
 </div>
