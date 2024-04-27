@@ -30,16 +30,16 @@ defineFeature(feature, test => {
 
     given('An unregistered user', async () => {
       username = "pablo"
-      email = "pablo@email.com"
+      email = "pablo@gmail.com"
       password = "pabloasw"
       await expect(page).toClick("button", { text: "¿No tienes cuenta? Registrate aquí." });
     });
-
+ 
     when('I fill the data in the form and press submit', async () => {
       await expect(page).toFill('input[name="username"]', username);
       await expect(page).toFill('input[name="email"]', email);
       await expect(page).toFill('input[name="password"]', password);
-      await expect(page).toClick('button', { text: 'REGÍSTRATE' })
+      await expect(page).toClick('button', { text: 'REGÍSTRATE' });
     });
 
     then('A confirmation message should be shown in the screen', async () => {

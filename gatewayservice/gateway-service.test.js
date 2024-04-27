@@ -2,14 +2,49 @@ const request = require('supertest');
 const axios = require('axios');
 const app = require('./gateway-service'); 
 const { createServer } = require('http');
+const sinon = require('sinon');
+const { randomBytes } = require('crypto');
 
 const server = createServer(app);
+const newString = generateSecureRandomPassword(8); // Genera una nueva contraseña aleatoria para evitar el Security Hostpot de SonarCloud en las pruebas
+
+function generateSecureRandomPassword(length) {
+  const characters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()-_=+';
+  const password = [];
+  const bytes = randomBytes(length);
+  for (let i = 0; i < length; i++) {
+    const randomIndex = bytes[i] % characters.length;
+    password.push(characters[randomIndex]);
+  }
+  return password.join('');
+}
 
 afterAll(async () => {
     app.close();
   });
+  
+afterEach(() => {
+  sinon.restore();
+});
 
 jest.mock('axios');
+
+const simulateApiError = async (method, path, errorMessage, errorData) => {
+  const error = new Error(errorMessage);
+  error.response = {
+    status: 400,
+    data: errorData
+  };
+
+  sinon.stub(axios, method).rejects(error);
+
+  const response = await request(app)[method](path);
+
+  expect(response.statusCode).toBe(400);
+  expect(response.body.error).toBe(errorData.error);
+
+  axios[method].restore();
+};
 
 describe('Gateway Service', () => {
   // Mock responses from external services
@@ -21,25 +56,50 @@ describe('Gateway Service', () => {
     }
   });
 
+  // Test /health endpoint
+  it('should forward login request to auth service', async () => {
+    const response = await request(app)
+      .get('/health');
+
+    expect(response.statusCode).toBe(200);
+    expect(response.body.status).toBe('OK');
+  });
+
   // Test /login endpoint
   it('should forward login request to auth service', async () => {
     const response = await request(app)
       .post('/login')
-      .send({ username: 'testuser', password: 'testpassword' });
+      .send({ username: 'testuser', password: newString });
 
     expect(response.statusCode).toBe(200);
     expect(response.body.token).toBe('mockedToken');
+  });
+
+  // Test /login endpoint
+  it('should catch the errors when send /login that might appear during runtime', async () => {
+    await simulateApiError('post', '/login', 'Authentication error', { error: 'Unauthorized' });
   });
 
   // Test /adduser endpoint
   it('should forward add user request to user service', async () => {
     const response = await request(app)
       .post('/adduser')
-      .send({ username: 'newuser', password: 'newpassword' });
+      .send({ username: 'newuser', email: 'newuser@email.com', password: newString });
 
     expect(response.statusCode).toBe(200);
     expect(response.body.userId).toBe('mockedUserId');
   });
+
+  // Test /adduser endpoint
+  it('should catch the errors when send /adduser that might appear during runtime', async () => {
+    await simulateApiError('post', '/adduser', 'Registration error', { error: 'Uncomplete information' });
+  });
+
+  // Test /generateQuestion endpoint
+  it('should catch the errors when send /generateQuestion that might appear during runtime', async () => {
+    await simulateApiError('get', '/generateQuestion', 'Generation error', { error: 'Cannot generate a question' });
+  });
+  
 
   // Test /generateQuestion endpoint
   it('should receive the question', async () => {
@@ -79,7 +139,292 @@ describe('Gateway Service', () => {
       .get('/updateQuestion')
       .send({ message: 'Pregunta actualizada', updatedQuestion: updatedQuestion });
 
+    jest.restoreAllMocks();
     expect(response.status).toBe(200);
     expect(response.body).toEqual({ message: "Tiempo de pregunta actualizado exitosamente", updatedQuestion });
+  });
+
+  // Test /updateQuestion endpoint
+  it('should catch the errors when send /updateQuestion that might appear during runtime', async () => {
+    await simulateApiError('get', '/updateQuestion', 'Update error', { error: 'An error has occured updating a question' });
+  });
+
+  // Test /saveGameHistory endpoint
+  it('should save game history', async () => {
+    // Sobreescribimos la función axios.post para que arroje el error simulado
+    const axiosStub = sinon.stub(axios, 'post');
+    axiosStub.returns(Promise.resolve({ data: { success: true } }));
+
+    const response = await request(app)
+      .post('/saveGameHistory')
+      .send({ username: 'testuser' });
+
+    expect(response.status).toBe(200);
+
+    // Restauramos axios para que no nos afecte en futuras pruebas
+    axios.post.restore();
+  });
+
+  // Test /saveGameHistory endpoint
+  it('should catch the errors when send /saveGameHistory that might appear during runtime', async () => {
+    await simulateApiError('post', '/saveGameHistory', 'Saving game history error', { error: 'An error has occured saving the game history' });
+  });
+
+  // Test /gamehistory endpoint
+  it('should get the game history', async () => {
+    // Sobreescribimos la función axios.post para que arroje el error simulado
+    const axiosStub = sinon.stub(axios, 'get');
+          axiosStub.returns(Promise.resolve({data: {userId: '12345abcdef',
+          totalGamesPlayed: 1,
+          totalQuestionsAnswered: 5,
+          totalRightQuestions: 5,
+          totalIncorrectQuestions: 0,
+          ratio: 100,
+          totalTime:15 } }));
+
+    const response = await request(app)
+      .get('/gamehistory')
+      .send({ username: 'testuser' });
+
+    expect(response.status).toBe(200);
+    expect(response.body).toHaveProperty('userId');
+    expect(response.body).toHaveProperty('totalGamesPlayed');
+    expect(response.body).toHaveProperty('totalQuestionsAnswered');
+    expect(response.body).toHaveProperty('totalRightQuestions');
+    expect(response.body).toHaveProperty('totalIncorrectQuestions');
+    expect(response.body).toHaveProperty('ratio');
+    expect(response.body).toHaveProperty('totalTime');
+
+    // Restauramos axios para que no nos afecte en futuras pruebas
+    axios.get.restore();
+  });
+
+  // Test /gamehistory endpoint
+  it('should catch the errors when send /gamehistory that might appear during runtime', async () => {
+    await simulateApiError('get', '/gamehistory', 'Getting game history error', { error: 'An error has occured getting the game history' });
+  });
+
+   // Test /configureGame endpoint
+   it('should call configure game', async () => {
+    const axiosStub = sinon.stub(axios, 'post');
+    axiosStub.returns(Promise.resolve({ data: 5}));
+
+    const response = await request(app)
+      .post('/configureGame')
+      .send();
+
+    expect(response.status).toBe(200);
+    expect(response.body).toEqual(5);
+
+    // Restauramos axios para que no nos afecte en futuras pruebas
+    axios.post.restore();
+  });
+
+  // Test /configureGame endpoint
+  it('should catch the errors when send /configureGame that might appear during runtime', async () => {
+    await simulateApiError('post', '/configureGame', 'Getting configuration error', { error: 'An error has occured configurating the game' });
+  });
+
+  // Test /getUser endpoint
+  it('should get the correct user', async () => {
+    const axiosStub = sinon.stub(axios, 'get');
+    axiosStub.returns(Promise.resolve({ data: { username: "user",
+        email: "email",
+        creado: "2024-04-14T20:21:34.969Z" } }));
+
+    const response = await request(app)
+      .get('/getUser')
+      .send({ username: 'user' });
+
+      expect(response.status).toBe(200);
+      expect(response.body).toHaveProperty('username');
+      expect(response.body).toHaveProperty('email');
+      expect(response.body).toHaveProperty('creado');
+
+    // Restauramos axios para que no nos afecte en futuras pruebas
+    axios.get.restore();
+  });
+
+  // Test /getUser endpoint
+  it('should catch the errors when send /getUser that might appear during runtime', async () => {
+    await simulateApiError('get', '/getUser', 'Getting get user error', { error: 'An error has occured getting the user' });
+  });
+
+  // Test /getAllUsers endpoint
+  it('should get all users', async () => {
+    const axiosStub = sinon.stub(axios, 'get');
+    axiosStub.returns(Promise.resolve({ data: [{ username: "user",
+        email: "email",
+        creado: "2024-04-14T20:21:34.969Z" }, {
+          username: "user2",
+          email: "email2",
+          creado: "2024-04-14T20:21:34.969Z"
+        }] }));
+
+    const response = await request(app)
+      .get('/getAllUsers')
+      .send();
+
+    expect(response.status).toBe(200);
+    expect(response.body).toEqual([{ username: "user",
+        email: "email",
+        creado: "2024-04-14T20:21:34.969Z" }, {
+          username: "user2",
+          email: "email2",
+          creado: "2024-04-14T20:21:34.969Z"
+        }]);
+
+    // Restauramos axios para que no nos afecte en futuras pruebas
+    axios.get.restore();
+  });
+
+  // Test /getAllUsers endpoint
+  it('should catch the errors when send /getAllUsers that might appear during runtime', async () => {
+    await simulateApiError('get', '/getAllUsers', 'Getting get all users error', { error: 'An error has occured getting all users' });
+  });
+
+  // Test /getAllQuestions endpoint
+  it('should get all questions', async () => {
+    const axiosStub = sinon.stub(axios, 'get');
+    axiosStub.returns(Promise.resolve({ data: [{ enunciado: "¿Cuál es la capital de España?",
+        respuesta_correcta: "Madrid"},{
+          enunciado: "¿Que ocurre con Cadia en el milenio 42?",
+          respuesta_correcta: "¡CADIA RESISTE!"
+        }] }));
+
+    const response = await request(app)
+      .get('/getAllQuestions')
+      .send();
+
+    expect(response.status).toBe(200);
+    expect(response.body).toEqual([{ enunciado: "¿Cuál es la capital de España?",
+      respuesta_correcta: "Madrid"},{
+      enunciado: "¿Que ocurre con Cadia en el milenio 42?",
+      respuesta_correcta: "¡CADIA RESISTE!"
+    }]);
+
+    // Restauramos axios para que no nos afecte en futuras pruebas
+    axios.get.restore();
+  } );
+
+  // Test /getAllQuestions endpoint
+  it('should catch the errors when send /getAllQuestions that might appear during runtime', async () => {
+    await simulateApiError('get', '/getAllQuestions', 'Getting get all questions error', { error: 'An error has occured getting all questions' });
+  });
+   
+  // Test /topUsers endpoint
+  it('should get the top users', async () => {
+    const axiosStub = sinon.stub(axios, 'get');
+    axiosStub.returns(Promise.resolve({ data: { primero: "Pedro - 100%",
+      segundo: "Laura - 80%",
+      tercero: "Juan - 75%"
+      } }));
+
+    const response = await request(app)
+      .get('/topUsers')
+      .send();
+
+    expect(response.status).toBe(200);
+    expect(response.body).toEqual({ primero: "Pedro - 100%",
+      segundo: "Laura - 80%",
+      tercero: "Juan - 75%"
+    });
+
+    // Restauramos axios para que no nos afecte en futuras pruebas
+    axios.get.restore();
+  });
+
+  // Test /topUsers endpoint
+  it('should catch the errors when send /topUsers that might appear during runtime', async () => {
+    await simulateApiError('get', '/topUsers', 'Getting get the top users error', { error: 'An error has occured getting the top users' });
+  });
+
+  // Test /ranking endpoint
+  it('should get the ranking', async () => {
+    const axiosStub = sinon.stub(axios, 'get');
+    axiosStub.returns(Promise.resolve({ data: { userId: "testuser",
+        totalGamesPlayed: 20,
+        totalQuestionsAnswered: 100,
+        totalRightQuestions: 75,
+        ratio: '75%',
+        totalTime: '1000s'
+      } }));
+
+    const response = await request(app)
+      .get('/ranking')
+      .send({ sortBy: "ratio", userLimit: "10"});
+
+    expect(response.status).toBe(200);
+    expect(response.body).toEqual({ userId: "testuser",
+      totalGamesPlayed: 20,
+      totalQuestionsAnswered: 100,
+      totalRightQuestions: 75,
+      ratio: '75%',
+      totalTime: '1000s'
+    });
+
+    // Restauramos axios para que no nos afecte en futuras pruebas
+    axios.get.restore();
+  });
+
+  // Test /ranking endpoint
+  it('should catch the errors when send /ranking that might appear during runtime', async () => {
+    await simulateApiError('get', '/ranking', 'Getting get the ranking error', { error: 'An error has occured getting the ranking' });
+  });
+
+  // Test /endgamestats endpoint
+  it('should get the end game statistics', async () => {
+    const axiosStub = sinon.stub(axios, 'get');
+    axiosStub.returns(Promise.resolve({ data: { totalRightQuestions: 5,
+      totalIncorrectQuestions:0,
+      ratio: "100%",
+      totalTime: "20s",
+      endgameImageWithRatio: "100%"
+    } }));
+
+    const response = await request(app)
+      .get('/endgamestats')
+      .send({ username: 'testuser' });
+
+    expect(response.status).toBe(200);
+    expect(response.body).toEqual({ totalRightQuestions: 5,
+      totalIncorrectQuestions:0,
+      ratio: "100%",
+      totalTime: "20s",
+      endgameImageWithRatio: "100%"
+    });
+
+    // Restauramos axios para que no nos afecte en futuras pruebas
+    axios.get.restore();
+  });
+
+  // Test /endgamestats endpoint
+  it('should catch the errors when send /endgamestats that might appear during runtime', async () => {
+    await simulateApiError('get', '/endgamestats', 'Getting get the end game statistics error', { error: 'An error has occured getting the end game statistics' });
+  });
+
+  // Test /restartGame endpoint
+  it('should restart the game', async () => {
+    const axiosStub = sinon.stub(axios, 'get');
+    axiosStub.returns(Promise.resolve({ data: {  message: "Número de preguntas actualizado", 
+      numberOfQuestions: 8
+    } }));
+
+    const response = await request(app)
+      .get('/restartGame')
+      .send({ username: 'testuser' });
+
+    expect(response.status).toBe(200);
+    expect(response.body).toEqual({ message: "Número de preguntas actualizado", 
+      numberOfQuestions: 8
+    });
+
+    // Restauramos axios para que no nos afecte en futuras pruebas
+    axios.get.restore();
+  });
+
+  // Test /restartGame endpoint
+  it('should catch the errors when send /endgamestats that might appear during runtime', async () => {
+    await simulateApiError('get', '/endgamestats', 'Restaring the game error', { error: 'An error has occured restarting the game' });
   });
 });

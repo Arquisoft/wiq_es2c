@@ -1,12 +1,21 @@
 import React from 'react';
 import { render, fireEvent, screen, waitFor, act } from '@testing-library/react';
-import { BrowserRouter as Router } from 'react-router-dom';
+import { MemoryRouter as Router } from 'react-router-dom';
 import { UserProvider } from './UserContext';
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 import Game from './Game';
+import { I18nextProvider } from "react-i18next";
+import i18n from "../translations/i18n";
+
+i18n.changeLanguage("es");
 const mockAxios = new MockAdapter(axios);
 jest.useFakeTimers(); // Para simular el paso del tiempo
+
+// Simulamos la configuración del juego
+const MAX_TIME = 30;
+const MAX_PREGUNTAS = 5;
+const THEMATIC = 'Geografia';
 
 describe('Start game', () => {
   beforeEach(() => {
@@ -37,11 +46,18 @@ describe('Start game', () => {
         { message: "Tiempo de pregunta actualizado exitosamente", 
         updatedQuestion });
 
-    render(<UserProvider>
-      <Router>
-        <Game/>
-      </Router>
-    </UserProvider>);
+    mockAxios.onPost('http://localhost:8000/saveGameHistory').reply(200,
+      {
+        username: "testuser"
+      });
+
+    render(<I18nextProvider i18n={i18n}>
+        <UserProvider>
+          <Router initialEntries={[{ state: { time: MAX_TIME, question: MAX_PREGUNTAS, thematic: THEMATIC } }]}>
+            <Game />
+          </Router>
+        </UserProvider>
+      </I18nextProvider>);
 
     var button1;
     var button2;
@@ -108,11 +124,13 @@ describe('Start game', () => {
         { message: "Tiempo de pregunta actualizado exitosamente", 
         updatedQuestion });
 
-    render(<UserProvider>
-      <Router>
-        <Game/>
-      </Router>
-    </UserProvider>);
+    render(<I18nextProvider i18n={i18n}>
+      <UserProvider>
+        <Router initialEntries={[{ state: { time: MAX_TIME, question: MAX_PREGUNTAS, thematic: THEMATIC } }]}>
+          <Game />
+        </Router>
+      </UserProvider>
+    </I18nextProvider>);
 
     await waitFor(() => {
       expect(screen.getByText('Error: Error al generar la pregunta')).toBeInTheDocument();

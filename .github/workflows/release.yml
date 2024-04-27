@@ -18,9 +18,15 @@ jobs:
     - run: npm --prefix webapp ci
     - run: npm --prefix questiongenerator ci
     - run: npm --prefix gamehistoryservice ci
+    - run: npm --prefix apis/allquestionservice ci
+    - run: npm --prefix apis/alluserservice ci
+    - run: npm --prefix perfilservice ci
     - run: npm --prefix users/authservice test -- --coverage
     - run: npm --prefix users/userservice test -- --coverage
     - run: npm --prefix gatewayservice test -- --coverage
+    - run: npm --prefix apis/alluserservice test -- --coverage
+    - run: npm --prefix apis/allquestionservice test -- --coverage
+    - run: npm --prefix perfilservice test -- --coverage
     - run: npm --prefix webapp test -- --coverage
     - name: Analyze with SonarCloud
       uses: sonarsource/sonarcloud-github-action@master
@@ -40,6 +46,9 @@ jobs:
     - run: npm --prefix gatewayservice install
     - run: npm --prefix questiongenerator install
     - run: npm --prefix gamehistoryservice install
+    - run: npm --prefix apis/allquestionservice install
+    - run: npm --prefix apis/alluserservice install
+    - run: npm --prefix perfilservice install
     - run: npm --prefix webapp install
     - run: npm --prefix webapp run build
     - run: npm --prefix webapp run test:e2e
@@ -155,10 +164,96 @@ jobs:
         password: ${{ secrets.GITHUB_TOKEN }}
         registry: ghcr.io
         workdir: gamehistoryservice
+  docker-push-perfilservice:
+    name: Push perfil service service Docker Image to GitHub Packages
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    needs: [e2e-tests]
+    steps:
+    - uses: actions/checkout@v4
+    - name: Publish to Registry
+      uses: elgohr/Publish-Docker-Github-Action@v5
+      with:
+        name: arquisoft/wiq_es2c/perfilservice
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+        registry: ghcr.io
+        workdir: perfilservice
+  docker-push-allquestionservice:
+    name: Push all question service service Docker Image to GitHub Packages
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    needs: [e2e-tests]
+    steps:
+    - uses: actions/checkout@v4
+    - name: Publish to Registry
+      uses: elgohr/Publish-Docker-Github-Action@v5
+      with:
+        name: arquisoft/wiq_es2c/apis/allquestionservice
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+        registry: ghcr.io
+        workdir: apis/allquestionservice
+  docker-push-alluserservice:
+    name: Push all user service service Docker Image to GitHub Packages
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    needs: [e2e-tests]
+    steps:
+    - uses: actions/checkout@v4
+    - name: Publish to Registry
+      uses: elgohr/Publish-Docker-Github-Action@v5
+      with:
+        name: arquisoft/wiq_es2c/apis/alluserservice
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+        registry: ghcr.io
+        workdir: apis/alluserservice
+  docker-push-prometheus:
+    name: Push Prometheus Docker Image to GitHub Packages
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    needs: [e2e-tests]
+    steps:
+    - uses: actions/checkout@v4
+    - name: Publish to Registry
+      uses: elgohr/Publish-Docker-Github-Action@v5
+      with:
+        name: arquisoft/wiq_es2c/gatewayservice/monitoring/prometheus
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+        registry: ghcr.io
+        workdir: prometheus
+  docker-push-grafana:
+    name: Push Grafana Docker Image to GitHub Packages
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    needs: [e2e-tests]
+    steps:
+    - uses: actions/checkout@v4
+    - name: Publish to Registry
+      uses: elgohr/Publish-Docker-Github-Action@v5
+      with:
+        name: arquisoft/wiq_es2c/gatewayservice/monitoring/grafana
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+        registry: ghcr.io
+        workdir: grafana
   deploy:
     name: Deploy over SSH
     runs-on: ubuntu-latest
-    needs: [docker-push-userservice,docker-push-authservice,docker-push-gatewayservice,docker-push-webapp,docker-push-questiongenerator,docker-push-gamehistoryservice]
+    needs: [docker-push-userservice,docker-push-authservice,docker-push-gatewayservice,docker-push-webapp,
+          docker-push-questiongenerator,docker-push-gamehistoryservice,docker-push-perfilservice,docker-push-allquestionservice,docker-push-alluserservice]
     steps:
     - name: Deploy over SSH
       uses: fifsky/ssh-action@master

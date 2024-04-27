@@ -3,7 +3,10 @@ import { render, fireEvent, screen, waitFor } from '@testing-library/react';
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 import AddUser from './AddUser';
+import { I18nextProvider } from "react-i18next";
+import i18n from "../translations/i18n";
 
+i18n.changeLanguage("es");
 const mockAxios = new MockAdapter(axios);
 
 describe('AddUser component', () => {
@@ -12,10 +15,13 @@ describe('AddUser component', () => {
   });
 
   it('should add user successfully', async () => {
-    render(<AddUser />);
+    render(<I18nextProvider i18n={i18n}>
+        <AddUser />
+      </I18nextProvider>);
 
     const usernameInput = screen.getByLabelText('Usuario');
     const passwordInput = screen.getByLabelText('Contraseña');
+    const emailInput = screen.getByLabelText('Email');
     const addUserButton = screen.getByRole('button', { name: 'REGÍSTRATE' });
 
     // Mock the axios.post request to simulate a successful response
@@ -24,6 +30,7 @@ describe('AddUser component', () => {
     // Simulate user input
     fireEvent.change(usernameInput, { target: { value: 'testUser' } });
     fireEvent.change(passwordInput, { target: { value: 'testPassword' } });
+    fireEvent.change(emailInput, { target: { value: 'testEmail' } });
 
     // Trigger the add user button click
     fireEvent.click(addUserButton);
@@ -35,10 +42,13 @@ describe('AddUser component', () => {
   });
 
   it('should handle error when adding user', async () => {
-    render(<AddUser />);
+    render(<I18nextProvider i18n={i18n}>
+        <AddUser />
+      </I18nextProvider>);
 
     const usernameInput = screen.getByLabelText('Usuario');
     const passwordInput = screen.getByLabelText('Contraseña');
+    const emailInput = screen.getByLabelText('Email');
     const addUserButton = screen.getByRole('button', { name: 'REGÍSTRATE'});
 
     // Mock the axios.post request to simulate an error response
@@ -47,6 +57,8 @@ describe('AddUser component', () => {
     // Simulate user input
     fireEvent.change(usernameInput, { target: { value: 'testUser' } });
     fireEvent.change(passwordInput, { target: { value: 'testPassword' } });
+    fireEvent.change(emailInput, { target: { value: 'testEmail' } });
+
 
     // Trigger the add user button click
     fireEvent.click(addUserButton);
