@@ -32,11 +32,7 @@ const NavigationBar = () => {
     };
 
     const showHome = () => {
-        if (usernameGlobal === 'admin') {
-            navigate("/PantallaInicioAdmin");  
-        } else {
-            navigate("/PantallaInicio");
-        }
+        usernameGlobal === 'admin' ? navigate("/PantallaInicioAdmin") : navigate("/PantallaInicio");
     };
 
     const showGameHistory = () => {

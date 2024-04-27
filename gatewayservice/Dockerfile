@@ -4,6 +4,11 @@ FROM node:alpine
 # Set the working directory in the container
 WORKDIR /usr/src/gatewayservice
 
+RUN addgroup -S nonroot \
+    && adduser -S nonroot -G nonroot
+
+RUN chown -R nonroot:nonroot ./
+
 # Copy package.json and package-lock.json to the working directory
 COPY package*.json ./
 
@@ -15,6 +20,8 @@ COPY .dockerignore ./
 COPY gateway-service.js ./
 COPY gateway-service.test.js ./
 COPY openapi.yaml ./
+
+USER nonroot
 
 ARG API_ORIGIN_URI="http://localhost:3000"
 ENV REACT_APP_API_ORIGIN_ENDPOINT=$API_ORIGIN_URI

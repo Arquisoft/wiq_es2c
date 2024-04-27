@@ -54,7 +54,6 @@ const Ranking = () => {
     const newSortBy = event.target.value;
     setSortBy(newSortBy);
     getRankingGlobal();
-    console.log(`Nuevo orden seleccionado: ${newSortBy}`);
   };
 
   const handleLimit = async (event) => {
