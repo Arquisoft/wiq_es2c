@@ -461,7 +461,12 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </li>
 <li><a href="#section-solution-strategy">4. Estrategia de solución</a></li>
 <li><a href="#section-building-block-view">5. Vista de bloques</a></li>
-<li><a href="#section-runtime-view">6. Vista de ejecución</a></li>
+<li><a href="#section-runtime-view">6. Vista de ejecución</a>
+<ul class="sectlevel2">
+<li><a href="#_funcionamiento_de_las_partidas">6.1. Funcionamiento de las partidas</a></li>
+<li><a href="#_generación_de_preguntas">6.2. Generación de preguntas</a></li>
+</ul>
+</li>
 <li><a href="#section-deployment-view">7. Vista de despliegue</a></li>
 <li><a href="#section-concepts">8. Conceptos transversales</a>
 <ul class="sectlevel2">
@@ -951,17 +956,21 @@ El equipo de desarrollo comprometido a materializar este proyecto está formado 
 <div class="sect1">
 <h2 id="section-runtime-view">6. Vista de ejecución</h2>
 <div class="sectionbody">
+<div class="sect2">
+<h3 id="_funcionamiento_de_las_partidas">6.1. Funcionamiento de las partidas</h3>
 <div class="paragraph">
-<div class="title">Funcionamiento de las partidas</div>
 <p>Un usuario solicita comenzar una partida. La interfaz de usuario (WebApp) pide una pregunta al generador de preguntas (QuestionGenerator), proceso que se repetirá tantas veces como número de preguntas haya solicitado el usuario.
 <span class="image"><img src="./images/6_RuntimeView_Partida.png" alt="Diagram"></span></p>
 </div>
+</div>
+<div class="sect2">
+<h3 id="_generación_de_preguntas">6.2. Generación de preguntas</h3>
 <div class="paragraph">
-<div class="title">Generación de preguntas</div>
 <p>Cuando la interfaz de usuario solicita una pregunta el generador de preguntas deberá realizar una consulta a Wikidata obteniendo así información para formular la pregunta y sus respuestas.
 <span class="image"><img src="./images/6_RuntimeView_GenerarPregunta.PNG" alt="Diagram"></span></p>
 </div>
 <div style="page-break-after: always;"></div>
+</div>
 </div>
 </div>
 <div class="sect1">
