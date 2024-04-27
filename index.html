@@ -452,15 +452,31 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_partes_interesadas_stakeholders">1.3. Partes interesadas (Stakeholders)</a></li>
 </ul>
 </li>
-<li><a href="#section-architecture-constraints">2. Restricciones de arquitectura</a></li>
+<li><a href="#section-architecture-constraints">2. Restricciones de arquitectura</a>
+<ul class="sectlevel2">
+<li><a href="#_restricciones_técnicas">2.1. Restricciones técnicas</a></li>
+<li><a href="#_restricciones_organizativas">2.2. Restricciones organizativas</a></li>
+</ul>
+</li>
 <li><a href="#section-system-scope-and-context">3. Alcance y Contexto del Sistema</a>
 <ul class="sectlevel2">
 <li><a href="#_contexto_de_negocio">3.1. Contexto de Negocio</a></li>
 <li><a href="#_contexto_técnico">3.2. Contexto técnico</a></li>
 </ul>
 </li>
-<li><a href="#section-solution-strategy">4. Estrategia de solución</a></li>
-<li><a href="#section-building-block-view">5. Vista de bloques</a></li>
+<li><a href="#section-solution-strategy">4. Estrategia de solución</a>
+<ul class="sectlevel2">
+<li><a href="#_decisiones_tecnologicas">4.1. Decisiones tecnologicas</a></li>
+<li><a href="#_cómo_se_van_a_alcanzar_los_objetivos_de_calidad">4.2. ¿Cómo se van a alcanzar los objetivos de calidad?</a></li>
+</ul>
+</li>
+<li><a href="#section-building-block-view">5. Vista de bloques</a>
+<ul class="sectlevel2">
+<li><a href="#_nivel_0">5.1. Nivel 0:</a></li>
+<li><a href="#_nivel_1">5.2. Nivel 1:</a></li>
+<li><a href="#_nivel_2">5.3. Nivel 2:</a></li>
+</ul>
+</li>
 <li><a href="#section-runtime-view">6. Vista de ejecución</a>
 <ul class="sectlevel2">
 <li><a href="#_funcionamiento_de_las_partidas">6.1. Funcionamiento de las partidas</a></li>
@@ -627,8 +643,9 @@ El equipo de desarrollo comprometido a materializar este proyecto está formado 
 <div class="sect1">
 <h2 id="section-architecture-constraints">2. Restricciones de arquitectura</h2>
 <div class="sectionbody">
+<div class="sect2">
+<h3 id="_restricciones_técnicas">2.1. Restricciones técnicas</h3>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 1. Restricciones técnicas</caption>
 <colgroup>
 <col style="width: 50%;">
 <col style="width: 50%;">
@@ -666,8 +683,10 @@ El equipo de desarrollo comprometido a materializar este proyecto está formado 
 </tr>
 </tbody>
 </table>
+</div>
+<div class="sect2">
+<h3 id="_restricciones_organizativas">2.2. Restricciones organizativas</h3>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 2. Restricciones organizativas</caption>
 <colgroup>
 <col style="width: 50%;">
 <col style="width: 50%;">
@@ -694,6 +713,7 @@ El equipo de desarrollo comprometido a materializar este proyecto está formado 
 </tbody>
 </table>
 <div style="page-break-after: always;"></div>
+</div>
 </div>
 </div>
 <div class="sect1">
@@ -757,8 +777,9 @@ El equipo de desarrollo comprometido a materializar este proyecto está formado 
 <div class="sect1">
 <h2 id="section-solution-strategy">4. Estrategia de solución</h2>
 <div class="sectionbody">
+<div class="sect2">
+<h3 id="_decisiones_tecnologicas">4.1. Decisiones tecnologicas</h3>
 <div class="ulist">
-<div class="title">Decisiones tecnologicas</div>
 <ul>
 <li>
 <p>React: Biblioteca de JavaScript que usaremos para implementar la interfaz gráfica. Su principal ventaja es que utiliza un enfoque basado en componentes, lo que significa que las interfaces de usuario se dividen en componentes reutilizables que encapsulan el estado y el comportamiento.</p>
@@ -783,8 +804,10 @@ El equipo de desarrollo comprometido a materializar este proyecto está formado 
 </li>
 </ul>
 </div>
+</div>
+<div class="sect2">
+<h3 id="_cómo_se_van_a_alcanzar_los_objetivos_de_calidad">4.2. ¿Cómo se van a alcanzar los objetivos de calidad?</h3>
 <div class="ulist">
-<div class="title">¿Cómo se van a alcanzar los objetivos de calidad?</div>
 <ul>
 <li>
 <p>Usabilidad: Nuestras interfaces serán intuitivas y fáciles de usar para cualquier persona gracias al framework React.</p>
@@ -806,11 +829,13 @@ El equipo de desarrollo comprometido a materializar este proyecto está formado 
 <div style="page-break-after: always;"></div>
 </div>
 </div>
+</div>
 <div class="sect1">
 <h2 id="section-building-block-view">5. Vista de bloques</h2>
 <div class="sectionbody">
+<div class="sect2">
+<h3 id="_nivel_0">5.1. Nivel 0:</h3>
 <div class="paragraph">
-<div class="title">Nivel 0:</div>
 <p><span class="image"><img src="./images/5_Level0.PNG" alt="Diagram"></span></p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
@@ -839,8 +864,10 @@ El equipo de desarrollo comprometido a materializar este proyecto está formado 
 </tr>
 </tbody>
 </table>
+</div>
+<div class="sect2">
+<h3 id="_nivel_1">5.2. Nivel 1:</h3>
 <div class="paragraph">
-<div class="title">Nivel 1:</div>
 <p><span class="image"><img src="./images/5_Level1.PNG" alt="Diagram"></span></p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
@@ -881,8 +908,10 @@ El equipo de desarrollo comprometido a materializar este proyecto está formado 
 </tr>
 </tbody>
 </table>
+</div>
+<div class="sect2">
+<h3 id="_nivel_2">5.3. Nivel 2:</h3>
 <div class="paragraph">
-<div class="title">Nivel 2:</div>
 <p><span class="image"><img src="./images/5_level2.PNG" alt="Diagram"></span></p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
@@ -954,6 +983,7 @@ El equipo de desarrollo comprometido a materializar este proyecto está formado 
 <div style="page-break-after: always;"></div>
 </div>
 </div>
+</div>
 <div class="sect1">
 <h2 id="section-runtime-view">6. Vista de ejecución</h2>
 <div class="sectionbody">
@@ -1015,7 +1045,7 @@ El equipo de desarrollo comprometido a materializar este proyecto está formado 
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Motor de Docker</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Ejecutará los contenedores</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Ejecutará los contenedores.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Microservicios</p></td>
@@ -1035,16 +1065,16 @@ El equipo de desarrollo comprometido a materializar este proyecto está formado 
 <p><span class="image"><img src="./images/Modelo%20dominio%20WIQ.png" alt="Diagram"></span></p>
 </div>
 <div class="paragraph">
-<p>Usuario: representa el cliente de nuestra aplicación. Podrán jugar a un numero ilimitado de juegos, y tendrán un único historicos en el que se almacenaran sus partidas y sus estadísticas.</p>
+<p>Usuario: Representa el cliente de nuestra aplicación. Podrán jugar a un numero ilimitado de juegos, y tendrán un único historicos en el que se almacenaran sus partidas y sus estadísticas.</p>
 </div>
 <div class="paragraph">
-<p>Juego: es la propia partida en sí. Un juego siempre será único debido a la aleatoriedad de las preguntas. Por tanto, un juego contendrá las preguntas que aparecen en el.</p>
+<p>Juego: Es la propia partida en sí. Un juego siempre será único debido a la aleatoriedad de las preguntas. Por tanto, un juego contendrá las preguntas que aparecen en el.</p>
 </div>
 <div class="paragraph">
-<p>Pregunta: las preguntas tendrán las posibles respuestas y la correcta almacenadas, junto con su enunciado y el tiempo que tarda en responderla el usuario.</p>
+<p>Pregunta: Las preguntas tendrán las posibles respuestas y la correcta almacenadas, junto con su enunciado y el tiempo que tarda en responderla el usuario.</p>
 </div>
 <div class="paragraph">
-<p>Historico: representan las estadísticas del jugador, con datos como el número de preguntas acertadas, falladas, tiempo medio de juego, además de las partidas jugadas y sus preguntas.</p>
+<p>Historico: Representan las estadísticas del jugador, con datos como el número de preguntas acertadas, falladas, tiempo medio de juego, además de las partidas jugadas y sus preguntas.</p>
 </div>
 <div style="page-break-after: always;"></div>
 </div>
