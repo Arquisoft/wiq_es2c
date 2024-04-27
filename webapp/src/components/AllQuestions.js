@@ -18,7 +18,7 @@ const AllQuestions = () => {
             const response = await axios.get(`${apiEndpoint}/getAllQuestions`,{});
             setQuestions(response.data);
         } catch (error) {
-            setError(error.response.data.error);
+            setError(error.message);
         }
     }, [apiEndpoint]);
     

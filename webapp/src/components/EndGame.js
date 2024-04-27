@@ -24,7 +24,7 @@ const EndGame = () => {
       });
       setEndGame(response.data);
     } catch (error) {
-      setError(error);
+      setError(error.message);
     }
   }, [usernameGlobal])
 

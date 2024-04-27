@@ -9,15 +9,8 @@ const PantallaInicio = () => {
 
     const [t] = useTranslation("global");
 
-
-    const [openSnackbar, setOpenSnackbar] = useState(false);
-    const [error, setError] = useState('');
-
     const navigate = useNavigate();
 
-    const handleCloseSnackbar = () => {
-        setOpenSnackbar(false);
-    };
 
     const showAllUsers = () => {
         navigate("/AllUsers")
@@ -53,10 +46,6 @@ const PantallaInicio = () => {
                     {t("botonPreguntas")}
                 </Button>
             </Box>
-            <Snackbar open={openSnackbar} autoHideDuration={6000} onClose={handleCloseSnackbar} message={t("mensajeLogOut")} />
-            {error && (
-                <Snackbar open={!!error} autoHideDuration={6000} onClose={() => setError('')} message={`Error: ${error}`} />
-            )}
 
         </Container>
     );
