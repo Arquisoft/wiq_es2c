@@ -13,17 +13,17 @@ RUN npm install
 # Copy the app source code to the working directory
 COPY .dockerignore ./
 COPY game-model.js ./
-COPY image-questions.js ./
-COPY image-questions.test.js ./
+COPY image_questions.js ./
+COPY image_questions.test.js ./
 COPY package-lock.json ./
 COPY package.json ./
 COPY question-model.js ./
 COPY question.js ./
 COPY question.test.js ./
-COPY text-questions.js ./
-COPY text-questions.test.js ./
+COPY text_questions.js ./
+COPY text_questions.test.js ./
 
-COPY game-model.js /usr/src/gamehistoryservice
+COPY game-model.js ./
 
 # Expose the port the app runs on
 EXPOSE 8003
