@@ -4,7 +4,7 @@ ifndef::imagesdir[:imagesdir: ../images]
 
 
 == Vista de bloques
-.Nivel 0:
+=== Nivel 0:
 
 image:5_Level0.PNG[Diagram]
 
@@ -17,7 +17,7 @@ image:5_Level0.PNG[Diagram]
 |===
 
 
-.Nivel 1:
+=== Nivel 1:
 
 image:5_Level1.PNG[Diagram]
 
@@ -32,7 +32,7 @@ image:5_Level1.PNG[Diagram]
 | WikiData | Permite generar preguntas y respuestas.
 |===
 
-.Nivel 2:
+=== Nivel 2:
 
 image:5_level2.PNG[Diagram]
 

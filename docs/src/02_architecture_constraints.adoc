@@ -3,7 +3,7 @@ ifndef::imagesdir[:imagesdir: ../images]
 [[section-architecture-constraints]]
 == Restricciones de arquitectura
 
-.Restricciones técnicas
+=== Restricciones técnicas
 [options="header",cols="1,1"]
 |===
 |Restricción|Explicación
@@ -15,7 +15,7 @@ ifndef::imagesdir[:imagesdir: ../images]
 | WikiData | Se empleará WikiData para obtener la información para generar las preguntas y respuestas.
 |===
 
-.Restricciones organizativas
+=== Restricciones organizativas
 [options="header",cols="1,1"]
 |===
 |Restricción|Explicación

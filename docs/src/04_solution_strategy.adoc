@@ -3,7 +3,7 @@ ifndef::imagesdir[:imagesdir: ../images]
 [[section-solution-strategy]]
 == Estrategia de solución
 
-.Decisiones tecnologicas
+=== Decisiones tecnologicas
 
 * React: Biblioteca de JavaScript que usaremos para implementar la interfaz gráfica. Su principal ventaja es que utiliza un enfoque basado en componentes, lo que significa que las interfaces de usuario se dividen en componentes reutilizables que encapsulan el estado y el comportamiento.
 * Docker: Unidad de software que utilizaremos para ejecutar la aplicación de manera aislada de otros procesos del sistema mediante el concepto de imágenes, que son plantillas de solo lectura que contienen el sistema operativo, las herramientas, las bibliotecas y el código fuente de una aplicación.
@@ -15,7 +15,7 @@ ifndef::imagesdir[:imagesdir: ../images]
 
 
 
-.¿Cómo se van a alcanzar los objetivos de calidad?
+=== ¿Cómo se van a alcanzar los objetivos de calidad?
 * Usabilidad: Nuestras interfaces serán intuitivas y fáciles de usar para cualquier persona gracias al framework React.
 * Mantenibilidad: La aplicación sera facilmente adaptable gracias a nuestro enfoque por componentes, lo que nos permitirá tener un código poco acoplado y con mucha cohesión.
 * Eficiencia: La conexión con la base de datos y Wikidata para extraer las preguntas será rápida para mantener la atención de los usuarios.

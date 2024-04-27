@@ -9,12 +9,12 @@ ifndef::imagesdir[:imagesdir: ../images]
 image:Modelo dominio WIQ.png[Diagram]
 
 
-Usuario: representa el cliente de nuestra aplicación. Podrán jugar a un numero ilimitado de juegos, y tendrán un único historicos en el que se almacenaran sus partidas y sus estadísticas.
+Usuario: Representa el cliente de nuestra aplicación. Podrán jugar a un numero ilimitado de juegos, y tendrán un único historicos en el que se almacenaran sus partidas y sus estadísticas.
 
-Juego: es la propia partida en sí. Un juego siempre será único debido a la aleatoriedad de las preguntas. Por tanto, un juego contendrá las preguntas que aparecen en el.
+Juego: Es la propia partida en sí. Un juego siempre será único debido a la aleatoriedad de las preguntas. Por tanto, un juego contendrá las preguntas que aparecen en el.
 
-Pregunta: las preguntas tendrán las posibles respuestas y la correcta almacenadas, junto con su enunciado y el tiempo que tarda en responderla el usuario. 
+Pregunta: Las preguntas tendrán las posibles respuestas y la correcta almacenadas, junto con su enunciado y el tiempo que tarda en responderla el usuario.
 
-Historico: representan las estadísticas del jugador, con datos como el número de preguntas acertadas, falladas, tiempo medio de juego, además de las partidas jugadas y sus preguntas.
+Historico: Representan las estadísticas del jugador, con datos como el número de preguntas acertadas, falladas, tiempo medio de juego, además de las partidas jugadas y sus preguntas.
 
 
