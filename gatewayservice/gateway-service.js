@@ -19,9 +19,13 @@ const perfilServiceUrl = process.env.PERFIL_SERVICE_URL || 'http://localhost:800
 const allUsersServiceUrl = process.env.ALLUSERS_SERVICE_URL || 'http://localhost:8006';
 const allQuestionsServiceUrl = process.env.ALLQUESTIONS_SERVICE_URL || 'http://localhost:8007';
 
+const corsOptions = {
+  origin: '*', 
+  methods: ['GET', 'POST'], 
+  allowedHeaders: ['Content-Type', 'Authorization'] 
+};
 
-
-app.use(cors());
+app.use(cors(corsOptions));
 app.use(express.json());
 
 //Prometheus configuration
