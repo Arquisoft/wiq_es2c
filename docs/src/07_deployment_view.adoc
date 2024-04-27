@@ -7,3 +7,12 @@ ifndef::imagesdir[:imagesdir: ../images]
 
 image:7_DeploymentView_V2.PNG[Diagram]
 
+[options="header",cols="1,1"]
+|===
+|Elementos | Descripción
+| Azure | Servidor donde se desplegará la máquina virtual.
+| Máquina virtual | En la que se desplegará la aplicación.
+| Motor de Docker | Ejecutará los contenedores.
+| Microservicios | GameHistoryService, QuestionGenerator ... Gestionarán la aplicación web.
+|===
+
