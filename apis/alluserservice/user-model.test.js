@@ -1,8 +1,20 @@
 const mongoose = require('mongoose');
 const { MongoMemoryServer } = require('mongodb-memory-server');
 const User = require('./user-model');
+const { randomBytes } = require('crypto');
 
 let mongoServer;
+
+function generateSecureRandomPassword(length) {
+  const characters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()-_=+';
+  const password = [];
+  const bytes = randomBytes(length);
+  for (let i = 0; i < length; i++) {
+    const randomIndex = bytes[i] % characters.length;
+    password.push(characters[randomIndex]);
+  }
+  return password.join('');
+}
 
 beforeAll(async () => {
     mongoServer = await MongoMemoryServer.create();
@@ -24,7 +36,7 @@ describe('Question Model', () => {
     const userData = {
         username: 'testuser',
         email: 'testuser@example.com',
-        password: 'password123',
+        password: generateSecureRandomPassword(8),
     };
 
     const newUser = await User.create(userData);
