@@ -4,6 +4,11 @@ FROM node:alpine
 # Set the working directory in the container
 WORKDIR /usr/src/apis/alluserservice
 
+RUN addgroup -S nonroot \
+    && adduser -S nonroot -G nonroot
+    
+RUN chown -R nonroot:nonroot ./
+
 # Copy package.json and package-lock.json to the working directory
 COPY package*.json ./
 
@@ -15,6 +20,8 @@ COPY .dockerignore ./
 COPY allusers-api.js ./
 COPY allusers-api.test.js ./
 COPY user-model.js ./
+
+USER nonroot
 
 # Expose the port the app runs on
 EXPOSE 8006

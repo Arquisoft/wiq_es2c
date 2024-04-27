@@ -4,7 +4,13 @@ FROM node:alpine
 # Set the working directory in the container
 WORKDIR /usr/src/authservice
 
+RUN addgroup -S nonroot \
+    && adduser -S nonroot -G nonroot
+
+RUN chown -R nonroot:nonroot ./
+
 # Copy package.json and package-lock.json to the working directory
+USER root
 COPY package*.json ./
 
 # Install app dependencies
@@ -16,6 +22,8 @@ COPY .dockerignore ./
 COPY auth-model.js ./
 COPY auth-service.js ./
 COPY auth-service.test.js ./
+
+USER nonroot
 
 # Expose the port the app runs on
 EXPOSE 8002
