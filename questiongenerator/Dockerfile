@@ -23,7 +23,7 @@ COPY question.test.js ./
 COPY text_questions.js ./
 COPY text_questions.test.js ./
 
-COPY game-model.js /usr/src/gamehistoryservice
+COPY game-model.js ./
 
 # Expose the port the app runs on
 EXPOSE 8003

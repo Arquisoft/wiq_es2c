@@ -17,7 +17,7 @@ describe('EndGame component', () => {
     mockAxios.reset();
   });
 
-  it('muestra el perfil correctamente', async () => {
+  it('muestra el resumen con imagen 1 correctamente', async () => {
 
     // Mockeamos la petición que devuelve el histórico
     mockAxios.onGet("http://localhost:8000/endgamestats").reply(200, 
@@ -46,13 +46,67 @@ describe('EndGame component', () => {
       
     }); 
 
-    /* const inicioButton = screen.getByRole('button', { name: 'VOLVER AL INICIO' });
-
-    // Simulate user input
-    await act(async () => {
-        fireEvent.click(inicioButton);
-      }); */
   });
 
+  it('muestra el resumen con imagen 2 correctamente', async () => {
 
+    // Mockeamos la petición que devuelve el histórico
+    mockAxios.onGet("http://localhost:8000/endgamestats").reply(200, 
+        {  totalRightQuestions: 1,
+          totalIncorrectQuestions: 1,
+          ratio: "50%",
+          totalTime: "2s",
+          endgameImageWithRatio: 43});
+
+
+    render(<I18nextProvider i18n={i18n}>
+      <UserProvider>
+      <Router>
+        <EndGame />
+      </Router>
+    </UserProvider>
+    </I18nextProvider>);
+
+    await waitFor(() => {
+      expect(screen.getByText('Estadísticas de la última partida')).toBeInTheDocument();
+
+      expect(screen.getByText('Preguntas correctas: 1')).toBeInTheDocument();
+      expect(screen.getByText('Preguntas incorrectas: 1')).toBeInTheDocument();
+      expect(screen.getByText('Ratio de aciertos: 50%')).toBeInTheDocument();
+      expect(screen.getByText('Tiempo total: 2s')).toBeInTheDocument();
+      
+    }); 
+  });
+
+    it('muestra el resumen con imagen 3 correctamente', async () => {
+
+      // Mockeamos la petición que devuelve el histórico
+      mockAxios.onGet("http://localhost:8000/endgamestats").reply(200, 
+          {  totalRightQuestions: 1,
+            totalIncorrectQuestions: 1,
+            ratio: "50%",
+            totalTime: "2s",
+            endgameImageWithRatio: 67});
+  
+  
+      render(<I18nextProvider i18n={i18n}>
+        <UserProvider>
+        <Router>
+          <EndGame />
+        </Router>
+      </UserProvider>
+      </I18nextProvider>);
+  
+      await waitFor(() => {
+        expect(screen.getByText('Estadísticas de la última partida')).toBeInTheDocument();
+  
+        expect(screen.getByText('Preguntas correctas: 1')).toBeInTheDocument();
+        expect(screen.getByText('Preguntas incorrectas: 1')).toBeInTheDocument();
+        expect(screen.getByText('Ratio de aciertos: 50%')).toBeInTheDocument();
+        expect(screen.getByText('Tiempo total: 2s')).toBeInTheDocument();
+        
+    }); 
+  });
+
+  
 });
