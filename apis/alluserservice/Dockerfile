@@ -8,14 +8,12 @@ WORKDIR /usr/src/apis/alluserservice
 COPY package*.json ./
 
 # Install app dependencies
-RUN npm install
+RUN npm install --ignore-scripts
 
 # Copy the app source code to the working directory
 COPY .dockerignore ./
 COPY allusers-api.js ./
 COPY allusers-api.test.js ./
-COPY package-lock.json ./
-COPY package.json ./
 COPY user-model.js ./
 
 # Expose the port the app runs on

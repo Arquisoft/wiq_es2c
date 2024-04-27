@@ -11,6 +11,7 @@ const app = express();
 app.disable('x-powered-by');
 const port = 8000;
 
+const originEndpoint = process.env.REACT_APP_API_ORIGIN_ENDPOINT || 'http://localhost:3000';
 const gamehistoryUrl = process.env.GAMEHISTORY_SERVICE_URL || 'http://localhost:8004';
 const generatorUrl = process.env.GENERATOR_SERVICE_URL || 'http://localhost:8003';
 const authServiceUrl = process.env.AUTH_SERVICE_URL || 'http://localhost:8002';
@@ -19,9 +20,13 @@ const perfilServiceUrl = process.env.PERFIL_SERVICE_URL || 'http://localhost:800
 const allUsersServiceUrl = process.env.ALLUSERS_SERVICE_URL || 'http://localhost:8006';
 const allQuestionsServiceUrl = process.env.ALLQUESTIONS_SERVICE_URL || 'http://localhost:8007';
 
+const corsOptions = {
+  origin: originEndpoint, 
+  methods: ['GET', 'POST'], 
+  allowedHeaders: ['Content-Type', 'Authorization'] 
+};
 
-
-app.use(cors());
+app.use(cors(corsOptions));
 app.use(express.json());
 
 //Prometheus configuration

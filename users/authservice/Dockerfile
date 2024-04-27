@@ -8,15 +8,14 @@ WORKDIR /usr/src/authservice
 COPY package*.json ./
 
 # Install app dependencies
-RUN npm install
+RUN npm install bcrypt
+RUN npm install --ignore-scripts
 
 # Copy the app source code to the working directory
 COPY .dockerignore ./
 COPY auth-model.js ./
 COPY auth-service.js ./
 COPY auth-service.test.js ./
-COPY package-lock.json ./
-COPY package.json ./
 
 # Expose the port the app runs on
 EXPOSE 8002

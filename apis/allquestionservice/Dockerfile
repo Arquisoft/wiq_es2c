@@ -8,15 +8,13 @@ WORKDIR /usr/src/apis/allquestionservice
 COPY package*.json ./
 
 # Install app dependencies
-RUN npm install
+RUN npm install --ignore-scripts
 
 # Copy the app source code to the working directory
 COPY .dockerignore ./
 COPY allquestions-api.js ./
 COPY allquestions-api.test.js ./
 COPY home.png ./
-COPY package-lock.json ./
-COPY package.json ./
 COPY question-model.js ./
 
 # Expose the port the app runs on 

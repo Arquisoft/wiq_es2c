@@ -8,15 +8,13 @@ WORKDIR /usr/src/questiongenerator
 COPY package*.json ./
 
 # Install app dependencies
-RUN npm install
+RUN npm install --ignore-scripts
 
 # Copy the app source code to the working directory
 COPY .dockerignore ./
 COPY game-model.js ./
 COPY image_questions.js ./
 COPY image_questions.test.js ./
-COPY package-lock.json ./
-COPY package.json ./
 COPY question-model.js ./
 COPY question.js ./
 COPY question.test.js ./

@@ -8,12 +8,11 @@ WORKDIR /usr/src/userservice
 COPY package*.json ./
 
 # Install app dependencies
-RUN npm install
+RUN npm install bcrypt
+RUN npm install --ignore-scripts bcrypt
 
 # Copy the app source code to the working directory
 COPY .dockerignore ./
-COPY package-lock.json ./
-COPY package.json ./
 COPY user-model.js ./
 COPY user-service.js ./
 COPY user-service.test.js ./

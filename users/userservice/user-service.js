@@ -3,11 +3,16 @@ const express = require('express');
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 const bodyParser = require('body-parser');
+const promBundle = require('express-prom-bundle');
 const User = require('./user-model')
 
 const app = express();
 app.disable('x-powered-by');
 const port = 8001;
+
+//Prometheus configuration
+const metricsMiddleware = promBundle({includeMethod: true});
+app.use(metricsMiddleware);
 
 // Middleware to parse JSON in request body
 app.use(bodyParser.json());
