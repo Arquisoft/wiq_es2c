@@ -5,20 +5,20 @@ ifndef::imagesdir[:imagesdir: ../images]
 
 .Decisiones tecnologicas
 
-* React: biblioteca de JavaScript que usaremos para implementar la interfaz gráfica. Su principal ventaja es que utiliza un enfoque basado en componentes, lo que significa que las interfaces de usuario se dividen en componentes reutilizables que encapsulan el estado y el comportamiento.
-* Docker: unidad de software que utilizaremos para ejecutar la aplicación de manera aislada de otros procesos del sistema mediante el concepto de imágenes, que son plantillas de solo lectura que contienen el sistema operativo, las herramientas, las bibliotecas y el código fuente de una aplicación.
-* JavaScript: lenguaje de programacion elegido por ser un lenguaje dinámico y flexible, muy común en la programacion web y multiplataforma.
-* Node.js: entorno de ejecución de JavaScript elegido por su rendimiento y velocidad, lo que lo hace ideal para aplicaciones en tiempo real como juegos.
-* Github Desktop: utilizado por algunos miembros del equipo como Github IDE.
-* Wikidata: base de datos colaborativa y abierta que usaremos para extraer las preguntas para nuestro juego.
-* MongoDB: base de datos no relacional, basada en un modelo de datos de documentos JSON, lo que nos facilitará la evolución del esquema sin requerir una estructura fija como en las bases de datos relacionales tradicionales.
+* React: Biblioteca de JavaScript que usaremos para implementar la interfaz gráfica. Su principal ventaja es que utiliza un enfoque basado en componentes, lo que significa que las interfaces de usuario se dividen en componentes reutilizables que encapsulan el estado y el comportamiento.
+* Docker: Unidad de software que utilizaremos para ejecutar la aplicación de manera aislada de otros procesos del sistema mediante el concepto de imágenes, que son plantillas de solo lectura que contienen el sistema operativo, las herramientas, las bibliotecas y el código fuente de una aplicación.
+* JavaScript: Lenguaje de programacion elegido por ser un lenguaje dinámico y flexible, muy común en la programacion web y multiplataforma.
+* Node.js: Entorno de ejecución de JavaScript elegido por su rendimiento y velocidad, lo que lo hace ideal para aplicaciones en tiempo real como juegos.
+* Github Desktop: Utilizado por algunos miembros del equipo como Github IDE.
+* Wikidata: Base de datos colaborativa y abierta que usaremos para extraer las preguntas para nuestro juego.
+* MongoDB: Base de datos no relacional, basada en un modelo de datos de documentos JSON, lo que nos facilitará la evolución del esquema sin requerir una estructura fija como en las bases de datos relacionales tradicionales.
 
 
 
 .¿Cómo se van a alcanzar los objetivos de calidad?
-* Usabilidad: nuestras interfaces serán intuitivas y fáciles de usar para cualquier persona gracias al framework React.
-* Mantenibilidad: la aplicación sera facilmente adaptable gracias a nuestro enfoque por componentes, lo que nos permitirá tener un código poco acoplado y con mucha cohesión.
-* Eficiencia: la conexión con la base de datos y Wikidata para extraer las preguntas será rápida para mantener la atención de los usuarios.
-* Estabilidad: nuestra apicacion será resistente a caidas y fallos para poder permitir una buena experiencia de juego.
-* Testeabilidad: el equipo testeará la aplicacion manual y automaticamente mediante pruebas de obertura, pruebas de aceptación (e2e) y pruebas de carga.
+* Usabilidad: Nuestras interfaces serán intuitivas y fáciles de usar para cualquier persona gracias al framework React.
+* Mantenibilidad: La aplicación sera facilmente adaptable gracias a nuestro enfoque por componentes, lo que nos permitirá tener un código poco acoplado y con mucha cohesión.
+* Eficiencia: La conexión con la base de datos y Wikidata para extraer las preguntas será rápida para mantener la atención de los usuarios.
+* Estabilidad: Nuestra aplicación será resistente a caidas y fallos para poder permitir una buena experiencia de juego.
+* Testeabilidad: El equipo testeará la aplicacion manual y automaticamente mediante pruebas de obertura, pruebas de aceptación (e2e) y pruebas de carga.
 

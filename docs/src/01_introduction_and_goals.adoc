@@ -3,9 +3,8 @@ ifndef::imagesdir[:imagesdir: ../images]
 [[section-introduction-and-goals]]
 == Introducción y objetivos
 
-El proyecto WIQ es una iniciativa llevada a cabo en la Universidad de Oviedo, bajo la solicitud de la empresa de desarrollo de software HappySaw y contratada por RTVE con el propósito de desarrollar una versión web del concurso “Saber y Ganar.
+El proyecto WIQ es una iniciativa llevada a cabo en la Universidad de Oviedo, bajo la solicitud de la empresa de desarrollo de software HappySaw y contratada por RTVE, con el propósito de desarrollar una versión web del concurso "Saber y Ganar".
 El equipo de desarrollo comprometido a materializar este proyecto está formado por
-
 * Marina Seijo Gómez
 * Rubén Pérez Dafonte
 * David Muños Rio
@@ -16,7 +15,7 @@ WIQ es una aplicación web que presentará un juego de preguntas y respuestas en
 === Descripción de los requisitos
 
 * Los usuarios deberán registrarse para poder jugar o bien iniciar sesión si ya se han registrado previamente.
-* El sistema proporcionará preguntas de distintas temáticas junto con 4 posibles respuestas mediante el uso de Wiki Data. Las preguntas serán variadas.
+* El sistema proporcionará preguntas de distintas temáticas junto con 4 posibles respuestas mediante el uso de Wikidata. Las preguntas serán variadas.
 * El sistema guardará información sobre la participación de los usuarios ofreciendo un histórico de: número de juegos, preguntas acertadas/falladas, tiempo etc.
 * El sistema ofrecerá una API de acceso a la información de los usuarios y de las preguntas generadas.
 * Habrá un límite de tiempo para responder cada pregunta.
@@ -39,7 +38,7 @@ WIQ es una aplicación web que presentará un juego de preguntas y respuestas en
 |Rol/Nombre|Contacto|Expectativas
 | Equipo de desarrollo/Estudiantes | Marina Seijo Gómez, Rubén Pérez Dafonte, David Muños Rio, Ángela Roza Moreno  | Encargados del completo desarrollo y diseño de la aplicación. Aumentarán y mejorarán su experiencia como programadores y diseñadores. Además, aprenderán a trabajar en equipo.
 | Profesores | Jose Emilio Labra Gayo, Pablo González González, Cristian Augusto Alonso, Jorge Fidalgo Álvarez | Evaluarán el resultado final de la aplicación y ofrecerán ayuda al equipo de desarrollo.
-| RTVE | Radiotelevisión Española | Solicitantes del servicio. Esperan que los requisitos exigidos sean completados satisfactoriamente
-| Usuarios | Cualquier usuario de la aplicación  | Serán quienes emplearán el servicio. Deberán encontrarlo entretenido y sencillo de usar
+| RTVE | Radiotelevisión Española | Solicitantes del servicio. Esperan que los requisitos exigidos sean completados satisfactoriamente.
+| Usuarios | Cualquier usuario de la aplicación  | Serán quienes emplearán el servicio. Deberán encontrarlo entretenido y sencillo de usar.
 |===
 
