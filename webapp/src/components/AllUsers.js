@@ -2,6 +2,7 @@ import axios from 'axios';
 import React, { useState, useEffect, useCallback } from 'react';
 import { Container, Typography, TableContainer, Table, TableHead, TableBody, TableRow, TableCell, Paper, Snackbar } from '@mui/material';
 import { useTranslation } from 'react-i18next';
+import '../App.css';
 
 const AllUsers = () => {
 
@@ -20,7 +21,7 @@ const AllUsers = () => {
             const response = await axios.get(`${apiEndpoint}/getAllUsers`,{});
             setUsers(response.data);
         } catch (error) {
-            setError(error.response.data.error);
+            setError(error.message);
         }
     }, [apiEndpoint]);
     
@@ -34,7 +35,6 @@ const AllUsers = () => {
         <Container component="main" maxWidth="xxl"
         sx={{
             backgroundColor: '#F3D3FA',
-            borderRadius: '10px',
             display: 'flex',
             flexDirection: 'column',
             justifyContent: 'center',

@@ -3,6 +3,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { Container, Typography, TableContainer, Table, TableHead, TableBody, TableRow, TableCell, Paper, Snackbar } from '@mui/material';
 import { useUser } from './UserContext';
 import { useTranslation } from 'react-i18next';
+import '../App.css';
 
 
 const Perfil = () => {
@@ -40,7 +41,6 @@ const Perfil = () => {
         <Container component="main" maxWidth="xxl"
         sx={{
             backgroundColor: '#F3D3FA',
-            borderRadius: '10px',
             display: 'flex',
             flexDirection: 'column',
             justifyContent: 'center',

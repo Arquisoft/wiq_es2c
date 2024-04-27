@@ -2,21 +2,15 @@ import React, { useState } from 'react';
 import { Container, Button, Box, Snackbar } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import '../App.css';
 
 
 const PantallaInicio = () => {
 
     const [t] = useTranslation("global");
 
-
-    const [openSnackbar, setOpenSnackbar] = useState(false);
-    const [error, setError] = useState('');
-
     const navigate = useNavigate();
 
-    const handleCloseSnackbar = () => {
-        setOpenSnackbar(false);
-    };
 
     const showAllUsers = () => {
         navigate("/AllUsers")
@@ -31,7 +25,6 @@ const PantallaInicio = () => {
         <Container component="main" maxWidth="xxl"
             sx={{
                 backgroundColor: '#F3D3FA',
-                borderRadius: '10px',
                 display: 'flex',
                 flexDirection: 'column',
                 justifyContent: 'center',
@@ -53,10 +46,6 @@ const PantallaInicio = () => {
                     {t("botonPreguntas")}
                 </Button>
             </Box>
-            <Snackbar open={openSnackbar} autoHideDuration={6000} onClose={handleCloseSnackbar} message={t("mensajeLogOut")} />
-            {error && (
-                <Snackbar open={!!error} autoHideDuration={6000} onClose={() => setError('')} message={`Error: ${error}`} />
-            )}
 
         </Container>
     );

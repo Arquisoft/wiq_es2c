@@ -2,6 +2,7 @@ const axios = require('axios');
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
+const crypto = require('crypto');
 const Question = require('./question-model');
 const Game = require('./game-model');
 const { queries:textQueries } = require('./text_questions');
@@ -10,6 +11,7 @@ const { queries:imagesQueries } = require('./image_questions');
 const generatorEndpoint = process.env.REACT_APP_API_ORIGIN_ENDPOINT || 'http://localhost:3000';
 
 const app = express();
+app.disable('x-powered-by');
 const port = 8003;
 
 var language = 'undefined';
@@ -118,6 +120,9 @@ app.get('/generateQuestion', async (req, res) => {
 app.post('/configureGame', async (req, res) => {
     try {
         maxQuestions = req.body.valueQuestion;
+        if(maxQuestions === undefined) {
+            throw new Error("Número de preguntas incorrecta");
+        }
         res.status(200).json(maxQuestions);
     } catch (error) {
         console.log("Error: " + error)
@@ -161,10 +166,10 @@ function getAllValues() {
 
 
 async function generarPregunta() {
-    randomNumber = Math.floor(Math.random() * 2);
+    randomNumber = crypto.randomInt(0, 2);
     try {
         // Petición a la API de WikiData
-        randomNumber = Math.floor(Math.random() * queries.length);
+        randomNumber = crypto.randomInt(0, queries.length);
         var response = await axios.get(url, {
             params: {
                 query: queries[randomNumber][0],
@@ -194,7 +199,7 @@ function procesarDatos(data) {
 
     // Obtenemos cuatro índices aleatorios sin repetición
     while (randomIndexes.length < 4) {
-        var randomIndex = Math.floor(Math.random() * data.length);
+        var randomIndex = crypto.randomInt(0, data.length);
         var option = data[randomIndex].optionLabel.value;
         var quest = "";
 
@@ -207,19 +212,15 @@ function procesarDatos(data) {
 
         // Comprobamos que tanto la opción como la pregunta no sean entidades de WikiData ni enlaces o que la pregunta ya 
         // venga en el array (estara vacia)
-        if (!randomIndexes.includes(randomIndex) && (quest == ""
-                || (!(option.startsWith("Q") || option.startsWith("http"))
-                    && !(quest.startsWith("Q") || quest.startsWith("http"))
-                    )
-                ) 
-            && !optionsSelected.includes(option)) {
+        if (!randomIndexes.includes(randomIndex) && (quest == "" || (!(option.startsWith("Q") || option.startsWith("http"))
+        && !(quest.startsWith("Q") || quest.startsWith("http")))) && !optionsSelected.includes(option)) {
             randomIndexes.push(randomIndex);
             optionsSelected.push(option);
         }
     }
 
     // Escogemos un índice aleatorio como la opción correcta
-    var correctIndex = Math.floor(Math.random() * 4);
+    var correctIndex = crypto.randomInt(0, 4);
     correctOption = data[randomIndexes[correctIndex]].optionLabel.value;
 
     if(quest == "") {

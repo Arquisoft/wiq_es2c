@@ -9,6 +9,7 @@ mongoose.connect(mongoUri);
 const originEndpoint = process.env.REACT_APP_API_ORIGIN_ENDPOINT || 'http://localhost:3000';
 
 const app = express();
+app.disable('x-powered-by');
 const port = 8004;
 
 // Middleware to parse JSON in request body
@@ -34,8 +35,8 @@ app.post("/saveGameHistory", async (req, res) => {
 
 app.get("/gamehistory", async (req, res) => {
     try {
-        var gamehistory = await GameHistory.findOne({ userId:req.query.username});
-    
+        var gamehistory = await findOne(req.query.username);
+
         if (gamehistory) {
             var response = {
                 userId: gamehistory.userId,
@@ -49,7 +50,7 @@ app.get("/gamehistory", async (req, res) => {
             res.json(response);
         } else {
             var response = {
-                userId: gamehistory.userId,
+                userId: null,
                 totalGamesPlayed: 0,
                 totalQuestionsAnswered: 0,
                 totalRightQuestions: 0,
@@ -92,7 +93,7 @@ async function saveGameHistory(userId) {
     try {
 
         // Busca el historial de juego existente del usuario
-        let gameHistory = await GameHistory.findOne({ userId: userId });
+        let gameHistory = await findOne(userId);
 
         // Si no existe un historial de juego, crea uno nuevo
         if (!gameHistory) {
@@ -129,9 +130,12 @@ async function saveGameHistory(userId) {
         // Actualiza los campos del historial de juego
         gameHistory.totalGamesPlayed = totalGamesPlayed;
         gameHistory.totalQuestionsAnswered = totalRightQuestions + totalIncorrectQuestions;
-        gameHistory.totalRightQuestions = totalRightQuestions;
-        gameHistory.totalIncorrectQuestions = totalIncorrectQuestions;
-        gameHistory.ratio =  parseInt((totalRightQuestions / (totalRightQuestions + totalIncorrectQuestions))*100);
+        gameHistory.totalRightQuestions = isNaN(totalRightQuestions) ? 0 : totalRightQuestions;
+        gameHistory.totalIncorrectQuestions = isNaN(totalIncorrectQuestions) ? 0 : totalIncorrectQuestions;
+
+        gameHistory.ratio = totalRightQuestions + totalIncorrectQuestions > 0
+        ? parseInt((totalRightQuestions / (totalRightQuestions + totalIncorrectQuestions)) * 100)
+        : 0;    
         gameHistory.totalTime = totalTime;
 
         // Guarda el historial del juego en la base de datos
@@ -201,6 +205,31 @@ async function getEndGameStats(userId) {
     }
 }
 
+app.get('/ranking', async (req, res) => {
+    try {
+        const sortBy = req.query.sortBy || 'ratio'; 
+        const limit = req.query.userLimit || 10; 
+        
+        const topUsers = await GameHistory.find()
+            .sort({ [sortBy]: -1 }) 
+            .limit(limit); 
+        
+        const response = topUsers.map(user => ({
+            userId: user.userId,
+            totalGamesPlayed: user.totalGamesPlayed,
+            totalQuestionsAnswered: user.totalQuestionsAnswered,
+            totalRightQuestions: user.totalRightQuestions,
+            ratio: `${user.ratio}%`,
+            totalTime: `${user.totalTime}s`
+        }));
+
+        res.json(response);
+
+    } catch (error) {
+        res.status(400).json({ error: `Error al obtener el ranking: ${error.message}` });
+    }
+});
+
 
 const server = app.listen(port, () => {
     console.log(`Stats Service listening at http://localhost:${port}`);
@@ -210,5 +239,9 @@ server.on('close', () => {
 // Close the Mongoose connection
 mongoose.connection.close();
 });
+
+async function findOne(userIdString) {
+    return await GameHistory.findOne({ userId: userIdString.toString() });
+}
 
 module.exports = server;

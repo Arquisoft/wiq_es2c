@@ -47,4 +47,17 @@ describe('AllUsers component', () => {
 
     }); 
   });
+
+  test('should display Snackbar when error is present', async () => {
+    render(<I18nextProvider i18n={i18n}>
+      <UserProvider>
+        <Router><AllUsers error="Request failed with status code 404" setError={jest.fn()} /></Router>
+      </UserProvider>
+    </I18nextProvider>);
+
+    // Verificar que el Snackbar se muestra con el mensaje de error correcto
+    const errorElement = await screen.findByRole('alert');
+
+    expect(errorElement).toHaveTextContent('Error: Request failed with status code 404');
+  });
 });

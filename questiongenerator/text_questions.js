@@ -122,18 +122,7 @@ queries["es"]= {
             SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],es". }
         }
         LIMIT 100        
-        `, "¿Que lenguaje de programación fue creado por "],
-                    // pregunta = empresa tecnologica, opcion = pais de origen
-                    [
-                            `
-        SELECT ?question ?questionLabel ?option ?optionLabel
-        WHERE {
-            ?question wdt:P31 wd:Q4830453.  
-            ?question wdt:P17 ?option.  
-            SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],es". }
-        }
-        LIMIT 100
-        `, "¿De que pais procede "]
+        `, "¿Que lenguaje de programación fue creado por "]
             ]
 };
 
@@ -247,7 +236,7 @@ queries["en"] = {
             BIND(CONCAT(?day, "/", ?month, "/", ?year) AS ?option)  
             SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
         }
-        `, "¿En que fecha se creó "],
+        `, "Where was created "],
                     [
                             // pregunta = creador, opcion = lenguaje de programacion
                             `
@@ -258,18 +247,7 @@ queries["en"] = {
             SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
         }
         LIMIT 100        
-        `, "What programming language was created by "],
-                    // pregunta = empresa tecnologica, opcion = pais de origen
-                    [
-                            `
-        SELECT ?question ?questionLabel ?option ?optionLabel
-        WHERE {
-            ?question wdt:P31 wd:Q4830453.  
-            ?question wdt:P17 ?option.  
-            SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
-        }
-        LIMIT 100
-        `, "What country does the following company come from"]
+        `, "What programming language was created by "]
             ]
 }
 

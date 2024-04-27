@@ -8,6 +8,7 @@ const fs = require("fs")
 const YAML = require('yaml')
 
 const app = express();
+app.disable('x-powered-by');
 const port = 8000;
 
 const gamehistoryUrl = process.env.GAMEHISTORY_SERVICE_URL || 'http://localhost:8004';
@@ -105,10 +106,10 @@ app.get('/getUser', async (req, res) => {
   try {
       const URL = perfilServiceUrl + '/getUser?username=' + req.query.username;
       const perfilResponse = await axios.get(URL);
-      console.log(perfilResponse)
+      console.log(perfilResponse);
       res.json(perfilResponse.data);
   } catch (error) {
-      res.status(error.response.status).json({ error: error.response.data.error });
+    res.status(error.response.status).json({ error: error.response.data.error });
   }
 });
 
@@ -118,7 +119,7 @@ app.get('/getAllUsers', async (req, res) => {
       const allUsersResponse = await axios.get(URL, req.body);
       res.json(allUsersResponse.data);
   } catch (error) {
-    res.status(error.response.status).json({ error: error.response.data.error });
+      res.status(error.response.status).json({ error: error.response.data.error });
   }
 });
 
@@ -128,13 +129,22 @@ app.get('/getAllQuestions', async (req, res) => {
       const allQuestionsResponse = await axios.get(URL, req.body);
       res.json(allQuestionsResponse.data);
   } catch (error) {
-    res.status(error.response.status).json({ error: error.response.data.error });
+      res.status(error.response.status).json({ error: error.response.data.error });
   }
 });
 
 app.get('/topUsers', async (req, res) => {
   try {
     const response = await axios.get(gamehistoryUrl+'/topUsers', req.body);
+    res.json(response.data);
+  } catch (error) {
+    res.status(error.response.status).json({ error: error.response.data.error });
+  }
+});
+
+app.get('/ranking', async (req, res) => {
+  try {
+    const response = await axios.get(gamehistoryUrl+'/ranking?sortBy=' + req.query.sortBy + "&userLimit=" +  req.query.userLimit, req.body);
     res.json(response.data);
   } catch (error) {
     res.status(error.response.status).json({ error: error.response.data.error });

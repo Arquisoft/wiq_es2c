@@ -4,6 +4,7 @@ const Question = require('./question-model')
 const bodyParser = require('body-parser');
 
 const app = express();
+app.disable('x-powered-by');
 const port = 8007;
 
 const originEndpoint = process.env.REACT_APP_API_ORIGIN_ENDPOINT || 'http://localhost:3000';
@@ -42,8 +43,7 @@ app.get('/getAllQuestions', async (req, res) => {
         
 
     } catch (error) {
-        console.error('No hay preguntas:', error);
-        res.status(500).json({ message: 'Error interno del servidor' });
+        res.status(400).json({ error: error.message }); 
     }
 });
 

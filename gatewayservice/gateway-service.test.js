@@ -3,10 +3,21 @@ const axios = require('axios');
 const app = require('./gateway-service'); 
 const { createServer } = require('http');
 const sinon = require('sinon');
-
+const { randomBytes } = require('crypto');
 
 const server = createServer(app);
-const newPassword = Math.floor(Math.random() * 10).toString(); // Genera una nueva contraseña aleatoria para evitar el Security Hostpot de SonarCloud en las pruebas
+const newString = generateSecureRandomPassword(8); // Genera una nueva contraseña aleatoria para evitar el Security Hostpot de SonarCloud en las pruebas
+
+function generateSecureRandomPassword(length) {
+  const characters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()-_=+';
+  const password = [];
+  const bytes = randomBytes(length);
+  for (let i = 0; i < length; i++) {
+    const randomIndex = bytes[i] % characters.length;
+    password.push(characters[randomIndex]);
+  }
+  return password.join('');
+}
 
 afterAll(async () => {
     app.close();
@@ -58,7 +69,7 @@ describe('Gateway Service', () => {
   it('should forward login request to auth service', async () => {
     const response = await request(app)
       .post('/login')
-      .send({ username: 'testuser', password: newPassword });
+      .send({ username: 'testuser', password: newString });
 
     expect(response.statusCode).toBe(200);
     expect(response.body.token).toBe('mockedToken');
@@ -73,7 +84,7 @@ describe('Gateway Service', () => {
   it('should forward add user request to user service', async () => {
     const response = await request(app)
       .post('/adduser')
-      .send({ username: 'newuser', email: 'newuser@email.com', password: newPassword });
+      .send({ username: 'newuser', email: 'newuser@email.com', password: newString });
 
     expect(response.statusCode).toBe(200);
     expect(response.body.userId).toBe('mockedUserId');
@@ -193,6 +204,27 @@ describe('Gateway Service', () => {
     await simulateApiError('get', '/gamehistory', 'Getting game history error', { error: 'An error has occured getting the game history' });
   });
 
+   // Test /configureGame endpoint
+   it('should call configure game', async () => {
+    const axiosStub = sinon.stub(axios, 'post');
+    axiosStub.returns(Promise.resolve({ data: 5}));
+
+    const response = await request(app)
+      .post('/configureGame')
+      .send();
+
+    expect(response.status).toBe(200);
+    expect(response.body).toEqual(5);
+
+    // Restauramos axios para que no nos afecte en futuras pruebas
+    axios.post.restore();
+  });
+
+  // Test /configureGame endpoint
+  it('should catch the errors when send /configureGame that might appear during runtime', async () => {
+    await simulateApiError('post', '/configureGame', 'Getting configuration error', { error: 'An error has occured configurating the game' });
+  });
+
   // Test /getUser endpoint
   it('should get the correct user', async () => {
     const axiosStub = sinon.stub(axios, 'get');
@@ -280,4 +312,119 @@ describe('Gateway Service', () => {
     await simulateApiError('get', '/getAllQuestions', 'Getting get all questions error', { error: 'An error has occured getting all questions' });
   });
    
+  // Test /topUsers endpoint
+  it('should get the top users', async () => {
+    const axiosStub = sinon.stub(axios, 'get');
+    axiosStub.returns(Promise.resolve({ data: { primero: "Pedro - 100%",
+      segundo: "Laura - 80%",
+      tercero: "Juan - 75%"
+      } }));
+
+    const response = await request(app)
+      .get('/topUsers')
+      .send();
+
+    expect(response.status).toBe(200);
+    expect(response.body).toEqual({ primero: "Pedro - 100%",
+      segundo: "Laura - 80%",
+      tercero: "Juan - 75%"
+    });
+
+    // Restauramos axios para que no nos afecte en futuras pruebas
+    axios.get.restore();
+  });
+
+  // Test /topUsers endpoint
+  it('should catch the errors when send /topUsers that might appear during runtime', async () => {
+    await simulateApiError('get', '/topUsers', 'Getting get the top users error', { error: 'An error has occured getting the top users' });
+  });
+
+  // Test /ranking endpoint
+  it('should get the ranking', async () => {
+    const axiosStub = sinon.stub(axios, 'get');
+    axiosStub.returns(Promise.resolve({ data: { userId: "testuser",
+        totalGamesPlayed: 20,
+        totalQuestionsAnswered: 100,
+        totalRightQuestions: 75,
+        ratio: '75%',
+        totalTime: '1000s'
+      } }));
+
+    const response = await request(app)
+      .get('/ranking')
+      .send({ sortBy: "ratio", userLimit: "10"});
+
+    expect(response.status).toBe(200);
+    expect(response.body).toEqual({ userId: "testuser",
+      totalGamesPlayed: 20,
+      totalQuestionsAnswered: 100,
+      totalRightQuestions: 75,
+      ratio: '75%',
+      totalTime: '1000s'
+    });
+
+    // Restauramos axios para que no nos afecte en futuras pruebas
+    axios.get.restore();
+  });
+
+  // Test /ranking endpoint
+  it('should catch the errors when send /ranking that might appear during runtime', async () => {
+    await simulateApiError('get', '/ranking', 'Getting get the ranking error', { error: 'An error has occured getting the ranking' });
+  });
+
+  // Test /endgamestats endpoint
+  it('should get the end game statistics', async () => {
+    const axiosStub = sinon.stub(axios, 'get');
+    axiosStub.returns(Promise.resolve({ data: { totalRightQuestions: 5,
+      totalIncorrectQuestions:0,
+      ratio: "100%",
+      totalTime: "20s",
+      endgameImageWithRatio: "100%"
+    } }));
+
+    const response = await request(app)
+      .get('/endgamestats')
+      .send({ username: 'testuser' });
+
+    expect(response.status).toBe(200);
+    expect(response.body).toEqual({ totalRightQuestions: 5,
+      totalIncorrectQuestions:0,
+      ratio: "100%",
+      totalTime: "20s",
+      endgameImageWithRatio: "100%"
+    });
+
+    // Restauramos axios para que no nos afecte en futuras pruebas
+    axios.get.restore();
+  });
+
+  // Test /endgamestats endpoint
+  it('should catch the errors when send /endgamestats that might appear during runtime', async () => {
+    await simulateApiError('get', '/endgamestats', 'Getting get the end game statistics error', { error: 'An error has occured getting the end game statistics' });
+  });
+
+  // Test /restartGame endpoint
+  it('should restart the game', async () => {
+    const axiosStub = sinon.stub(axios, 'get');
+    axiosStub.returns(Promise.resolve({ data: {  message: "Número de preguntas actualizado", 
+      numberOfQuestions: 8
+    } }));
+
+    const response = await request(app)
+      .get('/restartGame')
+      .send({ username: 'testuser' });
+
+    expect(response.status).toBe(200);
+    expect(response.body).toEqual({ message: "Número de preguntas actualizado", 
+      numberOfQuestions: 8
+    });
+
+    // Restauramos axios para que no nos afecte en futuras pruebas
+    axios.get.restore();
+  });
+
+  // Test /restartGame endpoint
+  it('should catch the errors when send /endgamestats that might appear during runtime', async () => {
+    await simulateApiError('get', '/endgamestats', 'Restaring the game error', { error: 'An error has occured restarting the game' });
+  });
 });

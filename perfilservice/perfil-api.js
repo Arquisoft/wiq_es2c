@@ -4,6 +4,7 @@ const User = require('./user-model')
 const bodyParser = require('body-parser');
 
 const app = express();
+app.disable('x-powered-by');
 const port = 8005;
 
 const originEndpoint = process.env.REACT_APP_API_ORIGIN_ENDPOINT || 'http://localhost:3000';
@@ -26,7 +27,7 @@ app.use((req, res, next) => {
 app.get('/getUser', async (req, res) => {
     try{
 
-        var user = await User.findOne({ username:req.query.username});
+        var user = await findOne(req.query.username);
 
         var response = {
             username: user.username,
@@ -37,8 +38,7 @@ app.get('/getUser', async (req, res) => {
         
 
     } catch (error) {
-        console.error('Error al buscar el usuario:', error);
-        res.status(500).json({ message: 'Error interno del servidor' });
+        res.status(400).json({ error: error.message }); 
     }
 });
 
@@ -49,5 +49,9 @@ const server = app.listen(port, () => {
 server.on('close', () => {
     mongoose.connection.close();
 });
+
+async function findOne(usernameString) {
+    return await User.findOne({ username: usernameString.toString()});
+}
 
 module.exports = server;

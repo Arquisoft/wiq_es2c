@@ -2,6 +2,7 @@ import axios from 'axios';
 import React, { useState, useEffect, useCallback } from 'react';
 import { Container, Typography, TableContainer, Table, TableHead, TableBody, TableRow, TableCell, Paper, Snackbar } from '@mui/material';
 import { useTranslation } from 'react-i18next';
+import '../App.css';
 
 const AllQuestions = () => {
 
@@ -17,7 +18,7 @@ const AllQuestions = () => {
             const response = await axios.get(`${apiEndpoint}/getAllQuestions`,{});
             setQuestions(response.data);
         } catch (error) {
-            setError(error.response.data.error);
+            setError(error.message);
         }
     }, [apiEndpoint]);
     
@@ -31,7 +32,6 @@ const AllQuestions = () => {
         <Container component="main" maxWidth="xxl"
         sx={{
             backgroundColor: '#F3D3FA',
-            borderRadius: '10px',
             display: 'flex',
             flexDirection: 'column',
             justifyContent: 'center',

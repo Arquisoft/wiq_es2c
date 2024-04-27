@@ -11,7 +11,7 @@ const apiEndpoint = process.env.REACT_APP_API_ENDPOINT || 'http://localhost:8000
 
 const Game = () => {
   
-  const {t,i18n} = useTranslation("global");
+  const [t, i18n] = useTranslation("global");
 
   const { usernameGlobal } = useUser();
   const [question, setQuestion] = useState('');
@@ -25,6 +25,8 @@ const Game = () => {
   const [answerCorrect, setAnswerCorrect] = useState(false);
   const [answeredQuestions,setAnsweredQuestions] = useState(0);
   const [isTimeRunning, setIsTimeRunning] = useState(true);
+  const [highlightedCorrectOption, setHighlightedCorrectOption] = useState('');
+  const [waiting, setWaiting] = useState(false);
 
   const location = useLocation();
 
@@ -35,6 +37,7 @@ const Game = () => {
 
   const getQuestion = useCallback(async () => {
     try {      
+      setWaiting(true);
       const response = await axios.get(`${apiEndpoint}/generateQuestion`, {
         params: {
           user: usernameGlobal,
@@ -50,11 +53,12 @@ const Game = () => {
       setIsTimeRunning(true);
       setElapsedTime(MAX_TIME);
       setAnsweredQuestions(prevValue => prevValue+1);
+      setWaiting(false);
     } catch (error) {
       console.log("Error: " + error.response.data.error);
       setError(error.response.data.error);
     }
-  }, [usernameGlobal, MAX_TIME, THEMATIC]);
+  }, [usernameGlobal, MAX_TIME, THEMATIC, i18n.language]);
 
   const saveGameHistory = useCallback(async () => {
     try {
@@ -105,8 +109,11 @@ const Game = () => {
 
     if(correctOption === option){
       isTheCorrectAnswer = true;
+      setHighlightedCorrectOption(''); 
+    } else {
+      setHighlightedCorrectOption(correctOption);
     }
-
+    
     try {
       const timePassed = MAX_TIME - elapsedTime;
       await axios.get(`${apiEndpoint}/updateQuestion`, {
@@ -118,8 +125,7 @@ const Game = () => {
     } catch (error) {
       setError(error.response.data.error);
     }
-
-
+  
     if (answeredQuestions>= MAX_PREGUNTAS) {
       setTimeout(() => {
         setAnsweredQuestions(0);
@@ -137,6 +143,7 @@ const Game = () => {
   return (
     <Container component="main" maxWidth="xxl"
             sx={{
+                marginTop: 10,
                 backgroundColor: '#F3D3FA',
                 borderRadius: '10px',
                 display: 'flex',
@@ -172,13 +179,25 @@ const Game = () => {
         </div>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '10px', alignItems: 'center', marginTop: '20px' }}>
           {options.map((option, index) => (
-            <Button key={index } style={{ 
+            <Button
+              key={index}
+              style={{
                 width: '100%',
                 height: '17vh',
-                backgroundColor: selectedOption === option ? (answerCorrect ? '#00C853' : '#FF1744') : '#FCF5B8',
-                color: '#413C3C', 
-                fontWeight: 'bold'
-              }} variant="contained" onClick={!isTimeRunning ? null : () => {handleOptionClick(option);}}>
+                backgroundColor:
+                  selectedOption === option
+                    ? answerCorrect
+                      ? '#00C853' // Green for correct answer
+                      : '#FF1744' // Red for incorrect answer
+                    : highlightedCorrectOption === option
+                    ? '#00C853' // Green for correct option if user was wrong
+                    : '#FCF5B8', // Default background color
+                color: '#413C3C',
+                fontWeight: 'bold',
+              }}
+              variant="contained"
+              onClick={!isTimeRunning ? null : () => handleOptionClick(option)}
+            >
               {option}
             </Button>
           ))}
@@ -186,6 +205,13 @@ const Game = () => {
         <div>
           {error && (
             <Snackbar open={!!error} autoHideDuration={6000} onClose={() => setError('')} message={`Error: ${error}`} />
+          )}
+        </div>
+        <div>
+          {waiting && (
+            <Typography component="p" variant="p" sx={{ textAlign: 'center' }}>
+              Cargando siguiente pregunta, espere...
+            </Typography>
           )}
         </div>
       </Container>
