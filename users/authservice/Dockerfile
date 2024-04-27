@@ -1,9 +1,6 @@
 # Use an official Node.js runtime as a parent image
 FROM node:20
 
-# Usuario sin privilegios
-USER node
-
 # Set the working directory in the container
 WORKDIR /usr/src/authservice
 
@@ -18,8 +15,6 @@ COPY .dockerignore ./
 COPY auth-model.js ./
 COPY auth-service.js ./
 COPY auth-service.test.js ./
-COPY package-lock.json ./
-COPY package.json ./
 
 # Expose the port the app runs on
 EXPOSE 8002

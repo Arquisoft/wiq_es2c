@@ -1,9 +1,6 @@
 # Use an official Node.js runtime as a parent image
 FROM node:20
 
-# Usuario sin privilegios
-USER node
-
 # Set the working directory in the container
 WORKDIR /usr/src/apis/alluserservice
 
@@ -17,8 +14,6 @@ RUN npm install --ignore scripts
 COPY .dockerignore ./
 COPY allusers-api.js ./
 COPY allusers-api.test.js ./
-COPY package-lock.json ./
-COPY package.json ./
 COPY user-model.js ./
 
 # Expose the port the app runs on

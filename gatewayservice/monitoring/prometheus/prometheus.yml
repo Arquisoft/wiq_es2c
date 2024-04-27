@@ -5,11 +5,10 @@ scrape_configs:
     static_configs:
       - targets: 
         - "gatewayservice:8000"
-        - "apis/allquestionservice:8007"
-        - "apis/allquestionservice:8006"
+        - "allquestionservice:8007"
+        - "allquestionservice:8006"
         - "gamehistoryservice:8004"
         - "perfilservice:8005"
         - "questiongenerator:8003"
-        - "users/authservice:8002"
-        - "users/userservice:8001"
-        - "webapp:3000"
+        - "authservice:8002"
+        - "userservice:8001"

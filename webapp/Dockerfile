@@ -1,8 +1,5 @@
 FROM node:20
 
-# Usuario sin privilegios
-USER node
-
 COPY . /app
 WORKDIR /app
 

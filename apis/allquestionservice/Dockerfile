@@ -1,9 +1,6 @@
 # Use an official Node.js runtime as a parent image
 FROM node:20
 
-# Usuario sin privilegios
-USER node
-
 # Set the working directory in the container
 WORKDIR /usr/src/apis/allquestionservice
 
@@ -18,8 +15,6 @@ COPY .dockerignore ./
 COPY allquestions-api.js ./
 COPY allquestions-api.test.js ./
 COPY home.png ./
-COPY package-lock.json ./
-COPY package.json ./
 COPY question-model.js ./
 
 # Expose the port the app runs on 

@@ -1,11 +1,16 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
+const promBundle = require('express-prom-bundle');
 const User = require('./user-model')
 
 const app = express();
 app.disable('x-powered-by');
 const port = 8006;
+
+//Prometheus configuration
+const metricsMiddleware = promBundle({includeMethod: true});
+app.use(metricsMiddleware);
 
 const originEndpoint = process.env.REACT_APP_API_ORIGIN_ENDPOINT || 'http://localhost:3000';
 

@@ -1,9 +1,6 @@
 # Use an official Node.js runtime as a parent image
 FROM node:20
 
-# Usuario sin privilegios
-USER node
-
 # Set the working directory in the container
 WORKDIR /usr/src/gatewayservice
 
@@ -18,8 +15,6 @@ COPY .dockerignore ./
 COPY gateway-service.js ./
 COPY gateway-service.test.js ./
 COPY openapi.yaml ./
-COPY package-lock.json ./
-COPY package.json ./
 
 # Define the command to run your app
 CMD ["node", "gateway-service.js"]

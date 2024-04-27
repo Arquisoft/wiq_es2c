@@ -1,9 +1,6 @@
 # Use an official Node.js runtime as a parent image
 FROM node:20
 
-# Usuario sin privilegios
-USER node
-
 # Set the working directory in the container
 WORKDIR /usr/src/userservice
 
@@ -15,8 +12,6 @@ RUN npm install --ignore scripts
 
 # Copy the app source code to the working directory
 COPY .dockerignore ./
-COPY package-lock.json ./
-COPY package.json ./
 COPY user-model.js ./
 COPY user-service.js ./
 COPY user-service.test.js ./

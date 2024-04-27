@@ -1,9 +1,6 @@
 # Use an official Node.js runtime as a parent image
 FROM node:20
 
-# Usuario sin privilegios
-USER node
-
 # Set the working directory in the container
 WORKDIR /usr/src/questiongenerator
 
@@ -18,8 +15,6 @@ COPY .dockerignore ./
 COPY game-model.js ./
 COPY image_questions.js ./
 COPY image_questions.test.js ./
-COPY package-lock.json ./
-COPY package.json ./
 COPY question-model.js ./
 COPY question.js ./
 COPY question.test.js ./
