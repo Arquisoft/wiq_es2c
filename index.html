@@ -594,7 +594,7 @@ El equipo de desarrollo comprometido a materializar este proyecto está formado 
 <tbody>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Equipo de desarrollo/Estudiantes</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Marina Seijo Gómez Rubén Pérez Dafonte David Muños Rio Ángela Roza Moreno</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Marina Seijo Gómez, Rubén Pérez Dafonte, David Muños Rio, Ángela Roza Moreno</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Encargados del completo desarrollo y diseño de la aplicación. Aumentarán y mejorarán su experiencia como programadores y diseñadores. Además, aprenderán a trabajar en equipo.</p></td>
 </tr>
 <tr>
@@ -621,30 +621,6 @@ El equipo de desarrollo comprometido a materializar este proyecto está formado 
 <div class="sect1">
 <h2 id="section-architecture-constraints">2. Restricciones de arquitectura</h2>
 <div class="sectionbody">
-<div class="sidebarblock arc42help">
-<div class="content">
-<div class="paragraph">
-<div class="title">Contenido</div>
-<p>Cualquier requisito que limite a los arquitectos de software en su libertad de diseño e implementación de decisiones o decisiones sobre el proceso de desarrollo. Estas limitaciones a veces van más allá de los sistemas individuales y son válidas para organizaciones y empresas enteras.</p>
-</div>
-<div class="paragraph">
-<div class="title">Motivación</div>
-<p>Los arquitectos deben saber exactamente dónde tienen libertad en sus decisiones de diseño y dónde deben cumplir restricciones.
-Siempre hay que abordar las limitaciones; Sin embargo, pueden ser negociables.</p>
-</div>
-<div class="paragraph">
-<div class="title">Forma</div>
-<p>Tablas simples de restricciones con explicaciones.
-Si es necesario, puedes subdividirlos en
-limitaciones técnicas, limitaciones organizativas y políticas y
-convenciones (por ejemplo, pautas de programación o control de versiones, documentación o convenciones de nomenclatura)</p>
-</div>
-<div class="paragraph">
-<div class="title">Más información</div>
-<p>Consulte <a href="https://docs.arc42.org/section-2/">Architecture Restriints</a> en la documentación de arc42.</p>
-</div>
-</div>
-</div>
 <table class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 1. Restricciones técnicas</caption>
 <colgroup>
@@ -717,18 +693,8 @@ convenciones (por ejemplo, pautas de programación o control de versiones, docum
 <div class="sect1">
 <h2 id="section-system-scope-and-context">3. Alcance y Contexto del Sistema</h2>
 <div class="sectionbody">
-<div class="sidebarblock arc42help">
-<div class="content">
-
-</div>
-</div>
 <div class="sect2">
 <h3 id="_contexto_de_negocio">3.1. Contexto de Negocio</h3>
-<div class="sidebarblock arc42help">
-<div class="content">
-
-</div>
-</div>
 <div class="paragraph">
 <p><span class="image"><img src="./images/3_BusinessContext.png" alt="Diagram"></span></p>
 </div>
@@ -775,11 +741,6 @@ convenciones (por ejemplo, pautas de programación o control de versiones, docum
 </div>
 <div class="sect2">
 <h3 id="_contexto_técnico">3.2. Contexto técnico</h3>
-<div class="sidebarblock arc42help">
-<div class="content">
-
-</div>
-</div>
 <div class="paragraph">
 <p><span class="image"><img src="./images/3_TechnicalContext.png" alt="Diagram"></span></p>
 </div>
@@ -790,56 +751,6 @@ convenciones (por ejemplo, pautas de programación o control de versiones, docum
 <div class="sect1">
 <h2 id="section-solution-strategy">4. Estrategia de solución</h2>
 <div class="sectionbody">
-<div class="sidebarblock arc42help">
-<div class="content">
-<div class="ulist">
-<div class="title">Decisiones tecnologicas</div>
-<ul>
-<li>
-<p>React: biblioteca de JavaScript que usaremos para implementar la interfaz gráfica. Su principal ventaja es que utiliza un enfoque basado en componentes, lo que significa que las interfaces de usuario se dividen en componentes reutilizables que encapsulan el estado y el comportamiento.</p>
-</li>
-<li>
-<p>Docker: unidad de software que utilizaremos para ejecutar la aplicación de manera aislada de otros procesos del sistema mediante el concepto de imágenes, que son plantillas de solo lectura que contienen el sistema operativo, las herramientas, las bibliotecas y el código fuente de una aplicación.</p>
-</li>
-<li>
-<p>JavaScript: lenguaje de programacion elegido por ser un lenguaje dinámico y flexible, muy común en la programacion web y multiplataforma.</p>
-</li>
-<li>
-<p>Node.js: entorno de ejecución de JavaScript elegido por su rendimiento y velocidad, lo que lo hace ideal para aplicaciones en tiempo real como juegos.</p>
-</li>
-<li>
-<p>Github Desktop: utilizado por algunos miembros del equipo como Github IDE.</p>
-</li>
-<li>
-<p>Wikidata: base de datos colaborativa y abierta que usaremos para extraer las preguntas para nuestro juego.</p>
-</li>
-<li>
-<p>MongoDB: base de datos no relacional, basada en un modelo de datos de documentos JSON, lo que nos facilitará la evolución del esquema sin requerir una estructura fija como en las bases de datos relacionales tradicionales.</p>
-</li>
-</ul>
-</div>
-<div class="ulist">
-<div class="title">¿Cómo se van a alcanzar los objetivos de calidad?</div>
-<ul>
-<li>
-<p>Usabilidad: nuestras interfaces serán intuitivas y fáciles de usar para cualquier persona gracias al framework React.</p>
-</li>
-<li>
-<p>Mantenibilidad: la aplicación sera facilmente adaptable gracias a nuestro enfoque por componentes, lo que nos permitirá tener un código poco acoplado y con mucha cohesión.</p>
-</li>
-<li>
-<p>Eficiencia: la conexión con la base de datos y Wikidata para extraer las preguntas será rápida para mantener la atención de los usuarios.</p>
-</li>
-<li>
-<p>Estabilidad: nuestra apicacion será resistente a caidas y fallos para poder permitir una buena experiencia de juego.</p>
-</li>
-<li>
-<p>Testeabilidad: el equipo testeará la aplicacion manual y automaticamente mediante pruebas de obertura, pruebas de aceptación (e2e) y pruebas de carga.</p>
-</li>
-</ul>
-</div>
-</div>
-</div>
 <div class="ulist">
 <div class="title">Decisiones tecnologicas</div>
 <ul>
@@ -1043,11 +954,6 @@ convenciones (por ejemplo, pautas de programación o control de versiones, docum
 <div class="sect1">
 <h2 id="section-concepts">8. Conceptos transversales</h2>
 <div class="sectionbody">
-<div class="sidebarblock arc42help">
-<div class="content">
-
-</div>
-</div>
 <div class="sect2">
 <h3 id="_modelo_de_dominio">8.1. Modelo de dominio</h3>
 <div class="paragraph">
@@ -1072,57 +978,6 @@ convenciones (por ejemplo, pautas de programación o control de versiones, docum
 <div class="sect1">
 <h2 id="section-design-decisions">9. Decisiones de arquitectura</h2>
 <div class="sectionbody">
-<div class="sidebarblock arc42help">
-<div class="content">
-<div class="paragraph">
-<p>Durante el desarrollo de la aplicación, va a ser necesario abordar problemas a medida que surjan, lo que conlleva la toma de decisiones a lo largo del proceso. Aunque inicialmente se establecieron ciertas decisiones, estas se verán sujetas a cambios a lo largo del proyecto. En el siguiente cuadro se detallan algunas de las decisiones de diseño que se adoptaron actualmente debido a restricciones arquitectónicas:</p>
-</div>
-<table class="tableblock frame-all grid-all stretch">
-<colgroup>
-<col style="width: 16.6666%;">
-<col style="width: 33.3333%;">
-<col style="width: 50.0001%;">
-</colgroup>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Decisión</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Ventajas</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Desventajas</strong></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">React</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Relativamente sencillo de aprender en comparación con otras bibliotecas front-end, y su popularidad en la web sigue creciendo.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">No todos los componentes del equipo trabajaron con el.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Node.js</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Plataforma de desarrollo eficiente y escalable para construir aplicaciones web y de red en tiempo real utilizando JavaScript.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">La ejecución de operaciones intensivas de CPU puede ser menos eficiente debido al modelo de un solo subproceso.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Docker</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">La implementación es rápida y permite mover y mantener aplicaciones con facilidad. Además, resulta sencillo gracias a los ejemplos disponibles de DockerFiles.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Ningún miembro del equipo tiene experiencia con el.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">MongoDB</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">No requiere activación manual y es gratuito, además de ser fácil de comprender.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Es menos común para el grupo trabajar con bases de datos no relacionales.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">WikiData</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Ofrece una fuente de datos colaborativa, estructurada y de acceso libre que alimenta numerosas aplicaciones y proyectos.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">La fiabilidad y precisión de los datos pueden variar debido a su naturaleza colaborativa y abierta a ediciones de usuarios no verificados.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Plantilla Arc42</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Proporciona una estructura clara y completa para documentar la arquitectura de software, facilitando la comprensión y la comunicación entre los equipos de desarrollo.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Puede resultar demasiado detallada y compleja para proyectos pequeños o simples.</p></td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
 <div class="paragraph">
 <p>Durante el desarrollo de la aplicación, va a ser necesario abordar problemas a medida que surjan, lo que conlleva la toma de decisiones a lo largo del proceso. Aunque inicialmente se establecieron ciertas decisiones, estas se verán sujetas a cambios a lo largo del proyecto. En el siguiente cuadro se detallan algunas de las decisiones de diseño que se adoptaron actualmente debido a restricciones arquitectónicas:</p>
 </div>
