@@ -3,18 +3,6 @@ ifndef::imagesdir[:imagesdir: ../images]
 [[section-introduction-and-goals]]
 == Introducción y objetivos
 
-[role="arc42help"]
-****
-Describe los requisitos relevantes y las fuerzas impulsoras que los arquitectos de software y el equipo de desarrollo deben considerar.
-Éstas incluyen
-
-* objetivos comerciales subyacentes,
-* características esenciales,
-* requisitos funcionales esenciales,
-* objetivos de calidad para la arquitectura y
-* partes interesadas relevantes y sus expectativas
-****
-
 El proyecto WIQ es una iniciativa llevada a cabo en la Universidad de Oviedo, bajo la solicitud de la empresa de desarrollo de software HappySaw y contratada por RTVE con el propósito de desarrollar una versión web del concurso “Saber y Ganar.
 El equipo de desarrollo comprometido a materializar este proyecto está formado por
 
@@ -27,29 +15,6 @@ WIQ es una aplicación web que presentará un juego de preguntas y respuestas en
 
 === Descripción de los requisitos
 
-[role="arc42help"]
-****
-.Contenido
-Breve descripción de los requisitos funcionales, fuerzas impulsoras, extracto (o resumen)
-de requisitos. Enlace a documentos de requisitos (con suerte existentes)
-(con número de versión e información de dónde encontrarlo).
-
-.Motivación
-Desde el punto de vista de los usuarios finales, un sistema se crea o modifica para
-mejorar el soporte de una actividad empresarial y/o mejorar la calidad.
-
-.Forma
-Breve descripción textual, probablemente en formato tabular de casos de uso.
-Si existen documentos de requisitos, esta descripción general debe hacer referencia a estos documentos.
-
-Mantenga estos extractos lo más breves posible. Equilibra la legibilidad de este documento con la posible redundancia en relación con los documentos de requisitos.
-
-
-.Más información
-
-Consulte https://docs.arc42.org/section-1/[Introducción y objetivos] en la documentación de arc42.
-
-****
 * Los usuarios deberán registrarse para poder jugar o bien iniciar sesión si ya se han registrado previamente.
 * El sistema proporcionará preguntas de distintas temáticas junto con 4 posibles respuestas mediante el uso de Wiki Data. Las preguntas serán variadas.
 * El sistema guardará información sobre la participación de los usuarios ofreciendo un histórico de: número de juegos, preguntas acertadas/falladas, tiempo etc.
@@ -57,26 +22,6 @@ Consulte https://docs.arc42.org/section-1/[Introducción y objetivos] en la docu
 * Habrá un límite de tiempo para responder cada pregunta.
 
 === Objetivos de calidad
-
-[role="arc42help"]
-****
-.Contenido
-Los tres principales (máximo cinco) objetivos de calidad para la arquitectura cuyo cumplimiento es de mayor importancia para las principales partes interesadas.
-Realmente nos referimos a objetivos de calidad para la arquitectura. No los confunda con los objetivos del proyecto.
-No son necesariamente idénticos.
-
-Considere esta descripción general de temas potenciales (basada en la norma ISO 25010):
-
-image::01_2_iso-25010-topics-ES.drawio.png["Categorías de requisitos de calidad"]
-
-.Motivación
-Debe conocer los objetivos de calidad de sus partes interesadas más importantes, ya que influirán en las decisiones arquitectónicas fundamentales.
-Asegúrate de ser muy concreto acerca de estas cualidades, evita las palabras de moda.
-Si usted como arquitecto no sabe cómo se juzgará la calidad de su trabajo...
-
-.Forma
-Una tabla con objetivos de calidad y escenarios concretos, ordenados por prioridades
-****
 
 [options="header",cols="1,1"]
 |===
@@ -89,30 +34,10 @@ Una tabla con objetivos de calidad y escenarios concretos, ordenados por priorid
 
 === Partes interesadas (Stakeholders)
 
-[role="arc42help"]
-****
-.Contenido
-Descripción general explícita de las partes interesadas del sistema, es decir, todas las personas, roles u organizaciones que
-
-*debe conocer la arquitectura
-* hay que estar convencido de la arquitectura
-* tener que trabajar con la arquitectura o con el código
-*necesita la documentación de la arquitectura para su trabajo
-* tener que tomar decisiones sobre el sistema o su desarrollo
-
-.Motivación
-Debe conocer a todas las partes involucradas en el desarrollo del sistema o afectadas por el sistema.
-De lo contrario, puede que te lleves sorpresas desagradables más adelante en el proceso de desarrollo.
-Estas partes interesadas determinan el alcance y el nivel de detalle de su trabajo y sus resultados.
-
-.Forma
-Tabla con nombres de roles, nombres de personas y sus expectativas con respecto a la arquitectura y su documentación.
-****
-
 [options="header",cols="1,2,2"]
 |===
 |Rol/Nombre|Contacto|Expectativas
-| Equipo de desarrollo/Estudiantes | Marina Seijo Gómez Rubén Pérez Dafonte David Muños Rio Ángela Roza Moreno  | Encargados del completo desarrollo y diseño de la aplicación. Aumentarán y mejorarán su experiencia como programadores y diseñadores. Además, aprenderán a trabajar en equipo.
+| Equipo de desarrollo/Estudiantes | Marina Seijo Gómez, Rubén Pérez Dafonte, David Muños Rio, Ángela Roza Moreno  | Encargados del completo desarrollo y diseño de la aplicación. Aumentarán y mejorarán su experiencia como programadores y diseñadores. Además, aprenderán a trabajar en equipo.
 | Profesores | Jose Emilio Labra Gayo, Pablo González González, Cristian Augusto Alonso, Jorge Fidalgo Álvarez | Evaluarán el resultado final de la aplicación y ofrecerán ayuda al equipo de desarrollo.
 | RTVE | Radiotelevisión Española | Solicitantes del servicio. Esperan que los requisitos exigidos sean completados satisfactoriamente
 | Usuarios | Cualquier usuario de la aplicación  | Serán quienes emplearán el servicio. Deberán encontrarlo entretenido y sencillo de usar

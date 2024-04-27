@@ -3,12 +3,6 @@ ifndef::imagesdir[:imagesdir: ../images]
 [[section-concepts]]
 == Conceptos transversales
 
-
-[role="arc42help"]
-****
-****
-
-
 === Modelo de dominio
 
 

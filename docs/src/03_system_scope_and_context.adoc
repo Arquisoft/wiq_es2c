@@ -3,18 +3,8 @@ ifndef::imagesdir[:imagesdir: ../images]
 [[section-system-scope-and-context]]
 == Alcance y Contexto del Sistema
 
-
-[role="arc42help"]
-****
-****
-
-
 === Contexto de Negocio
 
-
-[role="arc42help"]
-****
-****
 image:3_BusinessContext.png[Diagram]
 
 [cols="1,2,3,4"]
@@ -48,9 +38,6 @@ image:3_BusinessContext.png[Diagram]
 |===
 
 === Contexto técnico
-[role="arc42help"]
-****
-****
 image:3_TechnicalContext.png[Diagram]
 
 
