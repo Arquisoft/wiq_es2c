@@ -21,7 +21,7 @@ const AllUsers = () => {
             const response = await axios.get(`${apiEndpoint}/getAllUsers`,{});
             setUsers(response.data);
         } catch (error) {
-            setError(error.response.data.error);
+            setError(error.message);
         }
     }, [apiEndpoint]);
     
