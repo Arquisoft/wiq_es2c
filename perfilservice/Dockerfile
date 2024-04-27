@@ -8,7 +8,7 @@ WORKDIR /usr/src/perfilservice
 COPY package*.json ./
 
 # Install app dependencies
-RUN npm install --ignore scripts
+RUN npm install --ignore-scripts
 
 # Copy the app source code to the working directory
 COPY .dockerignore ./
