@@ -18,6 +18,27 @@ This repo is a basic application composed of several components.
 
 Both the user and auth service share a Mongo database that is accessed with mongoose.
 
+## User Guide
+
+### For Normal Users
+As a normal user, you can use the web application to access basic features such as:
+
+- Logging in to your account
+- Registering a new account
+- Accessing the game and playing
+- Viewing your game history
+- Viewing the ranking
+
+###For Administrators
+
+As an administrator, you have access to additional features, including:
+
+-Access to the APIs for managing questions and users
+-Ability to view user accounts
+-Ability to view game statistics and the ranking
+
+Please note that administrators do not have access to play the game from registration to gameplay and its functionalities.
+
 ## Quick start guide
 
 ### Using docker
@@ -116,7 +137,7 @@ This action uses three secrets that must be configured in the repository:
 
 Note that this action logs in the remote machine and downloads the docker-compose file from the repository and launches it. Obviously, previous actions have been executed which have uploaded the docker images to the GitHub Packages repository.
 
-# Development Team
+## Development Team
 
 | 📚 UO | 🧑‍💻 Name | 📧 Email |
 | :---: | :---: | :---: | 
