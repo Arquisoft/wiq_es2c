@@ -48,5 +48,17 @@
     "textoRespuesta": "Answer",
     "mensajeAddOk": "User added successfully",
     "mensajeAddFail": "An user with that name has already registered",
-    "mensajeLogOut": "Closed session"
+    "mensajeLogOut": "Closed session",
+    "idioma": "Language",
+    "seleccionar": "Choose",
+    "ingles": "English",
+    "espanol": "Spanish",
+    "tematicas": "Themes",
+    "textoCargando": "Loading next question, wait...",
+    "textoEstadisticas": "Last game statistics",
+    "correctas": "Correct questions: ",
+    "incorrectas": "Incorrect questions: ",
+    "ratio": "Hit ratio: ",
+    "tiempoTotal": "Total time: ",
+    "botonResumen": "BACK TO TOP"
 }

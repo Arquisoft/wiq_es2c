@@ -6,6 +6,7 @@ const bodyParser = require('body-parser');
 const User = require('./user-model')
 
 const app = express();
+app.disable('x-powered-by');
 const port = 8001;
 
 // Middleware to parse JSON in request body

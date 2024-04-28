@@ -1,8 +1,9 @@
 import axios from 'axios';
 import React, { useState, useEffect, useCallback } from 'react';
-import { Container, Typography, TableContainer, Table, TableHead, TableBody, TableRow, TableCell, Paper, Snackbar } from '@mui/material';
+import {Typography, TableContainer, Table, TableHead, TableBody, TableRow, TableCell, Paper, Snackbar } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import '../App.css';
+import { CustomContainer } from '../CustomContainer';
 
 const AllUsers = () => {
 
@@ -21,7 +22,7 @@ const AllUsers = () => {
             const response = await axios.get(`${apiEndpoint}/getAllUsers`,{});
             setUsers(response.data);
         } catch (error) {
-            setError(error.response.data.error);
+            setError(error.message);
         }
     }, [apiEndpoint]);
     
@@ -32,17 +33,9 @@ const AllUsers = () => {
 
     return (
         
-        <Container component="main" maxWidth="xxl"
-        sx={{
-            backgroundColor: '#F3D3FA',
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'center',
-            alignItems: 'center',
-            height: '100vh', 
-            width: '100%', 
-        }}>
-        <Typography component="h1" variant="h5" align="center" sx={{ marginBottom: 2, fontWeight: 'bold' }}>
+        <CustomContainer>
+        <Typography component="h1" variant="h5" align="center" sx={{ marginBottom: 2, fontWeight: 'bold', 
+                fontFamily: 'Arial', color: '#EE6D72' }}>
             {t("textoAllUsers")}   
         </Typography>
         <TableContainer component={Paper} sx={{ maxWidth: '80%', marginBottom: 4 }}>
@@ -70,7 +63,7 @@ const AllUsers = () => {
             <Snackbar open={!!error} autoHideDuration={6000} onClose={() => setError('')} message={`Error: ${error}`} />
             )}
         </div>
-    </Container>
+    </CustomContainer>
     );
 };
 

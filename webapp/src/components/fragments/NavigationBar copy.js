@@ -1,7 +1,7 @@
 // src/components/NavigationBar.js
 import React, { useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { AppBar, Toolbar, IconButton, Menu, MenuItem, Grid, Button, Hidden} from '@mui/material';
+import { AppBar, Toolbar, IconButton, Menu, MenuItem, Grid, Button } from '@mui/material';
 import Tooltip from '@mui/material/Tooltip';
 import { useUser } from '../UserContext';
 import MenuIcon from '@mui/icons-material/Menu';
@@ -33,8 +33,7 @@ const NavigationBar = () => {
 
     const showHome = () => {
         if (usernameGlobal === 'admin') {
-            navigate("/PantallaInicioAdmin");
-            
+            navigate("/PantallaInicioAdmin");  
         } else {
             navigate("/PantallaInicio");
         }
@@ -63,7 +62,6 @@ const NavigationBar = () => {
 
     if (location.pathname === '/App' || location.pathname === '/') {
         return (
-            <AppBar position="fixed" sx={{ backgroundColor: '#9A77B0' }}>
                 <Toolbar>
                     <IconButton
                         size="large"
@@ -84,7 +82,6 @@ const NavigationBar = () => {
                         <MenuItem onClick={() => i18n.changeLanguage('es')}>Español</MenuItem>
                         <MenuItem onClick={() => i18n.changeLanguage('en')}>Inglés</MenuItem>
                     </Menu>
-                    <Hidden smDown>
                     <Grid container justifyContent="flex-start">
                     </Grid>
                     <Grid container justifyContent="flex-end">
@@ -99,13 +96,11 @@ const NavigationBar = () => {
                         <Button variant="contained" color="inherit" 
                             style={{ background: '#9A77B0', border: 'none', padding: 0, marginRight: '10px' }} 
                             onClick={() => i18n.changeLanguage('en')}>
-                            <img src={require('../images/ing.png')} style={{ width: '50px', height: '50px' }} alt="Imagen español"/>
+                            <img src={require('../images/ing.png')} style={{ width: '50px', height: '50px' }} alt="Imagen ingles"/>
                         </Button>
                         </Tooltip>                    
                     </Grid>
-                    </Hidden>
                 </Toolbar>
-            </AppBar>
         );
     }
 
@@ -131,15 +126,13 @@ const NavigationBar = () => {
                     >
                         <MenuItem onClick={showHome}>Inicio</MenuItem>
                     </Menu>
-                    <Hidden smDown>
-                        <Grid container justifyContent="flex-start">
-                            <Tooltip title={t("toolInicio")}>
-                            <Button variant="contained" color="inherit" style={{ background: '#9A77B0', border: 'none', padding: 0, marginRight: '10px' }} onClick={showHome}>
-                                <img src={require('../images/home.png')} style={{ width: '50px', height: '50px' }} alt="Imagen home"/>
-                            </Button>
-                            </Tooltip>
-                        </Grid>
-                    </Hidden>
+                    <Grid container justifyContent="flex-start">
+                        <Tooltip title={t("toolInicio")}>
+                        <Button variant="contained" color="inherit" style={{ background: '#9A77B0', border: 'none', padding: 0, marginRight: '10px' }} onClick={showHome}>
+                            <img src={require('../images/home.png')} style={{ width: '50px', height: '50px' }} alt="Imagen home"/>
+                        </Button>
+                        </Tooltip>
+                    </Grid>
                 </Toolbar>
             </AppBar>
         );
@@ -175,7 +168,6 @@ const NavigationBar = () => {
                     <MenuItem onClick={showPerfil}>Perfil</MenuItem>
                     <MenuItem onClick={showLogout}>Cerrar Sesión</MenuItem>
                 </Menu>
-                <Hidden smDown>
                 <Grid container justifyContent="flex-start">
                     <Tooltip title={t("toolInicio")}>
                     <Button variant="contained" color="inherit" style={{ background: '#9A77B0', border: 'none', padding: 0, marginRight: '10px' }} onClick={showHome}>
@@ -206,7 +198,6 @@ const NavigationBar = () => {
                     </Tooltip>
                     
                 </Grid>
-                </Hidden>
             </Toolbar>
         </AppBar>
     );

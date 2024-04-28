@@ -2,7 +2,7 @@
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
-import NavigationBar from './components/fragments/NavigationBar';
+import MenuLateral from './components/fragments/MenuLateral';
 import Footer from './components/fragments/Footer';
 import reportWebVitals from './reportWebVitals';
 import { UserProvider } from './components/UserContext';
@@ -49,7 +49,7 @@ root.render(
     <I18nextProvider i18n={i18next}>
     <UserProvider>
       <Router>
-        <NavigationBar />
+        <MenuLateral />
         <Routes>
           <Route path="/" element={<App/>}></Route>
           <Route path="/PantallaInicio" element={<PantallaInicio/>}></Route>

@@ -9,12 +9,12 @@ const Footer = () => {
             px={8}
             mt={8}
             sx={{ 
-                backgroundColor: '#9A77B0', 
+                backgroundColor: '#f8b6bc', 
                 color: 'black', 
                 textAlign: 'center'
             }}
         >
-            <Typography variant="body1" fontWeight="bold">&copy; {new Date().getFullYear()} ASW - WIQ_ES2C</Typography>
+            <Typography variant="body1" fontWeight="bold"  color="white">&copy; {new Date().getFullYear()} ASW - WIQ_ES2C</Typography>
         </Box>
     );
 }

@@ -3,10 +3,21 @@ const axios = require('axios');
 const app = require('./gateway-service'); 
 const { createServer } = require('http');
 const sinon = require('sinon');
-
+const { randomBytes } = require('crypto');
 
 const server = createServer(app);
-const newPassword = Math.floor(Math.random() * 10).toString(); // Genera una nueva contraseña aleatoria para evitar el Security Hostpot de SonarCloud en las pruebas
+const newString = generateSecureRandomPassword(8); // Genera una nueva contraseña aleatoria para evitar el Security Hostpot de SonarCloud en las pruebas
+
+function generateSecureRandomPassword(length) {
+  const characters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()-_=+';
+  const password = [];
+  const bytes = randomBytes(length);
+  for (let i = 0; i < length; i++) {
+    const randomIndex = bytes[i] % characters.length;
+    password.push(characters[randomIndex]);
+  }
+  return password.join('');
+}
 
 afterAll(async () => {
     app.close();
@@ -58,7 +69,7 @@ describe('Gateway Service', () => {
   it('should forward login request to auth service', async () => {
     const response = await request(app)
       .post('/login')
-      .send({ username: 'testuser', password: newPassword });
+      .send({ username: 'testuser', password: newString });
 
     expect(response.statusCode).toBe(200);
     expect(response.body.token).toBe('mockedToken');
@@ -73,7 +84,7 @@ describe('Gateway Service', () => {
   it('should forward add user request to user service', async () => {
     const response = await request(app)
       .post('/adduser')
-      .send({ username: 'newuser', email: 'newuser@email.com', password: newPassword });
+      .send({ username: 'newuser', email: 'newuser@email.com', password: newString });
 
     expect(response.statusCode).toBe(200);
     expect(response.body.userId).toBe('mockedUserId');
@@ -326,6 +337,39 @@ describe('Gateway Service', () => {
   // Test /topUsers endpoint
   it('should catch the errors when send /topUsers that might appear during runtime', async () => {
     await simulateApiError('get', '/topUsers', 'Getting get the top users error', { error: 'An error has occured getting the top users' });
+  });
+
+  // Test /ranking endpoint
+  it('should get the ranking', async () => {
+    const axiosStub = sinon.stub(axios, 'get');
+    axiosStub.returns(Promise.resolve({ data: { userId: "testuser",
+        totalGamesPlayed: 20,
+        totalQuestionsAnswered: 100,
+        totalRightQuestions: 75,
+        ratio: '75%',
+        totalTime: '1000s'
+      } }));
+
+    const response = await request(app)
+      .get('/ranking')
+      .send({ sortBy: "ratio", userLimit: "10"});
+
+    expect(response.status).toBe(200);
+    expect(response.body).toEqual({ userId: "testuser",
+      totalGamesPlayed: 20,
+      totalQuestionsAnswered: 100,
+      totalRightQuestions: 75,
+      ratio: '75%',
+      totalTime: '1000s'
+    });
+
+    // Restauramos axios para que no nos afecte en futuras pruebas
+    axios.get.restore();
+  });
+
+  // Test /ranking endpoint
+  it('should catch the errors when send /ranking that might appear during runtime', async () => {
+    await simulateApiError('get', '/ranking', 'Getting get the ranking error', { error: 'An error has occured getting the ranking' });
   });
 
   // Test /endgamestats endpoint

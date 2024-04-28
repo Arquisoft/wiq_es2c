@@ -1,9 +1,10 @@
 // src/components/AddUser.js
 import React, { useState } from 'react';
 import axios from 'axios';
-import { Container, Typography, TextField, Button, Snackbar } from '@mui/material';
+import {Typography, TextField, Button, Snackbar } from '@mui/material';
 import '../App.css';
 import { useTranslation } from 'react-i18next';
+import { CustomContainer } from '../CustomContainer';
 
 
 const apiEndpoint = process.env.REACT_APP_API_ENDPOINT || 'http://localhost:8000';
@@ -36,7 +37,7 @@ const AddUser = () => {
   };
 
   return (
-      <Container component="main" maxWidth="xl"
+      <CustomContainer component="main" maxWidth="xl"
                 sx={{
                     marginTop: 4,
                     borderRadius: '10px',
@@ -46,7 +47,7 @@ const AddUser = () => {
                     alignItems: 'center',
                 }}>
           <div style={{display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}>
-              <Typography component="h1" variant="h5" align="center" sx={{marginBottom: 2, fontWeight: 'bold'}}>
+              <Typography component="h1" variant="h5" align="center" sx={{marginBottom: 2, fontWeight: 'bold', color: '#EE6D72'}}>
                 {t("registro")}
               </Typography>
               <TextField
@@ -56,7 +57,20 @@ const AddUser = () => {
                   label={t("usuario")}
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}
-                  sx={{ marginBottom: 4, backgroundColor: '#FFFFFF'}}
+                  sx={{ 
+                    marginBottom: 4, 
+                    backgroundColor: '#FFFFFF',
+                    '& .MuiOutlinedInput-root': {
+                      '&.Mui-focused fieldset': {
+                        borderColor: '#EE6D72',
+                      },
+                    },
+                    '& .MuiInputLabel-root': {
+                      '&.Mui-focused': {
+                        color: '#EE6D72',
+                      },
+                    },
+                  }}
               />
               <TextField
                   name="email"
@@ -65,7 +79,20 @@ const AddUser = () => {
                   label={t("email")}
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  sx={{ marginBottom: 4, backgroundColor: '#FFFFFF'}}
+                  sx={{ 
+                    marginBottom: 4, 
+                    backgroundColor: '#FFFFFF',
+                    '& .MuiOutlinedInput-root': {
+                      '&.Mui-focused fieldset': {
+                        borderColor: '#EE6D72',
+                      },
+                    },
+                    '& .MuiInputLabel-root': {
+                      '&.Mui-focused': {
+                        color: '#EE6D72',
+                      },
+                    },
+                  }}
               />
               <TextField
                   name="password"
@@ -75,10 +102,27 @@ const AddUser = () => {
                   type="password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  sx={{ marginBottom: 4, backgroundColor: '#FFFFFF'}}
+                  sx={{ 
+                    marginBottom: 4, 
+                    backgroundColor: '#FFFFFF',
+                    '& .MuiOutlinedInput-root': {
+                      '&.Mui-focused fieldset': {
+                        borderColor: '#EE6D72',
+                      },
+                    },
+                    '& .MuiInputLabel-root': {
+                      '&.Mui-focused': {
+                        color: '#EE6D72',
+                      },
+                    },
+                  }}
               />
 
-              <Button variant="contained" color="primary" sx={{marginTop: 4,marginBottom: 4, backgroundColor: '#FCF5B8',  color: '#413C3C',  fontWeight: 'bold' }} onClick={addUser}>
+              <Button variant="contained" color="primary" sx={{marginTop: 4,marginBottom: 4, backgroundColor: '#EE6D72',  color: '#413C3C',  fontWeight: 'bold',  transition: 'transform 0.3s ease',
+                '&:hover': {
+                  backgroundColor: '#f8b6bc',
+                  transform: 'scale(1.1)'
+                }}} onClick={addUser}>
                 {t("botonRegistro")}
               </Button>
               <Snackbar open={openSnackbar} autoHideDuration={6000} onClose={handleCloseSnackbar}
@@ -88,7 +132,7 @@ const AddUser = () => {
                             message={`Error: ${error}`}/>
               )}
           </div>
-      </Container>
+      </CustomContainer>
 );
 };
 

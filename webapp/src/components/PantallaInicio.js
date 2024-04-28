@@ -1,20 +1,17 @@
-import React, { useState } from 'react';
-import { Container, Typography, Button, Box, Snackbar } from '@mui/material';
+
+import { Typography, Button, Box } from '@mui/material';
 import { useUser } from './UserContext';
 import { useNavigate } from 'react-router-dom';
 import NewGameIcon from '@mui/icons-material/SportsEsports';
 import '../App.css';
 import { useTranslation } from 'react-i18next';
+import { CustomContainer } from '../CustomContainer';
+
 
 
 const PantallaInicio = () => {
 
     const [t] = useTranslation("global");
-
-
-    const [openSnackbar, setOpenSnackbar] = useState(false);
-    const [error, setError] = useState('');
-    
     const { usernameGlobal} = useUser();
 
     const navigate = useNavigate();
@@ -23,20 +20,8 @@ const PantallaInicio = () => {
         navigate("/GameConfiguration");
     }
 
-    const handleCloseSnackbar = () => {
-        setOpenSnackbar(false);
-    }; 
-
     return (
-        <Container component="main" maxWidth="xxl"
-            sx={{
-                display: 'flex',
-                flexDirection: 'column',
-                justifyContent: 'center',
-                alignItems: 'center',
-                height: '100vh', 
-                width: '100%', 
-            }}>
+        <CustomContainer>
 
             <Box sx={{
                 display: 'flex',
@@ -44,21 +29,21 @@ const PantallaInicio = () => {
                 justifyContent: 'center', // Centra horizontalmente
                 alignItems: 'center'
             }}>
-                <Typography component="h1" variant="h6" align="center" sx={{ marginBottom: 4, fontWeight: 'bold' }}>
+                <Typography component="h1" variant="h4" align="center" sx={{ marginBottom: 2, fontWeight: 'bold', 
+                    fontFamily: 'Arial', color: '#EE6D72' }}>
                     {t("textoInicio")} {usernameGlobal}!
                 </Typography>
 
-                <Button startIcon={<NewGameIcon />} variant="contained" color="primary" align="center" sx={{ marginTop: 4, backgroundColor: '#FCF5B8',  color: '#413C3C',  fontWeight: 'bold' }}
+                <Button startIcon={<NewGameIcon />} variant="contained" color="primary" align="center" sx={{marginTop: 4,marginBottom: 4, backgroundColor: '#f8b6bc',  color: '#413C3C',  fontWeight: 'bold',  transition: 'transform 0.3s ease',
+                '&:hover': {
+                    backgroundColor: '#f8b6bc',
+                    transform: 'scale(1.1)'
+                }}}
                     onClick={nuevaPartida}>
                     {t("botonPartida")}
                 </Button>
             </Box>
-            <Snackbar open={openSnackbar} autoHideDuration={6000} onClose={handleCloseSnackbar} message="Sesion cerrada" />
-            {error && (
-                <Snackbar open={!!error} autoHideDuration={6000} onClose={() => setError('')} message={`Error: ${error}`} />
-            )}
-
-        </Container>
+        </CustomContainer>
         
     );
 };

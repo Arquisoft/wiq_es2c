@@ -1,9 +1,10 @@
 import axios from 'axios';
 import React, { useState, useEffect, useCallback } from 'react';
-import { Container, Typography, TableContainer, Table, TableHead, TableBody, TableRow, TableCell, Paper, Snackbar } from '@mui/material';
+import { Typography, TableContainer, Table, TableHead, TableBody, TableRow, TableCell, Paper, Snackbar } from '@mui/material';
 import { useUser } from './UserContext';
 import { useTranslation } from 'react-i18next';
 import '../App.css';
+import { CustomContainer } from '../CustomContainer';
 
 
 const Perfil = () => {
@@ -38,17 +39,7 @@ const Perfil = () => {
 
     return (
         
-        <Container component="main" maxWidth="xxl"
-        sx={{
-            backgroundColor: '#F3D3FA',
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'center',
-            alignItems: 'center',
-            height: '100vh', 
-            width: '100%', 
-        }}
-        >
+        <CustomContainer>
         <Typography component="h1" variant="h5" align="center" sx={{ marginBottom: 2, fontWeight: 'bold' }}>
             {t("textoPerfil")}
         </Typography>
@@ -75,7 +66,7 @@ const Perfil = () => {
             <Snackbar open={!!error} autoHideDuration={6000} onClose={() => setError('')} message={`Error: ${error}`} />
             )}
         </div>
-    </Container>
+    </CustomContainer>
     );
 };
 

@@ -111,7 +111,7 @@ describe('Game History Service', () => {
         expect(res.body.error).toContain('Error al obtener el historial del juego');
     });
 
-    it('Should manage an error when calling withoutg a user', async () => {
+    it('Should manage an error when calling /endgamestats withouth a user', async () => {
         const res = await request(app)
             .get('/endgamestats')
             .send();
@@ -130,7 +130,6 @@ describe('Game History Service', () => {
             .get('/topUsers');
 
         expect(response.status).toBe(200);
-        console.log(response.body);
         expect(response.body).toEqual({
             primero: 'user1 - 90%',
             segundo: 'user2 - 85%',

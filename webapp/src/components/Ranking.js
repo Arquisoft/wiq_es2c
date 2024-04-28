@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useCallback}  from 'react';
 import axios from 'axios';
 import {
-  Container,
   Box,
   Typography,
   Grid,
@@ -17,9 +16,9 @@ import {
   TableRow,
   Snackbar
 } from '@mui/material';
-import { useUser } from './UserContext';
 import '../App.css';
 import { useTranslation } from 'react-i18next';
+import { CustomContainer } from '../CustomContainer';
 
 const apiEndpoint = process.env.REACT_APP_API_ENDPOINT || 'http://localhost:8000';
 
@@ -58,7 +57,6 @@ const Ranking = () => {
     console.log(`Nuevo orden seleccionado: ${newSortBy}`);
   };
 
-
   const handleLimit = async (event) => {
     let inputValue = parseInt(event.target.value);
     if (!isNaN(inputValue) && inputValue >= 0) {
@@ -74,17 +72,7 @@ const Ranking = () => {
   }, [getRanking, getRankingGlobal]);
 
   return (
-    <Container component="main" maxWidth="xl"
-      sx={{
-        marginTop: 15,
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'center',
-        alignItems: 'center',
-        height: '100vh',
-        width: '100%',
-      }}
-    >
+    <CustomContainer>
       <Box border={2} borderColor="black" p={3} borderRadius={8} bgcolor="#9A77B0" mb={5}>
         <Typography variant="h5" align="center" style={{ color: 'white', fontWeight: 'bold', marginBottom: '16px' }}>
           {t("textoTop")}
@@ -138,7 +126,6 @@ const Ranking = () => {
                 onChange={handleSortByChange}
                 labelId="sortBy-label"
                 label="Ordenar por"
-                sx
               >
                 <MenuItem value="ratio">Ratio</MenuItem>
                 <MenuItem value="totalRightQuestions">Aciertos</MenuItem>
@@ -157,7 +144,6 @@ const Ranking = () => {
                 type="number"
                 step="1"
                 label="Número de usuarios"
-                sx
                 inputProps={{
                   inputMode: 'numeric',
                   min: 1,
@@ -191,7 +177,7 @@ const Ranking = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {rankingTable.map((user, index) => (
+            {Array.isArray(rankingTable) && rankingTable.map((user, index) => (
               <TableRow key={index}>
                 <TableCell align="center">{index + 1}</TableCell>
                 <TableCell align="center">{user.userId}</TableCell>
@@ -218,7 +204,7 @@ const Ranking = () => {
         <Snackbar open={!!error} autoHideDuration={6000} onClose={() => setError('')} message={`Error: ${error}`} />
       )}
       </div>
-    </Container>
+    </CustomContainer>
   );
 };
 

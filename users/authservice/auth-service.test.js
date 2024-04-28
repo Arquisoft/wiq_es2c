@@ -2,11 +2,24 @@ const request = require('supertest');
 const { MongoMemoryServer } = require('mongodb-memory-server');
 const bcrypt = require('bcrypt');
 const User = require('./auth-model');
+const { randomBytes } = require('crypto');
 
 let mongoServer;
 let app;
 
-const newPassword = Math.floor(Math.random() * 10).toString(); // Genera una nueva contraseña aleatoria para evitar el Security Hostpot de SonarCloud en las pruebas
+const newPassword = generateSecureRandomPassword(8); // Genera una nueva contraseña aleatoria para evitar el Security Hostpot de SonarCloud en las pruebas
+
+function generateSecureRandomPassword(length) {
+  const characters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()-_=+';
+  const password = [];
+  const bytes = randomBytes(length);
+  for (let i = 0; i < length; i++) {
+    const randomIndex = bytes[i] % characters.length;
+    password.push(characters[randomIndex]);
+  }
+  return password.join('');
+}
+
 
 //test user
 const user = {
