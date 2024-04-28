@@ -24,6 +24,7 @@ jobs:
     - run: npm --prefix users/authservice test -- --coverage
     - run: npm --prefix users/userservice test -- --coverage
     - run: npm --prefix gatewayservice test -- --coverage
+    - run: npm --prefix questiongenerator test -- --coverage
     - run: npm --prefix apis/alluserservice test -- --coverage
     - run: npm --prefix apis/allquestionservice test -- --coverage
     - run: npm --prefix perfilservice test -- --coverage
@@ -124,12 +125,15 @@ jobs:
         sed -i "s/SOMEIP/${DEPLOY_HOST}/g" gatewayservice/openapi.yaml
     - name: Publish to Registry
       uses: elgohr/Publish-Docker-Github-Action@v5
+      env:
+        API_ORIGIN_URI: http://${{ secrets.DEPLOY_HOST }}:3000
       with:
         name: arquisoft/wiq_es2c/gatewayservice
         username: ${{ github.actor }}
         password: ${{ secrets.GITHUB_TOKEN }}
         registry: ghcr.io
         workdir: gatewayservice
+        buildargs: API_ORIGIN_URI
   docker-push-questiongenerator:
     name: Push question generator Docker Image to GitHub Packages
     runs-on: ubuntu-latest
