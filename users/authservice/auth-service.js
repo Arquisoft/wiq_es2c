@@ -2,16 +2,15 @@ const express = require('express');
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const promBundle = require('express-prom-bundle');
+
 const User = require('./auth-model')
 
 const app = express();
 app.disable('x-powered-by');
 const port = 8002; 
 
-//Prometheus configuration
-const metricsMiddleware = promBundle({includeMethod: true});
-app.use(metricsMiddleware);
+
+
 
 // Middleware to parse JSON in request body
 app.use(express.json());

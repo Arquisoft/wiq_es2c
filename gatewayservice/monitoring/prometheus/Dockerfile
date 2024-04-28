@@ -11,3 +11,5 @@ RUN chown -R nonroot:nonroot ./
 COPY prometheus.yml ./
 
 USER nonroot
+
+EXPOSE 9090

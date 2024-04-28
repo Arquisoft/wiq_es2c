@@ -2,7 +2,7 @@ const axios = require('axios');
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
-const promBundle = require('express-prom-bundle');
+
 const crypto = require('crypto');
 const Question = require('./question-model');
 const Game = require('./game-model');
@@ -15,9 +15,8 @@ const app = express();
 app.disable('x-powered-by');
 const port = 8003;
 
-//Prometheus configuration
-const metricsMiddleware = promBundle({includeMethod: true});
-app.use(metricsMiddleware);
+
+
 
 var language = 'undefined';
 

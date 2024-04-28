@@ -1,7 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
-const promBundle = require('express-prom-bundle');
+
 const GameHistory = require('./gamehistory-model.js');
 
 const mongoUri = process.env.MONGODB_URI || 'mongodb://localhost:27017/questiondb';
@@ -13,9 +13,8 @@ const app = express();
 app.disable('x-powered-by');
 const port = 8004;
 
-//Prometheus configuration
-const metricsMiddleware = promBundle({includeMethod: true});
-app.use(metricsMiddleware);
+
+
 
 // Middleware to parse JSON in request body
 app.use(bodyParser.json());
