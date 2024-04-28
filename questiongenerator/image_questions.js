@@ -100,7 +100,7 @@ queries["en"] = {
               rdfs:label ?optionLabel;          
         
         OPTIONAL { ?option wdt:P18 ?imageLabel. }    
-        FILTER(lang(?optionLabel) = "es")       
+        FILTER(lang(?optionLabel) = "en")       
         FILTER EXISTS { ?option wdt:P18 ?imageLabel }
       }
     `, "What country is the one that appears in the following image?"]
@@ -116,7 +116,7 @@ queries["en"] = {
         ?option wdt:P31 wd:Q4989906; 
                   wdt:P17 wd:Q29;                
                   wdt:P18 ?imageLabel.                  
-        SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],es". }
+        SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
       }
       LIMIT 100
       `, "What Spanish monument is this?"]
@@ -133,7 +133,7 @@ queries["en"] = {
                 wdt:P569 ?birthdate.      
         FILTER(YEAR(?birthdate) >= 1500) 
         ?option wdt:P18 ?imageLabel.     
-        SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],es". }
+        SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
       }
       LIMIT 100
       `, "What is the name of this painter?"],
@@ -146,7 +146,7 @@ queries["en"] = {
                 wdt:P569 ?birthdate.     
         FILTER(YEAR(?birthdate) >= 1960)  
         ?option wdt:P18 ?imageLabel.     
-        SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],es". }
+        SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
       }
       LIMIT 100
       `, "What is the name of this footballer?"],
@@ -157,7 +157,7 @@ queries["en"] = {
       WHERE {
           ?option wdt:P106/wdt:P279* wd:Q177220; 
                     wdt:P18 ?imageLabel.              
-          SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],es". }
+          SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
       }
       LIMIT 100
       `, "What is the name of this singer?"],
@@ -169,7 +169,7 @@ queries["en"] = {
           ?option wdt:P31 wd:Q5;  
                       wdt:P39 wd:Q11696;  
                       wdt:P18 ?imageLabel.   
-          SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],es". }
+          SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
       }
       `, "Which US president is shown in the image?"]
           ]
