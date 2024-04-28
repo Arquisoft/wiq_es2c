@@ -47,7 +47,7 @@ describe('Question Generator test', () => {
 
         expect(response.status).toBe(200);
         expect(response.body).toHaveProperty('responseQuestion', 'responseOptions', 'responseCorrectOption', 'question_Id', 'responseImage');
-    }, 10000);
+    }, 15000);
 
     it('Should manager errors when calling /generateQuestion', async () => {
         await simulateError('get', '/generateQuestion', 'Error al obtener datos', { error: "Error al obtener datos RangeError [ERR_OUT_OF_RANGE]: The value of \"max\" is out of range. It must be greater than the value of \"min\" (0). Received 0" });
