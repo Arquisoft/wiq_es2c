@@ -6,7 +6,7 @@ scrape_configs:
       - targets: 
         - "gatewayservice:8000"
         - "allquestionservice:8007"
-        - "allquestionservice:8006"
+        - "alluserservice:8006"
         - "gamehistoryservice:8004"
         - "perfilservice:8005"
         - "questiongenerator:8003"
