@@ -12,6 +12,9 @@ This repo is a basic application composed of several components.
 - **User service**. Express service that handles the insertion of new users in the system.
 - **Auth service**. Express service that handles the authentication of users.
 - **Webapp**. React web application that uses the gateway service to allow basic login and new user features.
+- **History service**. A new Express service handling users' game history.
+- **Ranking service**. Another new Express service managing user ranking based on their game statistics.
+- **Question and User APIs**. Additional services providing APIs for managing questions and users, respectively.
 
 Both the user and auth service share a Mongo database that is accessed with mongoose.
 
