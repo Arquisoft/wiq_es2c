@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { Typography, TextField, Button, Snackbar, Paper } from '@mui/material';
+import { Typography, TextField, Button, Snackbar } from '@mui/material';
 import { useUser } from './UserContext';
 import '../App.css';
 import { useTranslation } from 'react-i18next';

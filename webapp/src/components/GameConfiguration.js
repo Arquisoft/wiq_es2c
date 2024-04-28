@@ -77,7 +77,8 @@ const GameConfiguration = () => {
     return (
         <CustomContainer>
             <div style={{display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}>
-                <Typography component="h1" variant="h5" align="center" sx={{ marginBottom: 2, fontWeight: 'bold' }}>
+                <Typography component="h1" variant="h5" align="center" sx={{ marginBottom: 2, fontWeight: 'bold', 
+                        fontFamily: 'Arial', color: '#EE6D72' }}>
                     {t("textoPersonalizar")}
                 </Typography>
                 <TextField
@@ -89,7 +90,22 @@ const GameConfiguration = () => {
                     value={valueQuestion}
                     type="number"
                     step="1"
-                    sx={{  width: '50vh', marginBottom: 4, marginTop: 3, backgroundColor: '#FFFFFF'}}
+                    sx={{ 
+                        width: '50vh',
+                        marginTop: 3,
+                        marginBottom: 4, 
+                        backgroundColor: '#FFFFFF',
+                        '& .MuiOutlinedInput-root': {
+                        '&.Mui-focused fieldset': {
+                        borderColor: '#EE6D72',
+                        },
+                    },
+                    '& .MuiInputLabel-root': {
+                        '&.Mui-focused': {
+                        color: '#EE6D72',
+                        },
+                    },
+                    }}
                 inputProps={{
                     inputMode: 'numeric',
                     pattern: '[0-9]*',
@@ -107,18 +123,46 @@ const GameConfiguration = () => {
                 value={valueTime}
                 type="number"
                 step="1"
-                sx={{ width: '40vh', marginBottom: 2, backgroundColor: '#FFFFFF'}}
+                sx={{ 
+                    marginBottom: 4, 
+                    backgroundColor: '#FFFFFF',
+                    '& .MuiOutlinedInput-root': {
+                    '&.Mui-focused fieldset': {
+                    borderColor: '#EE6D72',
+                    },
+                },
+                '& .MuiInputLabel-root': {
+                    '&.Mui-focused': {
+                    color: '#EE6D72',
+                    },
+                },
+                }}
                 inputProps={{
                     inputMode: 'numeric',
                     min: 0,
                     max: 60,
                 }}
             />
-            <Typography component="p" variant="p" align="center" sx={{ marginBottom: 2, fontWeight: 'bold' }}>
+            <Typography component="p" variant="p" align="center" sx={{ marginBottom: 2, fontWeight: 'bold', 
+                fontFamily: 'Arial', color: '#EE6D72' }}>
                 {t("textoTematicas")}
             </Typography>
-            <FormControl fullWidth sx={{ width: '50vh', marginBottom: 2, backgroundColor: '#FFFFFF'}}> 
-                <InputLabel id="themes">Temáticas</InputLabel>
+            <FormControl fullWidth sx={{ 
+                        width: '50vh',
+                        marginBottom: 2, 
+                        backgroundColor: '#FFFFFF',
+                        '& .MuiOutlinedInput-root': {
+                        '&.Mui-focused fieldset': {
+                        borderColor: '#EE6D72',
+                        },
+                    },
+                    '& .MuiInputLabel-root': {
+                        '&.Mui-focused': {
+                        color: '#EE6D72',
+                        },
+                    },
+                    }}> 
+                <InputLabel id="themes">{t("tematicas")}</InputLabel>
                 <Select
                     defaultValue="Todas"
                     onChange={handleOptionSelect}
@@ -132,7 +176,11 @@ const GameConfiguration = () => {
                     <MenuItem value="Personajes">{t("tematicaPersonajes")}</MenuItem>
                 </Select>
             </FormControl>
-            <Button variant="contained" color="primary" sx={{marginTop: 4,marginBottom: 4, backgroundColor: '#FCF5B8',  color: '#413C3C',  fontWeight: 'bold'}}
+            <Button variant="contained" color="primary" sx={{marginTop: 4,marginBottom: 4, backgroundColor: '#f8b6bc',  color: '#413C3C',  fontWeight: 'bold',  transition: 'transform 0.3s ease',
+                '&:hover': {
+                    backgroundColor: '#f8b6bc',
+                    transform: 'scale(1.1)'
+                }}}
                 onClick={configureAndStart}>
                 {t("botonJugar")}
             </Button>

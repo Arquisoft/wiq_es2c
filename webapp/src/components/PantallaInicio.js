@@ -6,6 +6,8 @@ import NewGameIcon from '@mui/icons-material/SportsEsports';
 import '../App.css';
 import { useTranslation } from 'react-i18next';
 import { CustomContainer } from '../CustomContainer';
+import Avatar from '@mui/material/Avatar';
+
 
 
 const PantallaInicio = () => {
@@ -28,11 +30,16 @@ const PantallaInicio = () => {
                 justifyContent: 'center', // Centra horizontalmente
                 alignItems: 'center'
             }}>
-                <Typography component="h1" variant="h6" align="center" sx={{ marginBottom: 4, fontWeight: 'bold' }}>
+                <Typography component="h1" variant="h4" align="center" sx={{ marginBottom: 2, fontWeight: 'bold', 
+                    fontFamily: 'Arial', color: '#EE6D72' }}>
                     {t("textoInicio")} {usernameGlobal}!
                 </Typography>
 
-                <Button startIcon={<NewGameIcon />} variant="contained" color="primary" align="center" sx={{ marginTop: 4, backgroundColor: '#FCF5B8',  color: '#413C3C',  fontWeight: 'bold' }}
+                <Button startIcon={<NewGameIcon />} variant="contained" color="primary" align="center" sx={{marginTop: 4,marginBottom: 4, backgroundColor: '#f8b6bc',  color: '#413C3C',  fontWeight: 'bold',  transition: 'transform 0.3s ease',
+                '&:hover': {
+                    backgroundColor: '#f8b6bc',
+                    transform: 'scale(1.1)'
+                }}}
                     onClick={nuevaPartida}>
                     {t("botonPartida")}
                 </Button>

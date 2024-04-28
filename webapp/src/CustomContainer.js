@@ -11,11 +11,12 @@ export function CustomContainer({ children, ...props }) {
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
-        height: '100vh', 
+        height: '77vh', 
         width: '100%', 
         backgroundImage: `url(${backgroundImage})`,
         backgroundSize: 'cover',
-        backgroundRepeat: 'no-repeat'
+        backgroundRepeat: 'no-repeat',
+        maxHeight: '80vh', overflow: 'auto'
       }}
       {...props}
     >

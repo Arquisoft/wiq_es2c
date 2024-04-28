@@ -1,15 +1,18 @@
 import { useState } from 'react';
-import { AppBar, Toolbar, IconButton, Drawer, List, ListItem, Box, Typography, Select, MenuItem, FormControl, Avatar } from '@mui/material';
+import { AppBar, Toolbar, IconButton, Drawer, List, ListItem, Box, Typography, Select, MenuItem, FormControl, Avatar, Button } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
+
 import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
 
 
-
-function NavigationBar() {
+function MenuLateral() {
     const [drawerOpen, setDrawerOpen] = useState(false);
     const [language, setLanguage] = useState('');
 
     const [t, i18n] = useTranslation("global");
+
+    const navigate = useNavigate();
 
     const toggleDrawer = (open) => (event) => {
         setDrawerOpen(open);
@@ -17,6 +20,10 @@ function NavigationBar() {
 
     const handleChange = (event) => {
         setLanguage(event.target.value);
+    };
+
+    const showInicio = () => {
+        navigate("/PantallaInicio");
     };
 
     const list = () => (
@@ -32,7 +39,8 @@ function NavigationBar() {
         <Box sx={{ display: 'flex', justifyContent: 'space-between', padding: '16px', mt: 5 }}>
         <Avatar alt="Remy Sharp" src="../images/brain-icon2.ico" sx={{ marginRight: 2 }} />
             <Typography variant="h6" sx={{ fontFamily: 'Arial', color: '#EE6D72', fontWeight: 'bold' }}>
-                BrainWIQ</Typography>
+                BrainWIQ
+            </Typography>
         </Box>
         <List>
             <ListItem>
@@ -70,6 +78,9 @@ function NavigationBar() {
             <IconButton edge="start" color="inherit" aria-label="menu" onClick={toggleDrawer(true)}>
                 <MenuIcon />
             </IconButton>
+            <Button onClick={showInicio} sx={{ flexGrow: 2, fontFamily: 'Arial', color: '#000000', fontWeight: 'bold', display: 'flex', justifyContent: 'center' }}>
+                BrainWIQ
+            </Button>
             {/* Rest of your AppBar/Toolbar components */}
             </Toolbar>
         </AppBar>
@@ -80,4 +91,4 @@ function NavigationBar() {
     );
 }
 
-export default NavigationBar;
+export default MenuLateral;
