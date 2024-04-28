@@ -4,6 +4,27 @@ ifndef::imagesdir[:imagesdir: ../images]
 == Informe de pruebas
 
 === Pruebas de cobertura
+Las pruebas de cobertura prueban la funcionalidad de la aplicación creando, al mismo tiempo, una métrica que indica cuanto del código creado está cubierto por dichas pruebas.
+Las pruebas se han realizado en todos los servicios de la aplicación, a fin de comprobar que la funcionalidad de estos es la esperada.
+
+Para las pruebas de cobertura se ha utilizado, principalmente, las liberías:
+
+* testing-library/react
+* supertest
+* axios
+* sinon
+
+A continuación, se explica para que se ha utilizado cada una de dichas librerías:
+[options="header",cols="1,1,1"]
+|===
+|Librería|Contenido|Uso
+| testing-library/react | Contiene todas las funciones necesarias para hacer pruebas con los componentes de REACT como: render, fireEvent, act o waitFor | Para los tests de los componentes de REACT que se encuentran en webapp
+| supertest | La función request que se utiliza para realizar peticiones | Para todas aquellas pruebas que requieran comprobar una petición a una URL, incluyendo el envío de parámetros y la comprobación de la respuesta
+| axios | Todas las funciones necesarias para hacer Mocks | Para todos los tests que requerían del uso de mocks. Por ejemplo, para probar el juego hemos mockeado las llamadas al generador de preguntas, para no depender de este
+| sinon | Contiene la función stub que permite sobresscribir los métodos HTTP al realizar peticiones | Principalmente, para los tests en los que había que simular un cierto valor de respuesta o un error en la petición sin necesidad de causar dicho error al hacer la petición
+|===
+
+Además de todas estas librerías externas, utilizamos, para practicamente todas las pruebas, el framework jest, muy utilizado para hacer las pruebas de proyectos que utilizan REACT, como es nuestro caso. Este framework es el que nos permite definir los casos de prueba y controlar las peticiones que realizamos utilizando, por ejemplo, la función spyOn que nos permite espionar una función o petición.
 
 === Pruebas de usabilidad
 
