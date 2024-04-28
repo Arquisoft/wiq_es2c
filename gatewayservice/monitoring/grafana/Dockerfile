@@ -8,7 +8,6 @@ RUN addgroup -S nonroot \
 
 RUN chown -R nonroot:nonroot ./
 
-COPY dashboards ./
-COPY datasources ./
+COPY ./provisioning
 
 USER nonroot
