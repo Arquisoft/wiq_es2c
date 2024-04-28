@@ -8,7 +8,9 @@ import { UserProvider } from './UserContext';
 import { I18nextProvider } from "react-i18next";
 import i18n from "../translations/i18n";
 
+i18n.changeLanguage("es");
 const mock = new MockAdapter(axios);
+
 
 describe('Ranking test', () => {
   it('renders correctly', async () => {
@@ -54,8 +56,8 @@ describe('Ranking test', () => {
       </I18nextProvider>);
 
     await waitFor(() =>  {
-       let error = getByText("Error: Error al obtener el ranking");
-       expect(error).toBeInTheDocument();
+        let error = getByText("Error: Error al obtener el ranking");
+        expect(error).toBeInTheDocument();
     });
   });
 });
