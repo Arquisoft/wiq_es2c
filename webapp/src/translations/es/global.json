@@ -1,5 +1,5 @@
 {
-    "login": "Inicia sesión",
+    "login": "INICIA SESIÓN",
     "usuario": "Usuario",
     "password": "Contraseña",
     "botonLogin": "ENTRA",
@@ -48,6 +48,10 @@
     "textoRespuesta": "Respuesta",
     "mensajeAddOk": "Usuario añadido correctamente",
     "mensajeAddFail": "Ya se ha registrado un usuario con ese nombre",
-    "mensajeLogOut": "Sesion cerrada"
+    "mensajeLogOut": "Sesion cerrada",
+    "idioma": "Idioma",
+    "seleccionar": "Seleccionar",
+    "ingles": "Inglés",
+    "espanol": "Español"
 }
 

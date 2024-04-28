@@ -9,7 +9,7 @@ const Footer = () => {
             px={8}
             mt={8}
             sx={{ 
-                backgroundColor: '#9A77B0', 
+                backgroundColor: '#f8b6bc', 
                 color: 'black', 
                 textAlign: 'center'
             }}

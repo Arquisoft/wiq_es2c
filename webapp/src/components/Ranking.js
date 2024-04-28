@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useCallback}  from 'react';
 import axios from 'axios';
 import {
-  Container,
   Box,
   Typography,
   Grid,
@@ -19,6 +18,7 @@ import {
 } from '@mui/material';
 import '../App.css';
 import { useTranslation } from 'react-i18next';
+import { CustomContainer } from '../CustomContainer';
 
 const apiEndpoint = process.env.REACT_APP_API_ENDPOINT || 'http://localhost:8000';
 
@@ -72,17 +72,7 @@ const Ranking = () => {
   }, [getRanking, getRankingGlobal]);
 
   return (
-    <Container component="main" maxWidth="xl"
-      sx={{
-        marginTop: 15,
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'center',
-        alignItems: 'center',
-        height: '100vh',
-        width: '100%',
-      }}
-    >
+    <CustomContainer>
       <Box border={2} borderColor="black" p={3} borderRadius={8} bgcolor="#9A77B0" mb={5}>
         <Typography variant="h5" align="center" style={{ color: 'white', fontWeight: 'bold', marginBottom: '16px' }}>
           {t("textoTop")}
@@ -214,7 +204,7 @@ const Ranking = () => {
         <Snackbar open={!!error} autoHideDuration={6000} onClose={() => setError('')} message={`Error: ${error}`} />
       )}
       </div>
-    </Container>
+    </CustomContainer>
   );
 };
 

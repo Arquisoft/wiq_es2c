@@ -2,9 +2,11 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate} from 'react-router-dom';
-import { Container, Typography, TextField, Button, Snackbar, FormControl, InputLabel, Select, MenuItem} from '@mui/material';
+import { Typography, TextField, Button, Snackbar, FormControl, InputLabel, Select, MenuItem} from '@mui/material';
 import '../App.css';
 import { useTranslation } from 'react-i18next';
+import { CustomContainer } from '../CustomContainer';
+
 
 const apiEndpoint = process.env.REACT_APP_API_ENDPOINT || 'http://localhost:8000';
 
@@ -73,17 +75,7 @@ const GameConfiguration = () => {
     };
 
     return (
-        <Container component="main" maxWidth="xl"
-                sx={{
-                    marginTop: 10,
-                    borderRadius: '10px',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    height: '100vh', 
-                    width: '100%',
-                }}>
+        <CustomContainer>
             <div style={{display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}>
                 <Typography component="h1" variant="h5" align="center" sx={{ marginBottom: 2, fontWeight: 'bold' }}>
                     {t("textoPersonalizar")}
@@ -149,7 +141,7 @@ const GameConfiguration = () => {
                 <Snackbar open={!!error} autoHideDuration={6000} onClose={() => setError('')} message={`Error: ${error}`} />
             )}
             </div>
-        </Container>
+        </CustomContainer>
 );
 };
 

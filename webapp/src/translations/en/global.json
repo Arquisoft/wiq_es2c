@@ -48,5 +48,9 @@
     "textoRespuesta": "Answer",
     "mensajeAddOk": "User added successfully",
     "mensajeAddFail": "An user with that name has already registered",
-    "mensajeLogOut": "Closed session"
+    "mensajeLogOut": "Closed session",
+    "idioma": "Language",
+    "seleccionar": "Choose",
+    "ingles": "English",
+    "espanol": "Spanish"
 }

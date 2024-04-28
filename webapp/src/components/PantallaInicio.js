@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
-import { Container, Typography, Button, Box, Snackbar } from '@mui/material';
+
+import { Typography, Button, Box } from '@mui/material';
 import { useUser } from './UserContext';
 import { useNavigate } from 'react-router-dom';
 import NewGameIcon from '@mui/icons-material/SportsEsports';
 import '../App.css';
 import { useTranslation } from 'react-i18next';
+import { CustomContainer } from '../CustomContainer';
 
 
 const PantallaInicio = () => {
@@ -19,15 +20,7 @@ const PantallaInicio = () => {
     }
 
     return (
-        <Container component="main" maxWidth="xxl"
-            sx={{
-                display: 'flex',
-                flexDirection: 'column',
-                justifyContent: 'center',
-                alignItems: 'center',
-                height: '100vh', 
-                width: '100%', 
-            }}>
+        <CustomContainer>
 
             <Box sx={{
                 display: 'flex',
@@ -44,7 +37,7 @@ const PantallaInicio = () => {
                     {t("botonPartida")}
                 </Button>
             </Box>
-        </Container>
+        </CustomContainer>
         
     );
 };

@@ -6,6 +6,8 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import { useUser } from './UserContext';
 import '../App.css';
 import { useTranslation } from 'react-i18next';
+import { CustomContainer } from '../CustomContainer';
+
 
 const apiEndpoint = process.env.REACT_APP_API_ENDPOINT || 'http://localhost:8000';
 
@@ -141,17 +143,7 @@ const Game = () => {
 
 
   return (
-    <Container component="main" maxWidth="xxl"
-            sx={{
-                marginTop: 10,
-                backgroundColor: '#F3D3FA',
-                borderRadius: '10px',
-                display: 'flex',
-                flexDirection: 'column',
-                justifyContent: 'center',
-                height: '100vh', 
-                width: '100%', 
-            }}>
+    <CustomContainer>
       <Container component="section" maxWidth="xs">
         {question && (
           <>
@@ -215,7 +207,7 @@ const Game = () => {
           )}
         </div>
       </Container>
-    </Container>
+    </CustomContainer>
   );
 };
 

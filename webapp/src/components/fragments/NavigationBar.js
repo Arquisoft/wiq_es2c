@@ -1,208 +1,83 @@
-// src/components/NavigationBar.js
-import React, { useState } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
-import { AppBar, Toolbar, IconButton, Menu, MenuItem, Grid, Button, Hidden} from '@mui/material';
-import Tooltip from '@mui/material/Tooltip';
-import { useUser } from '../UserContext';
+import { useState } from 'react';
+import { AppBar, Toolbar, IconButton, Drawer, List, ListItem, Box, Typography, Select, MenuItem, FormControl, Avatar } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import { useTranslation } from 'react-i18next';
 
 
-const NavigationBar = () => {
+
+function NavigationBar() {
+    const [drawerOpen, setDrawerOpen] = useState(false);
+    const [language, setLanguage] = useState('');
 
     const [t, i18n] = useTranslation("global");
 
-    const [setError] = useState('');
-    const { usernameGlobal, setUsernameGlobal } = useUser();
-    const navigate = useNavigate();
-
-    const location = useLocation();
-
-    const isHiddenRoute = location.pathname === '/' || location.pathname === '/App' || location.pathname === '/Game';
-
-    const [anchorEl, setAnchorEl] = React.useState(null);
-    const open = Boolean(anchorEl);
-
-    const handleMenu = (event) => {
-        setAnchorEl(event.currentTarget);
+    const toggleDrawer = (open) => (event) => {
+        setDrawerOpen(open);
     };
 
-    const handleClose = () => {
-        setAnchorEl(null);
+    const handleChange = (event) => {
+        setLanguage(event.target.value);
     };
 
-    const showHome = () => {
-        if (usernameGlobal === 'admin') {
-            navigate("/PantallaInicioAdmin");  
-        } else {
-            navigate("/PantallaInicio");
-        }
-    };
-
-    const showGameHistory = () => {
-        navigate("/Gamehistory")
-    };
-
-    const showPerfil = () => {
-        navigate("/Perfil")
-    }
-
-    const showRanking = () => {
-        navigate("/Ranking")
-    };
-
-    const showLogout = () => {
-        try {
-            setUsernameGlobal('');
-            navigate('/App');
-        } catch (error) {
-            setError(error.response.data.error);
-        }
-    };
-
-    if (location.pathname === '/App' || location.pathname === '/') {
-        return (
-            <AppBar position="fixed" sx={{ backgroundColor: '#9A77B0' }}>
-                <Toolbar>
-                    <IconButton
-                        size="large"
-                        edge="start"
-                        color="inherit"
-                        aria-label="menu"
-                        onClick={handleMenu}
-                        sx={{ mr: 2, display: { sm: 'none' } }}
-                    >
-                        <MenuIcon />
-                    </IconButton>
-                    <Menu
-                        anchorEl={anchorEl}
-                        open={open}
-                        onClose={handleClose}
-                        onClick={handleClose}
-                    >
-                        <MenuItem onClick={() => i18n.changeLanguage('es')}>Español</MenuItem>
-                        <MenuItem onClick={() => i18n.changeLanguage('en')}>Inglés</MenuItem>
-                    </Menu>
-                    <Grid container justifyContent="flex-start">
-                    </Grid>
-                    <Grid container justifyContent="flex-end">
-                        <Tooltip title="Español">
-                        <Button variant="contained" color="inherit" 
-                            style={{ background: '#9A77B0', border: 'none', padding: 0, marginRight: '10px' }} 
-                            onClick={() => i18n.changeLanguage('es')}>
-                            <img src={require('../images/esp.png')} style={{ width: '50px', height: '50px' }} alt="Imagen español"/>
-                        </Button>
-                        </Tooltip>
-                        <Tooltip title="Inglés">
-                        <Button variant="contained" color="inherit" 
-                            style={{ background: '#9A77B0', border: 'none', padding: 0, marginRight: '10px' }} 
-                            onClick={() => i18n.changeLanguage('en')}>
-                            <img src={require('../images/ing.png')} style={{ width: '50px', height: '50px' }} alt="Imagen ingles"/>
-                        </Button>
-                        </Tooltip>                    
-                    </Grid>
-                </Toolbar>
-            </AppBar>
-        );
-    }
-
-    if(location.pathname === '/Game') {
-        return (
-            <AppBar position="fixed" sx={{ backgroundColor: '#9A77B0' }}>
-                <Toolbar>
-                    <IconButton
-                        size="large"
-                        edge="start"
-                        color="inherit"
-                        aria-label="menu"
-                        onClick={handleMenu}
-                        sx={{ mr: 2, display: { sm: 'none' } }}
-                    >
-                        <MenuIcon />
-                    </IconButton>
-                    <Menu
-                        anchorEl={anchorEl}
-                        open={open}
-                        onClose={handleClose}
-                        onClick={handleClose}
-                    >
-                        <MenuItem onClick={showHome}>Inicio</MenuItem>
-                    </Menu>
-                    <Grid container justifyContent="flex-start">
-                        <Tooltip title={t("toolInicio")}>
-                        <Button variant="contained" color="inherit" style={{ background: '#9A77B0', border: 'none', padding: 0, marginRight: '10px' }} onClick={showHome}>
-                            <img src={require('../images/home.png')} style={{ width: '50px', height: '50px' }} alt="Imagen home"/>
-                        </Button>
-                        </Tooltip>
-                    </Grid>
-                </Toolbar>
-            </AppBar>
-        );
-    }
-    
-
-    if (isHiddenRoute) {
-        return null; 
-    }
+    const list = () => (
+    <Box
+        role="presentation"
+        onClick={toggleDrawer(false)}
+        onKeyDown={toggleDrawer(false)}
+        sx={{ width: 300,  display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                justifyContent: 'center', }} // Aquí es donde estableces la anchura del Drawer
+        >
+        <Box sx={{ display: 'flex', justifyContent: 'space-between', padding: '16px', mt: 5 }}>
+        <Avatar alt="Remy Sharp" src="../images/brain-icon2.ico" sx={{ marginRight: 2 }} />
+            <Typography variant="h6" sx={{ fontFamily: 'Arial', color: '#EE6D72', fontWeight: 'bold' }}>
+                BrainWIQ</Typography>
+        </Box>
+        <List>
+            <ListItem>
+            <FormControl sx={{ m: 2, minWidth: 120 }}>
+            <Typography variant="h8" sx={{ fontFamily: 'Arial', color: '#EE6D72' }}>{t("idioma")}:</Typography>
+                <Select
+                    value={language}
+                    onChange={handleChange}
+                    displayEmpty
+                    inputProps={{ 'aria-label': 'Without label' }}
+                    MenuProps={{
+                        PaperProps: {
+                        style: {
+                            backgroundColor: '#f8b6bc', // Aquí puedes cambiar el color del menú
+                        },
+                        },
+                    }}
+                >
+                    <MenuItem value="" disabled>
+                        {t("seleccionar")}
+                    </MenuItem>
+                    <MenuItem value={'English'} onClick={() => i18n.changeLanguage('en')}>{t("ingles")}</MenuItem>
+                    <MenuItem value={'Spanish'} onClick={() => i18n.changeLanguage('es')}>{t("espanol")}</MenuItem>
+                </Select>
+            </FormControl>
+            </ListItem>
+        </List>
+        </Box>
+    );
 
     return (
-        <AppBar position="fixed" sx={{ backgroundColor: '#9A77B0' }}>
+        <div>
+        <AppBar position="static" style={{ backgroundColor: '#f8b6bc' }}>
             <Toolbar>
-                <IconButton
-                    size="large"
-                    edge="start"
-                    color="inherit"
-                    aria-label="menu"
-                    onClick={handleMenu}
-                    sx={{ mr: 2, display: { sm: 'none' } }}
-                >
-                    <MenuIcon />
-                </IconButton>
-                <Menu
-                    anchorEl={anchorEl}
-                    open={open}
-                    onClose={handleClose}
-                    onClick={handleClose}
-                >
-                    <MenuItem onClick={showHome}>Inicio</MenuItem>
-                    <MenuItem onClick={showGameHistory}>Historial de Juegos</MenuItem>
-                    <MenuItem onClick={showRanking}>Ranking</MenuItem>
-                    <MenuItem onClick={showPerfil}>Perfil</MenuItem>
-                    <MenuItem onClick={showLogout}>Cerrar Sesión</MenuItem>
-                </Menu>
-                <Grid container justifyContent="flex-start">
-                    <Tooltip title={t("toolInicio")}>
-                    <Button variant="contained" color="inherit" style={{ background: '#9A77B0', border: 'none', padding: 0, marginRight: '10px' }} onClick={showHome}>
-                        <img src={require('../images/home.png')} style={{ width: '50px', height: '50px' }} alt="Imagen home"/>
-                    </Button>
-                    </Tooltip>
-                    <Tooltip title={t("toolHistorico")}>
-                    <Button variant="contained" color="inherit" style={{ background: '#9A77B0', border: 'none', padding: 0, marginRight: '10px' }} onClick={showGameHistory}>
-                        <img src={require('../images/iconHistory.png')} style={{ width: '50px', height: '50px' }} alt="Imagen historico"/>
-                    </Button>
-                    </Tooltip>
-                    <Tooltip title={t("toolRanking")}>
-                    <Button variant="contained" color="inherit" style={{ background: '#9A77B0', border: 'none', padding: 0, marginRight: '10px' }} onClick={showRanking}>
-                        <img src={require('../images/iconRanking.png')} style={{ width: '50px', height: '50px' }} alt="Imagen ranking"/>
-                    </Button>
-                    </Tooltip>
-                </Grid>
-                <Grid container justifyContent="flex-end">
-                    <Tooltip title={t("toolPerfil")}>
-                    <Button variant="contained" color="inherit" style={{ background: '#9A77B0', border: 'none', padding: 0, width: '50px', marginRight: '10px' }} onClick={showPerfil}>
-                        <img src={require('../images/iconUser.png')} style={{ width: '50px', height: '50px' }} alt="Imagen usuario"/>
-                    </Button>
-                    </Tooltip>
-                    <Tooltip title={t("toolLogOut")}>
-                    <Button variant="contained" color="inherit" style={{ background: '#9A77B0', border: 'none', padding: 0, marginRight: '10px' }} onClick={showLogout}>
-                        <img src={require('../images/logout.png')} style={{ width: '50px', height: '50px' }} alt="Imagen logout"/>
-                    </Button>
-                    </Tooltip>
-                    
-                </Grid>
+            <IconButton edge="start" color="inherit" aria-label="menu" onClick={toggleDrawer(true)}>
+                <MenuIcon />
+            </IconButton>
+            {/* Rest of your AppBar/Toolbar components */}
             </Toolbar>
         </AppBar>
+        <Drawer anchor="left" open={drawerOpen} onClose={toggleDrawer(false)}>
+            {list()}
+        </Drawer>
+        </div>
     );
-};
+}
 
 export default NavigationBar;

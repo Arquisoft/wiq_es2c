@@ -1,10 +1,12 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
-import { Container, Box, Typography, Grid, Button, Snackbar} from '@mui/material';
+import { Box, Typography, Grid, Button, Snackbar} from '@mui/material';
 import { useUser } from './UserContext';
 import { useNavigate } from 'react-router-dom';
 import HomeIcon from '@mui/icons-material/Home';
 import '../App.css';
+import { CustomContainer } from '../CustomContainer';
+
 
 const apiEndpoint = process.env.REACT_APP_API_ENDPOINT || 'http://localhost:8000';
 
@@ -48,16 +50,7 @@ const EndGame = () => {
   };
 
   return (
-    <Container component="main" maxWidth="xl"
-    sx={{
-      marginTop: 10,
-      display: 'flex',
-      flexDirection: 'column',
-      justifyContent: 'center',
-      alignItems: 'center',
-      height: '100vh', 
-      width: '100%', 
-    }}>
+    <CustomContainer>
     <Box border={2} borderColor="black" p={3} borderRadius={8} bgcolor="#9A77B0" width="30%" maxWidth={800} height="auto" maxHeight="600px">
         <img src={selectImage()} alt="End Game" style={{ width: '100%', marginBottom: '16px', borderRadius: '8px' }} />    
         <Typography variant="h5" align="center" gutterBottom style={{ color: 'white', fontWeight: 'bold', marginBottom: '16px' }}>
@@ -96,7 +89,7 @@ const EndGame = () => {
           <Snackbar open={!!error} autoHideDuration={6000} onClose={() => setError('')} message={`Error: ${error}`} />
         )}
       </div>
-    </Container> 
+    </CustomContainer> 
   );
 };
 

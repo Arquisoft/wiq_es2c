@@ -1,9 +1,11 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 import { useUser } from './UserContext';
-import { Container, Typography, TableContainer, Table, TableHead, TableBody, TableRow, TableCell, Paper, Snackbar } from '@mui/material';
+import { Typography, TableContainer, Table, TableHead, TableBody, TableRow, TableCell, Paper, Snackbar } from '@mui/material';
 import '../App.css';
 import { useTranslation } from 'react-i18next';
+import { CustomContainer } from '../CustomContainer';
+
 
 const apiEndpoint = process.env.REACT_APP_API_ENDPOINT || 'http://localhost:8000';
 
@@ -33,15 +35,7 @@ const Gamehistory = () => {
   }, [getGameHistory]);
 
   return (
-    <Container component="main" maxWidth="xxl"
-      sx={{
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'center',
-        alignItems: 'center',
-        height: '100vh', 
-        width: '100%', 
-      }}>
+    <CustomContainer>
       <Typography component="h1" variant="h5" align="center" sx={{ marginBottom: 2, fontWeight: 'bold' }}>
         {t("textoHistorico")}
       </Typography>
@@ -74,7 +68,7 @@ const Gamehistory = () => {
           <Snackbar open={!!error} autoHideDuration={6000} onClose={() => setError('')} message={`Error: ${error}`} />
         )}
       </div>
-    </Container>
+    </CustomContainer>
   );
 };
 
