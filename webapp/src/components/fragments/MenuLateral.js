@@ -4,6 +4,8 @@ import MenuIcon from '@mui/icons-material/Menu';
 
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
+import { useUser } from '../UserContext';
+
 
 
 function MenuLateral() {
@@ -13,6 +15,8 @@ function MenuLateral() {
     const [t, i18n] = useTranslation("global");
 
     const navigate = useNavigate();
+    const { usernameGlobal} = useUser();
+
 
     const toggleDrawer = (open) => (event) => {
         setDrawerOpen(open);
@@ -23,7 +27,11 @@ function MenuLateral() {
     };
 
     const showInicio = () => {
-        navigate("/PantallaInicio");
+        if(usernameGlobal === 'admin'){
+            navigate("/PantallaInicioAdmin");
+        } else {
+            navigate("/PantallaInicio");
+        }
     };
 
     const list = () => (
