@@ -71,9 +71,17 @@ const Ranking = () => {
     getRankingGlobal();
   }, [getRanking, getRankingGlobal]);
 
+  const sortByLabels = {
+    ratio: t("ratioRanking"),
+    totalQuestionsAnswered: t("pregRespRanking"),
+    totalRightQuestions: t("aciertosRanking"),
+    totalGamesPlayed: t("partJugRanking"),
+    totalTime: t("tiempoJugadoRanking"),
+  };
+
   return (
     <CustomContainer>
-      <Box border={2} borderColor="black" p={3} borderRadius={8} bgcolor="#9A77B0" mb={5}>
+      <Box border={2} borderColor="black" p={3} borderRadius={8} bgcolor="#EE6D72" mb={5}>
         <Typography variant="h5" align="center" style={{ color: 'white', fontWeight: 'bold', marginBottom: '16px' }}>
           {t("textoTop")}
         </Typography>
@@ -81,7 +89,7 @@ const Ranking = () => {
           <Grid item xs={12} md={4} textAlign="center">
             {ranking && (
               <Box>
-                <img src={require('./images/medalla-de-oro.png')} alt="Primero" style={{ width: '80%', maxWidth: '160px', marginBottom: '8px' }} />
+                <img src={require('./images/brain-top.png')} alt="Primero" style={{ width: '90%', maxWidth: '160px', marginBottom: '8px' }} />
                 <Typography variant="h6" style={{ fontWeight: 'bold', color: 'white' }}>{ranking.primero}</Typography>
               </Box>
             )}
@@ -90,7 +98,7 @@ const Ranking = () => {
             <Grid item xs={12} sm={6} md={4} textAlign="center">
               {ranking && (
                 <Box>
-                  <img src={require('./images/medalla-de-plata.png')} alt="Segundo" style={{ width: '70%', maxWidth: '120px', marginBottom: '6px' }} />
+                  <img src={require('./images/brain-top2.png')} alt="Segundo" style={{ width: '110%', maxWidth: '120px', marginBottom: '6px' }} />
                   <Typography variant="h6" style={{ fontWeight: 'bold', color: 'white' }}>{ranking.segundo}</Typography>
                 </Box>
               )}
@@ -98,7 +106,7 @@ const Ranking = () => {
             <Grid item xs={12} sm={6} md={4} textAlign="center">
               {ranking && (
                 <Box>
-                  <img src={require('./images/medalla-de-bronce.png')} alt="Tercero" style={{ width: '70%', maxWidth: '120px', marginBottom: '6px' }} />
+                  <img src={require('./images/brain-top3.png')} alt="Tercero" style={{ width: '110%', maxWidth: '120px', marginBottom: '6px' }} />
                   <Typography variant="h6" style={{ fontWeight: 'bold', color: 'white' }}>{ranking.tercero}</Typography>
                 </Box>
               )}
@@ -119,19 +127,31 @@ const Ranking = () => {
       >
         <Grid container spacing={2} alignItems="center">
           <Grid item xs={12} md={6}>
-            <FormControl fullWidth>
-              <InputLabel id="sortBy-label">Ordenar por</InputLabel>
+            <FormControl fullWidth sx={{ 
+                  backgroundColor: '#FFFFFF',
+                  '& .MuiOutlinedInput-root': {
+                    '&.Mui-focused fieldset': {
+                      borderColor: '#EE6D72',
+                    },
+                  },
+                  '& .MuiInputLabel-root': {
+                    '&.Mui-focused': {
+                      color: '#EE6D72',
+                    },
+                  },
+                }}>
+              <InputLabel id="sortBy-label">{t("ordenar")} </InputLabel>
               <Select
                 value={sortBy}
                 onChange={handleSortByChange}
                 labelId="sortBy-label"
-                label="Ordenar por"
+                label={t("ordenar")}
               >
-                <MenuItem value="ratio">Ratio</MenuItem>
-                <MenuItem value="totalRightQuestions">Aciertos</MenuItem>
-                <MenuItem value="totalQuestionsAnswered">Preguntas respondidas</MenuItem>
-                <MenuItem value="totalGamesPlayed">Partidas jugadas</MenuItem>
-                <MenuItem value="totalTime">Tiempo jugado</MenuItem>
+                <MenuItem value="ratio">{t("ratioRanking")}</MenuItem>
+                <MenuItem value="totalRightQuestions">{t("aciertosRanking")}</MenuItem>
+                <MenuItem value="totalQuestionsAnswered">{t("pregRespRanking")}</MenuItem>
+                <MenuItem value="totalGamesPlayed">{t("partJugRanking")}</MenuItem>
+                <MenuItem value="totalTime">{t("tiempoJugadoRanking")}</MenuItem>
               </Select>
             </FormControl>
           </Grid>
@@ -143,11 +163,24 @@ const Ranking = () => {
                 value={userLimit}
                 type="number"
                 step="1"
-                label="Número de usuarios"
+                label={t("numUsuarios")}
                 inputProps={{
                   inputMode: 'numeric',
                   min: 1,
                   max: 20,
+                }}
+                sx={{ 
+                  backgroundColor: '#FFFFFF',
+                  '& .MuiOutlinedInput-root': {
+                    '&.Mui-focused fieldset': {
+                      borderColor: '#EE6D72',
+                    },
+                  },
+                  '& .MuiInputLabel-root': {
+                    '&.Mui-focused': {
+                      color: '#EE6D72',
+                    },
+                  },
                 }}
               />
             </FormControl>
@@ -157,21 +190,11 @@ const Ranking = () => {
         <Table>
           <TableHead>
             <TableRow>
-              <TableCell align="center"><strong>Posición</strong></TableCell>
-              <TableCell align="center"><strong>Usuario</strong></TableCell>
+              <TableCell align="center"><strong>{t("posicion")}</strong></TableCell>
+              <TableCell align="center"><strong>{t("usuario")}</strong></TableCell>
               <TableCell align="center">
                 <strong>
-                  {sortBy === "ratio"
-                    ? "Ratio"
-                    : sortBy === "totalQuestionsAnswered"
-                    ? "Preguntas respondidas"
-                    : sortBy === "totalRightQuestions"
-                    ? "Aciertos"
-                    : sortBy === "totalGamesPlayed"
-                    ? "Partidas jugadas"
-                    : sortBy === "totalTime"
-                    ? "Tiempo total"
-                    : ""}
+                {sortByLabels[sortBy] || ""}
                 </strong>
               </TableCell>
             </TableRow>

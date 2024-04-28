@@ -50,23 +50,23 @@ root.render(
     <UserProvider>
       <Router>
         <MenuLateral />
-        <Routes>
-          <Route path="/" element={<App/>}></Route>
-          <Route path="/PantallaInicio" element={<PantallaInicio/>}></Route>
-          <Route path="/PantallaInicioAdmin" element={<PantallaInicioAdmin/>}></Route>
-          <Route path="/Login" element={<Login />} /> 
-          <Route path="/AddUser" element={<AddUser />} />
-          <Route path="/App" element={<App />} />
-          <Route path="/Game" element={<Game />} />
-          <Route path="/EndGame" element={<EndGame />} />
-          <Route path="/Gamehistory" element={<Gamehistory />} />
-          <Route path="/Perfil" element={<Perfil />} />
-          <Route path="/AllUsers" element={<AllUsers />} />
-          <Route path="/AllQuestions" element={<AllQuestions />} />
-          <Route path="/Ranking" element={<Ranking />} />
-          <Route path="/GameConfiguration" element={<GameConfiguration />} />
-        </Routes>
-       <Footer/>
+            <Routes>
+              <Route path="/" element={<App/>}></Route>
+              <Route path="/PantallaInicio" element={<PantallaInicio/>}></Route>
+              <Route path="/PantallaInicioAdmin" element={<PantallaInicioAdmin/>}></Route>
+              <Route path="/Login" element={<Login />} /> 
+              <Route path="/AddUser" element={<AddUser />} />
+              <Route path="/App" element={<App />} />
+              <Route path="/Game" element={<Game />} />
+              <Route path="/EndGame" element={<EndGame />} />
+              <Route path="/Gamehistory" element={<Gamehistory />} />
+              <Route path="/Perfil" element={<Perfil />} />
+              <Route path="/AllUsers" element={<AllUsers />} />
+              <Route path="/AllQuestions" element={<AllQuestions />} />
+              <Route path="/Ranking" element={<Ranking />} />
+              <Route path="/GameConfiguration" element={<GameConfiguration />} />
+            </Routes>
+        <Footer/>
       </Router>
     </UserProvider>
     </I18nextProvider>

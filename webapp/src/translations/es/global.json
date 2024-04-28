@@ -60,7 +60,16 @@
     "incorrectas": "Preguntas incorrectas: ",
     "ratio": "Ratio de aciertos: ",
     "tiempoTotal": "Tiempo total: ",
-    "botonResumen": "VOLVER AL INICIO"
+    "botonResumen": "VOLVER AL INICIO",
+    "ordenar": "Ordenar por",
+    "posicion": "Posición",
+    "numUsuarios": "Número de usuarios",
+    "ratioRanking": "Ratio",
+    "aciertosRanking": "Aciertos",
+    "pregRespRanking": "Preguntas respondidas",
+    "partJugRanking": "Partidas jugadas",
+    "tiempoJugadoRanking": "Tiempo jugado"
+
 
 
 }

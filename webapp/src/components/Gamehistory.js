@@ -36,7 +36,8 @@ const Gamehistory = () => {
 
   return (
     <CustomContainer>
-      <Typography component="h1" variant="h5" align="center" sx={{ marginBottom: 2, fontWeight: 'bold' }}>
+      <Typography component="h1" variant="h5" align="center" sx={{ marginBottom: 2, fontWeight: 'bold', 
+                fontFamily: 'Arial', color: '#EE6D72' }}>
         {t("textoHistorico")}
       </Typography>
       <TableContainer component={Paper} sx={{ maxWidth: '80%', marginBottom: 4 }}>

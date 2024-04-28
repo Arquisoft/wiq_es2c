@@ -60,5 +60,13 @@
     "incorrectas": "Incorrect questions: ",
     "ratio": "Hit ratio: ",
     "tiempoTotal": "Total time: ",
-    "botonResumen": "BACK TO TOP"
+    "botonResumen": "BACK TO TOP",
+    "ordenar": "Order by",
+    "posicion": "Position",
+    "numUsuarios": "Number of users",
+    "ratioRanking": "Ratio",
+    "aciertosRanking": "Successes",
+    "pregRespRanking": "Questions answered",
+    "partJugRanking": "Games played",
+    "tiempoJugadoRanking": "Time played"
 }
