@@ -254,8 +254,6 @@ jobs:
         password: ${{ secrets.GITHUB_TOKEN }}
         registry: ghcr.io
         workdir: gatewayservice/monitoring/grafana
-    -  run: |
-        docker run -d -p 9191:9191 arquisoft/wiq_es2c/gatewayservice/monitoring/grafana
   deploy:
     name: Deploy over SSH
     runs-on: ubuntu-latest
