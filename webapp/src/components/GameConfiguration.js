@@ -82,6 +82,7 @@ const GameConfiguration = () => {
                     {t("textoPersonalizar")}
                 </Typography>
                 <TextField
+                    width='30vh'
                     name="questions"
                     margin="normal"
                     label={t("textoNumPreg")}
@@ -91,7 +92,7 @@ const GameConfiguration = () => {
                     type="number"
                     step="1"
                     sx={{ 
-                        width: '50vh',
+                        width: '30vh',
                         marginTop: 3,
                         marginBottom: 4, 
                         backgroundColor: '#FFFFFF',
@@ -116,14 +117,15 @@ const GameConfiguration = () => {
             <TextField
                 name="time"
                 margin="normal"
-                fullWidth
+                width='50vh'
                 label={t("textoTiempoPreg")}
                 placeholder={t("textoPlaceholderTiempoPreg")}
                 onChange={handleChangeTime}
                 value={valueTime}
                 type="number"
                 step="1"
-                sx={{ 
+                sx={{
+                    width: '30vh',
                     marginBottom: 4, 
                     backgroundColor: '#FFFFFF',
                     '& .MuiOutlinedInput-root': {
@@ -148,7 +150,7 @@ const GameConfiguration = () => {
                 {t("textoTematicas")}
             </Typography>
             <FormControl fullWidth sx={{ 
-                        width: '50vh',
+                        width: '30vh',
                         marginBottom: 2, 
                         backgroundColor: '#FFFFFF',
                         '& .MuiOutlinedInput-root': {

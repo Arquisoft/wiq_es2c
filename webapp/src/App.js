@@ -22,7 +22,7 @@ function App() {
 
   return (
       <CustomContainer>
-        <Box border={2} borderColor="black" p={3} borderRadius={8} bgcolor="#FFD6D6" width="20%" maxWidth={800} height="auto" maxHeight="600px" display="flex" flexDirection="column" alignItems="center">
+        <Box border={2} borderColor="black" p={3} borderRadius={8} bgcolor="#FFD6D6" width="40vh" maxWidth={800} height="auto" maxHeight="600px" display="flex" flexDirection="column" alignItems="center">
           <CssBaseline />
           {showLogin ? <Login /> : <AddUser />}
           <Typography component="div" align="center" sx={{ marginTop: 2 }}>
