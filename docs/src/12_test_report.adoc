@@ -7,5 +7,66 @@ ifndef::imagesdir[:imagesdir: ../images]
 
 === Pruebas de usabilidad
 
+A pesar de no disponer del tiempo suficiente para realizar pruebas de usabilidad con muchos participantes decidimos, para detectar posibles mejoras, realizarlas con un número bajo de usuarios.
+
+==== Resultados
+
+===== Usuarios con un nivel informático alto
+
+Observaciones
+
+* Rápida comprensión de la aplicación.
+* No encontraron problemas para acceder a todo el contenido de la aplicación.
+* Destacan poder filtar el ranking en base a diferentes valores.
+* Destacan que la interfaz de la aplicación es original y distinta a otras de este mismo tipo de juegos.
+
+Propuestas
+
+* Mejora en los tiempos de respuesta de algunas preguntas.
+* Añadir música y/o sonidos.
+* Mejorar el tiempo de espera de las preguntas.
+* Añadir un sistema de cambio/recuperación de contraseña.
+
+Puntuación media de los usuarios: 9.5
+
+
+===== Usuarios con un nivel informático medio
+
+
+Observaciones
+
+* Buena comprensión de la aplicación.
+* Dificultad para responder algunas preguntas.
+* En un principio escogieron un tiempo bajo. Al ver que algunas preguntas eran dificiles aumentaron el tiempo en las siguientes partidas, esto mejoró su experiencia.
+* No pueden ver el tiempo en algunas preguntas de imagenes.
+
+Propuestas
+
+* Añadir preguntas más sencillas.
+* Intentar ajustar mejor el tamaño de las imagenes para que se pueda ver el tiempo.
+
+
+Puntuación media de los usuarios: 8.25
+
+
+
+===== Usuarios con un nivel informático bajo
+
+Observaciones
+
+* Media/baja comprensión de la aplicación.
+* Mejor experiencia con la versión de móvil debido a una dificultad con el uso del ratón.
+* Dificultad para responder preguntas de informática, y alguna de cultura.
+* No accedieron al menú lateral por lo que no visualizaron todo el contenido de la aplicación.
+* Dificultad para leer algunos textos.
+* Entretenida y con una buena temática general.
+
+Propuestas
+
+* Aumento del tamaño del letra.
+
+
+Puntuación media de los usuarios: 7
+
 
 
