@@ -1,4 +1,4 @@
-# Usa la imagen base de Grafana desde Docker Hub
+# Use the Grafana base image from Docker hub
 FROM grafana/grafana
 
 USER root
@@ -11,3 +11,6 @@ RUN chown -R nonroot:nonroot ./
 COPY provisioning ./provisioning
 
 USER nonroot
+
+# Expose the port that Grafana server listens on
+EXPOSE 9191

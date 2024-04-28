@@ -1,4 +1,4 @@
-# Usa la imagen base de Prometheus desde Docker Hub
+# Use the Prometheus base image from Docker hub
 FROM prom/prometheus
 
 USER root
@@ -11,3 +11,6 @@ RUN chown -R nonroot:nonroot ./
 COPY prometheus.yml ./
 
 USER nonroot
+
+# Expose the port that Prometheus server listens on
+EXPOSE 9090
