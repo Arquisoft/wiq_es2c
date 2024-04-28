@@ -1,0 +1,11 @@
+ifndef::imagesdir[:imagesdir: ../images]
+
+[[section-test-report]]
+== Informe de pruebas
+
+=== Pruebas de cobertura
+
+=== Pruebas de usabilidad
+
+
+
