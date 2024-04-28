@@ -123,5 +123,5 @@ Note that this action logs in the remote machine and downloads the docker-compos
 | UO289792 | David Muñoz Río | [UO289792@uniovi.es](mailto:UO289792@uniovi.es)  |
 | UO289337 | Rubén Pérez Dafonte | [UO289337@uniovi.es](mailto:UO289337@uniovi.es) | 
 | UO288559 | Marina Seijo | [UO288559@uniovi.es](mailto:UO288559@uniovi.es) | 
-| UO284342 | Ángela Roza | [UO276255@uniovi.es](mailto:UO276255@uniovi.es) | 
+| UO284342 | Ángela Roza | [UO284342@uniovi.es](mailto:UO284342@uniovi.es) | 
 
