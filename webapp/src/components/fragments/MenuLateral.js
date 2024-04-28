@@ -167,7 +167,7 @@ function MenuLateral() {
             {}
             </Toolbar>
         </AppBar>
-        <Drawer anchor="left" open={true} onClose={() => toggleDrawer(false)}>
+        <Drawer anchor="left" open={drawerOpen} onClose={() => toggleDrawer(false)}>
         <Box
         role="presentation2"
         onClick={() => toggleDrawer(false)}

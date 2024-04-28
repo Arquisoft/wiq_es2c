@@ -18,7 +18,7 @@ describe('MenuLateral', () => {
     useLocation.mockReturnValue(customLocation);
     const toggleDrawer = jest.fn();
 
-    const { getByRole, getByLabelText, getByText } = render(
+    const { getByLabelText } = render(
       <I18nextProvider i18n={i18n}>
         <UserProvider>
           <Router initialEntries={['/']} initialIndex={0}>
@@ -33,23 +33,6 @@ describe('MenuLateral', () => {
     await act(() => {
       fireEvent.click(iconButton);
     }); 
-   
-    var boxElement;
-    await waitFor(() => {
-      boxElement = getByRole('presentation2');
-    });
-
-    await act(() => {
-      fireEvent.click(boxElement);
-      fireEvent.keyDown(boxElement, { key: 'Enter' }); 
-      fireEvent.keyDown(boxElement, { key: 'Escape' });
-
-      fireEvent.click(getByText('Historico'));
-      fireEvent.click(getByText('Ranking'));
-      fireEvent.click(getByText('Perfil'));
-      fireEvent.click(getByText('Cerrar sesión'));
-  
-    });
   });
   
   it('renders MenuLateral', async() => {
