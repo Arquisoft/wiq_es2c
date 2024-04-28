@@ -31,6 +31,7 @@ const Ranking = () => {
   const [rankingTable, setRankingTable] = useState([]);
   const [sortBy, setSortBy] = useState('ratio');
   const [userLimit, setUserLimit] = useState(10);
+  const isMobile = window.innerWidth <= 768;
 
   const getRanking = useCallback(async () => {
     try {
@@ -80,7 +81,10 @@ const Ranking = () => {
 
   return (
     <CustomContainer>
-      <Box border={2} borderColor="black" p={3} borderRadius={8} bgcolor="#EE6D72" mb={5}>
+      <Box border={2} borderColor="black" p={3} borderRadius={8} bgcolor="#EE6D72" mb={5} 
+        style={{
+          marginTop: isMobile ? '100px' : '100px', 
+        }}>
         <Typography variant="h5" align="center" style={{ color: 'white', fontWeight: 'bold', marginBottom: '16px' }}>
           {t("textoTop")}
         </Typography>
