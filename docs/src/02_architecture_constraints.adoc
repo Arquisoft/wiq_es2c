@@ -3,30 +3,7 @@ ifndef::imagesdir[:imagesdir: ../images]
 [[section-architecture-constraints]]
 == Restricciones de arquitectura
 
-
-[role="arc42help"]
-****
-.Contenido
-Cualquier requisito que limite a los arquitectos de software en su libertad de diseño e implementación de decisiones o decisiones sobre el proceso de desarrollo. Estas limitaciones a veces van más allá de los sistemas individuales y son válidas para organizaciones y empresas enteras.
-
-.Motivación
-Los arquitectos deben saber exactamente dónde tienen libertad en sus decisiones de diseño y dónde deben cumplir restricciones.
-Siempre hay que abordar las limitaciones; Sin embargo, pueden ser negociables.
-
-.Forma
-Tablas simples de restricciones con explicaciones.
-Si es necesario, puedes subdividirlos en
-limitaciones técnicas, limitaciones organizativas y políticas y
-convenciones (por ejemplo, pautas de programación o control de versiones, documentación o convenciones de nomenclatura)
-
-
-.Más información
-
-Consulte https://docs.arc42.org/section-2/[Architecture Restriints] en la documentación de arc42.
-
-****
-
-.Restricciones técnicas
+=== Restricciones técnicas
 [options="header",cols="1,1"]
 |===
 |Restricción|Explicación
@@ -34,11 +11,11 @@ Consulte https://docs.arc42.org/section-2/[Architecture Restriints] en la docume
 | Tecnología | Se empleará React.
 | Documentación | Se usará la plantilla Arc42.
 | Base de datos |  Se empleará MongoDB como base de datos por su sencillez y facilidad de uso. Además es la base de datos empleada en la base del proyecto.
-| Pruebas | Cobertura, Pruebas de aceptación (e2e), Pruebas de carga
+| Pruebas | Cobertura, Pruebas de aceptación (e2e), Pruebas de carga.
 | WikiData | Se empleará WikiData para obtener la información para generar las preguntas y respuestas.
 |===
 
-.Restricciones organizativas
+=== Restricciones organizativas
 [options="header",cols="1,1"]
 |===
 |Restricción|Explicación

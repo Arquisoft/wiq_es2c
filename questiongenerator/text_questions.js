@@ -203,7 +203,7 @@ queries["en"] = {
                     rdfs:label ?questionLabel.
                 BIND("Legendarium" AS ?option)
             }
-            FILTER(LANG(?questionLabel) = "es")
+            FILTER(LANG(?questionLabel) = "en")
             SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
         }
         LIMIT 100

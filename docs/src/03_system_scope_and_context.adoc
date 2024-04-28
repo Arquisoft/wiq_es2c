@@ -3,18 +3,8 @@ ifndef::imagesdir[:imagesdir: ../images]
 [[section-system-scope-and-context]]
 == Alcance y Contexto del Sistema
 
-
-[role="arc42help"]
-****
-****
-
-
 === Contexto de Negocio
 
-
-[role="arc42help"]
-****
-****
 image:3_BusinessContext.png[Diagram]
 
 [cols="1,2,3,4"]
@@ -27,30 +17,27 @@ image:3_BusinessContext.png[Diagram]
 
 |WIQ 
 |La aplicación que gestiona el juego de preguntas. Utiliza los datos del usuario, Wikidata y MongoDB para generar y administrar el juego de preguntas y respuestas. 
-|Datos de registro del usuario, datos de Wikidata basados en el tipo de pregunta que se quiere obtener, y búsquedas y registros de información de MongoDB relacionados con el sistema. 
+|Datos de registro del usuario, datos de Wikidata basados en el tipo de pregunta que se quiere obtener,búsquedas y registros de información de MongoDB relacionados con el sistema.
 |Preguntas y respuestas generadas para el juego, historial de partidas y estadísticas del usuario.
 
 |User
-|Participa en el juego respondiendo preguntas y poseerá un historial de las partidas que jugó y sus estadísticas
-| Datos de registro
-| Historial de partidas y estadísticas
+|Participa en el juego respondiendo preguntas y poseerá un historial de las partidas que jugó y sus estadísticas.
+| Datos de registro.
+| Historial de partidas y estadísticas.
 
 |Wikidata 
-|Proporcionará los datos necesarios para generar preguntas y respuestas de manera automática. El propósito es acceder a esta información y se extraer aquellos datos que puedan resultar útiles para generar dichas preguntas
-|Datos en base al tipo de pregunta que se quiere obtener
-|Datos en base a la consulta para generar las preguntas y respuestas
+|Proporcionará los datos necesarios para generar preguntas y respuestas de manera automática. El propósito es acceder a esta información y se extraer aquellos datos que puedan resultar útiles para generar dichas preguntas.
+|Datos en base al tipo de pregunta que se quiere obtener.
+|Datos en base a la consulta para generar las preguntas y respuestas.
 
 |Base de datos (MongoDB)
-|Se encargará de guardar información pertinente de WIQ
-|Realización de búsquedas y registro de información asociada relacionados con el sistema
-|Cualquier dato que haya sido almacenado perteneciente al sistema
+|Se encargará de guardar información pertinente de WIQ.
+|Realización de búsquedas y registro de información asociada relacionados con el sistema.
+|Cualquier dato que haya sido almacenado perteneciente al sistema.
 
 |===
 
 === Contexto técnico
-[role="arc42help"]
-****
-****
 image:3_TechnicalContext.png[Diagram]
 
 

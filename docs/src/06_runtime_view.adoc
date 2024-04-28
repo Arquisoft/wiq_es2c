@@ -2,6 +2,19 @@ ifndef::imagesdir[:imagesdir: ../images]
 
 [[section-runtime-view]]
 == Vista de ejecución
+=== Funcionamiento de las partidas
+Un usuario solicita comenzar una partida. La interfaz de usuario (WebApp) pide una pregunta al generador de preguntas (QuestionGenerator), proceso que se repetirá tantas veces como número de preguntas haya solicitado el usuario.
+image:6_RuntimeView_Partida.png[Diagram]
 
-image:6_RuntimeView.PNG[Diagram]
+=== Generación de preguntas
+Cuando la interfaz de usuario solicita una pregunta el generador de preguntas deberá realizar una consulta a Wikidata obteniendo así información para formular la pregunta y sus respuestas.
+image:6_RuntimeView_GenerarPregunta.PNG[Diagram]
+
+=== Visualización del histórico y perfil de usuario
+Cuando el usuario solicite visualizar el histórico se enviará una petición al GameHistoryService quien proporcionará la información al usuario.
 image:6_RuntimeView_Historico.png[Diagram]
+
+Cuando el usuario solicite visualizar su perfil se enviará una petición al PerfilService quien proporcionará la información de su perfil al usuario.
+
+image:6_RuntimeView_Perfil.png[Diagram]
+

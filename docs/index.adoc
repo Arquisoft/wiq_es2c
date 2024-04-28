@@ -6,7 +6,7 @@
 // configure EN settings for asciidoc
 include::src/config.adoc[]
 
-= image:arc42-logo.png[arc42] WIQ
+= image:logo.png[arc42] BRAINWIQ
 :revnumber: 8.2 EN
 :revdate: January 2023
 :revremark: (based upon AsciiDoc version)
@@ -78,7 +78,11 @@ include::src/10_quality_requirements.adoc[]
 include::src/11_technical_risks.adoc[]
 
 <<<<
-// 12. Glossary
-include::src/12_glossary.adoc[]
+// 12. Test report
+include::src/12_test_report.adoc[]
+
+<<<<
+// 13. Glossary
+include::src/13_glossary.adoc[]
 
 

@@ -4,49 +4,53 @@ ifndef::imagesdir[:imagesdir: ../images]
 
 
 == Vista de bloques
-.Nivel 0:
+=== Nivel 0:
 
 image:5_Level0.PNG[Diagram]
 
 [cols="1,2" options="header"]
 |===
 | **Name** | **Responsibility**
-| Usuario | Usuario que interactuará con la aplicación
-| WIQ | Responsable de la gestión del juego
-| WikiData | Permite generar preguntas y respuestas
+| Usuario | Usuario que interactuará con la aplicación.
+| WIQ | Responsable de la gestión del juego.
+| WikiData | Permite generar preguntas y respuestas.
 |===
 
 
-.Nivel 1:
+=== Nivel 1:
 
 image:5_Level1.PNG[Diagram]
 
 [cols="1,2" options="header"]
 |===
 | **Name** | **Responsibility**
-| Usuario | Usuario que interactuará con la aplicación
-| GUI | Interfaz gráfica de usuario. Mostrará las preguntas junto con sus posibles respuestas
-| Microservicios | Partes encargadas de distintas funcionalidades
-| Base de datos | Almacenaje de información acerca de los usuarios y las preguntas generadas
-| WIQ | Responsable de la gestión de la aplicación. Engloba la GUI, los microservicios y la base de datos
-| WikiData | Permite generar preguntas y respuestas
+| Usuario | Usuario que interactuará con la aplicación.
+| WebApp | Interfaz gráfica de usuario. Mostrará las preguntas junto con sus posibles respuestas.
+| Microservicios | Partes encargadas de distintas funcionalidades.
+| MongoDB | Base de datos. Almacenaje de información acerca de los usuarios y las preguntas generadas.
+| WIQ | Responsable de la gestión de la aplicación. Engloba la GUI, los microservicios y la base de datos.
+| WikiData | Permite generar preguntas y respuestas.
 |===
 
-.Nivel 2:
+=== Nivel 2:
 
 image:5_level2.PNG[Diagram]
 
 [cols="1,2" options="header"]
 |===
 | **Name** | **Responsibility**
-| Usuario | Usuario que interactuará con la aplicación
-| GUI | Interfaz gráfica de usuario. Mostrará las preguntas junto con sus posibles respuestas
-| Servicio de registro de usuarios | Gestiona la creación de nuevos usuarios
-| Servicio de autenticación | Gestiona la autenticación de los usuarios (Logging)
-| Servicio de generación de preguntas | Realiza consultas a WikiData para generar las preguntas y respuestas
-| Servicio de historial | Genera y consulta el historial de los usuarios
-| Base de datos | Almacenaje de información acerca de los usuarios y las preguntas generadas
+| Usuario | Usuario que interactuará con la aplicación.
+| WebApp | Interfaz gráfica de usuario. Mostrará las preguntas junto con sus posibles respuestas.
+| UserService | Gestiona la creación de nuevos usuarios.
+| AuthService | Gestiona la autenticación de los usuarios (Inicio de sesión).
+| QuestionGenerator | Realiza consultas a WikiData para generar las preguntas y respuestas.
+| GameHistoryService | Genera y consulta el historial de los usuarios.
+| PerfilService | Genera el perfil del usuario consultando su información en la base de datos.
+| AllQuestionService | Gestiona la API de preguntas.
+| AllUsersService | Gestiona la API de usuarios.
+| GatewayService | Gestión de las peticiones.
+| MongoDB | Base de datos. Almacenaje de información acerca de los usuarios y las preguntas generadas.
 | WIQ | Responsable de la gestión de la aplicación. Engloba la GUI, los microservicios y la base de datos.
-| WikiData | Permite generar preguntas y respuestas
+| WikiData | Permite generar preguntas y respuestas.
 |===
 
