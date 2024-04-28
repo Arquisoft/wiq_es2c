@@ -6,6 +6,11 @@
 
 This is a base repo for the [Software Architecture course](http://arquisoft.github.io/) in [2023/2024 edition](https://arquisoft.github.io/course2324.html). 
 
+URLs of interest:
+- **Aplication**: [20.117.171.228:3000](http://20.117.171.228:3000/)
+- **OpenAPI**: [20.117.171.228:8000/](http://20.117.171.228:8000/api-doc/)
+- **Grafana**: [20.117.171.228:8000](http://20.117.171.228:9091/)
+
 This repo is a basic application composed of several components.
 
 - **Gateway service**. Express service that is exposed to the public and serves as a proxy to the two previous ones.
