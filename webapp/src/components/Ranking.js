@@ -80,7 +80,7 @@ const Ranking = () => {
 
   return (
     <CustomContainer>
-      <Box border={2} borderColor="black" p={3} borderRadius={8} bgcolor="#EE6D72" mb={5}>
+      <Box border={2} borderColor="black" p={3} borderRadius={8} bgcolor="#EE6D72" mb={5} marginTop={12}>
         <Typography variant="h5" align="center" style={{ color: 'white', fontWeight: 'bold', marginBottom: '16px' }}>
           {t("textoTop")}
         </Typography>
