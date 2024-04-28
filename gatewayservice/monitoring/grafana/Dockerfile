@@ -8,6 +8,6 @@ RUN addgroup -S nonroot \
 
 RUN chown -R nonroot:nonroot ./
 
-COPY ./provisioning
+COPY provisioning ./provisioning
 
 USER nonroot
