@@ -4,9 +4,9 @@ info:
   description: Gateway OpenAPI specification.
   version: 0.2.0
 servers:
-  - url: http://${{ secrets.DEPLOY_HOST }}:8000
+  - url: http://localhost:8000
     description: Development server
-  - url: http://${{ secrets.DEPLOY_HOST }}:8000
+  - url: http://${{secrets.DEPLOY_HOST}}:8000
     description: Production server
 paths:
   /adduser:
@@ -23,11 +23,15 @@ paths:
                 username:
                   type: string
                   description: User ID.
-                  example: student
+                  example: Pepito
+                email:
+                  type: string
+                  description: User email.
+                  example: pepito@gmail.com
                 password:
                   type: string
                   description: User password.
-                  example: pass
+                  example: passPepito
       responses:
         '200':
           description: User added successfully.
@@ -95,11 +99,11 @@ paths:
                 username:
                   type: string
                   description: User ID.
-                  example: student
+                  example: Pepito
                 password:
                   type: string
                   description: User password.
-                  example: pass
+                  example: passPepito
       responses:
         '200':
           description: Login successful. Returns user token, username, and creation date.
@@ -115,7 +119,7 @@ paths:
                   username:
                     type: string
                     description: Username.
-                    example: student
+                    example: Pepito
                   createdAt:
                     type: string
                     description: Creation date.
@@ -146,6 +150,28 @@ paths:
     get:
       summary: Generate a question.
       operationId: generateQuestion
+      parameters:
+        - name: user
+          in: query
+          description: User of the game.
+          example: testuser
+          required: true
+          schema:
+            type: string
+        - name: thematic
+          in: query
+          description: The thematic of the questions.
+          example: Geografia
+          required: true
+          schema:
+            type: string
+        - name: language
+          in: query
+          description: The language of the questions.
+          example: es
+          required: true
+          schema:
+            type: string
       responses:
         '200':
           description: Generation successful. Returns the question, the options, the correct option, the image (if neccessary) and the question id
@@ -197,14 +223,14 @@ paths:
       summary: Update a question.
       operationId: updateQuestion
       parameters:
-        time:
+        - name: time
           in: query
           description: Time of the question.
           example: 10
           required: true
           schema:
             type: string
-        correct:
+        - name: correct
           in: query
           description: If the question was answered correctly.
           example: true
@@ -303,6 +329,17 @@ paths:
     post:
       summary: Configure the game.
       operationId: configureGame
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                maxQuestions:
+                  type: integer
+                  description: Number of questions.
+                  example: 10
       responses:
         '200':
           description: Succesful configure the game number of questions
@@ -313,7 +350,7 @@ paths:
                 properties:
                   maxQuestions:
                     type: int
-                    description: The new number of questions of the question.
+                    description: The new number of questions of the game.
                     example: 10
         '400':
           description: Error when configuring the game
@@ -342,7 +379,7 @@ paths:
       summary: Charge the game history.
       operationId: gamehistory
       parameters:
-        username:
+        - name: username
           in: query
           description: User which game history we want to recover.
           example: Pepito
@@ -352,6 +389,39 @@ paths:
       responses:
         '200':
           description: Succesful charge the game history
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  userId:
+                    type: string
+                    description: User ID.
+                    example: Pepito
+                  totalGamesPlayed:
+                    type: integer
+                    description: Number of games played by the user.
+                    example: 10
+                  totalQuestionsAnswered:
+                    type: integer
+                    description: Number of questions answered by the user.
+                    example: 30
+                  totalRightQuestions:
+                    type: integer
+                    description: Number of questions answered correctly by the user.
+                    example: 15
+                  totalIncorrectQuestions:
+                    type: integer
+                    description: Number of questions answered incorrectly by the user.
+                    example: 15
+                  ratio:
+                    type: string
+                    description: Ratio between correct and incorrect questions.
+                    example: 50%
+                  totalTime:
+                    type: string
+                    description: Time the user spend in the game.
+                    example: 150s
         '400':
           description: Error when charging the game history
         '500':
@@ -370,7 +440,7 @@ paths:
       summary: Get an specific user
       operationId: getUser
       parameters:
-        username:
+        - name: username
           in: query
           description: The name of the user we want to get.
           example: Pepito
@@ -381,22 +451,22 @@ paths:
         '200':
           description: Succesful get the user
           content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                username:
-                  type: string
-                  description: The name of the user.
-                  example: Pepito
-                email:
-                  type: string
-                  description: The email of the user.
-                  example: pepito@gmail.com
-                creado:
-                  type: string
-                  description: The date where the user account was created.
-                  example: 01/01/2024
+            application/json:
+              schema:
+                type: object
+                properties:
+                  user- name:
+                    type: string
+                    description: The name of the user.
+                    example: Pepito
+                  email:
+                    type: string
+                    description: The email of the user.
+                    example: pepito@gmail.com
+                  creado:
+                    type: string
+                    description: The date where the user account was created.
+                    example: 01/01/2024
         '400':
           description: Error when getting the user
         '500':
@@ -418,14 +488,14 @@ paths:
         '200':
           description: Succesful get all the users
           content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                users:
-                  type: array
-                  description: The information about the users (username, email, creation date).
-                  example: [Pepito, pepito@gmail.com, 01/01/2024]
+            application/json:
+              schema:
+                type: object
+                properties:
+                  users:
+                    type: array
+                    description: The information about the users (username, email, creation date).
+                    example: [Pepito, pepito@gmail.com, 01/01/2024]
         '400':
           description: Error when getting the users
         '500':
@@ -447,14 +517,14 @@ paths:
         '200':
           description: Succesful get all the questions
           content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                users:
-                  type: array
-                  description: The information about the questions (question an correct answer).
-                  example: [¿Cual es la capital de España?,Madrid]
+            application/json:
+              schema:
+                type: object
+                properties:
+                  users:
+                    type: array
+                    description: The information about the questions (question an correct answer).
+                    example: [¿Cual es la capital de España?,Madrid]
         '400':
           description: Error when getting the questions
         '500':
@@ -497,12 +567,56 @@ paths:
                     type: string
                     description: Error information.
                     example: Internal Server Error
+  /ranking:
+    get:
+      summary: Charge the ranking.
+      operationId: topUsers
+      parameters:
+        - name: sortBy
+          in: query
+          description: What we want to use to sort the ranking.
+          example: ratio
+          required: true
+          schema:
+            type: string
+        - name: userLimit
+          in: query
+          description: The number of users we want to recover.
+          example: 5
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Succesful charge the ranking
+          content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                users:
+                  type: array
+                  description: The ranking of users.
+                  example: [Pepito, Fulanito, Menganito, Juan, Laura]
+        '400':
+          description: Error when charging the ranking
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Error information.
+                    example: Internal Server Error
   /endgamestats:
     get:
       summary: Charge the end game statistics.
       operationId: endgamestats
       parameters:
-        username:
+        - name: username
           in: query
           description: User which game statistics we want to charge.
           example: Pepito
@@ -513,30 +627,30 @@ paths:
         '200':
           description: Succesful charge the end game statitics
           content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                totalRightQuestions:
-                  type: integer
-                  description: The number of questions that the user has answered correctly.
-                  example: 5
-                totalIncorrectQuestions:
-                  type: integer
-                  description: The number of questions that the user has answered incorrectly.
-                  example: 0
-                ratio:
-                  type: string
-                  description: The ratio between the correct and incorrect questions.
-                  example: 100%
-                totalTime:
-                  type: string
-                  description: The time the user has spend at the game.
-                  example: 20s
-                endgameImageWithRatio:
-                  type: string
-                  description: The end game ratio of questions
-                  example: 100%
+            application/json:
+              schema:
+                type: object
+                properties:
+                  totalRightQuestions:
+                    type: integer
+                    description: The number of questions that the user has answered correctly.
+                    example: 5
+                  totalIncorrectQuestions:
+                    type: integer
+                    description: The number of questions that the user has answered incorrectly.
+                    example: 0
+                  ratio:
+                    type: string
+                    description: The ratio between the correct and incorrect questions.
+                    example: 100%
+                  totalTime:
+                    type: string
+                    description: The time the user has spend at the game.
+                    example: 20s
+                  endgameImageWithRatio:
+                    type: string
+                    description: The end game ratio of questions
+                    example: 100%
         '400':
           description: Error when charging the end game statistics
         '500':
@@ -555,7 +669,7 @@ paths:
       summary: Restart the game.
       operationId: endgamestats
       parameters:
-        username:
+        - name: username
           in: query
           description: User which game statistics we want to charge.
           example: Pepito
@@ -566,18 +680,18 @@ paths:
         '200':
           description: Succesful charge the end game statistics
           content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                message:
-                  type: string
-                  description: A message indicating the number of questions has been modified.
-                  example: Número de preguntas actualizado
-                numberOfQuestions:
-                  type: integer
-                  description: The number of questions that has been modified.
-                  example: 5
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: A message indicating the number of questions has been modified.
+                    example: Número de preguntas actualizado
+                  numberOfQuestions:
+                    type: integer
+                    description: The number of questions that has been modified.
+                    example: 5
         '400':
           description: Error when charging the end game statistics
         '500':
