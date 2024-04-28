@@ -21,7 +21,7 @@ const allUsersServiceUrl = process.env.ALLUSERS_SERVICE_URL || 'http://localhost
 const allQuestionsServiceUrl = process.env.ALLQUESTIONS_SERVICE_URL || 'http://localhost:8007';
 
 const corsOptions = {
-  origin: `${apiEndpoint}`, 
+  origin: `${originEndpoint}`, 
   methods: ['GET', 'POST'], 
   allowedHeaders: ['Content-Type', 'Authorization'] 
 };
