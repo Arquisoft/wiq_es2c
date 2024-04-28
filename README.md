@@ -33,9 +33,9 @@ As a normal user, you can use the web application to access basic features such 
 
 As an administrator, you have access to additional features, including:
 
--Access to the APIs for managing questions and users
--Ability to view user accounts
--Ability to view game statistics and the ranking
+- Access to the APIs for managing questions and users
+- Ability to view user accounts
+- Ability to view game statistics and the ranking
 
 Please note that administrators do not have access to play the game from registration to gameplay and its functionalities.
 
