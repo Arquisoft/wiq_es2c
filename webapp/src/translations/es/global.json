@@ -53,6 +53,15 @@
     "seleccionar": "Seleccionar",
     "ingles": "Inglés",
     "espanol": "Español",
-    "tematicas": "Temáticas"
+    "tematicas": "Temáticas",
+    "textoCargando": "Cargando siguiente pregunta, espere...",
+    "textoEstadisticas": "Estadísticas de la última partida",
+    "correctas": "Preguntas correctas: ",
+    "incorrectas": "Preguntas incorrectas: ",
+    "ratio": "Ratio de aciertos: ",
+    "tiempoTotal": "Tiempo total: ",
+    "botonResumen": "VOLVER AL INICIO"
+
+
 }
 

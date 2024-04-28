@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import HomeIcon from '@mui/icons-material/Home';
 import '../App.css';
 import { CustomContainer } from '../CustomContainer';
+import { useTranslation } from 'react-i18next';
 
 
 const apiEndpoint = process.env.REACT_APP_API_ENDPOINT || 'http://localhost:8000';
@@ -16,6 +17,9 @@ const EndGame = () => {
   const navigate = useNavigate();
   const [endGame, setEndGame] = useState('');
   const [error, setError] = useState('');
+
+  const [t] = useTranslation("global");
+
 
   const getEndGame = useCallback(async () => {
     try {
@@ -41,46 +45,50 @@ const EndGame = () => {
   const selectImage = () => {
 
     if (endGame.endgameImageWithRatio >= 0 && endGame.endgameImageWithRatio < 25) {
-      return require('./images/ronnie-muletas.png');
+      return require('./images/brain-angry.png');
     } else if (endGame.endgameImageWithRatio >= 25 && endGame.endgameImageWithRatio < 50) {
-      return require('./images/ronnie-comiendo.png');
+      return require('./images/brain-strong.png');
     } else {
-      return require('./images/ronnie.gif');
+      return require('./images/brain-strong2.png');
     }
   };
 
   return (
     <CustomContainer>
-    <Box border={2} borderColor="black" p={3} borderRadius={8} bgcolor="#9A77B0" width="30%" maxWidth={800} height="auto" maxHeight="600px">
-        <img src={selectImage()} alt="End Game" style={{ width: '100%', marginBottom: '16px', borderRadius: '8px' }} />    
+    <Box border={2} borderColor="black" p={3} borderRadius={8} bgcolor="#EE6D72" width="30%" maxWidth={800} height="auto" maxHeight="600px" display="flex" flexDirection="column" alignItems="center">
+        <img src={selectImage()} alt="End Game" style={{ width: '50%', height: '50%', marginBottom: '16px', borderRadius: '8px' }} />    
         <Typography variant="h5" align="center" gutterBottom style={{ color: 'white', fontWeight: 'bold', marginBottom: '16px' }}>
-          Estadísticas de la última partida
+          {t("textoEstadisticas")}
         </Typography>
         <Grid container spacing={3} justifyContent="center">
           <Grid item xs={12} textAlign="center">
             <Typography variant="body1" style={{ color: 'white', fontWeight: 'bold' }}>
-              Preguntas correctas: {endGame.totalRightQuestions}
+              {t("correctas")} {endGame.totalRightQuestions}
             </Typography>
           </Grid>
           <Grid item xs={12} textAlign="center">
             <Typography variant="body1" style={{ color: 'white', fontWeight: 'bold' }}>
-              Preguntas incorrectas: {endGame.totalIncorrectQuestions}
+              {t("incorrectas")} {endGame.totalIncorrectQuestions}
             </Typography>
           </Grid>
           <Grid item xs={12} textAlign="center">
             <Typography variant="body1" style={{ color: 'white', fontWeight: 'bold' }}>
-              Ratio de aciertos: {endGame.ratio}
+              {t("ratio")} {endGame.ratio}
             </Typography>
           </Grid>
           <Grid item xs={12} textAlign="center">
             <Typography variant="body1" style={{ color: 'white', fontWeight: 'bold' }}>
-              Tiempo total: {endGame.totalTime} 
+              {t("tiempoTotal")} {endGame.totalTime} 
             </Typography>
           </Grid>
         </Grid>
         <Box mt={3} textAlign="center">
-          <Button variant="contained" color="primary" align="center" style={{ marginTop: 4, backgroundColor: '#FCF5B8', color: '#413C3C', fontWeight: 'bold'}} onClick={volverInicio}>
-            <HomeIcon style={{ marginRight: '8px' }} /> Volver al inicio
+          <Button variant="contained" color="primary" align="center" style={{ marginTop: 4, backgroundColor: '#f8b6bc',  color: '#413C3C',  fontWeight: 'bold',  transition: 'transform 0.3s ease',
+                '&:hover': {
+                  backgroundColor: '#f8b6bc',
+                  transform: 'scale(1.1)'
+                }}} onClick={volverInicio}>
+            <HomeIcon style={{ marginRight: '8px' }} /> {t("botonResumen")}
           </Button>
         </Box>
       </Box>

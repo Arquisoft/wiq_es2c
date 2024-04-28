@@ -78,7 +78,7 @@ function MenuLateral() {
             <IconButton edge="start" color="inherit" aria-label="menu" onClick={toggleDrawer(true)}>
                 <MenuIcon />
             </IconButton>
-            <Button onClick={showInicio} sx={{ flexGrow: 2, fontFamily: 'Arial', color: '#000000', fontWeight: 'bold', display: 'flex', justifyContent: 'center' }}>
+            <Button onClick={showInicio} sx={{ flexGrow: 2, fontFamily: 'Arial', color: '#FFFFFF', fontWeight: 'bold', display: 'flex', justifyContent: 'center' }}>
                 BrainWIQ
             </Button>
             {/* Rest of your AppBar/Toolbar components */}

@@ -1,5 +1,4 @@
-import React, { useState } from 'react';
-import { Container, Button, Box, Snackbar } from '@mui/material';
+import { Container, Button, Box } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import '../App.css';

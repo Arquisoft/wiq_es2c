@@ -160,6 +160,9 @@ const Game = () => {
               display: 'flex',
               justifyContent: 'center',
               alignItems: 'center',
+              '.MuiLinearProgress-barColorPrimary': {
+                bgcolor: '#EE6D72',
+              },
             }}/> {/* Barra de progreso */}
           </>
         )}
@@ -176,6 +179,7 @@ const Game = () => {
               style={{
                 width: '100%',
                 height: '17vh',
+                
                 backgroundColor:
                   selectedOption === option
                     ? answerCorrect
@@ -183,9 +187,14 @@ const Game = () => {
                       : '#FF1744' // Red for incorrect answer
                     : highlightedCorrectOption === option
                     ? '#00C853' // Green for correct option if user was wrong
-                    : '#FCF5B8', // Default background color
-                color: '#413C3C',
+                    : '#EE6D72', // Default background color
+                color: '#FFFFFF ',
                 fontWeight: 'bold',
+                transition: 'transform 0.3s ease',
+                '&:hover': {
+                  backgroundColor: '#f8b6bc',
+                  transform: 'scale(1.1)'
+                }
               }}
               variant="contained"
               onClick={!isTimeRunning ? null : () => handleOptionClick(option)}
@@ -201,8 +210,8 @@ const Game = () => {
         </div>
         <div>
           {waiting && (
-            <Typography component="p" variant="p" sx={{ textAlign: 'center' }}>
-              Cargando siguiente pregunta, espere...
+            <Typography component="p" variant="p" sx={{ textAlign: 'center', color: "#EE6D72"  }}>
+              {t("textoCargando")}
             </Typography>
           )}
         </div>

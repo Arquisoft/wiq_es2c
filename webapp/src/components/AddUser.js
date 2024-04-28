@@ -118,7 +118,7 @@ const AddUser = () => {
                   }}
               />
 
-              <Button variant="contained" color="primary" sx={{marginTop: 4,marginBottom: 4, backgroundColor: '#f8b6bc',  color: '#413C3C',  fontWeight: 'bold',  transition: 'transform 0.3s ease',
+              <Button variant="contained" color="primary" sx={{marginTop: 4,marginBottom: 4, backgroundColor: '#EE6D72',  color: '#413C3C',  fontWeight: 'bold',  transition: 'transform 0.3s ease',
                 '&:hover': {
                   backgroundColor: '#f8b6bc',
                   transform: 'scale(1.1)'

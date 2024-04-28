@@ -6,7 +6,6 @@ import NewGameIcon from '@mui/icons-material/SportsEsports';
 import '../App.css';
 import { useTranslation } from 'react-i18next';
 import { CustomContainer } from '../CustomContainer';
-import Avatar from '@mui/material/Avatar';
 
 
 
