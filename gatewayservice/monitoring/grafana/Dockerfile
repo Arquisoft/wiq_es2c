@@ -11,3 +11,6 @@ RUN chown -R nonroot:nonroot ./
 COPY provisioning ./provisioning
 
 USER nonroot
+
+# Expose the port that Grafana server listens on
+EXPOSE 9191
