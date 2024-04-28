@@ -10,9 +10,10 @@ export function CustomContainer({ children, ...props }) {
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
-        height: '77vh', 
+        height: '100vh', 
         width: '100%', 
-        maxHeight: '80vh', overflow: 'auto'
+        maxHeight: '100vh', 
+        overflow: 'auto',
       }}
       {...props}
     >
