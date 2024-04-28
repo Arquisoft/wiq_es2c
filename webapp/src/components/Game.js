@@ -6,6 +6,8 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import { useUser } from './UserContext';
 import '../App.css';
 import { useTranslation } from 'react-i18next';
+import { CustomContainer } from '../CustomContainer';
+
 
 const apiEndpoint = process.env.REACT_APP_API_ENDPOINT || 'http://localhost:8000';
 
@@ -141,17 +143,7 @@ const Game = () => {
 
 
   return (
-    <Container component="main" maxWidth="xxl"
-            sx={{
-                marginTop: 10,
-                backgroundColor: '#F3D3FA',
-                borderRadius: '10px',
-                display: 'flex',
-                flexDirection: 'column',
-                justifyContent: 'center',
-                height: '100vh', 
-                width: '100%', 
-            }}>
+    <CustomContainer>
       <Container component="section" maxWidth="xs">
         {question && (
           <>
@@ -168,6 +160,9 @@ const Game = () => {
               display: 'flex',
               justifyContent: 'center',
               alignItems: 'center',
+              '.MuiLinearProgress-barColorPrimary': {
+                bgcolor: '#EE6D72',
+              },
             }}/> {/* Barra de progreso */}
           </>
         )}
@@ -184,6 +179,7 @@ const Game = () => {
               style={{
                 width: '100%',
                 height: '17vh',
+                
                 backgroundColor:
                   selectedOption === option
                     ? answerCorrect
@@ -191,9 +187,14 @@ const Game = () => {
                       : '#FF1744' // Red for incorrect answer
                     : highlightedCorrectOption === option
                     ? '#00C853' // Green for correct option if user was wrong
-                    : '#FCF5B8', // Default background color
-                color: '#413C3C',
+                    : '#EE6D72', // Default background color
+                color: '#FFFFFF ',
                 fontWeight: 'bold',
+                transition: 'transform 0.3s ease',
+                '&:hover': {
+                  backgroundColor: '#f8b6bc',
+                  transform: 'scale(1.1)'
+                }
               }}
               variant="contained"
               onClick={!isTimeRunning ? null : () => handleOptionClick(option)}
@@ -209,13 +210,13 @@ const Game = () => {
         </div>
         <div>
           {waiting && (
-            <Typography component="p" variant="p" sx={{ textAlign: 'center' }}>
-              Cargando siguiente pregunta, espere...
+            <Typography component="p" variant="p" sx={{ textAlign: 'center', color: "#EE6D72"  }}>
+              {t("textoCargando")}
             </Typography>
           )}
         </div>
       </Container>
-    </Container>
+    </CustomContainer>
   );
 };
 

@@ -2,10 +2,13 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { Container, Typography, TextField, Button, Snackbar } from '@mui/material';
+import { Typography, TextField, Button, Snackbar } from '@mui/material';
 import { useUser } from './UserContext';
 import '../App.css';
 import { useTranslation } from 'react-i18next';
+
+import { CustomContainer } from '../CustomContainer';
+
 
 
 const Login = () => {
@@ -62,7 +65,7 @@ const Login = () => {
   
 
   return (
-      <Container component="main" maxWidth="xl"
+      <CustomContainer component="main" maxWidth="xxl"
                 sx={{
                     marginTop: 4,
                     borderRadius: '10px',
@@ -75,38 +78,70 @@ const Login = () => {
               null
 
           ) : (
-              <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
-                  <Typography component="h1" variant="h5" align="center" sx={{ marginBottom: 2, fontWeight: 'bold' }}>
-                    {t("login")}
-                  </Typography>
-                  <TextField
-                      margin="normal"
-                      fullWidth
-                      label={t("usuario")}
-                      value={username}
-                      onChange={(e) => setUsername(e.target.value)}
-                      sx={{ marginBottom: 4, backgroundColor: '#FFFFFF'}}
-                  />
-                  <TextField
-                      margin="normal"
-                      fullWidth
-                      label={t("password")}
-                      type="password"
-                      value={password}
-                      onChange={(e) => setPassword(e.target.value)}
-                      sx={{ marginBottom: 4, backgroundColor: '#FFFFFF'}}
-                  />
-                  <Button variant="contained" color="primary" sx={{marginTop: 4,marginBottom: 4, backgroundColor: '#FCF5B8',  color: '#413C3C',  fontWeight: 'bold' }} onClick={loginUser}>
-                    {t("botonLogin")}
-                  </Button>
-                  <Snackbar open={openSnackbar} autoHideDuration={6000} onClose={handleCloseSnackbar} message={t('mensajeLogin')} />
-                  {error && (
-                      <Snackbar open={!!error} autoHideDuration={6000} onClose={() => setError('')} message={`Error: ${error}`} />
-                  )}
-              </div>
+            
+            <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
+              <Typography component="h1" variant="h5" align="center" sx={{ marginBottom: 2, fontWeight: 'bold', 
+                fontFamily: 'Arial', color: '#EE6D72' }}>
+                {t("login")}
+              </Typography>
+              <TextField
+                margin="normal"
+                fullWidth
+                label={t("usuario")}
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+                sx={{ 
+                  marginBottom: 4, 
+                  backgroundColor: '#FFFFFF',
+                  '& .MuiOutlinedInput-root': {
+                    '&.Mui-focused fieldset': {
+                      borderColor: '#EE6D72',
+                    },
+                  },
+                  '& .MuiInputLabel-root': {
+                    '&.Mui-focused': {
+                      color: '#EE6D72',
+                    },
+                  },
+                }}
+              />
+              <TextField
+                margin="normal"
+                fullWidth
+                label={t("password")}
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                sx={{ 
+                  marginBottom: 4, 
+                  backgroundColor: '#FFFFFF',
+                  '& .MuiOutlinedInput-root': {
+                    '&.Mui-focused fieldset': {
+                      borderColor: '#EE6D72',
+                    },
+                  },
+                  '& .MuiInputLabel-root': {
+                    '&.Mui-focused': {
+                      color: '#EE6D72',
+                    },
+                  },
+                }}
+              />
+              <Button variant="contained" color="primary" sx={{marginTop: 4,marginBottom: 4, backgroundColor: '#EE6D72',  color: '#413C3C',  fontWeight: 'bold',  transition: 'transform 0.3s ease',
+                '&:hover': {
+                  backgroundColor: '#f8b6bc',
+                  transform: 'scale(1.1)'
+                }}} onClick={loginUser}>
+                {t("botonLogin")}
+              </Button>
+              <Snackbar open={openSnackbar} autoHideDuration={6000} onClose={handleCloseSnackbar} message={t('mensajeLogin')} />
+              {error && (
+                <Snackbar open={!!error} autoHideDuration={6000} onClose={() => setError('')} message={`Error: ${error}`} />
+              )}
+            </div>  
           )}
 
-      </Container>
+      </CustomContainer>
   );
 };
 

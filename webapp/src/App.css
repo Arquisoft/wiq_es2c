@@ -1,4 +1,5 @@
 body {
-  background-color: #F3D3FA;
-}
-
+    background-image: url('./components/images/fondo.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+  }

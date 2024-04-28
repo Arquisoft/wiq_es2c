@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { I18nextProvider } from 'react-i18next';
 import { UserProvider } from './components/UserContext'; 
 import i18next from './translations/i18n'; 
-import NavigationBar from './components/fragments/NavigationBar';
+import MenuLateral from './components/fragments/MenuLateral';
 import Footer from './components/fragments/Footer';
 import PantallaInicio from './components/PantallaInicio';
 import PantallaInicioAdmin from './components/PantallaInicioAdmin';
@@ -27,7 +27,7 @@ it('renders all routes correctly', () => {
         <React.StrictMode>
         <I18nextProvider i18n={i18next}>
             <UserProvider>
-            <NavigationBar />
+            <MenuLateral />
             <Routes>
                 <Route path="/" element={<App />} />
                 <Route path="/PantallaInicio" element={<PantallaInicio />} />

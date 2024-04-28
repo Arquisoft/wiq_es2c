@@ -1,5 +1,5 @@
 {
-    "login": "Inicia sesión",
+    "login": "INICIA SESIÓN",
     "usuario": "Usuario",
     "password": "Contraseña",
     "botonLogin": "ENTRA",
@@ -48,6 +48,29 @@
     "textoRespuesta": "Respuesta",
     "mensajeAddOk": "Usuario añadido correctamente",
     "mensajeAddFail": "Ya se ha registrado un usuario con ese nombre",
-    "mensajeLogOut": "Sesion cerrada"
+    "mensajeLogOut": "Sesion cerrada",
+    "idioma": "Idioma",
+    "seleccionar": "Seleccionar",
+    "ingles": "Inglés",
+    "espanol": "Español",
+    "tematicas": "Temáticas",
+    "textoCargando": "Cargando siguiente pregunta, espere...",
+    "textoEstadisticas": "Estadísticas de la última partida",
+    "correctas": "Preguntas correctas: ",
+    "incorrectas": "Preguntas incorrectas: ",
+    "ratio": "Ratio de aciertos: ",
+    "tiempoTotal": "Tiempo total: ",
+    "botonResumen": "VOLVER AL INICIO",
+    "ordenar": "Ordenar por",
+    "posicion": "Posición",
+    "numUsuarios": "Número de usuarios",
+    "ratioRanking": "Ratio",
+    "aciertosRanking": "Aciertos",
+    "pregRespRanking": "Preguntas respondidas",
+    "partJugRanking": "Partidas jugadas",
+    "tiempoJugadoRanking": "Tiempo jugado"
+
+
+
 }
 
