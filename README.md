@@ -29,7 +29,7 @@ As a normal user, you can use the web application to access basic features such 
 - Viewing your game history
 - Viewing the ranking
 
-###For Administrators
+### For Administrators
 
 As an administrator, you have access to additional features, including:
 
