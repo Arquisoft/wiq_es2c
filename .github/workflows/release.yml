@@ -231,6 +231,7 @@ jobs:
         username: ${{ github.actor }}
         password: ${{ secrets.GITHUB_TOKEN }}
         registry: ghcr.io
+        workdir: gatewayservice/monitoring/prometheus
   docker-push-grafana:
     name: Push Grafana Docker Image to GitHub Packages
     runs-on: ubuntu-latest
@@ -247,6 +248,7 @@ jobs:
         username: ${{ github.actor }}
         password: ${{ secrets.GITHUB_TOKEN }}
         registry: ghcr.io
+        workdir: gatewayservice/monitoring/grafana
   deploy:
     name: Deploy over SSH
     runs-on: ubuntu-latest
