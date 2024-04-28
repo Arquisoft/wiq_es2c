@@ -12,8 +12,32 @@ This repo is a basic application composed of several components.
 - **User service**. Express service that handles the insertion of new users in the system.
 - **Auth service**. Express service that handles the authentication of users.
 - **Webapp**. React web application that uses the gateway service to allow basic login and new user features.
+- **History service**. A new Express service handling users' game history.
+- **Ranking service**. Another new Express service managing user ranking based on their game statistics.
+- **Question and User APIs**. Additional services providing APIs for managing questions and users, respectively.
 
 Both the user and auth service share a Mongo database that is accessed with mongoose.
+
+## User Guide
+
+### For Normal Users
+As a normal user, you can use the web application to access basic features such as:
+
+- Logging in to your account
+- Registering a new account
+- Accessing the game and playing
+- Viewing your game history
+- Viewing the ranking
+
+### For Administrators
+
+As an administrator, you have access to additional features, including:
+
+- Access to the APIs for managing questions and users
+- Ability to view user accounts
+- Ability to view game statistics and the ranking
+
+Please note that administrators do not have access to play the game from registration to gameplay and its functionalities.
 
 ## Quick start guide
 
@@ -112,3 +136,13 @@ This action uses three secrets that must be configured in the repository:
 - DEPLOY_KEY: key to authenticate the user in the remote machine.
 
 Note that this action logs in the remote machine and downloads the docker-compose file from the repository and launches it. Obviously, previous actions have been executed which have uploaded the docker images to the GitHub Packages repository.
+
+## Development Team
+
+| 📚 UO | 🧑‍💻 Name | 📧 Email |
+| :---: | :---: | :---: | 
+| UO289792 | David Muñoz Río | [UO289792@uniovi.es](mailto:UO289792@uniovi.es)  |
+| UO289337 | Rubén Pérez Dafonte | [UO289337@uniovi.es](mailto:UO289337@uniovi.es) | 
+| UO288559 | Marina Seijo | [UO288559@uniovi.es](mailto:UO288559@uniovi.es) | 
+| UO284342 | Ángela Roza | [UO284342@uniovi.es](mailto:UO284342@uniovi.es) | 
+

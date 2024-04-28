@@ -11,6 +11,3 @@ RUN chown -R nonroot:nonroot ./
 COPY prometheus.yml ./
 
 USER nonroot
-
-# Expose the port that Prometheus server listens on
-EXPOSE 9090
