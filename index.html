@@ -1250,7 +1250,71 @@ El equipo de desarrollo comprometido a materializar este proyecto está formado 
 <div class="sectionbody">
 <div class="sect2">
 <h3 id="_pruebas_de_cobertura">12.1. Pruebas de cobertura</h3>
-
+<div class="paragraph">
+<p>Las pruebas de cobertura prueban la funcionalidad de la aplicación creando, al mismo tiempo, una métrica que indica cuanto del código creado está cubierto por dichas pruebas.
+Las pruebas se han realizado en todos los servicios de la aplicación, a fin de comprobar que la funcionalidad de estos es la esperada.</p>
+</div>
+<div class="paragraph">
+<p>Para las pruebas de cobertura se ha utilizado, principalmente, las liberías:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>testing-library/react</p>
+</li>
+<li>
+<p>supertest</p>
+</li>
+<li>
+<p>axios</p>
+</li>
+<li>
+<p>sinon</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>A continuación, se explica para que se ha utilizado cada una de dichas librerías:</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Librería</th>
+<th class="tableblock halign-left valign-top">Contenido</th>
+<th class="tableblock halign-left valign-top">Uso</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">testing-library/react</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Contiene todas las funciones necesarias para hacer pruebas con los componentes de REACT como: render, fireEvent, act o waitFor</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Para los tests de los componentes de REACT que se encuentran en webapp</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">supertest</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">La función request que se utiliza para realizar peticiones</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Para todas aquellas pruebas que requieran comprobar una petición a una URL, incluyendo el envío de parámetros y la comprobación de la respuesta</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">axios</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Todas las funciones necesarias para hacer Mocks</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Para todos los tests que requerían del uso de mocks. Por ejemplo, para probar el juego hemos mockeado las llamadas al generador de preguntas, para no depender de este</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">sinon</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Contiene la función stub que permite sobresscribir los métodos HTTP al realizar peticiones</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Principalmente, para los tests en los que había que simular un cierto valor de respuesta o un error en la petición sin necesidad de causar dicho error al hacer la petición</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>Además de todas estas librerías externas, utilizamos, para practicamente todas las pruebas, el framework jest, muy utilizado para hacer las pruebas de proyectos que utilizan REACT, como es nuestro caso. Este framework es el que nos permite definir los casos de prueba y controlar las peticiones que realizamos utilizando, por ejemplo, la función spyOn que nos permite espionar una función o petición.</p>
+</div>
 </div>
 <div class="sect2">
 <h3 id="_pruebas_de_usabilidad">12.2. Pruebas de usabilidad</h3>
