@@ -268,7 +268,7 @@ jobs:
         user: ${{ secrets.DEPLOY_USER }}
         key: ${{ secrets.DEPLOY_KEY }}
         command: |
-          cp -r ../gatewayservice/monitoring /home/azureuser/gatewayservice/monitoring
+          cp -r ./gatewayservice/monitoring /home/azureuser/gatewayservice/monitoring
           wget https://raw.githubusercontent.com/arquisoft/wiq_es2c/master/docker-compose.yml -O docker-compose.yml
           wget https://raw.githubusercontent.com/arquisoft/wiq_es2c/master/.env -O .env
           docker compose --profile prod down
