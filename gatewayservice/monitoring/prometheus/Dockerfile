@@ -8,7 +8,7 @@ RUN addgroup -S nonroot \
 
 RUN chown -R nonroot:nonroot ./
 
-COPY prometheus.yml /etc/prometheus/prometheus.yml
+COPY prometheus.yml ./
 
 USER nonroot
 
